@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Der digitale Barkeeper – BrunnenBar Augsburg</title>
+  <meta name="description" content="Sieben Fragen, drei passende Cocktails von unserer Karte. Der digitale Barkeeper der BrunnenBar in Augsburg.">
+  <meta name="theme-color" content="#14110f">
+
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Der digitale Barkeeper – BrunnenBar">
+  <meta property="og:description" content="Sieben Fragen, drei passende Cocktails von unserer Karte.">
+  <meta property="og:locale" content="de_DE">
+  <meta property="og:locale:alternate" content="en_GB">
+
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+  <div class="shell">
+    <header class="top">
+      <a class="brand" href="https://brunnenbar.com">BrunnenBar</a>
+      <nav class="lang" id="lang-toggle" aria-label="Sprache / Language"></nav>
+    </header>
+
+    <main id="stage" aria-live="polite"></main>
+
+    <p id="live" class="sr-only" role="status" aria-live="polite"></p>
+
+    <noscript>
+      <h1>Der digitale Barkeeper</h1>
+      <p>Für die Cocktail-Empfehlung wird JavaScript benötigt.
+         Unsere vollständige Karte findest du hier:
+         <a href="https://brunnenbar.com/cocktailkarte/">zur Cocktailkarte</a>.</p>
+      <p><em>The cocktail recommender needs JavaScript. You can always find our full
+         list <a href="https://brunnenbar.com/cocktailkarte/">here</a>.</em></p>
+    </noscript>
+  </div>
+
+  <script src="data/cocktails.js"></script>
+  <script src="data/questions.js"></script>
+  <script src="assets/engine.js"></script>
+  <script src="assets/app.js"></script>
+</body>
+</html>
