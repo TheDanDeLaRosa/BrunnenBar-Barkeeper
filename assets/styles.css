@@ -5,19 +5,31 @@
    ========================================================================= */
 
 :root {
-  --ink:        #14110f;
-  --ink-2:      #1c1815;
-  --ink-3:      #262019;
-  --line:       #362d24;
-  --line-soft:  #2b241d;
+  /* BrunnenBar's forest green, driven right down to a near-black ground so
+     the page stays the dark version while still reading as the brand. Every
+     neutral carries the same green bias, which is what keeps it from looking
+     like a generic dark theme with a gold accent bolted on. */
+  --ink:        #0d1712;
+  --ink-2:      #131f18;
+  --ink-3:      #1a2a20;
+  --line:       #274235;
+  --line-soft:  #1e3327;
 
-  --brass:      #c9a34e;
-  --brass-lit:  #e3c684;
-  --water:      #5d9d93;
+  /* Champagne gold, straight off the logo and the printed card. */
+  --gold:       #e3c87c;
+  --gold-lit:   #f1dda6;
+  --gold-deep:  #c9a95c;
 
-  --cream:      #f4ede3;
-  --muted:      #a2937f;
-  --muted-dim:  #7a6d5d;
+  /* The card's own green, kept at full strength for secondary marks. */
+  --green:      #35664a;
+  --green-lit:  #5f9d76;
+
+  --cream:      #f2ece0;
+  --muted:      #9aa89b;
+  --muted-dim:  #6d7c70;
+
+  /* Text sitting on a gold fill. */
+  --on-gold:    #10201a;
 
   --radius:     14px;
   --radius-lg:  20px;
@@ -37,8 +49,8 @@ body {
   margin: 0;
   background: var(--ink);
   background-image:
-    radial-gradient(90rem 40rem at 50% -18rem, rgba(201, 163, 78, 0.13), transparent 65%),
-    radial-gradient(60rem 40rem at 12% 108%, rgba(93, 157, 147, 0.10), transparent 60%);
+    radial-gradient(90rem 40rem at 50% -18rem, rgba(227, 200, 124, 0.11), transparent 65%),
+    radial-gradient(60rem 40rem at 12% 108%, rgba(53, 102, 74, 0.22), transparent 60%);
   background-attachment: fixed;
   color: var(--cream);
   font-family: var(--sans);
@@ -71,7 +83,7 @@ h1, h2, h3 { font-family: var(--serif); font-weight: 600; line-height: 1.15; mar
   font-size: 1.05rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--brass);
+  color: var(--gold);
   text-decoration: none;
 }
 
@@ -97,7 +109,7 @@ h1, h2, h3 { font-family: var(--serif); font-weight: 600; line-height: 1.15; mar
   transition: color 0.18s var(--ease), background 0.18s var(--ease);
 }
 
-.lang button[aria-pressed="true"] { background: var(--brass); color: #211a10; }
+.lang button[aria-pressed="true"] { background: var(--gold); color: var(--on-gold); }
 .lang button:not([aria-pressed="true"]):hover { color: var(--cream); }
 
 /* ------------------------------------------------------------ transitions */
@@ -121,7 +133,7 @@ h1, h2, h3 { font-family: var(--serif); font-weight: 600; line-height: 1.15; mar
   font-size: 0.72rem;
   letter-spacing: 0.24em;
   text-transform: uppercase;
-  color: var(--brass);
+  color: var(--gold);
   margin: 0 0 1.1rem;
 }
 
@@ -130,13 +142,15 @@ h1, h2, h3 { font-family: var(--serif); font-weight: 600; line-height: 1.15; mar
 .rule {
   width: 3.5rem;
   height: 1px;
-  background: var(--brass);
+  background: var(--gold);
   border: 0;
   margin: 1.5rem auto;
   opacity: 0.6;
 }
 
 .lede {
+  font-family: var(--serif);
+  font-style: italic;
   color: var(--muted);
   max-width: 32rem;
   margin: 0 auto 2.25rem;
@@ -162,8 +176,8 @@ h1, h2, h3 { font-family: var(--serif); font-weight: 600; line-height: 1.15; mar
 /* The "full card" action is an <a>, not a <button> — strip the link chrome. */
 a.btn { text-decoration: none; display: inline-block; }
 
-.btn-primary { background: var(--brass); color: #211a10; }
-.btn-primary:hover { background: var(--brass-lit); }
+.btn-primary { background: var(--gold); color: var(--on-gold); }
+.btn-primary:hover { background: var(--gold-lit); }
 .btn-primary[disabled] {
   background: var(--ink-3);
   color: var(--muted-dim);
@@ -172,7 +186,7 @@ a.btn { text-decoration: none; display: inline-block; }
 }
 
 .btn-ghost { background: transparent; color: var(--muted); border-color: var(--line); }
-.btn-ghost:hover { color: var(--cream); border-color: var(--brass); }
+.btn-ghost:hover { color: var(--cream); border-color: var(--gold); }
 
 .btn-quiet {
   background: none;
@@ -196,7 +210,7 @@ a.btn { text-decoration: none; display: inline-block; }
   border-bottom: 1px solid var(--line);
   padding-bottom: 2px;
 }
-.link-card:hover { color: var(--brass); border-color: var(--brass); }
+.link-card:hover { color: var(--gold); border-color: var(--gold); }
 
 /* ------------------------------------------------------------------ quiz */
 
@@ -211,7 +225,7 @@ a.btn { text-decoration: none; display: inline-block; }
 
 .progress-fill {
   height: 100%;
-  background: var(--brass);
+  background: var(--gold);
   width: 0;
   transition: width 0.45s var(--ease);
 }
@@ -251,12 +265,12 @@ a.btn { text-decoration: none; display: inline-block; }
               transform 0.12s var(--ease);
 }
 
-.option:hover { border-color: var(--brass); background: var(--ink-3); }
+.option:hover { border-color: var(--gold); background: var(--ink-3); }
 .option:active { transform: translateY(1px); }
 
 .option[aria-pressed="true"] {
-  border-color: var(--brass);
-  background: linear-gradient(180deg, rgba(201, 163, 78, 0.16), rgba(201, 163, 78, 0.07));
+  border-color: var(--gold);
+  background: linear-gradient(180deg, rgba(227, 200, 124, 0.15), rgba(227, 200, 124, 0.06));
 }
 
 .option-mark {
@@ -270,14 +284,14 @@ a.btn { text-decoration: none; display: inline-block; }
   transition: border-color 0.18s var(--ease);
 }
 
-.option[aria-pressed="true"] .option-mark { border-color: var(--brass); }
+.option[aria-pressed="true"] .option-mark { border-color: var(--gold); }
 
 .option-mark::after {
   content: "";
   width: 0.55rem;
   height: 0.55rem;
   border-radius: 50%;
-  background: var(--brass);
+  background: var(--gold);
   transform: scale(0);
   transition: transform 0.2s var(--ease);
 }
@@ -307,7 +321,7 @@ a.btn { text-decoration: none; display: inline-block; }
 
 .notice {
   border: 1px solid var(--line);
-  border-left: 2px solid var(--water);
+  border-left: 2px solid var(--green-lit);
   background: var(--ink-2);
   border-radius: var(--radius);
   padding: 0.85rem 1.1rem;
@@ -325,9 +339,9 @@ a.btn { text-decoration: none; display: inline-block; }
 }
 
 .card.hero {
-  border-color: rgba(201, 163, 78, 0.45);
+  border-color: rgba(227, 200, 124, 0.45);
   background:
-    linear-gradient(180deg, rgba(201, 163, 78, 0.08), transparent 45%),
+    linear-gradient(180deg, rgba(227, 200, 124, 0.07), transparent 45%),
     var(--ink-2);
 }
 
@@ -335,7 +349,7 @@ a.btn { text-decoration: none; display: inline-block; }
   font-size: 0.68rem;
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: var(--brass);
+  color: var(--gold);
   margin-bottom: 0.85rem;
 }
 
@@ -371,12 +385,13 @@ a.btn { text-decoration: none; display: inline-block; }
   color: var(--muted);
 }
 
-.badge.house  { color: var(--brass); border-color: rgba(201, 163, 78, 0.5); }
-.badge.zero   { color: var(--water); border-color: rgba(93, 157, 147, 0.5); }
-.badge.na     { color: var(--water); border-color: rgba(93, 157, 147, 0.35); }
+.badge.house  { color: var(--gold); border-color: rgba(227, 200, 124, 0.5); }
+.badge.zero   { color: var(--green-lit); border-color: rgba(95, 157, 118, 0.5); }
+.badge.na     { color: var(--green-lit); border-color: rgba(95, 157, 118, 0.35); }
 
 .note {
   font-family: var(--serif);
+  font-style: italic;
   font-size: 1.06rem;
   line-height: 1.5;
   color: var(--cream);
@@ -420,7 +435,7 @@ a.btn { text-decoration: none; display: inline-block; }
   width: 0.42rem;
   height: 0.42rem;
   border-radius: 50%;
-  background: var(--brass);
+  background: var(--gold);
   opacity: 0.75;
 }
 
@@ -464,7 +479,7 @@ a.btn { text-decoration: none; display: inline-block; }
 /* --------------------------------------------------------------- a11y ---- */
 
 :focus-visible {
-  outline: 2px solid var(--brass);
+  outline: 2px solid var(--gold);
   outline-offset: 3px;
   border-radius: 4px;
 }
@@ -512,12 +527,12 @@ a.btn { text-decoration: none; display: inline-block; }
               color 0.18s var(--ease);
 }
 
-.scale-stop:hover { border-color: var(--brass); background: var(--ink-3); }
+.scale-stop:hover { border-color: var(--gold); background: var(--ink-3); }
 
 .scale-stop[aria-pressed="true"] {
-  border-color: var(--brass);
+  border-color: var(--gold);
   color: var(--cream);
-  background: linear-gradient(180deg, rgba(201, 163, 78, 0.16), rgba(201, 163, 78, 0.07));
+  background: linear-gradient(180deg, rgba(227, 200, 124, 0.15), rgba(227, 200, 124, 0.06));
 }
 
 /* Five pips per stop, filled to show intensity. Zero filled = alcohol free. */
@@ -533,7 +548,7 @@ a.btn { text-decoration: none; display: inline-block; }
 
 .pip.on { background: var(--muted-dim); }
 
-.scale-stop[aria-pressed="true"] .pip.on { background: var(--brass); transform: scale(1.25); }
+.scale-stop[aria-pressed="true"] .pip.on { background: var(--gold); transform: scale(1.25); }
 
 .scale-label { font-size: 0.82rem; font-weight: 600; text-align: center; line-height: 1.2; }
 
@@ -548,7 +563,7 @@ a.btn { text-decoration: none; display: inline-block; }
   line-height: 1.5;
 }
 
-.badge.best { color: var(--brass); border-color: rgba(201, 163, 78, 0.4); }
+.badge.best { color: var(--gold); border-color: rgba(227, 200, 124, 0.4); }
 .badge.off  { color: var(--muted-dim); }
 
 .meta-val.price { font-variant-numeric: tabular-nums; color: var(--cream); }
