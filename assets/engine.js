@@ -27,7 +27,6 @@
     spiritSupport: 14,
     flavour: 34,
     serve: 18,
-    familiarity: 16,
     catchAll: -22
   };
 
@@ -152,7 +151,7 @@
   /**
    * @param {Array}  menu     from data/menu.js
    * @param {Object} answers  {moment, strength, spirit[], avoid[], flavours[],
-   *                           serve, familiarity, allergens[]}
+   *                           serve, allergens[]}
    * @param {Object} [opts]   {seed, limit}
    * @returns {{items:Array, relaxed:string|null, total:number}}
    */
@@ -254,23 +253,12 @@
         }
       }
 
-      // — familiar vs. overlooked, driven by real sales rather than a guess —
-      if (a.familiarity === 'beliebt' || a.familiarity === 'entdecken') {
-        maxScore += W.familiarity;
-        var share = d.sold / maxSold;                     // 0..1
-        if (a.familiarity === 'beliebt') {
-          score += W.familiarity * share;
-          if (d.rank <= 15) reasons.push({ key: 'beliebt', weight: W.familiarity * share, x: d.sold });
-        } else {
-          score += W.familiarity * (1 - share);
-          if (d.rank > 40) reasons.push({ key: 'entdecken', weight: W.familiarity * (1 - share) });
-        }
-      }
-
       // An offer to build something is a fallback, never a recommendation.
       if (d.serve === CATCH_ALL) score += W.catchAll;
 
-      // Among otherwise equal drinks, let the proven one edge ahead.
+      /* Among otherwise equal drinks, let the proven one edge ahead. This is
+       * the only place sales figures touch the ranking, and it is deliberately
+       * small: it breaks ties, it does not decide matches. */
       score += 3 * (d.sold / maxSold);
 
       if (asArray(a.allergens).length || asArray(a.avoid).length) {

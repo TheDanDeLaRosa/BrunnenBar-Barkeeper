@@ -146,20 +146,6 @@
       ]
     },
     {
-      id: 'familiarity',
-      type: 'single',
-      title: { de: 'Bewährt oder was Neues?', en: 'Tried and true, or something new?' },
-      sub: {
-        de: 'Wir wissen ziemlich genau, was hier am meisten über den Tresen geht.',
-        en: 'We know pretty exactly what goes over this bar most often.'
-      },
-      options: [
-        { value: 'beliebt', label: { de: 'Was die meisten bestellen', en: 'What most people order' }, hint: { de: 'Unsere Bestseller', en: 'Our bestsellers' } },
-        { value: 'egal', label: { de: 'Ist mir egal', en: 'Either is fine' }, hint: { de: 'Hauptsache, er passt', en: 'As long as it fits' } },
-        { value: 'entdecken', label: { de: 'Was, das kaum jemand bestellt', en: 'Something hardly anyone orders' }, hint: { de: 'Die stillen Perlen der Karte', en: 'The quiet ones on the card' } }
-      ]
-    },
-    {
       id: 'allergens',
       type: 'multi',
       optional: true,
@@ -233,8 +219,6 @@
         spirit: 'basiert auf {x}',
         flavour: 'schmeckt {x}',
         serve: 'kommt so ins Glas, wie du es wolltest',
-        beliebt: 'einer unserer meistbestellten Drinks',
-        entdecken: 'bestellt fast keiner, zu Unrecht',
         safe: 'ohne alles, was du ausgeschlossen hast'
       },
       spiritNames: {
@@ -307,8 +291,6 @@
         spirit: 'built on {x}',
         flavour: 'tastes {x}',
         serve: 'arrives the way you wanted it',
-        beliebt: 'one of our most-ordered drinks',
-        entdecken: 'hardly anyone orders it, unfairly',
         safe: 'free of everything you ruled out'
       },
       spiritNames: {

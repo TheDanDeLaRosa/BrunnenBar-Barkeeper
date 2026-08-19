@@ -24,7 +24,7 @@ function names(res) { return res.items.map(function (i) { return i.drink.name; }
 function ask(over) {
   return Object.assign({
     moment: 'Mittendrin', strength: '3', spirit: [], avoid: [],
-    flavours: ['sauer/zitrus'], serve: '', familiarity: 'egal', allergens: []
+    flavours: ['sauer/zitrus'], serve: '', allergens: []
   }, over);
 }
 
@@ -155,7 +155,7 @@ test('barkeeper\'s choice scores identically to expressing no flavour at all', f
 });
 
 test('barkeeper\'s choice actually varies between guests', function () {
-  var a = ask({ flavours: [engine.NO_PREFERENCE], familiarity: 'egal' });
+  var a = ask({ flavours: [engine.NO_PREFERENCE] });
   var seen = {};
   for (var s = 0; s < 30; s++) seen[ids(engine.recommend(MENU, a, { seed: s }))[0]] = true;
   assert.ok(Object.keys(seen).length >= 5,
@@ -302,22 +302,6 @@ test('a preferred spirit dominates the results', function () {
   assert.ok(agave.length >= 2, 'expected mostly agave drinks, got: ' + names(res).join(', '));
 });
 
-test('"what most people order" really does rank by sales', function () {
-  var res = engine.recommend(MENU, ask({ familiarity: 'beliebt', flavours: ['fruchtig'] }));
-  var best = Math.min.apply(null, res.items.map(function (i) { return i.drink.rank; }));
-  assert.ok(best <= 15, 'expected a top seller, best rank was ' + best);
-});
-
-test('"hardly anyone orders it" prefers the long tail', function () {
-  var pop = engine.recommend(MENU, ask({ familiarity: 'beliebt', flavours: ['fruchtig'] }));
-  var rare = engine.recommend(MENU, ask({ familiarity: 'entdecken', flavours: ['fruchtig'] }));
-  var avg = function (r) {
-    return r.items.reduce(function (s, i) { return s + i.drink.sold; }, 0) / r.items.length;
-  };
-  assert.ok(avg(rare) < avg(pop),
-    'the discovery path should surface less-sold drinks (' + avg(rare) + ' vs ' + avg(pop) + ')');
-});
-
 test('a spritz request returns actual spritzes', function () {
   var res = engine.recommend(MENU, ask({ serve: 'spritzig', strength: '1', flavours: ['prickelnd'] }));
   assert.strictEqual(res.items[0].drink.serve, 'Spritz',
@@ -449,7 +433,7 @@ test('every flavour tag in the data has a display name in both languages', funct
 });
 
 test('the same answers and seed always give the same result', function () {
-  var a = ask({ familiarity: 'egal' });
+  var a = ask({});
   assert.deepStrictEqual(
     ids(engine.recommend(MENU, a, { seed: 42 })),
     ids(engine.recommend(MENU, a, { seed: 42 })));
@@ -490,20 +474,17 @@ test('every reachable answer combination returns something', function () {
   var strengths = opt('strength');
   var flavours = opt('flavours');
   var serves = [''].concat(opt('serve'));
-  var fams = opt('familiarity');
   var combos = 0, worst = null;
   moments.forEach(function (m) {
     strengths.forEach(function (st) {
       flavours.forEach(function (f) {
         serves.forEach(function (sv) {
-          fams.forEach(function (fam) {
-            combos++;
-            var res = engine.recommend(MENU, {
-              moment: m, strength: st, spirit: [], avoid: [],
-              flavours: [f], serve: sv, familiarity: fam, allergens: []
-            });
-            if (!res.items.length) worst = [m, st, f, sv || 'any', fam].join(' / ');
+          combos++;
+          var res = engine.recommend(MENU, {
+            moment: m, strength: st, spirit: [], avoid: [],
+            flavours: [f], serve: sv, allergens: []
           });
+          if (!res.items.length) worst = [m, st, f, sv || 'any'].join(' / ');
         });
       });
     });
@@ -520,8 +501,7 @@ test('every combination still returns something with all allergens excluded', fu
         combos++;
         var res = engine.recommend(MENU, {
           moment: m, strength: st, spirit: [], avoid: [],
-          flavours: [f], serve: '', familiarity: 'egal',
-          allergens: ['Ei', 'Milch', 'Nüsse']
+          flavours: [f], serve: '', allergens: ['Ei', 'Milch', 'Nüsse']
         });
         if (!res.items.length) worst = [m, st, f].join(' / ');
       });

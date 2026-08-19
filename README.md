@@ -75,18 +75,23 @@ be unit tested. Three tiers:
    *alcohol-free shots* matches nothing on the card, so the engine loosens the
    *shot* requirement, keeps the drink alcohol-free, and tells the guest on
    screen that it adjusted something.
-3. **Soft scoring.** Moment, strength, spirit, flavour, serve style, and
-   familiarity, summed and normalised into the match percentage.
+3. **Soft scoring.** Moment, strength, spirit, flavour and serve style,
+   summed and normalised into the match percentage.
 
 **`available: false` drinks never reach the engine at all** — they're dropped
 at build time, per the export's own field note ("nicht empfehlen"). Gin Basil
 stays out of the app for as long as there's no basil.
 
-### Familiarity runs on real sales
+### What sales figures do and don't do
 
-"Was die meisten bestellen" and "Was kaum jemand bestellt" are driven by
-`units_sold` from the BarPatrol imports, not by a guess about which drinks feel
-famous. The `Bestseller` badge marks the top 10.
+`units_sold` no longer steers the ranking. It survives in exactly two places:
+the `Bestseller` badge on the top 10, and a small always-on tie-break that
+lets a proven drink edge ahead of an equally good match. It breaks ties, it
+does not decide matches.
+
+There used to be a "Bewährt oder was Neues?" question that ranked by sales
+directly. It was removed along with its scoring, rather than left as an
+unreachable code path.
 
 ### Barkeeper's Choice
 
