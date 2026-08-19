@@ -46,6 +46,9 @@
   // Drinks that are an offer to build something, not a drink in themselves.
   var CATCH_ALL = "Bartender's Choice";
 
+  /* The guest explicitly handing the choice back to us. Not a flavour tag. */
+  var NO_PREFERENCE = 'barkeeper';
+
   function asArray(v) { return Array.isArray(v) ? v : (v == null || v === '' ? [] : [v]); }
 
   function serveGroupOf(serve) {
@@ -124,7 +127,11 @@
     }
 
     var prefs = asArray(a.spirit);
-    var wantFlavours = asArray(a.flavours);
+    var wantFlavours = asArray(a.flavours).filter(function (f) { return f !== NO_PREFERENCE; });
+    /* No flavour asked for means the guest left it to the bar, so let the
+     * house actually choose: widen the jitter so two people at one table get
+     * different suggestions instead of both being handed the top seller. */
+    var freeRein = wantFlavours.length === 0;
     var maxSold = 1;
     menu.forEach(function (d) { if (d.sold > maxSold) maxSold = d.sold; });
 
@@ -218,7 +225,7 @@
         reasons.push({ key: 'safe', weight: 1 });
       }
 
-      score += jitter(d.id, seed) * 2;
+      score += jitter(d.id, seed) * (freeRein ? 14 : 2);
 
       var pct = maxScore > 0 ? Math.round((100 * score) / maxScore) : 50;
       reasons.sort(function (x, y) { return y.weight - x.weight; });
@@ -240,6 +247,7 @@
     recommend: recommend,
     passesHard: passesHard,
     serveGroupOf: serveGroupOf,
+    NO_PREFERENCE: NO_PREFERENCE,
     SERVE_GROUPS: SERVE_GROUPS,
     WEIGHTS: W
   };

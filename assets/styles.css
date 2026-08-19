@@ -1,5 +1,5 @@
 /* =========================================================================
-   BrunnenBar — Der digitale Barkeeper
+   BrunnenBar — Cocktail recommender
    Mobile-first: most guests will open this on a phone, at a table, in low
    light. Large tap targets, high contrast, no hover-only affordances.
    ========================================================================= */
@@ -73,18 +73,9 @@ h1, h2, h3 { font-family: var(--serif); font-weight: 600; line-height: 1.15; mar
 .top {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-end;
   gap: 1rem;
   padding-bottom: 1.75rem;
-}
-
-.brand {
-  font-family: var(--serif);
-  font-size: 1.05rem;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--gold);
-  text-decoration: none;
 }
 
 .lang {
@@ -128,14 +119,6 @@ h1, h2, h3 { font-family: var(--serif); font-weight: 600; line-height: 1.15; mar
 /* ----------------------------------------------------------------- intro */
 
 .intro { text-align: center; padding: 1.5rem 0 0; }
-
-.kicker {
-  font-size: 0.72rem;
-  letter-spacing: 0.24em;
-  text-transform: uppercase;
-  color: var(--gold);
-  margin: 0 0 1.1rem;
-}
 
 .intro h1 { font-size: clamp(2.3rem, 9vw, 3.4rem); }
 
@@ -245,7 +228,13 @@ a.btn { text-decoration: none; display: inline-block; }
 
 @media (min-width: 34rem) {
   .options.cols-2 { grid-template-columns: 1fr 1fr; }
+  .options.cols-2 .option-wide { grid-column: 1 / -1; }
 }
+
+/* Handing the choice back to the bar is a different kind of answer to
+   picking a flavour, so it sits apart from the grid above it. */
+.option-wide { margin-top: 0.5rem; border-style: dashed; }
+.option-wide[aria-pressed="true"] { border-style: solid; }
 
 .option {
   appearance: none;
@@ -568,10 +557,3 @@ a.btn { text-decoration: none; display: inline-block; }
 
 .meta-val.price { font-variant-numeric: tabular-nums; color: var(--cream); }
 
-.data-note {
-  margin-top: 2.25rem;
-  font-size: 0.74rem;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--muted-dim);
-}

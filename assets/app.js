@@ -1,5 +1,5 @@
 /*
- * BrunnenBar — Der digitale Barkeeper
+ * BrunnenBar — Cocktail recommender
  * =========================================================================
  * Vanilla JS, no build step, no dependencies. Loads as plain script tags so
  * the page also works opened straight off disk or on an iPad behind the bar.
@@ -9,7 +9,6 @@
   'use strict';
 
   var MENU = window.BBMenu.MENU;
-  var META = window.BBMenu.META;
   var QUESTIONS = window.BBQuestions.QUESTIONS;
   var UI = window.BBQuestions.UI;
   var CARD_URL = 'https://brunnenbar.com/cocktailkarte/';
@@ -88,7 +87,6 @@
 
   function renderIntro() {
     return el('section', { class: 'intro' }, [
-      el('p', { class: 'kicker', text: t().kicker }),
       el('h1', { text: t().title }),
       el('hr', { class: 'rule' }),
       el('p', { class: 'lede', text: t().lede }),
@@ -105,8 +103,7 @@
       }),
       el('div', {}, [
         el('a', { class: 'link-card', href: CARD_URL, target: '_blank', rel: 'noopener', text: t().fullCard })
-      ]),
-      el('p', { class: 'data-note', text: fill(t().dataNote, { n: META.count }) })
+      ])
     ]);
   }
 
@@ -177,7 +174,7 @@
         ? Array.isArray(current) && current.indexOf(opt.value) !== -1
         : current === opt.value;
       wrap.appendChild(el('button', {
-        class: 'option', type: 'button',
+        class: 'option' + (opt.wide ? ' option-wide' : ''), type: 'button',
         'aria-pressed': selected ? 'true' : 'false',
         onClick: function () { choose(q, opt.value); }
       }, [
@@ -219,8 +216,18 @@
   function choose(q, value) {
     if (q.type === 'multi') {
       var list = Array.isArray(state.answers[q.id]) ? state.answers[q.id].slice() : [];
-      var at = list.indexOf(value);
-      if (at === -1) list.push(value); else list.splice(at, 1);
+      var picked = q.options.filter(function (o) { return o.value === value; })[0];
+      var exclusive = q.options.filter(function (o) { return o.exclusive; })
+        .map(function (o) { return o.value; });
+
+      if (picked && picked.exclusive) {
+        // "Leave it to us" replaces every other pick, and toggles off again.
+        list = list.indexOf(value) === -1 ? [value] : [];
+      } else {
+        var at = list.indexOf(value);
+        if (at === -1) list.push(value); else list.splice(at, 1);
+        list = list.filter(function (v) { return exclusive.indexOf(v) === -1; });
+      }
       state.answers[q.id] = list;
       render();
       return;

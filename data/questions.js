@@ -102,8 +102,8 @@
       type: 'multi',
       title: { de: 'Wonach soll er schmecken?', en: 'What should it taste like?' },
       sub: {
-        de: 'Such dir aus, worauf du Lust hast. Zwei oder drei reichen völlig.',
-        en: 'Pick whatever appeals. Two or three is plenty.'
+        de: 'Such dir aus, worauf du Lust hast. Zwei oder drei reichen völlig. Oder du überlässt es uns.',
+        en: 'Pick whatever appeals. Two or three is plenty. Or leave it to us.'
       },
       // Values are flavour_tags from the export, unchanged.
       options: [
@@ -115,7 +115,15 @@
         { value: 'cremig', label: { de: 'Cremig', en: 'Creamy' }, hint: { de: 'Mit Schaum oder Sahne', en: 'With foam or cream' } },
         { value: 'prickelnd', label: { de: 'Prickelnd', en: 'Sparkling' }, hint: { de: 'Soda, Tonic, Prosecco', en: 'Soda, tonic, prosecco' } },
         { value: 'kaffee', label: { de: 'Kaffee', en: 'Coffee' }, hint: { de: 'Espresso im Glas', en: 'Espresso in the glass' } },
-        { value: 'rauchig', label: { de: 'Rauchig', en: 'Smoky' }, hint: { de: 'Mezcal, Talisker', en: 'Mezcal, Talisker' } }
+        { value: 'rauchig', label: { de: 'Rauchig', en: 'Smoky' }, hint: { de: 'Mezcal, Talisker', en: 'Mezcal, Talisker' } },
+        // `exclusive` clears every other pick, and vice versa. The value is
+        // BBEngine.NO_PREFERENCE, which the engine reads as "free rein"
+        // rather than as a flavour tag to match.
+        {
+          value: 'barkeeper', exclusive: true, wide: true,
+          label: { de: 'Barkeeper’s Choice', en: 'Bartender’s choice' },
+          hint: { de: 'Überrasch mich, ihr kennt die Karte besser', en: 'Surprise me, you know the card better' }
+        }
       ]
     },
     {
@@ -131,9 +139,10 @@
         { value: 'lang', label: { de: 'Lang & auf Eis', en: 'Long & over ice' }, hint: { de: 'Hält den ganzen Abend', en: 'Lasts the evening' } },
         { value: 'kurz', label: { de: 'Kurz & gerührt', en: 'Short & stirred' }, hint: { de: 'Konzentriert, kein Saft', en: 'Concentrated, no juice' } },
         { value: 'schaum', label: { de: 'Geschüttelt & seidig', en: 'Shaken & silky' }, hint: { de: 'Sour, mit Schaumkrone', en: 'A sour, with a head of foam' } },
-        { value: 'spritzig', label: { de: 'Spritz', en: 'Spritz' }, hint: { de: 'Im Weinglas, mit Perlage', en: 'Wine glass, with bubbles' } },
-        { value: 'frozen', label: { de: 'Frozen', en: 'Frozen' }, hint: { de: 'Aus der Maschine', en: 'Straight from the machine' } },
-        { value: 'heiss', label: { de: 'Heiß', en: 'Hot' }, hint: { de: 'Für kalte Abende am Wasser', en: 'For cold nights on the water' } }
+        { value: 'spritzig', label: { de: 'Spritz', en: 'Spritz' }, hint: { de: 'Im Weinglas, mit Perlage', en: 'Wine glass, with bubbles' } }
+        // Frozen and Hot are deliberately not offered as choices. Those drinks
+        // are still on the menu and can still be recommended, there is just no
+        // way to ask for them by name here.
       ]
     },
     {
@@ -171,8 +180,7 @@
   // ---------------------------------------------------------------- copy ---
   var UI = {
     de: {
-      kicker: 'BrunnenBar Augsburg',
-      title: 'Der digitale Barkeeper',
+      title: 'BrunnenBar',
       lede: 'Ein paar kurze Fragen, dieselben, die wir am Tresen stellen würden. Am Ende stehen drei Drinks von unserer Karte, die zu dir passen.',
       start: 'Los geht’s',
       fullCard: 'Zur ganzen Cocktailkarte',
@@ -198,7 +206,6 @@
       emptySub: 'Kein Problem. Komm an den Tresen, dann bauen wir dir was Eigenes.',
       loosened: 'Wir haben eine Vorgabe gelockert, um dir trotzdem etwas anbieten zu können.',
       footer: 'Alle Drinks werden frisch gebaut. Allergien bitte immer direkt beim Team melden.',
-      dataNote: '{n} Drinks auf der Karte',
       reasons: {
         moment: 'passt zu diesem Moment im Abend',
         strength_exact: 'genau die Stärke, die du wolltest',
@@ -228,8 +235,7 @@
       }
     },
     en: {
-      kicker: 'BrunnenBar Augsburg',
-      title: 'The digital bartender',
+      title: 'BrunnenBar',
       lede: 'A few short questions, the same ones we would ask across the bar. At the end you get three drinks from our card that suit you.',
       start: 'Start',
       fullCard: 'See the full cocktail list',
@@ -255,7 +261,6 @@
       emptySub: 'Not a problem. Come to the bar and we’ll build you something off-menu.',
       loosened: 'We relaxed one preference so we could still offer you something.',
       footer: 'Every drink is built to order. Please always tell the team about allergies in person.',
-      dataNote: '{n} drinks on the card',
       reasons: {
         moment: 'fits this point in the evening',
         strength_exact: 'exactly the strength you asked for',

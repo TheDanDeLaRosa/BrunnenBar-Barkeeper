@@ -92,7 +92,7 @@ test('every strength option matches drinks that exist', function () {
 });
 
 test('every flavour option is a real flavour_tag', function () {
-  opt('flavours').forEach(function (v) {
+  opt('flavours').filter(function (v) { return v !== engine.NO_PREFERENCE; }).forEach(function (v) {
     assert.ok(MENU.some(function (d) { return d.flavours.indexOf(v) !== -1; }),
       'no drink tagged "' + v + '"');
   });
@@ -136,6 +136,55 @@ test('every serve style in the data is covered by a group', function () {
     assert.ok(engine.serveGroupOf(d.serve) || d.serve === "Bartender's Choice",
       d.name + ': serve style "' + d.serve + '" belongs to no group');
   });
+});
+
+test('the barkeeper\'s-choice option is exclusive and is not a flavour tag', function () {
+  var flavourQ = questions.QUESTIONS.filter(function (q) { return q.id === 'flavours'; })[0];
+  var exclusive = flavourQ.options.filter(function (o) { return o.exclusive; });
+  assert.strictEqual(exclusive.length, 1, 'expected exactly one exclusive option');
+  assert.strictEqual(exclusive[0].value, engine.NO_PREFERENCE);
+  assert.ok(!MENU.some(function (d) { return d.flavours.indexOf(engine.NO_PREFERENCE) !== -1; }),
+    'the sentinel must not collide with a real flavour tag');
+});
+
+test('barkeeper\'s choice scores identically to expressing no flavour at all', function () {
+  var viaOption = engine.recommend(MENU, ask({ flavours: [engine.NO_PREFERENCE] }), { seed: 7 });
+  var viaEmpty = engine.recommend(MENU, ask({ flavours: [] }), { seed: 7 });
+  assert.deepStrictEqual(ids(viaOption), ids(viaEmpty),
+    'the sentinel should mean "no preference", not "match nothing"');
+});
+
+test('barkeeper\'s choice actually varies between guests', function () {
+  var a = ask({ flavours: [engine.NO_PREFERENCE], familiarity: 'egal' });
+  var seen = {};
+  for (var s = 0; s < 30; s++) seen[ids(engine.recommend(MENU, a, { seed: s }))[0]] = true;
+  assert.ok(Object.keys(seen).length >= 5,
+    'free rein produced only ' + Object.keys(seen).length + ' different top picks');
+});
+
+test('barkeeper\'s choice still respects the hard rules', function () {
+  var res = engine.recommend(MENU, ask({
+    flavours: [engine.NO_PREFERENCE], allergens: ['Ei', 'Milch', 'Nüsse'], avoid: ['whiskey']
+  }), { limit: 999 });
+  assert.ok(res.items.length > 0);
+  res.items.forEach(function (i) {
+    assert.strictEqual(i.drink.allergens.length, 0, i.drink.name + ' has allergens');
+    assert.ok(i.drink.spirits.indexOf('whiskey') === -1, i.drink.name + ' contains whiskey');
+  });
+});
+
+test('dropping Frozen and Hot from the question leaves those drinks reachable', function () {
+  var offered = opt('serve');
+  assert.ok(offered.indexOf('frozen') === -1 && offered.indexOf('heiss') === -1,
+    'Frozen and Hot should not be offered as choices');
+  // but they must still be groupable, or the menu would contain ungrouped styles
+  assert.strictEqual(engine.serveGroupOf('Frozen'), 'frozen');
+  assert.strictEqual(engine.serveGroupOf('Hot'), 'heiss');
+  var reachable = engine.recommend(MENU, ask({
+    flavours: [engine.NO_PREFERENCE], serve: '', strength: '2'
+  }), { limit: 999 });
+  assert.ok(reachable.items.some(function (i) { return i.drink.serve === 'Frozen'; }),
+    'frozen drinks should still be recommendable when no serve style is asked for');
 });
 
 console.log('\nHard rules — these must never be violated');

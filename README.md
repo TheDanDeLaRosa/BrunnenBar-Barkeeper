@@ -1,4 +1,4 @@
-# Der digitale Barkeeper — BrunnenBar
+# BrunnenBar — Cocktail recommender
 
 A cocktail recommender for [brunnenbar.com](https://brunnenbar.com). It asks a
 guest the questions we'd ask across the bar, then recommends drinks **from our
@@ -87,6 +87,26 @@ stays out of the app for as long as there's no basil.
 "Was die meisten bestellen" and "Was kaum jemand bestellt" are driven by
 `units_sold` from the BarPatrol imports, not by a guess about which drinks feel
 famous. The `Bestseller` badge marks the top 10.
+
+### Barkeeper's Choice
+
+The flavour question carries one option that clears every other pick:
+*Barkeeper's Choice*. It is not a flavour tag — it is the sentinel
+`BBEngine.NO_PREFERENCE`, which the engine reads as "no flavour asked for".
+
+When a guest hands the choice back, the engine widens its tie-break jitter
+considerably, so two people at the same table get genuinely different
+suggestions rather than both being handed the current top seller. Hard rules
+still apply in full: free rein never overrides an allergen or a rejected
+spirit.
+
+### Serve styles the question does not offer
+
+*Frozen* and *Hot* are deliberately absent from the "how should it turn up"
+question. Those drinks are still on the menu and can still be recommended when
+a guest expresses no serve preference — there is simply no way to ask for them
+by name. To bring them back, restore the two options in `data/questions.js`;
+the engine already groups both styles.
 
 ### Predictable, not random
 
