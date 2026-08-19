@@ -9,7 +9,7 @@
   'use strict';
 
   var MENU = window.BBMenu.MENU;
-  var TERMS = window.BBTerms;
+  var ING_EN = window.BBMenu.ING_EN;
   var QUESTIONS = window.BBQuestions.QUESTIONS;
   var UI = window.BBQuestions.UI;
   var CARD_URL = 'https://brunnenbar.com/cocktailkarte/';
@@ -38,15 +38,17 @@
       return vars && vars[k] != null ? vars[k] : m;
     });
   }
-  /* Ingredients and glassware are plain nouns and do get translated. The
-   * taglines and bartender notes are the house voice and only ever appear in
-   * English if the export supplies an English version. */
+  /* Every guest-facing string comes from the export in both languages, and
+   * each falls back to German on its own. A drink translated only halfway
+   * shows English where it has it rather than reverting wholesale. */
+  function pick(d, en, de) { return (state.lang === 'en' && d[en]) || d[de]; }
   function ingList(d) {
-    return d.ing.map(function (i) { return TERMS.ingredient(i, state.lang); }).join(' · ');
+    var list = state.lang === 'en' && d.ingEn.length ? d.ingEn : d.ing;
+    return list.join(' · ');
   }
-  function glassOf(d) { return TERMS.glass(d.glass, state.lang); }
-  function taglineOf(d) { return (state.lang === 'en' && d.taglineEn) || d.tagline; }
-  function noteOf(d) { return (state.lang === 'en' && d.noteEn) || d.note; }
+  function glassOf(d) { return pick(d, 'glassEn', 'glass'); }
+  function taglineOf(d) { return pick(d, 'taglineEn', 'tagline'); }
+  function noteOf(d) { return pick(d, 'noteEn', 'note'); }
 
   function euro(n) {
     return n == null ? '' : n.toFixed(2).replace('.', ',') + ' €';
@@ -285,7 +287,7 @@
     if (!copy) return t().alsoGood;
     var x = c.value;
     if (c.kind === 'flavour') x = t().flavourCompare[c.value] || c.value;
-    if (c.kind === 'ingredient') x = TERMS.ingredient(c.value, state.lang);
+    if (c.kind === 'ingredient' && state.lang === 'en') x = ING_EN[c.value] || c.value;
     return fill(copy, { x: x });
   }
 

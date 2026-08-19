@@ -9,7 +9,6 @@ var engine = require('../assets/engine.js');
 var menuMod = require('../data/menu.js');
 var questions = require('../data/questions.js');
 var source = require('../data/cocktails.json');
-var terms = require('../data/terms.js');
 
 var MENU = menuMod.MENU;
 var passed = 0;
@@ -190,51 +189,71 @@ test('dropping Frozen and Hot from the question leaves those drinks reachable', 
 
 console.log('\nEnglish never falls back to German silently');
 
-test('every ingredient on the card is either translated or a known brand name', function () {
-  var known = {};
-  Object.keys(terms.ING_EN).forEach(function (k) { known[k] = true; });
-  terms.PASSTHROUGH.forEach(function (k) { known[k] = true; });
-  var missing = [];
-  MENU.forEach(function (d) {
-    d.ing.forEach(function (i) { if (!known[i]) missing.push(d.name + ': ' + i); });
+var ING_EN = menuMod.ING_EN;
+
+test('German and English arrays stay in step', function () {
+  var bad = [];
+  source.drinks.filter(function (d) { return d.available; }).forEach(function (d) {
+    [['ingredients_guest', 'ingredients_guest_en'], ['flavour_tags', 'flavour_tags_en'],
+     ['moment', 'moment_en'], ['allergens', 'allergens_en']].forEach(function (pair) {
+      var a = d[pair[0]] || [], b = d[pair[1]] || [];
+      if (a.length && b.length && a.length !== b.length) bad.push(d.name + ' / ' + pair[0]);
+    });
   });
-  assert.deepStrictEqual(missing, [], 'unaccounted ingredients:\n       ' + missing.join('\n       '));
+  assert.deepStrictEqual(bad, [], 'arrays out of step: ' + bad.join(', '));
 });
 
-test('every glass on the card has an English form', function () {
-  var missing = MENU.filter(function (d) { return !terms.GLASS_EN[d.glass]; })
-    .map(function (d) { return d.name + ': ' + d.glass; });
-  assert.deepStrictEqual(missing, [], 'glassware with no English:\n       ' + missing.join('\n       '));
+test('every drink has an English tagline, ingredient list and glass', function () {
+  var missing = [];
+  MENU.forEach(function (d) {
+    if (!d.taglineEn) missing.push(d.name + ': tagline');
+    if (!d.ingEn.length) missing.push(d.name + ': ingredients');
+    if (!d.glassEn) missing.push(d.name + ': glass');
+  });
+  assert.deepStrictEqual(missing, [], 'no English for:\n       ' + missing.join('\n       '));
+});
+
+test('an English ingredient list has one entry per German one', function () {
+  MENU.forEach(function (d) {
+    assert.strictEqual(d.ingEn.length, d.ing.length,
+      d.name + ': ' + d.ing.length + ' German ingredients but ' + d.ingEn.length + ' English');
+  });
+});
+
+test('the generated term map covers every ingredient on the card', function () {
+  var missing = [];
+  MENU.forEach(function (d) {
+    d.ing.forEach(function (i) { if (!ING_EN[i]) missing.push(d.name + ': ' + i); });
+  });
+  assert.deepStrictEqual(missing, [], 'no English term for:\n       ' + missing.join('\n       '));
 });
 
 test('the German common nouns really do change in English', function () {
   [['Zitrone', 'Lemon'], ['Limette', 'Lime'], ['Zucker', 'Sugar'],
-   ['Eiweiss', 'Egg white'], ['Minze', 'Mint'], ['Gurke', 'Cucumber']].forEach(function (pair) {
-    assert.strictEqual(terms.ingredient(pair[0], 'en'), pair[1]);
-    assert.strictEqual(terms.ingredient(pair[0], 'de'), pair[0], 'German must be left alone');
+   ['Eiweiss', 'Egg white'], ['Gurke', 'Cucumber'], ['Minze', 'Mint']].forEach(function (p) {
+    assert.strictEqual(ING_EN[p[0]], p[1], p[0] + ' should be ' + p[1]);
   });
-  assert.strictEqual(terms.glass('Weinglas', 'en'), 'Wine glass');
-  assert.strictEqual(terms.glass('Weinglas', 'de'), 'Weinglas');
 });
 
-test('brand names are never translated', function () {
+test('brand names are left alone', function () {
   ['Aperol', 'Tanqueray', 'Campari', 'Prosecco', 'Absolut'].forEach(function (b) {
-    assert.strictEqual(terms.ingredient(b, 'en'), b);
+    assert.strictEqual(ING_EN[b], b, b + ' should not be translated');
   });
 });
 
-test('a translation table entry is never also a passthrough', function () {
-  var clash = Object.keys(terms.ING_EN).filter(function (k) {
-    return terms.PASSTHROUGH.indexOf(k) !== -1;
-  });
-  assert.deepStrictEqual(clash, [], 'listed as both translated and passthrough: ' + clash.join(', '));
-});
-
-test('the menu carries English tagline fields, even when the export has none', function () {
+test('no German survives in an English ingredient list', function () {
+  // A crude but effective canary: these letters and words only occur in the
+  // German side of the card.
+  var canaries = /ä|ö|ü|ß|Zitrone|Zucker|Limette|Eiweiss|Minze|Gurke|Himbeer|Kirsch|Erdbeer|Sahne|Milch/;
+  var hits = [];
   MENU.forEach(function (d) {
-    assert.ok('taglineEn' in d, d.name + ': no taglineEn field');
-    assert.ok('noteEn' in d, d.name + ': no noteEn field');
+    d.ingEn.forEach(function (i) {
+      // brand names are allowed to keep their accents
+      if (canaries.test(i) && ING_EN[i] !== i) hits.push(d.name + ': ' + i);
+    });
+    if (canaries.test(d.glassEn)) hits.push(d.name + ' (glass): ' + d.glassEn);
   });
+  assert.deepStrictEqual(hits, [], 'German left in English output:\n       ' + hits.join('\n       '));
 });
 
 console.log('\nHard rules — these must never be violated');

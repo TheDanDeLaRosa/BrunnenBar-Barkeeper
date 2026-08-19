@@ -161,14 +161,16 @@ function main() {
       id,
       name: d.name,
       section,
-      // English is used when the export supplies it and falls back to the
-      // German otherwise, so adding tagline_en later needs no code change.
+      // Every English field falls back to its German counterpart, so a
+      // partially translated export degrades per drink rather than breaking.
       tagline: d.tagline_de || '',
       taglineEn: d.tagline_en || '',
       note: d.bartender_note_de || '',
       noteEn: d.bartender_note_en || '',
       ing: d.ingredients_guest || [],
+      ingEn: d.ingredients_guest_en || [],
       glass: d.glass || '',
+      glassEn: d.glass_en || '',
       serve: d.serve_style || '',
       strength: d.strength && typeof d.strength.level === 'number' ? d.strength.level : 3,
       strengthLabel: (d.strength && d.strength.label) || '',
@@ -184,6 +186,59 @@ function main() {
       spirits
     };
   });
+
+  /* The export carries German and English as parallel arrays. If they ever
+   * drift out of step the wrong word ends up against the wrong ingredient,
+   * so check parity before trusting them, and refuse to build a term map
+   * from any drink whose arrays disagree. */
+  const parityErrors = [];
+  kept.forEach(d => {
+    [['ingredients_guest', 'ingredients_guest_en'], ['flavour_tags', 'flavour_tags_en'],
+     ['moment', 'moment_en'], ['allergens', 'allergens_en']].forEach(([de, en]) => {
+      const a = d[de] || [], b = d[en] || [];
+      if (a.length && b.length && a.length !== b.length) {
+        parityErrors.push(d.name + ': ' + de + ' has ' + a.length + ' entries, ' + en + ' has ' + b.length);
+      }
+    });
+  });
+  if (parityErrors.length) {
+    console.log('\n!! GERMAN AND ENGLISH ARRAYS OUT OF STEP:');
+    parityErrors.forEach(e => console.log('   ' + e));
+  }
+
+  /* One ingredient, one English word. Built from the export rather than kept
+   * by hand, so it cannot drift from the card. Used where a single term is
+   * named on its own, such as the "Something with Cucumber" label. */
+  const ingEnMap = {};
+  const clashes = {};
+  kept.forEach(d => {
+    const a = d.ingredients_guest || [], b = d.ingredients_guest_en || [];
+    if (a.length !== b.length) return;
+    a.forEach((de, i) => {
+      const en = b[i];
+      if (!en) return;
+      if (ingEnMap[de] && ingEnMap[de] !== en) {
+        (clashes[de] = clashes[de] || new Set()).add(ingEnMap[de]).add(en);
+      } else ingEnMap[de] = en;
+    });
+  });
+  if (Object.keys(clashes).length) {
+    console.log('\n!! ONE INGREDIENT, TWO ENGLISH WORDS:');
+    Object.keys(clashes).forEach(k => console.log('   ' + k + ' -> ' + [...clashes[k]].join(' / ')));
+  }
+
+  const missingEn = {
+    tagline: menu.filter(d => !d.taglineEn).length,
+    ingredients: menu.filter(d => !d.ingEn.length).length,
+    glass: menu.filter(d => !d.glassEn).length
+  };
+  const gaps = Object.keys(missingEn).filter(k => missingEn[k]);
+  if (gaps.length) {
+    console.log('\n!! DRINKS WITH NO ENGLISH (they fall back to German):');
+    gaps.forEach(k => console.log('   ' + k + ': ' + missingEn[k] + '/' + menu.length));
+  } else {
+    console.log('English: complete for all ' + menu.length + ' drinks');
+  }
 
   const banner =
     '/*\n' +
@@ -204,7 +259,8 @@ function main() {
       bar: raw.bar, generated: raw.generated, version: raw.version,
       salesBasis: raw.sales_basis, count: menu.length
     }, null, 1).replace(/\n/g, '\n  ') + ';\n' +
-    '  var api = { MENU: MENU, META: META };\n' +
+    '  var ING_EN = ' + JSON.stringify(ingEnMap, null, 1).replace(/\n/g, '\n  ') + ';\n' +
+    '  var api = { MENU: MENU, META: META, ING_EN: ING_EN };\n' +
     "  if (typeof module !== 'undefined' && module.exports) module.exports = api;\n" +
     '  root.BBMenu = api;\n' +
     "})(typeof globalThis !== 'undefined' ? globalThis : this);\n";
@@ -251,31 +307,6 @@ function main() {
       console.log('   Add them to flavourNames and flavourCompare in data/questions.js,');
       console.log('   or fold them into the tags the rest of the card already uses.');
     }
-  }
-
-  // Nothing German should reach an English-speaking guest unnoticed.
-  let terms = null;
-  try { terms = require('../data/terms.js'); } catch (e) { /* optional */ }
-  if (terms) {
-    const known = new Set(Object.keys(terms.ING_EN).concat(terms.PASSTHROUGH));
-    const missIng = new Set(), missGlass = new Set();
-    menu.forEach(d => {
-      (d.ing || []).forEach(i => { if (!known.has(i)) missIng.add(i); });
-      if (d.glass && !terms.GLASS_EN[d.glass]) missGlass.add(d.glass);
-    });
-    if (missIng.size || missGlass.size) {
-      console.log('\n!! NO ENGLISH FOR THESE TERMS:');
-      if (missIng.size) console.log('   ingredients: ' + [...missIng].join(', '));
-      if (missGlass.size) console.log('   glassware:   ' + [...missGlass].join(', '));
-      console.log('   Add a translation to data/terms.js, or list it in PASSTHROUGH');
-      console.log('   if it is a brand name that should stay as it is.');
-    }
-  }
-
-  const withoutEn = menu.filter(d => !d.taglineEn).length;
-  if (withoutEn) {
-    console.log('\n   ' + withoutEn + '/' + menu.length + ' drinks have no tagline_en.' +
-      ' English guests see the German tagline for those.');
   }
 
   const noSpirit = menu.filter(d => !d.alcoholFree && d.base === 'other');

@@ -10,7 +10,8 @@
   "available": "false heisst aktuell nicht machbar, nicht empfehlen",
   "ingredients_guest": "gaestetauglich, Markennamen wo sie etwas bedeuten",
   "bar_recipe": "interne Mengen aus BarPatrol, nicht fuer Gaeste",
-  "hidden_on_card": "true = steht im Canva Design, wird Gaesten auf der gedruckten Karte aber nicht gezeigt. Trotzdem bestellbar und in der App, wenn available true."
+  "hidden_on_card": "true = steht im Canva Design, wird Gaesten auf der gedruckten Karte aber nicht gezeigt. Trotzdem bestellbar und in der App, wenn available true.",
+  "language": "Jedes Textfeld gibt es doppelt, _de und _en. App zeigt je nach Sprachschalter."
  },
  "drinks": [
   {
@@ -29,7 +30,8 @@
    "serve_style": "Sour",
    "strength": {
     "level": 3,
-    "label": "mittel"
+    "label": "mittel",
+    "label_en": "medium"
    },
    "flavour_tags": [
     "fruchtig",
@@ -93,13 +95,38 @@
     }
    ],
    "hidden_on_card": false,
-   "card_action": ""
+   "card_action": "",
+   "tagline_en": "Passion fruit, vanilla and a glass of prosecco on the side. First the drink, then the sip of fizz. In exactly that order.",
+   "bartender_note_en": "Invented in London in 2002 by Douglas Ankrah. Since then the most ordered cocktail in almost every bar. Here too.",
+   "ingredients_guest_en": [
+    "Absolut",
+    "Passion fruit",
+    "Vanilla",
+    "Lemon",
+    "Prosecco"
+   ],
+   "glass_en": "Coupe with Prosecco sidecar",
+   "section_en": "Signature Cocktails",
+   "serve_style_en": "Sour",
+   "flavour_tags_en": [
+    "fruity",
+    "sweet",
+    "sparkling"
+   ],
+   "moment_en": [
+    "Opener",
+    "Midway"
+   ],
+   "allergens_en": [
+    "Egg"
+   ],
+   "unavailable_reason_en": ""
   },
   {
    "name": "Lemon Drop",
    "section": "Shots",
    "tagline_de": "Kalt, sauer, vorbei. Der Shot, bei dem am Tisch keiner Nein sagt.",
-   "bartender_note_de": "",
+   "bartender_note_de": "Wodka, Zitrone, Zucker, eiskalt geshaked. Angeblich in den 70ern in einer San Francisco Bar namens Henry Africa's erfunden. Schmeckt wie fluessiges Zitronenbonbon.",
    "ingredients_guest": [
     "Vodka",
     "Zitrone",
@@ -109,7 +136,8 @@
    "serve_style": "Shot",
    "strength": {
     "level": 3,
-    "label": "mittel"
+    "label": "mittel",
+    "label_en": "medium"
    },
    "flavour_tags": [
     "sauer/zitrus",
@@ -146,7 +174,27 @@
     }
    ],
    "hidden_on_card": false,
-   "card_action": "Auf der Karte einblenden (Dan 19.08.2026). Zweitbester Verkaeufer, war bisher versteckt."
+   "card_action": "Auf der Karte einblenden (Dan 19.08.2026). Zweitbester Verkaeufer, war bisher versteckt.",
+   "tagline_en": "Cold, sour, gone. The shot nobody at the table turns down.",
+   "bartender_note_en": "Vodka, lemon, sugar, shaken ice cold. Supposedly invented in the 70s at a San Francisco bar called Henry Africa's. Tastes like a liquid lemon drop.",
+   "ingredients_guest_en": [
+    "Vodka",
+    "Lemon",
+    "Sugar"
+   ],
+   "glass_en": "Shot glass",
+   "section_en": "Shots",
+   "serve_style_en": "Shot",
+   "flavour_tags_en": [
+    "sour/citrus",
+    "sweet"
+   ],
+   "moment_en": [
+    "Midway",
+    "Late night"
+   ],
+   "allergens_en": [],
+   "unavailable_reason_en": ""
   },
   {
    "name": "Espresso Martini",
@@ -163,7 +211,8 @@
    "serve_style": "Shaken",
    "strength": {
     "level": 3,
-    "label": "mittel"
+    "label": "mittel",
+    "label_en": "medium"
    },
    "flavour_tags": [
     "kaffee",
@@ -209,13 +258,35 @@
     }
    ],
    "hidden_on_card": false,
-   "card_action": ""
+   "card_action": "",
+   "tagline_en": "Wake up and still party. The only drink that does both at once.",
+   "bartender_note_en": "Invented in 1980s London by Dick Bradsell when a model asked for something to wake her up and then mess her up. Coffee and vodka, wide awake and elegant.",
+   "ingredients_guest_en": [
+    "Vodka",
+    "Kahlúa",
+    "Fresh espresso",
+    "Sugar"
+   ],
+   "glass_en": "Coupe",
+   "section_en": "Vodka Cocktails",
+   "serve_style_en": "Shaken",
+   "flavour_tags_en": [
+    "coffee",
+    "sweet",
+    "creamy"
+   ],
+   "moment_en": [
+    "Midway",
+    "Late night"
+   ],
+   "allergens_en": [],
+   "unavailable_reason_en": ""
   },
   {
    "name": "Cinnamon Toast Crunch",
    "section": "Shots",
    "tagline_de": "Schmeckt wirklich nach dem Zimtmüsli. Wir haben es selbst nicht geglaubt, bis wir ihn gemacht haben.",
-   "bartender_note_de": "",
+   "bartender_note_de": "Benannt nach dem amerikanischen Fruehstuecksflocken Klassiker. RumChata und Zimt treffen es tatsaechlich, wie die Milch in der Schuessel danach.",
    "ingredients_guest": [
     "RumChata",
     "Whiskey",
@@ -225,7 +296,8 @@
    "serve_style": "Shot",
    "strength": {
     "level": 2,
-    "label": "mild"
+    "label": "mild",
+    "label_en": "mild"
    },
    "flavour_tags": [
     "cremig",
@@ -260,13 +332,35 @@
     }
    ],
    "hidden_on_card": false,
-   "card_action": ""
+   "card_action": "",
+   "tagline_en": "It really does taste like the cinnamon cereal. We did not believe it either until we made one.",
+   "bartender_note_en": "Named after the American breakfast cereal classic. The RumChata and cinnamon really nail it, like the milk left in the bowl.",
+   "ingredients_guest_en": [
+    "RumChata",
+    "Whiskey",
+    "Cinnamon"
+   ],
+   "glass_en": "Shot glass",
+   "section_en": "Shots",
+   "serve_style_en": "Shot",
+   "flavour_tags_en": [
+    "creamy",
+    "sweet"
+   ],
+   "moment_en": [
+    "Midway",
+    "Late night"
+   ],
+   "allergens_en": [
+    "Milk"
+   ],
+   "unavailable_reason_en": ""
   },
   {
    "name": "Aperol Spritz",
    "section": "Spritz",
    "tagline_de": "Der Klassiker, der den Abend eröffnet. Bitter genug, um Hunger zu machen.",
-   "bartender_note_de": "",
+   "bartender_note_de": "Kommt aus Venetien und ist laengst das Aperitivo schlechthin. Die klassische Formel ist drei Teile Prosecco, zwei Aperol, ein Schuss Soda, immer mit Orange.",
    "ingredients_guest": [
     "Aperol",
     "Prosecco",
@@ -276,7 +370,8 @@
    "serve_style": "Spritz",
    "strength": {
     "level": 1,
-    "label": "leicht"
+    "label": "leicht",
+    "label_en": "light"
    },
    "flavour_tags": [
     "bitter",
@@ -321,7 +416,27 @@
     }
    ],
    "hidden_on_card": false,
-   "card_action": ""
+   "card_action": "",
+   "tagline_en": "The classic that opens the evening. Bitter enough to make you hungry.",
+   "bartender_note_en": "Comes from the Veneto and has long been the aperitivo. The classic formula is three parts prosecco, two Aperol, a splash of soda, always with orange.",
+   "ingredients_guest_en": [
+    "Aperol",
+    "Prosecco",
+    "Soda"
+   ],
+   "glass_en": "Wine glass",
+   "section_en": "Spritz",
+   "serve_style_en": "Spritz",
+   "flavour_tags_en": [
+    "bitter",
+    "sparkling",
+    "fruity"
+   ],
+   "moment_en": [
+    "Opener"
+   ],
+   "allergens_en": [],
+   "unavailable_reason_en": ""
   },
   {
    "name": "Gin Basil",
@@ -338,7 +453,8 @@
    "serve_style": "Sour",
    "strength": {
     "level": 3,
-    "label": "mittel"
+    "label": "mittel",
+    "label_en": "medium"
    },
    "flavour_tags": [
     "kräuterig/frisch",
@@ -387,13 +503,34 @@
     }
    ],
    "hidden_on_card": true,
-   "card_action": "Bleibt auf der Karte versteckt (Dan 19.08.2026)"
+   "card_action": "Bleibt auf der Karte versteckt (Dan 19.08.2026)",
+   "tagline_en": "Fresh basil, hard shaken. Green in the glass and green on the palate.",
+   "bartender_note_en": "The Gin Basil Smash, invented in 2008 in Hamburg by Joerg Meyer. Fresh basil hard shaken, green in the glass and green on the palate.",
+   "ingredients_guest_en": [
+    "Tanqueray",
+    "Basil",
+    "Lemon",
+    "Sugar"
+   ],
+   "glass_en": "Tumbler",
+   "section_en": "Best Sellers",
+   "serve_style_en": "Sour",
+   "flavour_tags_en": [
+    "herbal/fresh",
+    "sour/citrus"
+   ],
+   "moment_en": [
+    "Opener",
+    "Midway"
+   ],
+   "allergens_en": [],
+   "unavailable_reason_en": ""
   },
   {
    "name": "Paloma",
    "section": "Agave Cocktails",
    "tagline_de": "In Mexiko trinkt man das, nicht Margarita. Grapefruit, Tequila, fertig.",
-   "bartender_note_de": "",
+   "bartender_note_de": "In Mexiko wird mehr Paloma getrunken als Margarita. Tequila und Grapefruit, leicht und spritzig, der heimliche Nationaldrink.",
    "ingredients_guest": [
     "El Destilador Blanco",
     "Thomas Henry Pink Grapefruit",
@@ -404,7 +541,8 @@
    "serve_style": "Highball",
    "strength": {
     "level": 2,
-    "label": "mild"
+    "label": "mild",
+    "label_en": "mild"
    },
    "flavour_tags": [
     "fruchtig",
@@ -446,13 +584,35 @@
     }
    ],
    "hidden_on_card": false,
-   "card_action": ""
+   "card_action": "",
+   "tagline_en": "In Mexico this is what people drink, not the Margarita. Grapefruit, tequila, done.",
+   "bartender_note_en": "Mexico drinks more Paloma than Margarita. Tequila and grapefruit, light and lively, the quiet national drink.",
+   "ingredients_guest_en": [
+    "El Destilador Blanco",
+    "Thomas Henry Pink Grapefruit",
+    "Lime",
+    "Agave"
+   ],
+   "glass_en": "Highball",
+   "section_en": "Agave Cocktails",
+   "serve_style_en": "Highball",
+   "flavour_tags_en": [
+    "fruity",
+    "sparkling",
+    "sour/citrus"
+   ],
+   "moment_en": [
+    "Opener",
+    "Midway"
+   ],
+   "allergens_en": [],
+   "unavailable_reason_en": ""
   },
   {
    "name": "Whiskey Sour",
    "section": "Signature Cocktails",
    "tagline_de": "Bourbon, Zitrone, Zucker und Eiweiss für die Schaumkrone. So alt wie die Barkultur selbst.",
-   "bartender_note_de": "",
+   "bartender_note_de": "Einer der aeltesten Cocktails ueberhaupt, schon 1862 in Jerry Thomas legendaerem Barbuch. Whiskey, Zitrone, Zucker und ein Hauch Eiweiss fuer die Schaumkrone.",
    "ingredients_guest": [
     "Four Roses",
     "Zitrone",
@@ -463,7 +623,8 @@
    "serve_style": "Sour",
    "strength": {
     "level": 4,
-    "label": "kräftig"
+    "label": "kräftig",
+    "label_en": "bold"
    },
    "flavour_tags": [
     "sauer/zitrus",
@@ -509,13 +670,35 @@
     }
    ],
    "hidden_on_card": false,
-   "card_action": ""
+   "card_action": "",
+   "tagline_en": "Bourbon, lemon, sugar and egg white for the foam crown. As old as bar culture itself.",
+   "bartender_note_en": "One of the oldest cocktails there is, already in Jerry Thomas' legendary 1862 bar book. Whiskey, lemon, sugar and a touch of egg white for the foam crown.",
+   "ingredients_guest_en": [
+    "Four Roses",
+    "Lemon",
+    "Sugar",
+    "Egg white"
+   ],
+   "glass_en": "Tumbler",
+   "section_en": "Signature Cocktails",
+   "serve_style_en": "Sour",
+   "flavour_tags_en": [
+    "sour/citrus",
+    "creamy"
+   ],
+   "moment_en": [
+    "Midway"
+   ],
+   "allergens_en": [
+    "Egg"
+   ],
+   "unavailable_reason_en": ""
   },
   {
    "name": "Augsburg Sour",
    "section": "Signature Cocktails",
    "tagline_de": "Unser Sour mit Wodka aus der Stadt. Wenn du einen Drink von hier probieren willst, dann diesen.",
-   "bartender_note_de": "",
+   "bartender_note_de": "Unsere Augsburger Antwort auf den Sour, mit Wodka aus der Stadt und Himbeere. Ein Klassiker mit Lokalstolz.",
    "ingredients_guest": [
     "Augsburg City Wodka",
     "Zitrone",
@@ -527,7 +710,8 @@
    "serve_style": "Sour",
    "strength": {
     "level": 3,
-    "label": "mittel"
+    "label": "mittel",
+    "label_en": "medium"
    },
    "flavour_tags": [
     "fruchtig",
@@ -579,13 +763,34 @@
     }
    ],
    "hidden_on_card": false,
-   "card_action": ""
+   "card_action": "",
+   "tagline_en": "Our sour with vodka from the city. If you want to try a drink from here, make it this one.",
+   "bartender_note_en": "Our Augsburg answer to the sour, with vodka from the city and raspberry. A classic with local pride.",
+   "ingredients_guest_en": [
+    "Augsburg City Wodka",
+    "Lemon",
+    "Orange",
+    "Raspberry",
+    "Sugar"
+   ],
+   "glass_en": "Tumbler",
+   "section_en": "Signature Cocktails",
+   "serve_style_en": "Sour",
+   "flavour_tags_en": [
+    "fruity",
+    "sour/citrus"
+   ],
+   "moment_en": [
+    "Midway"
+   ],
+   "allergens_en": [],
+   "unavailable_reason_en": ""
   },
   {
    "name": "Sarti Spritz",
    "section": "Spritz",
    "tagline_de": "Blumiger und weicher als der Aperol. Für alle, denen der Klassiker zu bitter ist.",
-   "bartender_note_de": "",
+   "bartender_note_de": "Der Spritz in Rosa. Sarti gibt ihm die beerige Note und die Farbe, die auf jedem Foto gut aussieht.",
    "ingredients_guest": [
     "Sarti Rosa",
     "Prosecco",
@@ -595,7 +800,8 @@
    "serve_style": "Spritz",
    "strength": {
     "level": 1,
-    "label": "leicht"
+    "label": "leicht",
+    "label_en": "light"
    },
    "flavour_tags": [
     "fruchtig",
@@ -631,13 +837,32 @@
     }
    ],
    "hidden_on_card": false,
-   "card_action": ""
+   "card_action": "",
+   "tagline_en": "Softer and more floral than the Aperol. For anyone who finds the classic too bitter.",
+   "bartender_note_en": "The spritz in pink. Sarti gives it the berry note and the colour that looks good in every photo.",
+   "ingredients_guest_en": [
+    "Sarti Rosa",
+    "Prosecco",
+    "Soda"
+   ],
+   "glass_en": "Wine glass",
+   "section_en": "Spritz",
+   "serve_style_en": "Spritz",
+   "flavour_tags_en": [
+    "fruity",
+    "sparkling"
+   ],
+   "moment_en": [
+    "Opener"
+   ],
+   "allergens_en": [],
+   "unavailable_reason_en": ""
   },
   {
    "name": "Ficken 2cl",
    "section": "Shots",
    "tagline_de": "Kalt, süss, in einem Zug. Fragt keiner nach dem Namen, alle nach der zweiten Runde.",
-   "bartender_note_de": "",
+   "bartender_note_de": "Mehr Name als Getraenk. Der Kult Shot, den man eigentlich nur wegen der Bestellung bestellt.",
    "ingredients_guest": [
     "Ficken Likör"
    ],
@@ -645,7 +870,8 @@
    "serve_style": "Shot",
    "strength": {
     "level": 2,
-    "label": "mild"
+    "label": "mild",
+    "label_en": "mild"
    },
    "flavour_tags": [
     "süß",
@@ -674,13 +900,31 @@
     }
    ],
    "hidden_on_card": false,
-   "card_action": ""
+   "card_action": "",
+   "tagline_en": "Cold, sweet, one gulp. Nobody asks about the name, everybody asks for round two.",
+   "bartender_note_en": "More name than drink. The cult shot you basically order just for the order itself.",
+   "ingredients_guest_en": [
+    "Ficken liqueur"
+   ],
+   "glass_en": "Shot glass",
+   "section_en": "Shots",
+   "serve_style_en": "Shot",
+   "flavour_tags_en": [
+    "sweet",
+    "fruity"
+   ],
+   "moment_en": [
+    "Midway",
+    "Late night"
+   ],
+   "allergens_en": [],
+   "unavailable_reason_en": ""
   },
   {
    "name": "Mojito",
    "section": "Rum / Cachaca",
    "tagline_de": "Minze, Limette, weisser Rum. Wird bei uns gebaut, nicht zerdrückt, damit die Minze nicht bitter wird.",
-   "bartender_note_de": "",
+   "bartender_note_de": "Kubas Beitrag zur Weltgeschichte, angeblich schon zu Zeiten von Francis Drake. Hemingway trank ihn spaeter literweise in der Bodeguita del Medio.",
    "ingredients_guest": [
     "Bacardi",
     "Limette",
@@ -692,7 +936,8 @@
    "serve_style": "Highball",
    "strength": {
     "level": 2,
-    "label": "mild"
+    "label": "mild",
+    "label_en": "mild"
    },
    "flavour_tags": [
     "kräuterig/frisch",
@@ -742,7 +987,30 @@
     }
    ],
    "hidden_on_card": false,
-   "card_action": ""
+   "card_action": "",
+   "tagline_en": "Mint, lime, white rum. We build it rather than crush it, so the mint never turns bitter.",
+   "bartender_note_en": "Cuba's contribution to world history, supposedly back in the days of Francis Drake. Hemingway later drank it by the litre at the Bodeguita del Medio.",
+   "ingredients_guest_en": [
+    "Bacardi",
+    "Lime",
+    "Mint",
+    "Sugar",
+    "Soda"
+   ],
+   "glass_en": "Highball",
+   "section_en": "Rum / Cachaca",
+   "serve_style_en": "Highball",
+   "flavour_tags_en": [
+    "herbal/fresh",
+    "sour/citrus",
+    "sparkling"
+   ],
+   "moment_en": [
+    "Opener",
+    "Midway"
+   ],
+   "allergens_en": [],
+   "unavailable_reason_en": ""
   },
   {
    "name": "Negroni",
@@ -758,7 +1026,8 @@
    "serve_style": "Stirred",
    "strength": {
     "level": 5,
-    "label": "stark"
+    "label": "stark",
+    "label_en": "strong"
    },
    "flavour_tags": [
     "bitter",
@@ -799,13 +1068,33 @@
     }
    ],
    "hidden_on_card": false,
-   "card_action": ""
+   "card_action": "",
+   "tagline_en": "Three ingredients in equal parts, stirred, a slice of orange. Bitter and uncompromising.",
+   "bartender_note_en": "Florence 1919. Count Camillo Negroni wanted his Americano stronger, so gin went in instead of soda. A world career ever since.",
+   "ingredients_guest_en": [
+    "Gin",
+    "Campari",
+    "Sweet vermouth"
+   ],
+   "glass_en": "Tumbler",
+   "section_en": "Aperitivo Cocktails",
+   "serve_style_en": "Stirred",
+   "flavour_tags_en": [
+    "bitter",
+    "herbal/fresh"
+   ],
+   "moment_en": [
+    "Opener",
+    "Late night"
+   ],
+   "allergens_en": [],
+   "unavailable_reason_en": ""
   },
   {
    "name": "Apfelstrudel 2cl",
    "section": "Shots",
    "tagline_de": "Kokos und Apfel mit Zimt. Schmeckt tatsächlich wie Apfelstrudel.",
-   "bartender_note_de": "",
+   "bartender_note_de": "Der Shot, der nach Nachtisch schmeckt. Malibu, Apfel und Zimt, wie Omas Strudel, nur fluessig.",
    "ingredients_guest": [
     "Malibu",
     "Apfel",
@@ -815,7 +1104,8 @@
    "serve_style": "Shot",
    "strength": {
     "level": 2,
-    "label": "mild"
+    "label": "mild",
+    "label_en": "mild"
    },
    "flavour_tags": [
     "süß",
@@ -843,13 +1133,32 @@
     }
    ],
    "hidden_on_card": false,
-   "card_action": ""
+   "card_action": "",
+   "tagline_en": "Coconut and apple with cinnamon. It honestly tastes like apple strudel.",
+   "bartender_note_en": "The shot that tastes like dessert. Malibu, apple and cinnamon, like grandma's strudel, only liquid.",
+   "ingredients_guest_en": [
+    "Malibu",
+    "Apple",
+    "Cinnamon"
+   ],
+   "glass_en": "Shot glass",
+   "section_en": "Shots",
+   "serve_style_en": "Shot",
+   "flavour_tags_en": [
+    "sweet",
+    "fruity"
+   ],
+   "moment_en": [
+    "Midway"
+   ],
+   "allergens_en": [],
+   "unavailable_reason_en": ""
   },
   {
    "name": "Berliner Luft 2cl",
    "section": "Shots",
    "tagline_de": "Eiskalte Pfefferminze. Räumt den Mund auf und den Kopf gleich mit.",
-   "bartender_note_de": "",
+   "bartender_note_de": "Eiskalter Pfefferminz Shot, der die Kehle freipustet. Frischer geht es kaum.",
    "ingredients_guest": [
     "Berliner Luft"
    ],
@@ -857,7 +1166,8 @@
    "serve_style": "Shot",
    "strength": {
     "level": 3,
-    "label": "mittel"
+    "label": "mittel",
+    "label_en": "medium"
    },
    "flavour_tags": [
     "kräuterig/frisch",
@@ -885,13 +1195,30 @@
     }
    ],
    "hidden_on_card": false,
-   "card_action": ""
+   "card_action": "",
+   "tagline_en": "Ice-cold peppermint. Clears your mouth and your head at once.",
+   "bartender_note_en": "An ice-cold peppermint shot that blows the throat clear. It hardly gets fresher.",
+   "ingredients_guest_en": [
+    "Berliner Luft"
+   ],
+   "glass_en": "Shot glass",
+   "section_en": "Shots",
+   "serve_style_en": "Shot",
+   "flavour_tags_en": [
+    "herbal/fresh",
+    "sweet"
+   ],
+   "moment_en": [
+    "Late night"
+   ],
+   "allergens_en": [],
+   "unavailable_reason_en": ""
   },
   {
    "name": "Green Tea Shot",
    "section": "Shots",
    "tagline_de": "Kein Tee drin. Schmeckt trotzdem so und ist der freundlichste Whiskey Shot, den es gibt.",
-   "bartender_note_de": "",
+   "bartender_note_de": "Sieht aus wie gruener Tee, ist aber Whiskey, Pfirsich und Limo. Kein Koffein, dafuer gute Laune.",
    "ingredients_guest": [
     "Irish Whiskey",
     "Pfirsichlikör",
@@ -902,7 +1229,8 @@
    "serve_style": "Shot",
    "strength": {
     "level": 2,
-    "label": "mild"
+    "label": "mild",
+    "label_en": "mild"
    },
    "flavour_tags": [
     "fruchtig",
@@ -947,13 +1275,34 @@
     }
    ],
    "hidden_on_card": false,
-   "card_action": ""
+   "card_action": "",
+   "tagline_en": "No tea in it. Tastes like it anyway, and it is the friendliest whiskey shot there is.",
+   "bartender_note_en": "Looks like green tea, but it is whiskey, peach and lemon-lime. No caffeine, plenty of good mood.",
+   "ingredients_guest_en": [
+    "Irish Whiskey",
+    "Peach liqueur",
+    "Lemon",
+    "Sprite"
+   ],
+   "glass_en": "Shot glass",
+   "section_en": "Shots",
+   "serve_style_en": "Shot",
+   "flavour_tags_en": [
+    "fruity",
+    "sour/citrus"
+   ],
+   "moment_en": [
+    "Midway",
+    "Late night"
+   ],
+   "allergens_en": [],
+   "unavailable_reason_en": ""
   },
   {
    "name": "Gin Tonic - Bombay",
    "section": "Gin",
    "tagline_de": "Klassisch, wacholderbetont, immer richtig. Der Gin Tonic für alle, die wissen, was sie wollen.",
-   "bartender_note_de": "",
+   "bartender_note_de": "Der Gin Tonic entstand als Malaria Prophylaxe britischer Kolonialoffiziere, das Chinin im Tonic war die Medizin. Heute reine Freude.",
    "ingredients_guest": [
     "Bombay Sapphire",
     "Tonic Water",
@@ -963,7 +1312,8 @@
    "serve_style": "Highball",
    "strength": {
     "level": 3,
-    "label": "mittel"
+    "label": "mittel",
+    "label_en": "medium"
    },
    "flavour_tags": [
     "kräuterig/frisch",
@@ -1001,13 +1351,34 @@
     }
    ],
    "hidden_on_card": false,
-   "card_action": ""
+   "card_action": "",
+   "tagline_en": "Classic, juniper-forward, always right. The gin and tonic for people who know what they want.",
+   "bartender_note_en": "The gin and tonic began as malaria prophylaxis for British colonial officers, the quinine in the tonic was the medicine. Today it is pure pleasure.",
+   "ingredients_guest_en": [
+    "Bombay Sapphire",
+    "Tonic water",
+    "Lime"
+   ],
+   "glass_en": "Balloon glass",
+   "section_en": "Gin",
+   "serve_style_en": "Highball",
+   "flavour_tags_en": [
+    "herbal/fresh",
+    "bitter",
+    "sparkling"
+   ],
+   "moment_en": [
+    "Opener",
+    "Midway"
+   ],
+   "allergens_en": [],
+   "unavailable_reason_en": ""
   },
   {
    "name": "London Mule",
    "section": "Mules",
    "tagline_de": "Der Mule mit Gin statt Wodka. Scharfer Ingwer trifft Wacholder und das passt besser, als es klingt.",
-   "bartender_note_de": "",
+   "bartender_note_de": "Der Moscow Mule, aber mit Gin statt Wodka. Ingwer und Limette bleiben, der Charakter wird britischer.",
    "ingredients_guest": [
     "Tanqueray",
     "Limette",
@@ -1018,7 +1389,8 @@
    "serve_style": "Highball",
    "strength": {
     "level": 3,
-    "label": "mittel"
+    "label": "mittel",
+    "label_en": "medium"
    },
    "flavour_tags": [
     "prickelnd",
@@ -1063,7 +1435,28 @@
     }
    ],
    "hidden_on_card": false,
-   "card_action": ""
+   "card_action": "",
+   "tagline_en": "The mule with gin instead of vodka. Sharp ginger meets juniper, and it works better than it sounds.",
+   "bartender_note_en": "The Moscow Mule, but with gin instead of vodka. Ginger and lime stay, the character turns British.",
+   "ingredients_guest_en": [
+    "Tanqueray",
+    "Lime",
+    "Thomas Henry Spicy Ginger",
+    "Angostura"
+   ],
+   "glass_en": "Copper mug",
+   "section_en": "Mules",
+   "serve_style_en": "Highball",
+   "flavour_tags_en": [
+    "sparkling",
+    "sour/citrus",
+    "herbal/fresh"
+   ],
+   "moment_en": [
+    "Midway"
+   ],
+   "allergens_en": [],
+   "unavailable_reason_en": ""
   },
   {
    "name": "Singapore Sling",
@@ -1084,7 +1477,8 @@
    "serve_style": "Sling",
    "strength": {
     "level": 3,
-    "label": "mittel"
+    "label": "mittel",
+    "label_en": "medium"
    },
    "flavour_tags": [
     "fruchtig",
@@ -1145,13 +1539,38 @@
     }
    ],
    "hidden_on_card": false,
-   "card_action": ""
+   "card_action": "",
+   "tagline_en": "Eight ingredients, a hundred years old and still a party. If you have time, order it.",
+   "bartender_note_en": "Created around 1915 at the Raffles Hotel in Singapore. Eight ingredients and a hundred years old, still a small celebration.",
+   "ingredients_guest_en": [
+    "Tanqueray",
+    "Cherry",
+    "Bénédictine",
+    "Grand Marnier",
+    "Pineapple",
+    "Lime",
+    "Pomegranate",
+    "Angostura"
+   ],
+   "glass_en": "Highball",
+   "section_en": "Signature Cocktails",
+   "serve_style_en": "Sling",
+   "flavour_tags_en": [
+    "fruity",
+    "sweet",
+    "sour/citrus"
+   ],
+   "moment_en": [
+    "Midway"
+   ],
+   "allergens_en": [],
+   "unavailable_reason_en": ""
   },
   {
    "name": "Moscow Mule",
    "section": "Mules",
    "tagline_de": "Ingwer, Limette, Gurke. Kalt im Kupferbecher, weil der die Kälte hält.",
-   "bartender_note_de": "",
+   "bartender_note_de": "In den 40ern in Los Angeles erfunden, um Wodka und Ginger Beer gleichzeitig loszuwerden. Der Kupferbecher war geniales Marketing und haelt eiskalt.",
    "ingredients_guest": [
     "Absolut",
     "Limette",
@@ -1163,7 +1582,8 @@
    "serve_style": "Highball",
    "strength": {
     "level": 3,
-    "label": "mittel"
+    "label": "mittel",
+    "label_en": "medium"
    },
    "flavour_tags": [
     "prickelnd",
@@ -1212,13 +1632,35 @@
     }
    ],
    "hidden_on_card": false,
-   "card_action": ""
+   "card_action": "",
+   "tagline_en": "Ginger, lime, cucumber. Cold in a copper mug, because it holds the chill.",
+   "bartender_note_en": "Invented in 1940s Los Angeles to move vodka and ginger beer at the same time. The copper mug was clever marketing and holds the chill.",
+   "ingredients_guest_en": [
+    "Absolut",
+    "Lime",
+    "Cucumber",
+    "Thomas Henry Spicy Ginger",
+    "Angostura"
+   ],
+   "glass_en": "Copper mug",
+   "section_en": "Mules",
+   "serve_style_en": "Highball",
+   "flavour_tags_en": [
+    "sparkling",
+    "sour/citrus",
+    "herbal/fresh"
+   ],
+   "moment_en": [
+    "Midway"
+   ],
+   "allergens_en": [],
+   "unavailable_reason_en": ""
   },
   {
    "name": "Alkoholfreie Cocktails",
    "section": "Alkoholfrei",
    "tagline_de": "Sag uns einfach, welchen Cocktail du magst. Fast jeden auf der Karte bauen wir dir ohne Alkohol.",
-   "bartender_note_de": "",
+   "bartender_note_de": "Sag uns worauf du Lust hast, wir mixen dir was Alkoholfreies nach Gefuehl.",
    "ingredients_guest": [
     "nach Absprache"
    ],
@@ -1226,7 +1668,8 @@
    "serve_style": "Bartender's Choice",
    "strength": {
     "level": 0,
-    "label": "alkoholfrei"
+    "label": "alkoholfrei",
+    "label_en": "alcohol free"
    },
    "flavour_tags": [
     "überraschend"
@@ -1253,13 +1696,29 @@
     }
    ],
    "hidden_on_card": false,
-   "card_action": ""
+   "card_action": "",
+   "tagline_en": "Just tell us which cocktail you like. We will build almost any one on the menu without alcohol.",
+   "bartender_note_en": "Tell us what you fancy and we will mix you something alcohol-free by feel.",
+   "ingredients_guest_en": [
+    "by request"
+   ],
+   "glass_en": "depends on the drink",
+   "section_en": "Non-Alcoholic",
+   "serve_style_en": "Bartender's Choice",
+   "flavour_tags_en": [
+    "surprising"
+   ],
+   "moment_en": [
+    "All evening"
+   ],
+   "allergens_en": [],
+   "unavailable_reason_en": ""
   },
   {
    "name": "Aperol Sour",
    "section": "Sours",
    "tagline_de": "Aperol ohne Prosecco, dafür mit Zitrone und Orange. Bitterer, ernster, besser.",
-   "bartender_note_de": "",
+   "bartender_note_de": "Aperol trifft Sour. Bitter, fruchtig und sauer zugleich, fuer alle denen der Spritz zu brav ist.",
    "ingredients_guest": [
     "Aperol",
     "Zitrone",
@@ -1270,7 +1729,8 @@
    "serve_style": "Sour",
    "strength": {
     "level": 2,
-    "label": "mild"
+    "label": "mild",
+    "label_en": "mild"
    },
    "flavour_tags": [
     "bitter",
@@ -1320,13 +1780,35 @@
     }
    ],
    "hidden_on_card": false,
-   "card_action": ""
+   "card_action": "",
+   "tagline_en": "Aperol without the prosecco, with lemon and orange instead. More bitter, more serious, better.",
+   "bartender_note_en": "Aperol meets the sour. Bitter, fruity and tart at once, for anyone who finds the spritz too tame.",
+   "ingredients_guest_en": [
+    "Aperol",
+    "Lemon",
+    "Orange",
+    "Sugar"
+   ],
+   "glass_en": "Tumbler",
+   "section_en": "Sours",
+   "serve_style_en": "Sour",
+   "flavour_tags_en": [
+    "bitter",
+    "fruity",
+    "sour/citrus"
+   ],
+   "moment_en": [
+    "Opener",
+    "Midway"
+   ],
+   "allergens_en": [],
+   "unavailable_reason_en": ""
   },
   {
    "name": "Cuba Libre 6cl",
    "section": "Mixgetränke",
    "tagline_de": "Rum, Cola, viel Limette. Simpel und deshalb schwer gut zu machen.",
-   "bartender_note_de": "",
+   "bartender_note_de": "Rum, Cola, Limette. Entstand um 1900 in Havanna, der Trinkspruch auf ein freies Kuba wurde zum Namen.",
    "ingredients_guest": [
     "Bacardi",
     "Cola",
@@ -1336,7 +1818,8 @@
    "serve_style": "Highball",
    "strength": {
     "level": 3,
-    "label": "mittel"
+    "label": "mittel",
+    "label_en": "medium"
    },
    "flavour_tags": [
     "süß",
@@ -1372,13 +1855,32 @@
     }
    ],
    "hidden_on_card": false,
-   "card_action": ""
+   "card_action": "",
+   "tagline_en": "Rum, cola, plenty of lime. Simple, and therefore hard to do well.",
+   "bartender_note_en": "Rum, cola, lime. Born around 1900 in Havana, the toast to a free Cuba became the name.",
+   "ingredients_guest_en": [
+    "Bacardi",
+    "Cola",
+    "Lime"
+   ],
+   "glass_en": "Highball",
+   "section_en": "Mixed Drinks",
+   "serve_style_en": "Highball",
+   "flavour_tags_en": [
+    "sweet",
+    "sparkling"
+   ],
+   "moment_en": [
+    "Midway"
+   ],
+   "allergens_en": [],
+   "unavailable_reason_en": ""
   },
   {
    "name": "Special Cocktail",
    "section": "Cocktails",
    "tagline_de": "Sag uns, was du magst, und wir bauen dir etwas. Nicht auf der Karte, aber immer möglich.",
-   "bartender_note_de": "",
+   "bartender_note_de": "Freie Buehne fuer den Barkeeper. Sag was du magst, den Rest ueberlass uns.",
    "ingredients_guest": [
     "nach Absprache"
    ],
@@ -1386,7 +1888,8 @@
    "serve_style": "Bartender's Choice",
    "strength": {
     "level": 3,
-    "label": "mittel"
+    "label": "mittel",
+    "label_en": "medium"
    },
    "flavour_tags": [
     "überraschend"
@@ -1414,13 +1917,30 @@
     }
    ],
    "hidden_on_card": false,
-   "card_action": ""
+   "card_action": "",
+   "tagline_en": "Tell us what you like and we will build you something. Not on the menu, but always possible.",
+   "bartender_note_en": "Free stage for the bartender. Say what you like and leave the rest to us.",
+   "ingredients_guest_en": [
+    "by request"
+   ],
+   "glass_en": "depends on the drink",
+   "section_en": "Cocktails",
+   "serve_style_en": "Bartender's Choice",
+   "flavour_tags_en": [
+    "surprising"
+   ],
+   "moment_en": [
+    "Midway",
+    "Late night"
+   ],
+   "allergens_en": [],
+   "unavailable_reason_en": ""
   },
   {
    "name": "Raspberry Mule",
    "section": "Mules",
    "tagline_de": "Frische Himbeeren im Ingwer. Der süsseste der vier Mules und der, den am meisten Leute zweimal bestellen.",
-   "bartender_note_de": "",
+   "bartender_note_de": "Der Mule in Beerenlaune. Frische Himbeeren treffen auf scharfen Ingwer.",
    "ingredients_guest": [
     "Absolut",
     "Himbeeren",
@@ -1432,7 +1952,8 @@
    "serve_style": "Highball",
    "strength": {
     "level": 3,
-    "label": "mittel"
+    "label": "mittel",
+    "label_en": "medium"
    },
    "flavour_tags": [
     "fruchtig",
@@ -1481,13 +2002,35 @@
     }
    ],
    "hidden_on_card": false,
-   "card_action": ""
+   "card_action": "",
+   "tagline_en": "Fresh raspberries in the ginger. The sweetest of the four mules and the one most people order twice.",
+   "bartender_note_en": "The mule in a berry mood. Fresh raspberries meet sharp ginger.",
+   "ingredients_guest_en": [
+    "Absolut",
+    "Raspberries",
+    "Lime",
+    "Thomas Henry Spicy Ginger",
+    "Sugar"
+   ],
+   "glass_en": "Copper mug",
+   "section_en": "Mules",
+   "serve_style_en": "Highball",
+   "flavour_tags_en": [
+    "fruity",
+    "sparkling",
+    "sour/citrus"
+   ],
+   "moment_en": [
+    "Midway"
+   ],
+   "allergens_en": [],
+   "unavailable_reason_en": ""
   },
   {
    "name": "Caipirinha",
    "section": "Rum / Cachaca",
    "tagline_de": "Cachaça, Limette, Zucker, crushed Ice. Mehr braucht Brasilien nicht.",
-   "bartender_note_de": "",
+   "bartender_note_de": "Brasiliens Nationaldrink. Cachaca, Limette, Zucker, mehr braucht ein Strand nicht.",
    "ingredients_guest": [
     "Cachaça",
     "Limette",
@@ -1497,7 +2040,8 @@
    "serve_style": "Muddled",
    "strength": {
     "level": 3,
-    "label": "mittel"
+    "label": "mittel",
+    "label_en": "medium"
    },
    "flavour_tags": [
     "sauer/zitrus",
@@ -1541,13 +2085,32 @@
     }
    ],
    "hidden_on_card": false,
-   "card_action": ""
+   "card_action": "",
+   "tagline_en": "Cachaca, lime, sugar, crushed ice. Brazil needs nothing more.",
+   "bartender_note_en": "Brazil's national drink. Cachaca, lime, sugar, nothing more needed on a beach.",
+   "ingredients_guest_en": [
+    "Cachaça",
+    "Lime",
+    "Sugar"
+   ],
+   "glass_en": "Tumbler",
+   "section_en": "Rum / Cachaca",
+   "serve_style_en": "Muddled",
+   "flavour_tags_en": [
+    "sour/citrus",
+    "sweet"
+   ],
+   "moment_en": [
+    "Midway"
+   ],
+   "allergens_en": [],
+   "unavailable_reason_en": ""
   },
   {
    "name": "Italian Stallion",
    "section": "Signature Cocktails",
    "tagline_de": "Aprikose und Granatapfel auf Wodka. Süss, aber mit Kante.",
-   "bartender_note_de": "",
+   "bartender_note_de": "Klingt nach Rocky, schmeckt nach Aprikose und Granatapfel. Ein Haus Liebling mit Muskeln.",
    "ingredients_guest": [
     "Absolut",
     "Aprikose",
@@ -1558,7 +2121,8 @@
    "serve_style": "Sour",
    "strength": {
     "level": 3,
-    "label": "mittel"
+    "label": "mittel",
+    "label_en": "medium"
    },
    "flavour_tags": [
     "fruchtig",
@@ -1610,13 +2174,33 @@
     }
    ],
    "hidden_on_card": false,
-   "card_action": ""
+   "card_action": "",
+   "tagline_en": "Apricot and pomegranate over vodka. Sweet, but with an edge.",
+   "bartender_note_en": "Sounds like Rocky, tastes of apricot and pomegranate. A house favourite with muscle.",
+   "ingredients_guest_en": [
+    "Absolut",
+    "Apricot",
+    "Lemon",
+    "Pomegranate"
+   ],
+   "glass_en": "Coupe",
+   "section_en": "Signature Cocktails",
+   "serve_style_en": "Sour",
+   "flavour_tags_en": [
+    "fruity",
+    "sweet"
+   ],
+   "moment_en": [
+    "Midway"
+   ],
+   "allergens_en": [],
+   "unavailable_reason_en": ""
   },
   {
    "name": "Mexico Mule",
    "section": "Mules",
    "tagline_de": "Der Mule auf Tequila. Etwas erdiger, etwas wilder als das Original.",
-   "bartender_note_de": "",
+   "bartender_note_de": "Der Mule mit Tequila. Von Moskau ueber London nach Mexiko, der Ingwer verbindet sie alle.",
    "ingredients_guest": [
     "El Destilador Blanco",
     "Limette",
@@ -1627,7 +2211,8 @@
    "serve_style": "Highball",
    "strength": {
     "level": 3,
-    "label": "mittel"
+    "label": "mittel",
+    "label_en": "medium"
    },
    "flavour_tags": [
     "prickelnd",
@@ -1683,13 +2268,33 @@
     }
    ],
    "hidden_on_card": false,
-   "card_action": ""
+   "card_action": "",
+   "tagline_en": "The mule on tequila. A little earthier, a little wilder than the original.",
+   "bartender_note_en": "The mule with tequila. From Moscow via London to Mexico, ginger ties them all together.",
+   "ingredients_guest_en": [
+    "El Destilador Blanco",
+    "Lime",
+    "Thomas Henry Spicy Ginger",
+    "Angostura"
+   ],
+   "glass_en": "Copper mug",
+   "section_en": "Mules",
+   "serve_style_en": "Highball",
+   "flavour_tags_en": [
+    "sparkling",
+    "sour/citrus"
+   ],
+   "moment_en": [
+    "Midway"
+   ],
+   "allergens_en": [],
+   "unavailable_reason_en": ""
   },
   {
    "name": "Pisco Sour",
    "section": "Sours",
    "tagline_de": "Perus Nationaldrink. Eiweiss oben, Limette darunter und ein Spritzer Bitter aufs Schaumhäubchen.",
-   "bartender_note_de": "",
+   "bartender_note_de": "Peru und Chile streiten bis heute, wem er gehoert. Traubenbrand, Limette und Eiweiss, der Sour Suedamerikas.",
    "ingredients_guest": [
     "Pisco",
     "Limette",
@@ -1700,7 +2305,8 @@
    "serve_style": "Sour",
    "strength": {
     "level": 3,
-    "label": "mittel"
+    "label": "mittel",
+    "label_en": "medium"
    },
    "flavour_tags": [
     "sauer/zitrus",
@@ -1743,13 +2349,36 @@
     }
    ],
    "hidden_on_card": false,
-   "card_action": ""
+   "card_action": "",
+   "tagline_en": "Peru's national drink. Egg white on top, lime underneath, a few drops of bitters on the foam.",
+   "bartender_note_en": "Peru and Chile still argue over whose it is. Grape brandy, lime and egg white, South America's sour.",
+   "ingredients_guest_en": [
+    "Pisco",
+    "Lime",
+    "Sugar",
+    "Egg white"
+   ],
+   "glass_en": "Coupe",
+   "section_en": "Sours",
+   "serve_style_en": "Sour",
+   "flavour_tags_en": [
+    "sour/citrus",
+    "creamy"
+   ],
+   "moment_en": [
+    "Opener",
+    "Midway"
+   ],
+   "allergens_en": [
+    "Egg"
+   ],
+   "unavailable_reason_en": ""
   },
   {
    "name": "Cosmopolitan",
    "section": "Vodka Cocktails",
    "tagline_de": "Cranberry, Cointreau, Limette. In den Neunzigern überall, heute wieder zu Recht.",
-   "bartender_note_de": "",
+   "bartender_note_de": "Die 90er in einem Glas. Durch Sex and the City wurde der Cosmo zur Ikone, pink und selbstbewusst.",
    "ingredients_guest": [
     "Vodka",
     "Cranberry",
@@ -1760,7 +2389,8 @@
    "serve_style": "Shaken",
    "strength": {
     "level": 3,
-    "label": "mittel"
+    "label": "mittel",
+    "label_en": "medium"
    },
    "flavour_tags": [
     "fruchtig",
@@ -1801,13 +2431,34 @@
     }
    ],
    "hidden_on_card": false,
-   "card_action": ""
+   "card_action": "",
+   "tagline_en": "Cranberry, Cointreau, lime. Everywhere in the nineties, and rightly back today.",
+   "bartender_note_en": "The nineties in a glass. Sex and the City turned the Cosmo into an icon, pink and self-assured.",
+   "ingredients_guest_en": [
+    "Vodka",
+    "Cranberry",
+    "Cointreau",
+    "Lime"
+   ],
+   "glass_en": "Coupe",
+   "section_en": "Vodka Cocktails",
+   "serve_style_en": "Shaken",
+   "flavour_tags_en": [
+    "fruity",
+    "sour/citrus"
+   ],
+   "moment_en": [
+    "Opener",
+    "Midway"
+   ],
+   "allergens_en": [],
+   "unavailable_reason_en": ""
   },
   {
    "name": "Gin Tonic - Tanqueray",
    "section": "Best Sellers",
    "tagline_de": "Trocken, klar, kein Schnickschnack. Unser meistbestellter Gin Tonic.",
-   "bartender_note_de": "",
+   "bartender_note_de": "Tanqueray brennt seit 1830 und ist praktisch der Standard fuer den perfekten Gin Tonic.",
    "ingredients_guest": [
     "Tanqueray",
     "Tonic Water",
@@ -1817,7 +2468,8 @@
    "serve_style": "Highball",
    "strength": {
     "level": 3,
-    "label": "mittel"
+    "label": "mittel",
+    "label_en": "medium"
    },
    "flavour_tags": [
     "kräuterig/frisch",
@@ -1859,13 +2511,34 @@
     }
    ],
    "hidden_on_card": false,
-   "card_action": ""
+   "card_action": "",
+   "tagline_en": "Dry, clean, no frills. Our most ordered gin and tonic.",
+   "bartender_note_en": "Tanqueray has been distilling since 1830 and is practically the standard for a perfect gin and tonic.",
+   "ingredients_guest_en": [
+    "Tanqueray",
+    "Tonic water",
+    "Lime"
+   ],
+   "glass_en": "Balloon glass",
+   "section_en": "Best Sellers",
+   "serve_style_en": "Highball",
+   "flavour_tags_en": [
+    "herbal/fresh",
+    "bitter",
+    "sparkling"
+   ],
+   "moment_en": [
+    "Opener",
+    "Midway"
+   ],
+   "allergens_en": [],
+   "unavailable_reason_en": ""
   },
   {
    "name": "Amaretto Sour",
    "section": "Sours",
    "tagline_de": "Mandel und Bourbon, weich und mit Schaum. Der Sour für alle, die es lieber rund mögen.",
-   "bartender_note_de": "",
+   "bartender_note_de": "Der Sour fuer Suessschnaebel. Amaretto bringt Mandel und Marzipan, ein Schuss Whiskey gibt Rueckgrat.",
    "ingredients_guest": [
     "Amaretto",
     "Whiskey",
@@ -1878,7 +2551,8 @@
    "serve_style": "Sour",
    "strength": {
     "level": 3,
-    "label": "mittel"
+    "label": "mittel",
+    "label_en": "medium"
    },
    "flavour_tags": [
     "süß",
@@ -1930,13 +2604,39 @@
     }
    ],
    "hidden_on_card": false,
-   "card_action": ""
+   "card_action": "",
+   "tagline_en": "Almond and bourbon, soft and foamy. The sour for anyone who likes it rounder.",
+   "bartender_note_en": "The sour for the sweet-toothed. Amaretto brings almond and marzipan, a splash of whiskey gives it backbone.",
+   "ingredients_guest_en": [
+    "Amaretto",
+    "Whiskey",
+    "Lemon",
+    "Orange",
+    "Sugar",
+    "Egg white"
+   ],
+   "glass_en": "Tumbler",
+   "section_en": "Sours",
+   "serve_style_en": "Sour",
+   "flavour_tags_en": [
+    "sweet",
+    "sour/citrus",
+    "creamy"
+   ],
+   "moment_en": [
+    "Midway"
+   ],
+   "allergens_en": [
+    "Egg",
+    "Nuts"
+   ],
+   "unavailable_reason_en": ""
   },
   {
    "name": "Ricky Ricky",
    "section": "Gin Cocktails",
    "tagline_de": "Gin, Limette, Minze und Soda. Leicht wie ein Sommerabend, auch im Januar.",
-   "bartender_note_de": "",
+   "bartender_note_de": "Ein Haus Verwandter des Mojito mit Gin. Minze und Limette, leicht und frech.",
    "ingredients_guest": [
     "Tanqueray",
     "Limette",
@@ -1948,7 +2648,8 @@
    "serve_style": "Highball",
    "strength": {
     "level": 2,
-    "label": "mild"
+    "label": "mild",
+    "label_en": "mild"
    },
    "flavour_tags": [
     "kräuterig/frisch",
@@ -1993,13 +2694,35 @@
     }
    ],
    "hidden_on_card": false,
-   "card_action": ""
+   "card_action": "",
+   "tagline_en": "Gin, lime, mint and soda. Light as a summer evening, even in January.",
+   "bartender_note_en": "A house cousin of the Mojito made with gin. Mint and lime, light and cheeky.",
+   "ingredients_guest_en": [
+    "Tanqueray",
+    "Lime",
+    "Mint",
+    "Sugar",
+    "Soda"
+   ],
+   "glass_en": "Highball",
+   "section_en": "Gin Cocktails",
+   "serve_style_en": "Highball",
+   "flavour_tags_en": [
+    "herbal/fresh",
+    "sour/citrus",
+    "sparkling"
+   ],
+   "moment_en": [
+    "Opener"
+   ],
+   "allergens_en": [],
+   "unavailable_reason_en": ""
   },
   {
    "name": "Wildberry Lillet Spritz",
    "section": "Spritz",
    "tagline_de": "Lillet mit Waldbeere. Der Spritz, den fast jeder schon mal getrunken hat und trotzdem wieder bestellt.",
-   "bartender_note_de": "",
+   "bartender_note_de": "Lillet Wild Berry war der Sommerhit schlechthin. Beerig und leicht, man trinkt zwei bevor man es merkt.",
    "ingredients_guest": [
     "Lillet Blanc",
     "Prosecco",
@@ -2009,7 +2732,8 @@
    "serve_style": "Spritz",
    "strength": {
     "level": 1,
-    "label": "leicht"
+    "label": "leicht",
+    "label_en": "light"
    },
    "flavour_tags": [
     "fruchtig",
@@ -2045,13 +2769,32 @@
     }
    ],
    "hidden_on_card": false,
-   "card_action": ""
+   "card_action": "",
+   "tagline_en": "Lillet with wild berry. The spritz almost everyone has had once and still orders again.",
+   "bartender_note_en": "Lillet Wild Berry was the summer hit. Berry and light, you drink two before you notice.",
+   "ingredients_guest_en": [
+    "Lillet Blanc",
+    "Prosecco",
+    "Schweppes Berry"
+   ],
+   "glass_en": "Wine glass",
+   "section_en": "Spritz",
+   "serve_style_en": "Spritz",
+   "flavour_tags_en": [
+    "fruity",
+    "sparkling"
+   ],
+   "moment_en": [
+    "Opener"
+   ],
+   "allergens_en": [],
+   "unavailable_reason_en": ""
   },
   {
    "name": "Margarita",
    "section": "Agave Cocktails",
    "tagline_de": "Tequila, Limette, Cointreau und Salz am Rand. Der Massstab für jede Bar.",
-   "bartender_note_de": "",
+   "bartender_note_de": "Mexikos beruehmtester Export. Um die Erfindung ranken sich ein Dutzend Legenden, sicher ist nur, dass sie perfekt ist.",
    "ingredients_guest": [
     "Tequila",
     "Limette",
@@ -2063,7 +2806,8 @@
    "serve_style": "Shaken",
    "strength": {
     "level": 4,
-    "label": "kräftig"
+    "label": "kräftig",
+    "label_en": "bold"
    },
    "flavour_tags": [
     "sauer/zitrus",
@@ -2104,13 +2848,35 @@
     }
    ],
    "hidden_on_card": false,
-   "card_action": ""
+   "card_action": "",
+   "tagline_en": "Tequila, lime, Cointreau and salt on the rim. The benchmark for any bar.",
+   "bartender_note_en": "Mexico's most famous export. A dozen legends surround its invention, the only sure thing is that it is perfect.",
+   "ingredients_guest_en": [
+    "Tequila",
+    "Lime",
+    "Cointreau",
+    "Agave",
+    "Salt"
+   ],
+   "glass_en": "Coupe",
+   "section_en": "Agave Cocktails",
+   "serve_style_en": "Shaken",
+   "flavour_tags_en": [
+    "sour/citrus",
+    "sweet"
+   ],
+   "moment_en": [
+    "Opener",
+    "Midway"
+   ],
+   "allergens_en": [],
+   "unavailable_reason_en": ""
   },
   {
    "name": "Haselnuss 2cl",
    "section": "Shots",
    "tagline_de": "Nussig und weich. Der Shot für alle, die es nicht scharf mögen.",
-   "bartender_note_de": "",
+   "bartender_note_de": "Fluessiges Nougat als Shot. Suess, nussig, ueber Kopf.",
    "ingredients_guest": [
     "Haselnusslikör"
    ],
@@ -2118,7 +2884,8 @@
    "serve_style": "Shot",
    "strength": {
     "level": 2,
-    "label": "mild"
+    "label": "mild",
+    "label_en": "mild"
    },
    "flavour_tags": [
     "süß",
@@ -2148,13 +2915,32 @@
     }
    ],
    "hidden_on_card": false,
-   "card_action": ""
+   "card_action": "",
+   "tagline_en": "Nutty and soft. The shot for anyone who does not like it fiery.",
+   "bartender_note_en": "Liquid nougat as a shot. Sweet, nutty, over the head.",
+   "ingredients_guest_en": [
+    "Hazelnut liqueur"
+   ],
+   "glass_en": "Shot glass",
+   "section_en": "Shots",
+   "serve_style_en": "Shot",
+   "flavour_tags_en": [
+    "sweet",
+    "creamy"
+   ],
+   "moment_en": [
+    "Late night"
+   ],
+   "allergens_en": [
+    "Nuts"
+   ],
+   "unavailable_reason_en": ""
   },
   {
    "name": "Skinny Lady",
    "section": "Mixgetränke",
    "tagline_de": "Wodka, Limette, Sprudel. Kein Zucker, kein Schnickschnack, unter hundert Kalorien.",
-   "bartender_note_de": "",
+   "bartender_note_de": "Die schlanke Variante. Wodka, Limette, Sprudel, wenig Kalorien, viel Frische.",
    "ingredients_guest": [
     "Absolut",
     "Limette",
@@ -2164,7 +2950,8 @@
    "serve_style": "Highball",
    "strength": {
     "level": 2,
-    "label": "mild"
+    "label": "mild",
+    "label_en": "mild"
    },
    "flavour_tags": [
     "sauer/zitrus",
@@ -2208,13 +2995,32 @@
     }
    ],
    "hidden_on_card": false,
-   "card_action": ""
+   "card_action": "",
+   "tagline_en": "Vodka, lime, soda. No sugar, no frills, under a hundred calories.",
+   "bartender_note_en": "The slim version. Vodka, lime, soda, few calories, lots of freshness.",
+   "ingredients_guest_en": [
+    "Absolut",
+    "Lime",
+    "Mineral water"
+   ],
+   "glass_en": "Highball",
+   "section_en": "Mixed Drinks",
+   "serve_style_en": "Highball",
+   "flavour_tags_en": [
+    "sour/citrus",
+    "sparkling"
+   ],
+   "moment_en": [
+    "Opener"
+   ],
+   "allergens_en": [],
+   "unavailable_reason_en": ""
   },
   {
    "name": "Johnnie Black White Peach",
    "section": "Mixgetränke",
    "tagline_de": "Scotch mit weissem Pfirsich. Klingt ungewöhnlich, trinkt sich gefährlich leicht.",
-   "bartender_note_de": "",
+   "bartender_note_de": "Johnnie Walker Black trifft auf weissen Pfirsich. Rauchiger Scotch, den auch Skeptiker moegen.",
    "ingredients_guest": [
     "Johnnie Walker Black",
     "Schweppes White Peach"
@@ -2223,7 +3029,8 @@
    "serve_style": "Highball",
    "strength": {
     "level": 3,
-    "label": "mittel"
+    "label": "mittel",
+    "label_en": "medium"
    },
    "flavour_tags": [
     "fruchtig",
@@ -2259,13 +3066,31 @@
     }
    ],
    "hidden_on_card": false,
-   "card_action": ""
+   "card_action": "",
+   "tagline_en": "Scotch with white peach. Sounds unusual, drinks dangerously easy.",
+   "bartender_note_en": "Johnnie Walker Black meets white peach. Smoky Scotch that even the sceptics like.",
+   "ingredients_guest_en": [
+    "Johnnie Walker Black",
+    "Schweppes White Peach"
+   ],
+   "glass_en": "Highball",
+   "section_en": "Mixed Drinks",
+   "serve_style_en": "Highball",
+   "flavour_tags_en": [
+    "fruity",
+    "sparkling"
+   ],
+   "moment_en": [
+    "Midway"
+   ],
+   "allergens_en": [],
+   "unavailable_reason_en": ""
   },
   {
    "name": "Naughty or Nice",
    "section": "Cocktails",
    "tagline_de": "Gin und Campari mit Trauben. Bitter und fruchtig zugleich, je nach Schluck.",
-   "bartender_note_de": "",
+   "bartender_note_de": "Gin und Campari mit Traube. Zwischen brav und frech, du entscheidest.",
    "ingredients_guest": [
     "Tanqueray",
     "Campari",
@@ -2277,7 +3102,8 @@
    "serve_style": "Sour",
    "strength": {
     "level": 4,
-    "label": "kräftig"
+    "label": "kräftig",
+    "label_en": "bold"
    },
    "flavour_tags": [
     "bitter",
@@ -2322,13 +3148,35 @@
     }
    ],
    "hidden_on_card": true,
-   "card_action": "Bleibt auf der Karte versteckt (Dan 19.08.2026)"
+   "card_action": "Bleibt auf der Karte versteckt (Dan 19.08.2026)",
+   "tagline_en": "Gin and Campari with grapes. Bitter and fruity at once, depending on the sip.",
+   "bartender_note_en": "Gin and Campari with grape. Between good and bad, you decide.",
+   "ingredients_guest_en": [
+    "Tanqueray",
+    "Campari",
+    "Lemon",
+    "Grapes",
+    "Sugar"
+   ],
+   "glass_en": "Coupe",
+   "section_en": "Cocktails",
+   "serve_style_en": "Sour",
+   "flavour_tags_en": [
+    "bitter",
+    "fruity",
+    "sour/citrus"
+   ],
+   "moment_en": [
+    "Midway"
+   ],
+   "allergens_en": [],
+   "unavailable_reason_en": ""
   },
   {
    "name": "Alkoholfrei - Porn Star Martini",
    "section": "Alkoholfrei",
    "tagline_de": "Maracuja und Vanille, alles wie im Original, nur ohne Alkohol. Sogar der Prosecco daneben.",
-   "bartender_note_de": "",
+   "bartender_note_de": "Unser meistbestellter Cocktail, komplett ohne Alkohol. Maracuja und Vanille bleiben, der Rausch entfaellt.",
    "ingredients_guest": [
     "alkoholfreier Gin",
     "Maracuja",
@@ -2340,7 +3188,8 @@
    "serve_style": "Sour",
    "strength": {
     "level": 0,
-    "label": "alkoholfrei"
+    "label": "alkoholfrei",
+    "label_en": "alcohol free"
    },
    "flavour_tags": [
     "fruchtig",
@@ -2404,13 +3253,38 @@
     }
    ],
    "hidden_on_card": false,
-   "card_action": ""
+   "card_action": "",
+   "tagline_en": "Passion fruit and vanilla, everything like the original, just without the alcohol. Even the prosecco on the side.",
+   "bartender_note_en": "Our most ordered cocktail, entirely without alcohol. Passion fruit and vanilla stay, the buzz goes.",
+   "ingredients_guest_en": [
+    "Non-alcoholic gin",
+    "Passion fruit",
+    "Vanilla",
+    "Lemon",
+    "Non-alcoholic sparkling wine"
+   ],
+   "glass_en": "Coupe with sidecar",
+   "section_en": "Non-Alcoholic",
+   "serve_style_en": "Sour",
+   "flavour_tags_en": [
+    "fruity",
+    "sweet",
+    "sparkling"
+   ],
+   "moment_en": [
+    "Opener",
+    "Midway"
+   ],
+   "allergens_en": [
+    "Egg"
+   ],
+   "unavailable_reason_en": ""
   },
   {
    "name": "La Rosa",
    "section": "Cocktails",
    "tagline_de": "Cachaça mit Ananas und Granatapfel. Fruchtig ohne süsslich zu werden.",
-   "bartender_note_de": "",
+   "bartender_note_de": "Cachaca trifft Ananas und Granatapfel. Ein rosa Sommerdrink aus dem Haus.",
    "ingredients_guest": [
     "Cachaça",
     "Ananas",
@@ -2422,7 +3296,8 @@
    "serve_style": "Highball",
    "strength": {
     "level": 2,
-    "label": "mild"
+    "label": "mild",
+    "label_en": "mild"
    },
    "flavour_tags": [
     "fruchtig",
@@ -2467,7 +3342,29 @@
     }
    ],
    "hidden_on_card": true,
-   "card_action": "Bleibt auf der Karte versteckt (Dan 19.08.2026)"
+   "card_action": "Bleibt auf der Karte versteckt (Dan 19.08.2026)",
+   "tagline_en": "Cachaca with pineapple and pomegranate. Fruity without turning sweet.",
+   "bartender_note_en": "Cachaca meets pineapple and pomegranate. A pink summer drink from the house.",
+   "ingredients_guest_en": [
+    "Cachaça",
+    "Pineapple",
+    "Lemon",
+    "Pomegranate",
+    "Soda"
+   ],
+   "glass_en": "Highball",
+   "section_en": "Cocktails",
+   "serve_style_en": "Highball",
+   "flavour_tags_en": [
+    "fruity",
+    "sour/citrus",
+    "sparkling"
+   ],
+   "moment_en": [
+    "Midway"
+   ],
+   "allergens_en": [],
+   "unavailable_reason_en": ""
   },
   {
    "name": "Clover Club",
@@ -2484,7 +3381,8 @@
    "serve_style": "Sour",
    "strength": {
     "level": 3,
-    "label": "mittel"
+    "label": "mittel",
+    "label_en": "medium"
    },
    "flavour_tags": [
     "fruchtig",
@@ -2526,13 +3424,35 @@
     }
    ],
    "hidden_on_card": false,
-   "card_action": ""
+   "card_action": "",
+   "tagline_en": "Raspberry and gin with a foam crown. Pink in the glass and far more grown-up than it looks.",
+   "bartender_note_en": "A pre-Prohibition classic from a Philadelphia gentlemen's club. Gin, raspberry and egg white, pink and far more grown-up than it looks.",
+   "ingredients_guest_en": [
+    "Tanqueray",
+    "Raspberry",
+    "Lemon",
+    "Sugar"
+   ],
+   "glass_en": "Coupe",
+   "section_en": "Gin Cocktails",
+   "serve_style_en": "Sour",
+   "flavour_tags_en": [
+    "fruity",
+    "creamy",
+    "sour/citrus"
+   ],
+   "moment_en": [
+    "Opener",
+    "Midway"
+   ],
+   "allergens_en": [],
+   "unavailable_reason_en": ""
   },
   {
    "name": "Frangelico Sour",
    "section": "Sours",
    "tagline_de": "Haselnuss und Wodka, sauer abgezogen. Klingt seltsam, funktioniert überraschend gut.",
-   "bartender_note_de": "",
+   "bartender_note_de": "Frangelico kommt in der Flasche im Moenchsgewand. Haselnuss trifft Sour, suess und rund.",
    "ingredients_guest": [
     "Frangelico",
     "Vodka",
@@ -2545,7 +3465,8 @@
    "serve_style": "Sour",
    "strength": {
     "level": 3,
-    "label": "mittel"
+    "label": "mittel",
+    "label_en": "medium"
    },
    "flavour_tags": [
     "süß",
@@ -2597,13 +3518,39 @@
     }
    ],
    "hidden_on_card": false,
-   "card_action": ""
+   "card_action": "",
+   "tagline_en": "Hazelnut and vodka, shaken sour. Sounds odd, works surprisingly well.",
+   "bartender_note_en": "Frangelico comes in a bottle shaped like a monk. Hazelnut meets sour, sweet and round.",
+   "ingredients_guest_en": [
+    "Frangelico",
+    "Vodka",
+    "Lemon",
+    "Lime",
+    "Sugar",
+    "Egg white"
+   ],
+   "glass_en": "Tumbler",
+   "section_en": "Sours",
+   "serve_style_en": "Sour",
+   "flavour_tags_en": [
+    "sweet",
+    "creamy",
+    "sour/citrus"
+   ],
+   "moment_en": [
+    "Late night"
+   ],
+   "allergens_en": [
+    "Egg",
+    "Nuts"
+   ],
+   "unavailable_reason_en": ""
   },
   {
    "name": "Pina Colada",
    "section": "Frozen",
    "tagline_de": "Ananas, Kokos, Rum. Kein bisschen ironisch gemeint.",
-   "bartender_note_de": "",
+   "bartender_note_de": "Puerto Ricos Nationaldrink seit 1978. Rum, Kokos, Ananas, Urlaub im Glas, Kitsch inklusive.",
    "ingredients_guest": [
     "Rum",
     "Ananas",
@@ -2614,7 +3561,8 @@
    "serve_style": "Frozen",
    "strength": {
     "level": 2,
-    "label": "mild"
+    "label": "mild",
+    "label_en": "mild"
    },
    "flavour_tags": [
     "fruchtig",
@@ -2653,13 +3601,36 @@
     }
    ],
    "hidden_on_card": false,
-   "card_action": ""
+   "card_action": "",
+   "tagline_en": "Pineapple, coconut, rum. Not meant one bit ironically.",
+   "bartender_note_en": "Puerto Rico's national drink since 1978. Rum, coconut, pineapple, a holiday in a glass, kitsch included.",
+   "ingredients_guest_en": [
+    "Rum",
+    "Pineapple",
+    "Coconut",
+    "Cream"
+   ],
+   "glass_en": "Hurricane",
+   "section_en": "Frozen",
+   "serve_style_en": "Frozen",
+   "flavour_tags_en": [
+    "fruity",
+    "creamy",
+    "sweet"
+   ],
+   "moment_en": [
+    "Midway"
+   ],
+   "allergens_en": [
+    "Milk"
+   ],
+   "unavailable_reason_en": ""
   },
   {
    "name": "Long Island Ice Tea",
    "section": "Cocktails",
    "tagline_de": "Fünf Spirituosen und ein Schuss Cola. Schmeckt nach Eistee und ist es ganz sicher nicht.",
-   "bartender_note_de": "",
+   "bartender_note_de": "Fuenf Spirituosen, kein Tropfen Tee. Schmeckt harmlos wie Eistee, ist es aber ganz und gar nicht.",
    "ingredients_guest": [
     "Wodka",
     "Gin",
@@ -2673,7 +3644,8 @@
    "serve_style": "Highball",
    "strength": {
     "level": 5,
-    "label": "stark"
+    "label": "stark",
+    "label_en": "strong"
    },
    "flavour_tags": [
     "süß",
@@ -2730,13 +3702,37 @@
     }
    ],
    "hidden_on_card": false,
-   "card_action": ""
+   "card_action": "",
+   "tagline_en": "Five spirits and a splash of cola. Tastes like iced tea and most certainly is not.",
+   "bartender_note_en": "Five spirits, not a drop of tea. Tastes as harmless as iced tea, and is anything but.",
+   "ingredients_guest_en": [
+    "Vodka",
+    "Gin",
+    "Rum",
+    "Tequila",
+    "Cointreau",
+    "Lemon",
+    "Cola"
+   ],
+   "glass_en": "Highball",
+   "section_en": "Cocktails",
+   "serve_style_en": "Highball",
+   "flavour_tags_en": [
+    "sweet",
+    "sour/citrus",
+    "sparkling"
+   ],
+   "moment_en": [
+    "Late night"
+   ],
+   "allergens_en": [],
+   "unavailable_reason_en": ""
   },
   {
    "name": "Campari Spritz",
    "section": "Spritz",
    "tagline_de": "Der bittere Bruder vom Aperol Spritz. Wer den mag, geht nicht mehr zurück.",
-   "bartender_note_de": "",
+   "bartender_note_de": "Der Spritz fuer Bitter Fans. Campari statt Aperol, eine Spur erwachsener.",
    "ingredients_guest": [
     "Campari",
     "Prosecco",
@@ -2746,7 +3742,8 @@
    "serve_style": "Spritz",
    "strength": {
     "level": 1,
-    "label": "leicht"
+    "label": "leicht",
+    "label_en": "light"
    },
    "flavour_tags": [
     "bitter",
@@ -2782,13 +3779,32 @@
     }
    ],
    "hidden_on_card": false,
-   "card_action": ""
+   "card_action": "",
+   "tagline_en": "The bitter brother of the Aperol Spritz. Once you like it, there is no going back.",
+   "bartender_note_en": "The spritz for bitter fans. Campari instead of Aperol, a touch more grown-up.",
+   "ingredients_guest_en": [
+    "Campari",
+    "Prosecco",
+    "Soda"
+   ],
+   "glass_en": "Wine glass",
+   "section_en": "Spritz",
+   "serve_style_en": "Spritz",
+   "flavour_tags_en": [
+    "bitter",
+    "sparkling"
+   ],
+   "moment_en": [
+    "Opener"
+   ],
+   "allergens_en": [],
+   "unavailable_reason_en": ""
   },
   {
    "name": "Mint Julep",
    "section": "Whiskey Cocktails",
    "tagline_de": "Bourbon über crushed Ice, ein Wald aus Minze obendrauf. Trink ihn langsam, das Glas soll beschlagen.",
-   "bartender_note_de": "",
+   "bartender_note_de": "Der Drink des Kentucky Derby. Bourbon und Minze im Becher, seit ueber hundert Jahren Pflicht beim Pferderennen.",
    "ingredients_guest": [
     "Bulleit Bourbon",
     "Minze",
@@ -2799,7 +3815,8 @@
    "serve_style": "Julep",
    "strength": {
     "level": 4,
-    "label": "kräftig"
+    "label": "kräftig",
+    "label_en": "bold"
    },
    "flavour_tags": [
     "kräuterig/frisch",
@@ -2839,13 +3856,33 @@
     }
    ],
    "hidden_on_card": false,
-   "card_action": ""
+   "card_action": "",
+   "tagline_en": "Bourbon over crushed ice, a forest of mint on top. Sip it slowly, the glass should frost.",
+   "bartender_note_en": "The drink of the Kentucky Derby. Bourbon and mint in the cup, a must at the horse races for over a hundred years.",
+   "ingredients_guest_en": [
+    "Bulleit Bourbon",
+    "Mint",
+    "Sugar",
+    "Angostura"
+   ],
+   "glass_en": "Mug",
+   "section_en": "Whiskey Cocktails",
+   "serve_style_en": "Julep",
+   "flavour_tags_en": [
+    "herbal/fresh",
+    "sweet"
+   ],
+   "moment_en": [
+    "Midway"
+   ],
+   "allergens_en": [],
+   "unavailable_reason_en": ""
   },
   {
    "name": "Wodka & Orange 6cl",
    "section": "Mixgetränke",
    "tagline_de": "Wodka und Orangensaft. Ehrlich und ohne Anspruch.",
-   "bartender_note_de": "",
+   "bartender_note_de": "Auch bekannt als Screwdriver. Angeblich ruehrten Oelarbeiter ihren Wodka Orange einst mit dem Schraubenzieher.",
    "ingredients_guest": [
     "Absolut",
     "Orangensaft"
@@ -2854,7 +3891,8 @@
    "serve_style": "Highball",
    "strength": {
     "level": 3,
-    "label": "mittel"
+    "label": "mittel",
+    "label_en": "medium"
    },
    "flavour_tags": [
     "fruchtig"
@@ -2885,13 +3923,30 @@
     }
    ],
    "hidden_on_card": false,
-   "card_action": ""
+   "card_action": "",
+   "tagline_en": "Vodka and orange juice. Honest and without pretension.",
+   "bartender_note_en": "Also known as the Screwdriver. Oil workers supposedly stirred their vodka and orange with a screwdriver.",
+   "ingredients_guest_en": [
+    "Absolut",
+    "Orange juice"
+   ],
+   "glass_en": "Highball",
+   "section_en": "Mixed Drinks",
+   "serve_style_en": "Highball",
+   "flavour_tags_en": [
+    "fruity"
+   ],
+   "moment_en": [
+    "Midway"
+   ],
+   "allergens_en": [],
+   "unavailable_reason_en": ""
   },
   {
    "name": "Boulvadier",
    "section": "Aperitivo Cocktails",
    "tagline_de": "Negroni, aber mit Bourbon statt Gin. Wärmer, runder, im Winter der bessere von beiden.",
-   "bartender_note_de": "",
+   "bartender_note_de": "Der Negroni mit Bourbon statt Gin. Benannt nach einem Pariser Magazin der 20er, waermer und runder als das Original.",
    "ingredients_guest": [
     "Bourbon",
     "Campari",
@@ -2901,7 +3956,8 @@
    "serve_style": "Stirred",
    "strength": {
     "level": 5,
-    "label": "stark"
+    "label": "stark",
+    "label_en": "strong"
    },
    "flavour_tags": [
     "bitter",
@@ -2937,13 +3993,32 @@
     }
    ],
    "hidden_on_card": false,
-   "card_action": ""
+   "card_action": "",
+   "tagline_en": "A Negroni, but with bourbon instead of gin. Warmer, rounder, in winter the better of the two.",
+   "bartender_note_en": "The Negroni with bourbon instead of gin. Named after a 1920s Paris magazine, warmer and rounder than the original.",
+   "ingredients_guest_en": [
+    "Bourbon",
+    "Campari",
+    "Sweet vermouth"
+   ],
+   "glass_en": "Tumbler",
+   "section_en": "Aperitivo Cocktails",
+   "serve_style_en": "Stirred",
+   "flavour_tags_en": [
+    "bitter",
+    "sweet"
+   ],
+   "moment_en": [
+    "Late night"
+   ],
+   "allergens_en": [],
+   "unavailable_reason_en": ""
   },
   {
    "name": "Gin Tonic - Fugger",
    "section": "Gin",
    "tagline_de": "Gin aus Augsburg mit Tonic. Der lokalste Gin Tonic, den wir haben.",
-   "bartender_note_de": "",
+   "bartender_note_de": "Mit Gin der Augsburger Marke Fugger, benannt nach der beruehmten Kaufmannsfamilie. Lokalpatriotismus im Glas.",
    "ingredients_guest": [
     "Fugger Gin",
     "Tonic Water",
@@ -2953,7 +4028,8 @@
    "serve_style": "Highball",
    "strength": {
     "level": 3,
-    "label": "mittel"
+    "label": "mittel",
+    "label_en": "medium"
    },
    "flavour_tags": [
     "kräuterig/frisch",
@@ -2987,13 +4063,34 @@
     }
    ],
    "hidden_on_card": false,
-   "card_action": ""
+   "card_action": "",
+   "tagline_en": "Gin from Augsburg with tonic. The most local gin and tonic we have.",
+   "bartender_note_en": "Made with gin from the Augsburg brand Fugger, named after the famous merchant family. Local pride in a glass.",
+   "ingredients_guest_en": [
+    "Fugger Gin",
+    "Tonic water",
+    "Lime"
+   ],
+   "glass_en": "Balloon glass",
+   "section_en": "Gin",
+   "serve_style_en": "Highball",
+   "flavour_tags_en": [
+    "herbal/fresh",
+    "bitter",
+    "sparkling"
+   ],
+   "moment_en": [
+    "Opener",
+    "Midway"
+   ],
+   "allergens_en": [],
+   "unavailable_reason_en": ""
   },
   {
    "name": "Maple Old Fashioned",
    "section": "Whiskey Cocktails",
    "tagline_de": "Ahornsirup statt Zucker. Macht den Old Fashioned weicher, ohne ihn brav zu machen.",
-   "bartender_note_de": "",
+   "bartender_note_de": "Der Old Fashioned mit Ahornsirup statt Zucker. Eine Spur Herbst und Kanada im Klassiker.",
    "ingredients_guest": [
     "Four Roses",
     "Ahornsirup",
@@ -3003,7 +4100,8 @@
    "serve_style": "Stirred",
    "strength": {
     "level": 5,
-    "label": "stark"
+    "label": "stark",
+    "label_en": "strong"
    },
    "flavour_tags": [
     "süß",
@@ -3035,13 +4133,32 @@
     }
    ],
    "hidden_on_card": false,
-   "card_action": ""
+   "card_action": "",
+   "tagline_en": "Maple syrup instead of sugar. Makes the Old Fashioned softer without making it tame.",
+   "bartender_note_en": "The Old Fashioned with maple syrup instead of sugar. A touch of autumn and Canada in the classic.",
+   "ingredients_guest_en": [
+    "Four Roses",
+    "Maple syrup",
+    "Angostura"
+   ],
+   "glass_en": "Tumbler",
+   "section_en": "Whiskey Cocktails",
+   "serve_style_en": "Stirred",
+   "flavour_tags_en": [
+    "sweet",
+    "bitter"
+   ],
+   "moment_en": [
+    "Late night"
+   ],
+   "allergens_en": [],
+   "unavailable_reason_en": ""
   },
   {
    "name": "Vibrante Alkoholfrei Spritz",
    "section": "Spritz alkoholfrei",
    "tagline_de": "Die bittere alkoholfreie Variante. Orange und Kräuter, ohne Kompromiss.",
-   "bartender_note_de": "",
+   "bartender_note_de": "Der bittere Aperitivo ganz ohne Alkohol. Martini Vibrante kommt dem Original erstaunlich nah.",
    "ingredients_guest": [
     "Martini Vibrante",
     "alkoholfreier Sekt",
@@ -3051,7 +4168,8 @@
    "serve_style": "Spritz",
    "strength": {
     "level": 0,
-    "label": "alkoholfrei"
+    "label": "alkoholfrei",
+    "label_en": "alcohol free"
    },
    "flavour_tags": [
     "bitter",
@@ -3087,13 +4205,32 @@
     }
    ],
    "hidden_on_card": false,
-   "card_action": ""
+   "card_action": "",
+   "tagline_en": "The bitter alcohol-free version. Orange and herbs, no compromise.",
+   "bartender_note_en": "The bitter aperitivo entirely without alcohol. Martini Vibrante comes surprisingly close to the original.",
+   "ingredients_guest_en": [
+    "Martini Vibrante",
+    "Non-alcoholic sparkling wine",
+    "Soda"
+   ],
+   "glass_en": "Wine glass",
+   "section_en": "Spritz Non-Alcoholic",
+   "serve_style_en": "Spritz",
+   "flavour_tags_en": [
+    "bitter",
+    "sparkling"
+   ],
+   "moment_en": [
+    "Opener"
+   ],
+   "allergens_en": [],
+   "unavailable_reason_en": ""
   },
   {
    "name": "Limoncello Spritz",
    "section": "Spritz",
    "tagline_de": "Zitrone pur, süss und kalt. Der Spritz für alle, die Sonne bestellen wollen.",
-   "bartender_note_de": "",
+   "bartender_note_de": "Sonne aus Sorrent. Limoncello, Prosecco, Soda, der Spritz fuer Zitronenfans.",
    "ingredients_guest": [
     "Limoncello",
     "Prosecco",
@@ -3103,7 +4240,8 @@
    "serve_style": "Spritz",
    "strength": {
     "level": 1,
-    "label": "leicht"
+    "label": "leicht",
+    "label_en": "light"
    },
    "flavour_tags": [
     "sauer/zitrus",
@@ -3140,7 +4278,27 @@
     }
    ],
    "hidden_on_card": false,
-   "card_action": ""
+   "card_action": "",
+   "tagline_en": "Pure lemon, sweet and cold. The spritz for anyone who wants to order sunshine.",
+   "bartender_note_en": "Sunshine from Sorrento. Limoncello, prosecco, soda, the spritz for lemon lovers.",
+   "ingredients_guest_en": [
+    "Limoncello",
+    "Prosecco",
+    "Soda"
+   ],
+   "glass_en": "Wine glass",
+   "section_en": "Spritz",
+   "serve_style_en": "Spritz",
+   "flavour_tags_en": [
+    "sour/citrus",
+    "sweet",
+    "sparkling"
+   ],
+   "moment_en": [
+    "Opener"
+   ],
+   "allergens_en": [],
+   "unavailable_reason_en": ""
   },
   {
    "name": "Negroni Sbagliato",
@@ -3156,7 +4314,8 @@
    "serve_style": "Stirred",
    "strength": {
     "level": 2,
-    "label": "mild"
+    "label": "mild",
+    "label_en": "mild"
    },
    "flavour_tags": [
     "bitter",
@@ -3192,13 +4351,32 @@
     }
    ],
    "hidden_on_card": false,
-   "card_action": ""
+   "card_action": "",
+   "tagline_en": "The mistaken Negroni. Prosecco went in instead of gin, and everyone liked it better.",
+   "bartender_note_en": "The mistaken Negroni. A barman reached for prosecco instead of gin, sbagliato is Italian for done wrong. Everyone liked it better.",
+   "ingredients_guest_en": [
+    "Campari",
+    "Sweet vermouth",
+    "Prosecco"
+   ],
+   "glass_en": "Tumbler",
+   "section_en": "Aperitivo Cocktails",
+   "serve_style_en": "Stirred",
+   "flavour_tags_en": [
+    "bitter",
+    "sparkling"
+   ],
+   "moment_en": [
+    "Opener"
+   ],
+   "allergens_en": [],
+   "unavailable_reason_en": ""
   },
   {
    "name": "Rosato Spritz",
    "section": "Spritz",
    "tagline_de": "Der leichteste Spritz auf der Karte. Blumig, trocken, unaufdringlich.",
-   "bartender_note_de": "",
+   "bartender_note_de": "Der Spritz in Altrosa. Fruchtig, leicht und wieder eine Farbe fuers Foto.",
    "ingredients_guest": [
     "Rosato Aperitivo",
     "Prosecco",
@@ -3208,7 +4386,8 @@
    "serve_style": "Spritz",
    "strength": {
     "level": 1,
-    "label": "leicht"
+    "label": "leicht",
+    "label_en": "light"
    },
    "flavour_tags": [
     "fruchtig",
@@ -3244,13 +4423,32 @@
     }
    ],
    "hidden_on_card": false,
-   "card_action": ""
+   "card_action": "",
+   "tagline_en": "The lightest spritz on the menu. Floral, dry, understated.",
+   "bartender_note_en": "The spritz in dusty rose. Fruity, light and again a colour for the photo.",
+   "ingredients_guest_en": [
+    "Rosato Aperitivo",
+    "Prosecco",
+    "Soda"
+   ],
+   "glass_en": "Wine glass",
+   "section_en": "Spritz",
+   "serve_style_en": "Spritz",
+   "flavour_tags_en": [
+    "fruity",
+    "sparkling"
+   ],
+   "moment_en": [
+    "Opener"
+   ],
+   "allergens_en": [],
+   "unavailable_reason_en": ""
   },
   {
    "name": "Campari & Soda",
    "section": "Mixgetränke",
    "tagline_de": "Zwei Zutaten, maximal bitter. Der Aperitif für Puristen.",
-   "bartender_note_de": "",
+   "bartender_note_de": "Der italienische Aperitivo Klassiker in Reinform. Bitter, rot, erwachsen.",
    "ingredients_guest": [
     "Campari",
     "Soda"
@@ -3259,7 +4457,8 @@
    "serve_style": "Highball",
    "strength": {
     "level": 1,
-    "label": "leicht"
+    "label": "leicht",
+    "label_en": "light"
    },
    "flavour_tags": [
     "bitter",
@@ -3291,13 +4490,31 @@
     }
    ],
    "hidden_on_card": false,
-   "card_action": ""
+   "card_action": "",
+   "tagline_en": "Two ingredients, maximum bitter. The aperitif for purists.",
+   "bartender_note_en": "The Italian aperitivo classic in its purest form. Bitter, red, grown-up.",
+   "ingredients_guest_en": [
+    "Campari",
+    "Soda"
+   ],
+   "glass_en": "Highball",
+   "section_en": "Mixed Drinks",
+   "serve_style_en": "Highball",
+   "flavour_tags_en": [
+    "bitter",
+    "sparkling"
+   ],
+   "moment_en": [
+    "Opener"
+   ],
+   "allergens_en": [],
+   "unavailable_reason_en": ""
   },
   {
    "name": "Gin Fizz",
    "section": "Gin",
    "tagline_de": "Gin, Zitrone, Soda, viel Schaum. Der Drink, mit dem man um zehn Uhr morgens anfangen könnte.",
-   "bartender_note_de": "",
+   "bartender_note_de": "Ein Sour mit Soda und ohne Ei, seit dem 19. Jahrhundert beliebt. Prickelnd und federleicht.",
    "ingredients_guest": [
     "Gin",
     "Zitrone",
@@ -3308,7 +4525,8 @@
    "serve_style": "Fizz",
    "strength": {
     "level": 2,
-    "label": "mild"
+    "label": "mild",
+    "label_en": "mild"
    },
    "flavour_tags": [
     "sauer/zitrus",
@@ -3352,13 +4570,33 @@
     }
    ],
    "hidden_on_card": false,
-   "card_action": ""
+   "card_action": "",
+   "tagline_en": "Gin, lemon, soda, plenty of foam. The drink you could start at ten in the morning.",
+   "bartender_note_en": "A sour with soda and no egg, popular since the 19th century. Sparkling and feather-light.",
+   "ingredients_guest_en": [
+    "Gin",
+    "Lemon",
+    "Sugar",
+    "Soda"
+   ],
+   "glass_en": "Highball",
+   "section_en": "Gin",
+   "serve_style_en": "Fizz",
+   "flavour_tags_en": [
+    "sour/citrus",
+    "sparkling"
+   ],
+   "moment_en": [
+    "Opener"
+   ],
+   "allergens_en": [],
+   "unavailable_reason_en": ""
   },
   {
    "name": "Old Fashioned",
    "section": "Whiskey",
    "tagline_de": "Whiskey, Zucker, Bitter, Eis. Der älteste Cocktail der Welt und immer noch der ehrlichste.",
-   "bartender_note_de": "",
+   "bartender_note_de": "Der Urgrossvater aller Cocktails. Als man um 1880 fragte, wie man ihn frueher machte, war der Name geboren. Zucker, Bitter, Whiskey, fertig.",
    "ingredients_guest": [
     "Whiskey",
     "Zucker",
@@ -3368,7 +4606,8 @@
    "serve_style": "Stirred",
    "strength": {
     "level": 5,
-    "label": "stark"
+    "label": "stark",
+    "label_en": "strong"
    },
    "flavour_tags": [
     "süß",
@@ -3404,13 +4643,32 @@
     }
    ],
    "hidden_on_card": false,
-   "card_action": "Auf der Karte einblenden (Dan 19.08.2026)"
+   "card_action": "Auf der Karte einblenden (Dan 19.08.2026)",
+   "tagline_en": "Whiskey, sugar, bitters, ice. The oldest cocktail in the world and still the most honest.",
+   "bartender_note_en": "The great-grandfather of all cocktails. When people around 1880 asked how it used to be made, the name was born. Sugar, bitters, whiskey, done.",
+   "ingredients_guest_en": [
+    "Whiskey",
+    "Sugar",
+    "Angostura"
+   ],
+   "glass_en": "Tumbler",
+   "section_en": "Whiskey",
+   "serve_style_en": "Stirred",
+   "flavour_tags_en": [
+    "sweet",
+    "bitter"
+   ],
+   "moment_en": [
+    "Late night"
+   ],
+   "allergens_en": [],
+   "unavailable_reason_en": ""
   },
   {
    "name": "Alkoholfrei - Caipirinha",
    "section": "Alkoholfrei",
    "tagline_de": "Limette und Rohrzucker über crushed Ice. Braucht keinen Alkohol, um zu funktionieren.",
-   "bartender_note_de": "",
+   "bartender_note_de": "Brasiliens Nationaldrink ganz ohne Umdrehungen. Limette und Zucker bleiben, der Kater nicht.",
    "ingredients_guest": [
     "alkoholfreie Cachaça",
     "Limette",
@@ -3421,7 +4679,8 @@
    "serve_style": "Muddled",
    "strength": {
     "level": 0,
-    "label": "alkoholfrei"
+    "label": "alkoholfrei",
+    "label_en": "alcohol free"
    },
    "flavour_tags": [
     "sauer/zitrus",
@@ -3465,13 +4724,33 @@
     }
    ],
    "hidden_on_card": false,
-   "card_action": ""
+   "card_action": "",
+   "tagline_en": "Lime and cane sugar over crushed ice. Needs no alcohol to work.",
+   "bartender_note_en": "Brazil's national drink with no proof at all. Lime and sugar stay, the hangover does not.",
+   "ingredients_guest_en": [
+    "Non-alcoholic cachaca",
+    "Lime",
+    "Sugar",
+    "Soda"
+   ],
+   "glass_en": "Tumbler",
+   "section_en": "Non-Alcoholic",
+   "serve_style_en": "Muddled",
+   "flavour_tags_en": [
+    "sour/citrus",
+    "sweet"
+   ],
+   "moment_en": [
+    "All evening"
+   ],
+   "allergens_en": [],
+   "unavailable_reason_en": ""
   },
   {
    "name": "Alkoholfrei - Gin Basil",
    "section": "Alkoholfrei",
    "tagline_de": "Basilikum und Zitrone auf alkoholfreiem Gin. Verliert nichts ausser dem Alkohol.",
-   "bartender_note_de": "",
+   "bartender_note_de": "Gin Basil Smash ohne Alkohol. Basilikum und Zitrone, gruen und frisch.",
    "ingredients_guest": [
     "Tanqueray 0.0",
     "Basilikum",
@@ -3482,7 +4761,8 @@
    "serve_style": "Sour",
    "strength": {
     "level": 0,
-    "label": "alkoholfrei"
+    "label": "alkoholfrei",
+    "label_en": "alcohol free"
    },
    "flavour_tags": [
     "kräuterig/frisch",
@@ -3523,13 +4803,34 @@
     }
    ],
    "hidden_on_card": false,
-   "card_action": ""
+   "card_action": "",
+   "tagline_en": "Basil and lemon on alcohol-free gin. Loses nothing but the alcohol.",
+   "bartender_note_en": "A Gin Basil Smash without alcohol. Basil and lemon, green and fresh.",
+   "ingredients_guest_en": [
+    "Tanqueray 0.0",
+    "Basil",
+    "Lemon",
+    "Sugar"
+   ],
+   "glass_en": "Tumbler",
+   "section_en": "Non-Alcoholic",
+   "serve_style_en": "Sour",
+   "flavour_tags_en": [
+    "herbal/fresh",
+    "sour/citrus"
+   ],
+   "moment_en": [
+    "Opener",
+    "Midway"
+   ],
+   "allergens_en": [],
+   "unavailable_reason_en": ""
   },
   {
    "name": "Danube Morning",
    "section": "Cocktails",
    "tagline_de": "Erdbeere und Basilikum auf Cachaça. Schmeckt nach Garten im Juni.",
-   "bartender_note_de": "",
+   "bartender_note_de": "Erdbeere und Basilikum ueber Cachaca. Ein Sommermorgen an der Donau im Glas, Haus Kreation.",
    "ingredients_guest": [
     "Cachaça",
     "Erdbeere",
@@ -3542,7 +4843,8 @@
    "serve_style": "Highball",
    "strength": {
     "level": 2,
-    "label": "mild"
+    "label": "mild",
+    "label_en": "mild"
    },
    "flavour_tags": [
     "fruchtig",
@@ -3592,13 +4894,37 @@
     }
    ],
    "hidden_on_card": true,
-   "card_action": "Bleibt auf der Karte versteckt (Dan 19.08.2026)"
+   "card_action": "Bleibt auf der Karte versteckt (Dan 19.08.2026)",
+   "tagline_en": "Strawberry and basil on cachaca. Tastes like a garden in June.",
+   "bartender_note_en": "Strawberry and basil over cachaca. A summer morning by the Danube in a glass, a house creation.",
+   "ingredients_guest_en": [
+    "Cachaça",
+    "Strawberry",
+    "Basil",
+    "Lime",
+    "Sugar",
+    "Soda"
+   ],
+   "glass_en": "Highball",
+   "section_en": "Cocktails",
+   "serve_style_en": "Highball",
+   "flavour_tags_en": [
+    "fruity",
+    "herbal/fresh",
+    "sparkling"
+   ],
+   "moment_en": [
+    "Opener",
+    "Midway"
+   ],
+   "allergens_en": [],
+   "unavailable_reason_en": ""
   },
   {
    "name": "Don Julio Ranch Water",
    "section": "Tequila",
    "tagline_de": "Tequila, Limette, Sprudel. Aus Texas und so unkompliziert, wie es klingt.",
-   "bartender_note_de": "",
+   "bartender_note_de": "Kommt aus West Texas. Tequila, Limette, Mineralwasser, mehr nicht. Der leichteste Weg, Don Julio zu geniessen.",
    "ingredients_guest": [
     "Don Julio Blanco",
     "Limette",
@@ -3608,7 +4934,8 @@
    "serve_style": "Highball",
    "strength": {
     "level": 2,
-    "label": "mild"
+    "label": "mild",
+    "label_en": "mild"
    },
    "flavour_tags": [
     "sauer/zitrus",
@@ -3644,13 +4971,32 @@
     }
    ],
    "hidden_on_card": false,
-   "card_action": ""
+   "card_action": "",
+   "tagline_en": "Tequila, lime, sparkling water. From Texas and as easygoing as it sounds.",
+   "bartender_note_en": "Comes from West Texas. Tequila, lime, mineral water, nothing more. The lightest way to enjoy Don Julio.",
+   "ingredients_guest_en": [
+    "Don Julio Blanco",
+    "Lime",
+    "Mineral water"
+   ],
+   "glass_en": "Highball",
+   "section_en": "Tequila",
+   "serve_style_en": "Highball",
+   "flavour_tags_en": [
+    "sour/citrus",
+    "sparkling"
+   ],
+   "moment_en": [
+    "Opener"
+   ],
+   "allergens_en": [],
+   "unavailable_reason_en": ""
   },
   {
    "name": "Gingerle Sour",
    "section": "Sours",
    "tagline_de": "Ingwer Zitronen Likör, sauer abgezogen. Wärmt von innen, ohne scharf zu sein.",
-   "bartender_note_de": "",
+   "bartender_note_de": "Ingwer Zitronen Likoer als Sour, wuerzig und frisch.",
    "ingredients_guest": [
     "gingerle",
     "Zitrone",
@@ -3660,7 +5006,8 @@
    "serve_style": "Sour",
    "strength": {
     "level": 2,
-    "label": "mild"
+    "label": "mild",
+    "label_en": "mild"
    },
    "flavour_tags": [
     "sauer/zitrus",
@@ -3700,13 +5047,32 @@
     }
    ],
    "hidden_on_card": false,
-   "card_action": ""
+   "card_action": "",
+   "tagline_en": "Ginger lemon liqueur, shaken sour. Warms from within without being fiery.",
+   "bartender_note_en": "Ginger lemon liqueur as a sour, spicy and fresh.",
+   "ingredients_guest_en": [
+    "gingerle",
+    "Lemon",
+    "Sugar"
+   ],
+   "glass_en": "Tumbler",
+   "section_en": "Sours",
+   "serve_style_en": "Sour",
+   "flavour_tags_en": [
+    "sour/citrus",
+    "sparkling"
+   ],
+   "moment_en": [
+    "Midway"
+   ],
+   "allergens_en": [],
+   "unavailable_reason_en": "Gingerle liqueur delisted, no longer in the house"
   },
   {
    "name": "Pfeffi 2cl",
    "section": "Shots",
    "tagline_de": "Ostdeutsche Pfefferminze, eiskalt. Kult, und das zu Recht.",
-   "bartender_note_de": "",
+   "bartender_note_de": "DDR Kult in Gruen. Der Pfefferminzlikoer, den ganze Generationen kennen.",
    "ingredients_guest": [
     "Pfeffi"
    ],
@@ -3714,7 +5080,8 @@
    "serve_style": "Shot",
    "strength": {
     "level": 2,
-    "label": "mild"
+    "label": "mild",
+    "label_en": "mild"
    },
    "flavour_tags": [
     "kräuterig/frisch",
@@ -3742,13 +5109,30 @@
     }
    ],
    "hidden_on_card": false,
-   "card_action": ""
+   "card_action": "",
+   "tagline_en": "East German peppermint, ice cold. A cult classic, and rightly so.",
+   "bartender_note_en": "East German cult in green. The peppermint liqueur whole generations know.",
+   "ingredients_guest_en": [
+    "Pfeffi"
+   ],
+   "glass_en": "Shot glass",
+   "section_en": "Shots",
+   "serve_style_en": "Shot",
+   "flavour_tags_en": [
+    "herbal/fresh",
+    "sweet"
+   ],
+   "moment_en": [
+    "Late night"
+   ],
+   "allergens_en": [],
+   "unavailable_reason_en": ""
   },
   {
    "name": "Philosoph",
    "section": "Sours",
    "tagline_de": "Pfirsich und Wodka, sauer abgezogen. Unkompliziert und genau deshalb gut.",
-   "bartender_note_de": "",
+   "bartender_note_de": "Pfirsich, Zitrone, Wodka. Ein Drink zum Nachdenken oder zum Nichtnachdenken, ganz wie du willst. Haus Kreation.",
    "ingredients_guest": [
     "Absolut",
     "Pfirsichlikör",
@@ -3759,7 +5143,8 @@
    "serve_style": "Sour",
    "strength": {
     "level": 3,
-    "label": "mittel"
+    "label": "mittel",
+    "label_en": "medium"
    },
    "flavour_tags": [
     "fruchtig",
@@ -3799,13 +5184,33 @@
     }
    ],
    "hidden_on_card": false,
-   "card_action": ""
+   "card_action": "",
+   "tagline_en": "Peach and vodka, shaken sour. Uncomplicated and good for exactly that reason.",
+   "bartender_note_en": "Peach, lemon, vodka. A drink for thinking or for not thinking, whichever you prefer. A house creation.",
+   "ingredients_guest_en": [
+    "Absolut",
+    "Peach liqueur",
+    "Lemon",
+    "Sugar"
+   ],
+   "glass_en": "Coupe",
+   "section_en": "Sours",
+   "serve_style_en": "Sour",
+   "flavour_tags_en": [
+    "fruity",
+    "sour/citrus"
+   ],
+   "moment_en": [
+    "Midway"
+   ],
+   "allergens_en": [],
+   "unavailable_reason_en": ""
   },
   {
    "name": "Talisker Campfire",
    "section": "Whiskey",
    "tagline_de": "Rauchiger Whisky in warmer Schokolade. Klingt verrückt, wärmt aber wie nichts sonst.",
-   "bartender_note_de": "",
+   "bartender_note_de": "Rauchiger Talisker mit Milch und Kakao. Wie ein Lagerfeuer am Meer, nur fluessig.",
    "ingredients_guest": [
     "Talisker",
     "Milch",
@@ -3815,7 +5220,8 @@
    "serve_style": "Hot",
    "strength": {
     "level": 3,
-    "label": "mittel"
+    "label": "mittel",
+    "label_en": "medium"
    },
    "flavour_tags": [
     "cremig",
@@ -3853,13 +5259,34 @@
     }
    ],
    "hidden_on_card": true,
-   "card_action": "Bleibt auf der Karte versteckt (Dan 19.08.2026)"
+   "card_action": "Bleibt auf der Karte versteckt (Dan 19.08.2026)",
+   "tagline_en": "Smoky whisky in warm chocolate. Sounds mad, but warms like nothing else.",
+   "bartender_note_en": "Smoky Talisker with milk and cocoa. Like a campfire by the sea, only liquid.",
+   "ingredients_guest_en": [
+    "Talisker",
+    "Milk",
+    "Cocoa"
+   ],
+   "glass_en": "Handled glass",
+   "section_en": "Whiskey",
+   "serve_style_en": "Hot",
+   "flavour_tags_en": [
+    "creamy",
+    "sweet"
+   ],
+   "moment_en": [
+    "Late night"
+   ],
+   "allergens_en": [
+    "Milk"
+   ],
+   "unavailable_reason_en": ""
   },
   {
    "name": "Campari Orange",
    "section": "Apertive Cocktails",
    "tagline_de": "Bitter trifft Orange. Der italienische Nachmittag im Glas.",
-   "bartender_note_de": "",
+   "bartender_note_de": "Campari und Orangensaft, der einfachste italienische Aperitivo. Bitter trifft suess.",
    "ingredients_guest": [
     "Campari",
     "Orangensaft"
@@ -3868,7 +5295,8 @@
    "serve_style": "Highball",
    "strength": {
     "level": 1,
-    "label": "leicht"
+    "label": "leicht",
+    "label_en": "light"
    },
    "flavour_tags": [
     "bitter",
@@ -3900,13 +5328,31 @@
     }
    ],
    "hidden_on_card": false,
-   "card_action": ""
+   "card_action": "",
+   "tagline_en": "Bitter meets orange. An Italian afternoon in a glass.",
+   "bartender_note_en": "Campari and orange juice, the simplest Italian aperitivo. Bitter meets sweet.",
+   "ingredients_guest_en": [
+    "Campari",
+    "Orange juice"
+   ],
+   "glass_en": "Highball",
+   "section_en": "Aperitif Cocktails",
+   "serve_style_en": "Highball",
+   "flavour_tags_en": [
+    "bitter",
+    "fruity"
+   ],
+   "moment_en": [
+    "Opener"
+   ],
+   "allergens_en": [],
+   "unavailable_reason_en": ""
   },
   {
    "name": "Hugo Spritz",
    "section": "Spritz",
    "tagline_de": "Holunderblüte, Prosecco, Minze. In Südtirol erfunden und seitdem aus keinem Sommer wegzudenken.",
-   "bartender_note_de": "",
+   "bartender_note_de": "Erfunden um 2005 in Suedtirol von Roland Gruber, der eine Alternative zum Spritz suchte. Holunder und Minze, heute ueberall.",
    "ingredients_guest": [
     "Holunderblüte",
     "Prosecco",
@@ -3917,7 +5363,8 @@
    "serve_style": "Spritz",
    "strength": {
     "level": 1,
-    "label": "leicht"
+    "label": "leicht",
+    "label_en": "light"
    },
    "flavour_tags": [
     "süß",
@@ -3954,13 +5401,34 @@
     }
    ],
    "hidden_on_card": false,
-   "card_action": ""
+   "card_action": "",
+   "tagline_en": "Elderflower, prosecco, mint. Invented in South Tyrol and part of every summer since.",
+   "bartender_note_en": "Invented around 2005 in South Tyrol by Roland Gruber, who wanted an alternative to the spritz. Elderflower and mint, everywhere today.",
+   "ingredients_guest_en": [
+    "Elderflower",
+    "Prosecco",
+    "Soda",
+    "Mint"
+   ],
+   "glass_en": "Wine glass",
+   "section_en": "Spritz",
+   "serve_style_en": "Spritz",
+   "flavour_tags_en": [
+    "sweet",
+    "sparkling",
+    "herbal/fresh"
+   ],
+   "moment_en": [
+    "Opener"
+   ],
+   "allergens_en": [],
+   "unavailable_reason_en": ""
   },
   {
    "name": "Jack & Cola 6cl",
    "section": "Mixgetränke",
    "tagline_de": "Tennessee Whiskey und Cola. Muss man nicht erklären.",
-   "bartender_note_de": "",
+   "bartender_note_de": "Jack Daniel's und Cola, die wohl bekannteste Kombination der Rockgeschichte.",
    "ingredients_guest": [
     "Jack Daniel's",
     "Cola"
@@ -3969,7 +5437,8 @@
    "serve_style": "Highball",
    "strength": {
     "level": 3,
-    "label": "mittel"
+    "label": "mittel",
+    "label_en": "medium"
    },
    "flavour_tags": [
     "süß",
@@ -4001,13 +5470,31 @@
     }
    ],
    "hidden_on_card": false,
-   "card_action": ""
+   "card_action": "",
+   "tagline_en": "Tennessee whiskey and cola. No need to explain.",
+   "bartender_note_en": "Jack Daniel's and cola, probably the most famous pairing in rock history.",
+   "ingredients_guest_en": [
+    "Jack Daniel's",
+    "Cola"
+   ],
+   "glass_en": "Highball",
+   "section_en": "Mixed Drinks",
+   "serve_style_en": "Highball",
+   "flavour_tags_en": [
+    "sweet",
+    "sparkling"
+   ],
+   "moment_en": [
+    "Midway"
+   ],
+   "allergens_en": [],
+   "unavailable_reason_en": ""
   },
   {
    "name": "Manhattan",
    "section": "Whiskey",
    "tagline_de": "Bourbon und Wermut, gerührt, kalt, ohne Umwege. Ein Drink für Leute, die nicht viel reden müssen.",
-   "bartender_note_de": "",
+   "bartender_note_de": "Ende des 19. Jahrhunderts in New York entstanden, angeblich im Manhattan Club. Whiskey, roter Wermut, Bitter, elegant und zeitlos.",
    "ingredients_guest": [
     "Bourbon",
     "roter Wermut",
@@ -4017,7 +5504,8 @@
    "serve_style": "Stirred",
    "strength": {
     "level": 5,
-    "label": "stark"
+    "label": "stark",
+    "label_en": "strong"
    },
    "flavour_tags": [
     "süß",
@@ -4053,13 +5541,32 @@
     }
    ],
    "hidden_on_card": false,
-   "card_action": "Auf der Karte einblenden (Dan 19.08.2026)"
+   "card_action": "Auf der Karte einblenden (Dan 19.08.2026)",
+   "tagline_en": "Bourbon and vermouth, stirred, cold, no detours. A drink for people who do not need to say much.",
+   "bartender_note_en": "Born in late 19th century New York, supposedly at the Manhattan Club. Whiskey, red vermouth, bitters, elegant and timeless.",
+   "ingredients_guest_en": [
+    "Bourbon",
+    "Sweet vermouth",
+    "Angostura"
+   ],
+   "glass_en": "Coupe",
+   "section_en": "Whiskey",
+   "serve_style_en": "Stirred",
+   "flavour_tags_en": [
+    "sweet",
+    "bitter"
+   ],
+   "moment_en": [
+    "Late night"
+   ],
+   "allergens_en": [],
+   "unavailable_reason_en": ""
   },
   {
    "name": "Marille 2cl",
    "section": "Shots",
    "tagline_de": "Marille aus Österreich. Fruchtig und wärmer, als du erwartest.",
-   "bartender_note_de": "",
+   "bartender_note_de": "Oesterreichs Seele als Shot. Marillenschnaps, klar und fruchtig.",
    "ingredients_guest": [
     "Marillenschnaps"
    ],
@@ -4067,7 +5574,8 @@
    "serve_style": "Shot",
    "strength": {
     "level": 3,
-    "label": "mittel"
+    "label": "mittel",
+    "label_en": "medium"
    },
    "flavour_tags": [
     "fruchtig"
@@ -4094,13 +5602,29 @@
     }
    ],
    "hidden_on_card": false,
-   "card_action": ""
+   "card_action": "",
+   "tagline_en": "Apricot from Austria. Fruitier and warmer than you expect.",
+   "bartender_note_en": "Austria's soul as a shot. Apricot schnapps, clear and fruity.",
+   "ingredients_guest_en": [
+    "Apricot schnapps"
+   ],
+   "glass_en": "Shot glass",
+   "section_en": "Shots",
+   "serve_style_en": "Shot",
+   "flavour_tags_en": [
+    "fruity"
+   ],
+   "moment_en": [
+    "Late night"
+   ],
+   "allergens_en": [],
+   "unavailable_reason_en": ""
   },
   {
    "name": "Mate Spritz",
    "section": "Spritz",
    "tagline_de": "Club Mate trifft Prosecco. Koffein und Bläschen, der Spritz für lange Abende.",
-   "bartender_note_de": "",
+   "bartender_note_de": "Club Mate trifft Prosecco. Koffein und Blubber, der Spritz fuer lange Naechte.",
    "ingredients_guest": [
     "Club Mate",
     "Prosecco",
@@ -4110,7 +5634,8 @@
    "serve_style": "Spritz",
    "strength": {
     "level": 1,
-    "label": "leicht"
+    "label": "leicht",
+    "label_en": "light"
    },
    "flavour_tags": [
     "prickelnd",
@@ -4143,7 +5668,27 @@
     }
    ],
    "hidden_on_card": false,
-   "card_action": ""
+   "card_action": "",
+   "tagline_en": "Club Mate meets prosecco. Caffeine and bubbles, the spritz for long evenings.",
+   "bartender_note_en": "Club Mate meets prosecco. Caffeine and bubbles, the spritz for long nights.",
+   "ingredients_guest_en": [
+    "Club Mate",
+    "Prosecco",
+    "Soda"
+   ],
+   "glass_en": "Wine glass",
+   "section_en": "Spritz",
+   "serve_style_en": "Spritz",
+   "flavour_tags_en": [
+    "sparkling",
+    "bitter"
+   ],
+   "moment_en": [
+    "Opener",
+    "Midway"
+   ],
+   "allergens_en": [],
+   "unavailable_reason_en": ""
   },
   {
    "name": "Paper Plane",
@@ -4160,7 +5705,8 @@
    "serve_style": "Shaken",
    "strength": {
     "level": 4,
-    "label": "kräftig"
+    "label": "kräftig",
+    "label_en": "bold"
    },
    "flavour_tags": [
     "bitter",
@@ -4201,13 +5747,34 @@
     }
    ],
    "hidden_on_card": true,
-   "card_action": "Bleibt auf der Karte versteckt (Dan 19.08.2026)"
+   "card_action": "Bleibt auf der Karte versteckt (Dan 19.08.2026)",
+   "tagline_en": "Four ingredients in equal parts. Bitter, sour, fruity and completely in balance.",
+   "bartender_note_en": "A modern classic by Sam Ross from 2008. Equal parts bourbon, Aperol, Amaro and lemon, named after the M.I.A. song.",
+   "ingredients_guest_en": [
+    "Bourbon",
+    "Amaro",
+    "Aperol",
+    "Lemon"
+   ],
+   "glass_en": "Coupe",
+   "section_en": "Whiskey",
+   "serve_style_en": "Shaken",
+   "flavour_tags_en": [
+    "bitter",
+    "sour/citrus",
+    "fruity"
+   ],
+   "moment_en": [
+    "Midway"
+   ],
+   "allergens_en": [],
+   "unavailable_reason_en": ""
   },
   {
    "name": "Sambuca 2cl",
    "section": "Shots",
    "tagline_de": "Anis, eiskalt. Entweder dein Ding oder gar nicht.",
-   "bartender_note_de": "",
+   "bartender_note_de": "Roemischer Anislikoer, traditionell mit drei Kaffeebohnen fuer Gesundheit, Glueck und Wohlstand.",
    "ingredients_guest": [
     "Sambuca"
    ],
@@ -4215,7 +5782,8 @@
    "serve_style": "Shot",
    "strength": {
     "level": 3,
-    "label": "mittel"
+    "label": "mittel",
+    "label_en": "medium"
    },
    "flavour_tags": [
     "süß",
@@ -4243,13 +5811,30 @@
     }
    ],
    "hidden_on_card": false,
-   "card_action": ""
+   "card_action": "",
+   "tagline_en": "Anise, ice cold. Either your thing or not at all.",
+   "bartender_note_en": "A Roman anise liqueur, traditionally served with three coffee beans for health, happiness and prosperity.",
+   "ingredients_guest_en": [
+    "Sambuca"
+   ],
+   "glass_en": "Shot glass",
+   "section_en": "Shots",
+   "serve_style_en": "Shot",
+   "flavour_tags_en": [
+    "sweet",
+    "herbal/fresh"
+   ],
+   "moment_en": [
+    "Late night"
+   ],
+   "allergens_en": [],
+   "unavailable_reason_en": ""
   },
   {
    "name": "Zacapa & Ginger",
    "section": "Mixgetränke",
    "tagline_de": "Gereifter Rum auf Ingwer. Teuer, aber genau richtig.",
-   "bartender_note_de": "",
+   "bartender_note_de": "Guatemalas Edelrum Zacapa mit scharfem Ingwer. Karamell trifft Feuer.",
    "ingredients_guest": [
     "Zacapa 23",
     "Thomas Henry Spicy Ginger"
@@ -4258,7 +5843,8 @@
    "serve_style": "Highball",
    "strength": {
     "level": 3,
-    "label": "mittel"
+    "label": "mittel",
+    "label_en": "medium"
    },
    "flavour_tags": [
     "prickelnd",
@@ -4290,13 +5876,31 @@
     }
    ],
    "hidden_on_card": false,
-   "card_action": ""
+   "card_action": "",
+   "tagline_en": "Aged rum on ginger. Pricey, but exactly right.",
+   "bartender_note_en": "Guatemala's premium rum Zacapa with sharp ginger. Caramel meets fire.",
+   "ingredients_guest_en": [
+    "Zacapa 23",
+    "Thomas Henry Spicy Ginger"
+   ],
+   "glass_en": "Highball",
+   "section_en": "Mixed Drinks",
+   "serve_style_en": "Highball",
+   "flavour_tags_en": [
+    "sparkling",
+    "sweet"
+   ],
+   "moment_en": [
+    "Midway"
+   ],
+   "allergens_en": [],
+   "unavailable_reason_en": ""
   },
   {
    "name": "Mandelino",
    "section": "Spritzig Selects",
    "tagline_de": "Mandel und Kirschblüte im Prosecco. Süss, blumig und ziemlich hübsch im Glas.",
-   "bartender_note_de": "",
+   "bartender_note_de": "Mandel und Kirschbluete im Prosecco. Ein zarter Haus Aperitivo, fast wie Marzipan zum Trinken.",
    "ingredients_guest": [
     "Prosecco",
     "Mandelsirup",
@@ -4306,7 +5910,8 @@
    "serve_style": "Spritz",
    "strength": {
     "level": 1,
-    "label": "leicht"
+    "label": "leicht",
+    "label_en": "light"
    },
    "flavour_tags": [
     "süß",
@@ -4346,13 +5951,32 @@
     }
    ],
    "hidden_on_card": false,
-   "card_action": ""
+   "card_action": "",
+   "tagline_en": "Almond and cherry blossom in prosecco. Sweet, floral and rather pretty in the glass.",
+   "bartender_note_en": "Almond and cherry blossom in prosecco. A gentle house aperitivo, almost like marzipan you can drink.",
+   "ingredients_guest_en": [
+    "Prosecco",
+    "Almond syrup",
+    "Thomas Henry Cherry Blossom"
+   ],
+   "glass_en": "Wine glass",
+   "section_en": "Sparkling Selects",
+   "serve_style_en": "Spritz",
+   "flavour_tags_en": [
+    "sweet",
+    "sparkling"
+   ],
+   "moment_en": [
+    "Opener"
+   ],
+   "allergens_en": [],
+   "unavailable_reason_en": ""
   },
   {
    "name": "Margarita Rojas",
    "section": "Agave Cocktails",
    "tagline_de": "Margarita auf Mezcal, mit Tajín am Rand. Rauchig und salzig, ein anderes Tier als die klassische.",
-   "bartender_note_de": "",
+   "bartender_note_de": "Unsere rote Haus Margarita mit Tajin am Rand. Rauchig, salzig und eine Spur Chili, nichts fuer schwache Nerven.",
    "ingredients_guest": [
     "Mezcal",
     "Limette",
@@ -4364,7 +5988,8 @@
    "serve_style": "Shaken",
    "strength": {
     "level": 4,
-    "label": "kräftig"
+    "label": "kräftig",
+    "label_en": "bold"
    },
    "flavour_tags": [
     "sauer/zitrus",
@@ -4404,13 +6029,34 @@
     }
    ],
    "hidden_on_card": false,
-   "card_action": ""
+   "card_action": "",
+   "tagline_en": "A Margarita on mezcal, with Tajin on the rim. Smoky and salty, a different animal than the classic.",
+   "bartender_note_en": "Our red house Margarita with Tajin on the rim. Smoky, salty and a touch of chili, not for the faint-hearted.",
+   "ingredients_guest_en": [
+    "Mezcal",
+    "Lime",
+    "Cointreau",
+    "Agave",
+    "Tajín"
+   ],
+   "glass_en": "Coupe",
+   "section_en": "Agave Cocktails",
+   "serve_style_en": "Shaken",
+   "flavour_tags_en": [
+    "sour/citrus",
+    "smoky"
+   ],
+   "moment_en": [
+    "Midway"
+   ],
+   "allergens_en": [],
+   "unavailable_reason_en": ""
   },
   {
    "name": "Mermaid's Melody",
    "section": "Rum/Cachaça",
    "tagline_de": "Blau, Kokos, Limette. Sieht aus wie Urlaub und schmeckt auch so.",
-   "bartender_note_de": "",
+   "bartender_note_de": "Blaues Curacao macht die Meerjungfrau. Kokos und Limette, ein Karibiktraum in Tuerkis.",
    "ingredients_guest": [
     "Bacardi",
     "Blue Curaçao",
@@ -4422,7 +6068,8 @@
    "serve_style": "Highball",
    "strength": {
     "level": 2,
-    "label": "mild"
+    "label": "mild",
+    "label_en": "mild"
    },
    "flavour_tags": [
     "fruchtig",
@@ -4471,13 +6118,35 @@
     }
    ],
    "hidden_on_card": true,
-   "card_action": "Bleibt auf der Karte versteckt (Dan 19.08.2026)"
+   "card_action": "Bleibt auf der Karte versteckt (Dan 19.08.2026)",
+   "tagline_en": "Blue, coconut, lime. Looks like a holiday and tastes like one.",
+   "bartender_note_en": "Blue curacao makes the mermaid. Coconut and lime, a Caribbean dream in turquoise.",
+   "ingredients_guest_en": [
+    "Bacardi",
+    "Blue Curaçao",
+    "Lime",
+    "Coconut",
+    "Soda"
+   ],
+   "glass_en": "Highball",
+   "section_en": "Rum/Cachaça",
+   "serve_style_en": "Highball",
+   "flavour_tags_en": [
+    "fruity",
+    "sweet",
+    "creamy"
+   ],
+   "moment_en": [
+    "Midway"
+   ],
+   "allergens_en": [],
+   "unavailable_reason_en": ""
   },
   {
    "name": "Mikki",
    "section": "Tequila/Agave",
    "tagline_de": "Reposado mit Amaretto und Orange Bitters. Gerührt, nicht geschüttelt, und deutlich ernster als er klingt.",
-   "bartender_note_de": "",
+   "bartender_note_de": "Don Julio Reposado mit Amaretto und Orange Bitters. Ein Haus Sipper fuer Tequila Kenner.",
    "ingredients_guest": [
     "Don Julio Reposado",
     "Amaretto",
@@ -4488,7 +6157,8 @@
    "serve_style": "Stirred",
    "strength": {
     "level": 5,
-    "label": "stark"
+    "label": "stark",
+    "label_en": "strong"
    },
    "flavour_tags": [
     "süß",
@@ -4530,13 +6200,35 @@
     }
    ],
    "hidden_on_card": true,
-   "card_action": "Bleibt auf der Karte versteckt (Dan 19.08.2026)"
+   "card_action": "Bleibt auf der Karte versteckt (Dan 19.08.2026)",
+   "tagline_en": "Reposado with amaretto and orange bitters. Stirred, not shaken, and far more serious than it sounds.",
+   "bartender_note_en": "Don Julio Reposado with amaretto and orange bitters. A house sipper for tequila lovers.",
+   "ingredients_guest_en": [
+    "Don Julio Reposado",
+    "Amaretto",
+    "Agave",
+    "Orange bitters"
+   ],
+   "glass_en": "Tumbler",
+   "section_en": "Tequila/Agave",
+   "serve_style_en": "Stirred",
+   "flavour_tags_en": [
+    "sweet",
+    "bitter"
+   ],
+   "moment_en": [
+    "Late night"
+   ],
+   "allergens_en": [
+    "Nuts"
+   ],
+   "unavailable_reason_en": ""
   },
   {
    "name": "Touchdown",
    "section": "Vodka",
    "tagline_de": "Maracuja, Aprikose und Granatapfel. Der fruchtigste Drink auf der Karte, ohne Entschuldigung.",
-   "bartender_note_de": "",
+   "bartender_note_de": "Aprikose, Maracuja, Ananas. Ein fruchtiger Haus Cocktail, der auch ohne Football gewinnt.",
    "ingredients_guest": [
     "Absolut",
     "Aprikose",
@@ -4549,7 +6241,8 @@
    "serve_style": "Shaken",
    "strength": {
     "level": 3,
-    "label": "mittel"
+    "label": "mittel",
+    "label_en": "medium"
    },
    "flavour_tags": [
     "fruchtig",
@@ -4597,13 +6290,35 @@
     }
    ],
    "hidden_on_card": false,
-   "card_action": ""
+   "card_action": "",
+   "tagline_en": "Passion fruit, apricot and pomegranate. The fruitiest drink on the menu, no apology.",
+   "bartender_note_en": "Apricot, passion fruit, pineapple. A fruity house cocktail that wins without any football.",
+   "ingredients_guest_en": [
+    "Absolut",
+    "Apricot",
+    "Passion fruit",
+    "Pineapple",
+    "Lime",
+    "Pomegranate"
+   ],
+   "glass_en": "Highball",
+   "section_en": "Vodka",
+   "serve_style_en": "Shaken",
+   "flavour_tags_en": [
+    "fruity",
+    "sweet"
+   ],
+   "moment_en": [
+    "Midway"
+   ],
+   "allergens_en": [],
+   "unavailable_reason_en": ""
   },
   {
    "name": "Augsburg Blume",
    "section": "Cocktails",
    "tagline_de": "Wodka, Aperol und Holunderblüte. Unser leisester Drink und einer der besten.",
-   "bartender_note_de": "",
+   "bartender_note_de": "Wodka, Aperol und Holunder aus dem Haus. Benannt nach der Augsburger Stadtblume, zart und floral.",
    "ingredients_guest": [
     "Absolut",
     "Aperol",
@@ -4613,7 +6328,8 @@
    "serve_style": "Stirred",
    "strength": {
     "level": 4,
-    "label": "kräftig"
+    "label": "kräftig",
+    "label_en": "bold"
    },
    "flavour_tags": [
     "fruchtig",
@@ -4651,13 +6367,34 @@
     }
    ],
    "hidden_on_card": true,
-   "card_action": "Bleibt auf der Karte versteckt (Dan 19.08.2026)"
+   "card_action": "Bleibt auf der Karte versteckt (Dan 19.08.2026)",
+   "tagline_en": "Vodka, Aperol and elderflower. Our quietest drink and one of the best.",
+   "bartender_note_en": "Vodka, Aperol and elderflower from the house. Named after the Augsburg city flower, delicate and floral.",
+   "ingredients_guest_en": [
+    "Absolut",
+    "Aperol",
+    "St. Germain"
+   ],
+   "glass_en": "Coupe",
+   "section_en": "Cocktails",
+   "serve_style_en": "Stirred",
+   "flavour_tags_en": [
+    "fruity",
+    "bitter",
+    "sweet"
+   ],
+   "moment_en": [
+    "Opener",
+    "Late night"
+   ],
+   "allergens_en": [],
+   "unavailable_reason_en": ""
   },
   {
    "name": "Dama Elena",
    "section": "Tequila/Agave",
    "tagline_de": "Tequila Sour mit Eiweiss. Cremig oben, scharf darunter.",
-   "bartender_note_de": "",
+   "bartender_note_de": "Don Julio Blanco als Sour mit Eiweiss. Elegant und samtig, eine Dame eben. Haus Kreation.",
    "ingredients_guest": [
     "Don Julio Blanco",
     "Cointreau",
@@ -4669,7 +6406,8 @@
    "serve_style": "Sour",
    "strength": {
     "level": 3,
-    "label": "mittel"
+    "label": "mittel",
+    "label_en": "medium"
    },
    "flavour_tags": [
     "sauer/zitrus",
@@ -4715,13 +6453,36 @@
     }
    ],
    "hidden_on_card": true,
-   "card_action": "Bleibt auf der Karte versteckt (Dan 19.08.2026)"
+   "card_action": "Bleibt auf der Karte versteckt (Dan 19.08.2026)",
+   "tagline_en": "A tequila sour with egg white. Creamy on top, sharp underneath.",
+   "bartender_note_en": "Don Julio Blanco as a sour with egg white. Elegant and velvety, a lady indeed. A house creation.",
+   "ingredients_guest_en": [
+    "Don Julio Blanco",
+    "Cointreau",
+    "Lemon",
+    "Agave",
+    "Egg white"
+   ],
+   "glass_en": "Coupe",
+   "section_en": "Tequila/Agave",
+   "serve_style_en": "Sour",
+   "flavour_tags_en": [
+    "sour/citrus",
+    "creamy"
+   ],
+   "moment_en": [
+    "Midway"
+   ],
+   "allergens_en": [
+    "Egg"
+   ],
+   "unavailable_reason_en": ""
   },
   {
    "name": "Don Julio Anejo Negroni",
    "section": "Tequila",
    "tagline_de": "Negroni auf Añejo Tequila. Holzig, bitter, ungewöhnlich und richtig gut.",
-   "bartender_note_de": "",
+   "bartender_note_de": "Der Negroni mit gereiftem Don Julio Tequila statt Gin. Bitter und holzig, unsere Agave Signature.",
    "ingredients_guest": [
     "Don Julio Añejo",
     "Campari",
@@ -4731,7 +6492,8 @@
    "serve_style": "Stirred",
    "strength": {
     "level": 5,
-    "label": "stark"
+    "label": "stark",
+    "label_en": "strong"
    },
    "flavour_tags": [
     "bitter",
@@ -4767,13 +6529,32 @@
     }
    ],
    "hidden_on_card": false,
-   "card_action": ""
+   "card_action": "",
+   "tagline_en": "A Negroni on Anejo tequila. Woody, bitter, unusual and really good.",
+   "bartender_note_en": "The Negroni with aged Don Julio tequila instead of gin. Bitter and woody, our agave signature.",
+   "ingredients_guest_en": [
+    "Don Julio Añejo",
+    "Campari",
+    "Sweet vermouth"
+   ],
+   "glass_en": "Tumbler",
+   "section_en": "Tequila",
+   "serve_style_en": "Stirred",
+   "flavour_tags_en": [
+    "bitter",
+    "sweet"
+   ],
+   "moment_en": [
+    "Late night"
+   ],
+   "allergens_en": [],
+   "unavailable_reason_en": ""
   },
   {
    "name": "Don Julio Reposado Old Fashioned",
    "section": "Tequila",
    "tagline_de": "Old Fashioned mit Tequila statt Whiskey. Weicher, blumiger, überraschend.",
-   "bartender_note_de": "",
+   "bartender_note_de": "Old Fashioned auf Agave statt Getreide. Don Julio Reposado, Agavendicksaft und Bitter, weich und warm.",
    "ingredients_guest": [
     "Don Julio Reposado",
     "Agave",
@@ -4783,7 +6564,8 @@
    "serve_style": "Stirred",
    "strength": {
     "level": 5,
-    "label": "stark"
+    "label": "stark",
+    "label_en": "strong"
    },
    "flavour_tags": [
     "süß",
@@ -4819,13 +6601,32 @@
     }
    ],
    "hidden_on_card": false,
-   "card_action": ""
+   "card_action": "",
+   "tagline_en": "An Old Fashioned with tequila instead of whiskey. Softer, more floral, surprising.",
+   "bartender_note_en": "An Old Fashioned on agave instead of grain. Don Julio Reposado, agave syrup and bitters, soft and warm.",
+   "ingredients_guest_en": [
+    "Don Julio Reposado",
+    "Agave",
+    "Angostura"
+   ],
+   "glass_en": "Tumbler",
+   "section_en": "Tequila",
+   "serve_style_en": "Stirred",
+   "flavour_tags_en": [
+    "sweet",
+    "bitter"
+   ],
+   "moment_en": [
+    "Late night"
+   ],
+   "allergens_en": [],
+   "unavailable_reason_en": ""
   },
   {
    "name": "Fresco Spritz",
    "section": "Spritz",
    "tagline_de": "Klar, trocken, kaum süss. Wenn dir alle Spritz zu klebrig sind, nimm den.",
-   "bartender_note_de": "",
+   "bartender_note_de": "Ein leichter Aperitivo Spritz, fruchtig und frisch. Der Name ist Programm.",
    "ingredients_guest": [
     "Fresco Aperitivo",
     "Prosecco",
@@ -4835,7 +6636,8 @@
    "serve_style": "Spritz",
    "strength": {
     "level": 1,
-    "label": "leicht"
+    "label": "leicht",
+    "label_en": "light"
    },
    "flavour_tags": [
     "bitter",
@@ -4871,13 +6673,32 @@
     }
    ],
    "hidden_on_card": false,
-   "card_action": ""
+   "card_action": "",
+   "tagline_en": "Clear, dry, barely sweet. If every spritz feels too sticky to you, take this one.",
+   "bartender_note_en": "A light aperitivo spritz, fruity and fresh. The name says it all.",
+   "ingredients_guest_en": [
+    "Fresco Aperitivo",
+    "Prosecco",
+    "Soda"
+   ],
+   "glass_en": "Wine glass",
+   "section_en": "Spritz",
+   "serve_style_en": "Spritz",
+   "flavour_tags_en": [
+    "bitter",
+    "sparkling"
+   ],
+   "moment_en": [
+    "Opener"
+   ],
+   "allergens_en": [],
+   "unavailable_reason_en": ""
   },
   {
    "name": "Gin Tonic - Tanqueray 10",
    "section": "Gin",
    "tagline_de": "Der teure Tanqueray, mit frischer Zitrusfrucht destilliert. Merkst du sofort.",
-   "bartender_note_de": "",
+   "bartender_note_de": "Die Luxusversion mit Tanqueray No. Ten und Grapefruit. Frische Zitrusfruechte in der Destillation, nicht nur im Glas.",
    "ingredients_guest": [
     "Tanqueray No. Ten",
     "Tonic Water",
@@ -4887,7 +6708,8 @@
    "serve_style": "Highball",
    "strength": {
     "level": 3,
-    "label": "mittel"
+    "label": "mittel",
+    "label_en": "medium"
    },
    "flavour_tags": [
     "sauer/zitrus",
@@ -4921,13 +6743,34 @@
     }
    ],
    "hidden_on_card": false,
-   "card_action": ""
+   "card_action": "",
+   "tagline_en": "The pricey Tanqueray, distilled with fresh citrus. You notice it right away.",
+   "bartender_note_en": "The luxury version with Tanqueray No. Ten and grapefruit. Fresh citrus in the distillation, not just in the glass.",
+   "ingredients_guest_en": [
+    "Tanqueray No. Ten",
+    "Tonic water",
+    "Grapefruit"
+   ],
+   "glass_en": "Balloon glass",
+   "section_en": "Gin",
+   "serve_style_en": "Highball",
+   "flavour_tags_en": [
+    "sour/citrus",
+    "bitter",
+    "sparkling"
+   ],
+   "moment_en": [
+    "Opener",
+    "Midway"
+   ],
+   "allergens_en": [],
+   "unavailable_reason_en": ""
   },
   {
    "name": "Jaegermeister & Red Bull 6cl",
    "section": "Mixgetränke",
    "tagline_de": "Kräuter und Koffein. Der Abend nimmt ab hier eine Richtung.",
-   "bartender_note_de": "",
+   "bartender_note_de": "Auch bekannt als Turbojaeger. Kraeuter trifft Koffein, der Klassiker jeder langen Nacht.",
    "ingredients_guest": [
     "Jägermeister",
     "Red Bull"
@@ -4936,7 +6779,8 @@
    "serve_style": "Highball",
    "strength": {
     "level": 3,
-    "label": "mittel"
+    "label": "mittel",
+    "label_en": "medium"
    },
    "flavour_tags": [
     "süß",
@@ -4969,13 +6813,32 @@
     }
    ],
    "hidden_on_card": false,
-   "card_action": ""
+   "card_action": "",
+   "tagline_en": "Herbs and caffeine. From here the evening takes a direction.",
+   "bartender_note_en": "Also known as the Turbojaeger. Herbs meet caffeine, the classic of every long night.",
+   "ingredients_guest_en": [
+    "Jägermeister",
+    "Red Bull"
+   ],
+   "glass_en": "Highball",
+   "section_en": "Mixed Drinks",
+   "serve_style_en": "Highball",
+   "flavour_tags_en": [
+    "sweet",
+    "sparkling",
+    "herbal/fresh"
+   ],
+   "moment_en": [
+    "Late night"
+   ],
+   "allergens_en": [],
+   "unavailable_reason_en": ""
   },
   {
    "name": "Secco Spritz",
    "section": "Spritz",
    "tagline_de": "Prosecco, Soda, ein Stück Zitrone. Der Spritz ohne Umweg.",
-   "bartender_note_de": "",
+   "bartender_note_de": "Prosecco, Soda, Zitrone. Der schlichteste Spritz, wenn es einfach nur prickeln soll.",
    "ingredients_guest": [
     "Prosecco",
     "Soda",
@@ -4985,7 +6848,8 @@
    "serve_style": "Spritz",
    "strength": {
     "level": 1,
-    "label": "leicht"
+    "label": "leicht",
+    "label_en": "light"
    },
    "flavour_tags": [
     "prickelnd"
@@ -5016,13 +6880,31 @@
     }
    ],
    "hidden_on_card": false,
-   "card_action": ""
+   "card_action": "",
+   "tagline_en": "Prosecco, soda, a piece of lemon. The spritz with no detour.",
+   "bartender_note_en": "Prosecco, soda, lemon. The simplest spritz, when you just want it to sparkle.",
+   "ingredients_guest_en": [
+    "Prosecco",
+    "Soda",
+    "Lemon"
+   ],
+   "glass_en": "Wine glass",
+   "section_en": "Spritz",
+   "serve_style_en": "Spritz",
+   "flavour_tags_en": [
+    "sparkling"
+   ],
+   "moment_en": [
+    "Opener"
+   ],
+   "allergens_en": [],
+   "unavailable_reason_en": ""
   },
   {
    "name": "Take-It-Easy",
    "section": "Cocktails",
    "tagline_de": "Rum, Aperol und Mandel. Klein, süss und genau so entspannt, wie der Name sagt.",
-   "bartender_note_de": "",
+   "bartender_note_de": "Rum, Aperol und Orgeat. Ein tropischer Haus Cocktail, der seinen Namen ernst nimmt.",
    "ingredients_guest": [
     "Bacardi",
     "Aperol",
@@ -5033,7 +6915,8 @@
    "serve_style": "Shaken",
    "strength": {
     "level": 3,
-    "label": "mittel"
+    "label": "mittel",
+    "label_en": "medium"
    },
    "flavour_tags": [
     "fruchtig",
@@ -5076,13 +6959,36 @@
     }
    ],
    "hidden_on_card": true,
-   "card_action": "Bleibt auf der Karte versteckt (Dan 19.08.2026)"
+   "card_action": "Bleibt auf der Karte versteckt (Dan 19.08.2026)",
+   "tagline_en": "Rum, Aperol and almond. Small, sweet and exactly as relaxed as the name says.",
+   "bartender_note_en": "Rum, Aperol and orgeat. A tropical house cocktail that takes its name seriously.",
+   "ingredients_guest_en": [
+    "Bacardi",
+    "Aperol",
+    "Lime",
+    "Orgeat"
+   ],
+   "glass_en": "Coupe",
+   "section_en": "Cocktails",
+   "serve_style_en": "Shaken",
+   "flavour_tags_en": [
+    "fruity",
+    "sweet",
+    "bitter"
+   ],
+   "moment_en": [
+    "Midway"
+   ],
+   "allergens_en": [
+    "Nuts"
+   ],
+   "unavailable_reason_en": ""
   },
   {
    "name": "Wodka & Red Bull 6cl",
    "section": "Mixgetränke",
    "tagline_de": "Wodka mit Red Bull. Du weisst, warum du den bestellst.",
-   "bartender_note_de": "",
+   "bartender_note_de": "Der Klassiker fuer die zweite Haelfte der Nacht. Wodka und Fluegel.",
    "ingredients_guest": [
     "Absolut",
     "Red Bull"
@@ -5091,7 +6997,8 @@
    "serve_style": "Highball",
    "strength": {
     "level": 3,
-    "label": "mittel"
+    "label": "mittel",
+    "label_en": "medium"
    },
    "flavour_tags": [
     "süß",
@@ -5123,13 +7030,31 @@
     }
    ],
    "hidden_on_card": false,
-   "card_action": ""
+   "card_action": "",
+   "tagline_en": "Vodka with Red Bull. You know why you order this one.",
+   "bartender_note_en": "The classic for the second half of the night. Vodka and wings.",
+   "ingredients_guest_en": [
+    "Absolut",
+    "Red Bull"
+   ],
+   "glass_en": "Highball",
+   "section_en": "Mixed Drinks",
+   "serve_style_en": "Highball",
+   "flavour_tags_en": [
+    "sweet",
+    "sparkling"
+   ],
+   "moment_en": [
+    "Late night"
+   ],
+   "allergens_en": [],
+   "unavailable_reason_en": ""
   },
   {
    "name": "Zacapa Espresso Martini",
    "section": "Best Sellers",
    "tagline_de": "Espresso Martini auf gereiftem Rum. Karamellig, tief und deutlich teurer als der normale. Zu Recht.",
-   "bartender_note_de": "",
+   "bartender_note_de": "Espresso Martini mit Zacapa Rum statt Wodka. Karamell und Kaffee, eine Spur eleganter.",
    "ingredients_guest": [
     "Zacapa 23",
     "Kahlúa",
@@ -5140,7 +7065,8 @@
    "serve_style": "Shaken",
    "strength": {
     "level": 3,
-    "label": "mittel"
+    "label": "mittel",
+    "label_en": "medium"
    },
    "flavour_tags": [
     "kaffee",
@@ -5185,13 +7111,34 @@
     }
    ],
    "hidden_on_card": false,
-   "card_action": ""
+   "card_action": "",
+   "tagline_en": "An Espresso Martini on aged rum. Caramelly, deep and clearly pricier than the standard. Rightly so.",
+   "bartender_note_en": "An Espresso Martini with Zacapa rum instead of vodka. Caramel and coffee, a touch more elegant.",
+   "ingredients_guest_en": [
+    "Zacapa 23",
+    "Kahlúa",
+    "Fresh espresso",
+    "Sugar"
+   ],
+   "glass_en": "Coupe",
+   "section_en": "Best Sellers",
+   "serve_style_en": "Shaken",
+   "flavour_tags_en": [
+    "coffee",
+    "sweet",
+    "creamy"
+   ],
+   "moment_en": [
+    "Late night"
+   ],
+   "allergens_en": [],
+   "unavailable_reason_en": ""
   },
   {
    "name": "Alk Freier Spritz",
    "section": "Spritz",
    "tagline_de": "Alkoholfreier Sekt mit Soda. Schlicht, kalt und immer richtig.",
-   "bartender_note_de": "",
+   "bartender_note_de": "Der Spritz komplett ohne Promille. Freixenet 0,0, Soda und Zitrone, prickelt genauso.",
    "ingredients_guest": [
     "Freixenet 0,0",
     "Soda",
@@ -5201,7 +7148,8 @@
    "serve_style": "Spritz",
    "strength": {
     "level": 0,
-    "label": "alkoholfrei"
+    "label": "alkoholfrei",
+    "label_en": "alcohol free"
    },
    "flavour_tags": [
     "prickelnd"
@@ -5228,13 +7176,31 @@
     }
    ],
    "hidden_on_card": false,
-   "card_action": ""
+   "card_action": "",
+   "tagline_en": "Alcohol-free sparkling wine with soda. Simple, cold and always right.",
+   "bartender_note_en": "The spritz entirely without proof. Freixenet 0,0, soda and lemon, it sparkles just the same.",
+   "ingredients_guest_en": [
+    "Freixenet 0,0",
+    "Soda",
+    "Lemon"
+   ],
+   "glass_en": "Wine glass",
+   "section_en": "Spritz",
+   "serve_style_en": "Spritz",
+   "flavour_tags_en": [
+    "sparkling"
+   ],
+   "moment_en": [
+    "Opener"
+   ],
+   "allergens_en": [],
+   "unavailable_reason_en": ""
   },
   {
    "name": "Alkoholfrei - Augsburg Sour",
    "section": "Alkoholfrei",
    "tagline_de": "Unser Hausdrink ohne Alkohol. Himbeere, Zitrone, Orange und die gleiche Schaumkrone.",
-   "bartender_note_de": "",
+   "bartender_note_de": "Unser Augsburg Sour ohne Alkohol. Himbeere und Zitrus, nur ohne Umdrehungen.",
    "ingredients_guest": [
     "Tanqueray 0.0",
     "Zitrone",
@@ -5245,7 +7211,8 @@
    "serve_style": "Sour",
    "strength": {
     "level": 0,
-    "label": "alkoholfrei"
+    "label": "alkoholfrei",
+    "label_en": "alcohol free"
    },
    "flavour_tags": [
     "fruchtig",
@@ -5299,13 +7266,35 @@
     }
    ],
    "hidden_on_card": false,
-   "card_action": ""
+   "card_action": "",
+   "tagline_en": "Our house drink without alcohol. Raspberry, lemon, orange and the same foam crown.",
+   "bartender_note_en": "Our Augsburg Sour without alcohol. Raspberry and citrus, just without the proof.",
+   "ingredients_guest_en": [
+    "Tanqueray 0.0",
+    "Lemon",
+    "Orange",
+    "Raspberry"
+   ],
+   "glass_en": "Tumbler",
+   "section_en": "Non-Alcoholic",
+   "serve_style_en": "Sour",
+   "flavour_tags_en": [
+    "fruity",
+    "sour/citrus"
+   ],
+   "moment_en": [
+    "All evening"
+   ],
+   "allergens_en": [
+    "Egg"
+   ],
+   "unavailable_reason_en": ""
   },
   {
    "name": "Alkoholfrei - Mojito",
    "section": "Alkoholfrei",
    "tagline_de": "Minze, Limette, Soda. Der Mojito ohne Rum und trotzdem ein richtiger Drink.",
-   "bartender_note_de": "",
+   "bartender_note_de": "Kubas Klassiker ohne Rum. Minze, Limette und Soda, so frisch wie das Original.",
    "ingredients_guest": [
     "alkoholfreier Rum",
     "Limette",
@@ -5317,7 +7306,8 @@
    "serve_style": "Highball",
    "strength": {
     "level": 0,
-    "label": "alkoholfrei"
+    "label": "alkoholfrei",
+    "label_en": "alcohol free"
    },
    "flavour_tags": [
     "kräuterig/frisch",
@@ -5366,13 +7356,35 @@
     }
    ],
    "hidden_on_card": false,
-   "card_action": ""
+   "card_action": "",
+   "tagline_en": "Mint, lime, soda. The Mojito without rum and still a proper drink.",
+   "bartender_note_en": "Cuba's classic without rum. Mint, lime and soda, as fresh as the original.",
+   "ingredients_guest_en": [
+    "Non-alcoholic rum",
+    "Lime",
+    "Mint",
+    "Sugar",
+    "Soda"
+   ],
+   "glass_en": "Highball",
+   "section_en": "Non-Alcoholic",
+   "serve_style_en": "Highball",
+   "flavour_tags_en": [
+    "herbal/fresh",
+    "sour/citrus",
+    "sparkling"
+   ],
+   "moment_en": [
+    "All evening"
+   ],
+   "allergens_en": [],
+   "unavailable_reason_en": ""
   },
   {
    "name": "Cherry Amaretto Margarita",
    "section": "Agave Cocktails",
    "tagline_de": "Margarita mit Kirsche und Mandel. Weicher als das Original, ohne die Säure zu verlieren.",
-   "bartender_note_de": "",
+   "bartender_note_de": "Margarita mit Kirsche und Amaretto. Suesser und runder als das Original, fast ein Dessert.",
    "ingredients_guest": [
     "El Destilador Blanco",
     "Amaretto",
@@ -5384,7 +7396,8 @@
    "serve_style": "Shaken",
    "strength": {
     "level": 4,
-    "label": "kräftig"
+    "label": "kräftig",
+    "label_en": "bold"
    },
    "flavour_tags": [
     "fruchtig",
@@ -5439,13 +7452,37 @@
     }
    ],
    "hidden_on_card": false,
-   "card_action": ""
+   "card_action": "",
+   "tagline_en": "A Margarita with cherry and almond. Softer than the original without losing the tartness.",
+   "bartender_note_en": "A Margarita with cherry and amaretto. Sweeter and rounder than the original, almost a dessert.",
+   "ingredients_guest_en": [
+    "El Destilador Blanco",
+    "Amaretto",
+    "Cherries",
+    "Lime",
+    "Agave"
+   ],
+   "glass_en": "Coupe",
+   "section_en": "Agave Cocktails",
+   "serve_style_en": "Shaken",
+   "flavour_tags_en": [
+    "fruity",
+    "sweet",
+    "sour/citrus"
+   ],
+   "moment_en": [
+    "Midway"
+   ],
+   "allergens_en": [
+    "Nuts"
+   ],
+   "unavailable_reason_en": ""
   },
   {
    "name": "Dirty Martini",
    "section": "Cocktails",
    "tagline_de": "Eiskalt, trocken, mit Olivenlake. Entweder man liebt ihn oder man bestellt etwas anderes.",
-   "bartender_note_de": "",
+   "bartender_note_de": "Der Martini mit einem Schuss Olivenlake. Salzig und herb, angeblich der Lieblingsdrink von Roosevelt im Weissen Haus.",
    "ingredients_guest": [
     "Tanqueray",
     "trockener Wermut",
@@ -5455,7 +7492,8 @@
    "serve_style": "Stirred",
    "strength": {
     "level": 5,
-    "label": "stark"
+    "label": "stark",
+    "label_en": "strong"
    },
    "flavour_tags": [
     "salzig",
@@ -5492,13 +7530,33 @@
     }
    ],
    "hidden_on_card": false,
-   "card_action": "Auf der Karte einblenden (Dan 19.08.2026)"
+   "card_action": "Auf der Karte einblenden (Dan 19.08.2026)",
+   "tagline_en": "Ice cold, dry, with olive brine. You either love it or you order something else.",
+   "bartender_note_en": "The Martini with a splash of olive brine. Salty and dry, supposedly Roosevelt's favourite in the White House.",
+   "ingredients_guest_en": [
+    "Tanqueray",
+    "Dry vermouth",
+    "Olives"
+   ],
+   "glass_en": "Coupe",
+   "section_en": "Cocktails",
+   "serve_style_en": "Stirred",
+   "flavour_tags_en": [
+    "salty",
+    "herbal/fresh"
+   ],
+   "moment_en": [
+    "Opener",
+    "Late night"
+   ],
+   "allergens_en": [],
+   "unavailable_reason_en": ""
   },
   {
    "name": "Floreale Alkoholfrei Spritz",
    "section": "Spritz alkoholfrei",
    "tagline_de": "Alkoholfreier Aperitivo, blumig und bitter. Der Spritz, bei dem keiner merkt, dass nichts drin ist.",
-   "bartender_note_de": "",
+   "bartender_note_de": "Der florale Aperitivo ohne Alkohol. Martini Floreale mit Kamille und Zitrus.",
    "ingredients_guest": [
     "Martini Floreale",
     "alkoholfreier Sekt",
@@ -5508,7 +7566,8 @@
    "serve_style": "Spritz",
    "strength": {
     "level": 0,
-    "label": "alkoholfrei"
+    "label": "alkoholfrei",
+    "label_en": "alcohol free"
    },
    "flavour_tags": [
     "bitter",
@@ -5545,13 +7604,33 @@
     }
    ],
    "hidden_on_card": false,
-   "card_action": ""
+   "card_action": "",
+   "tagline_en": "Alcohol-free aperitivo, floral and bitter. The spritz where nobody notices there is nothing in it.",
+   "bartender_note_en": "The floral aperitivo without alcohol. Martini Floreale with chamomile and citrus.",
+   "ingredients_guest_en": [
+    "Martini Floreale",
+    "Non-alcoholic sparkling wine",
+    "Soda"
+   ],
+   "glass_en": "Wine glass",
+   "section_en": "Spritz Non-Alcoholic",
+   "serve_style_en": "Spritz",
+   "flavour_tags_en": [
+    "bitter",
+    "fruity",
+    "sparkling"
+   ],
+   "moment_en": [
+    "Opener"
+   ],
+   "allergens_en": [],
+   "unavailable_reason_en": ""
   },
   {
    "name": "Frangelico 2cl",
    "section": "Shots",
    "tagline_de": "Haselnusslikör aus Italien. Süss, rund und ohne Schärfe.",
-   "bartender_note_de": "",
+   "bartender_note_de": "Haselnusslikoer im Moenchsgewand. Suess und nussig, ein Shot wie ein Dessert.",
    "ingredients_guest": [
     "Frangelico"
    ],
@@ -5559,7 +7638,8 @@
    "serve_style": "Shot",
    "strength": {
     "level": 2,
-    "label": "mild"
+    "label": "mild",
+    "label_en": "mild"
    },
    "flavour_tags": [
     "süß",
@@ -5589,13 +7669,32 @@
     }
    ],
    "hidden_on_card": false,
-   "card_action": ""
+   "card_action": "",
+   "tagline_en": "Hazelnut liqueur from Italy. Sweet, round and without any bite.",
+   "bartender_note_en": "Hazelnut liqueur in a monk's robe. Sweet and nutty, a shot like a dessert.",
+   "ingredients_guest_en": [
+    "Frangelico"
+   ],
+   "glass_en": "Shot glass",
+   "section_en": "Shots",
+   "serve_style_en": "Shot",
+   "flavour_tags_en": [
+    "sweet",
+    "creamy"
+   ],
+   "moment_en": [
+    "Late night"
+   ],
+   "allergens_en": [
+    "Nuts"
+   ],
+   "unavailable_reason_en": ""
   },
   {
    "name": "Gin/Vodka Martini",
    "section": "Gin",
    "tagline_de": "Zwei Zutaten, eiskalt gerührt. Der Drink, an dem sich jede Bar messen lassen muss.",
-   "bartender_note_de": "",
+   "bartender_note_de": "Der Koenig der Cocktails. Gin oder Wodka mit einem Hauch Wermut, geschuettelt oder geruehrt, Bond haette eine Meinung.",
    "ingredients_guest": [
     "Gin oder Wodka",
     "trockener Wermut"
@@ -5604,7 +7703,8 @@
    "serve_style": "Stirred",
    "strength": {
     "level": 5,
-    "label": "stark"
+    "label": "stark",
+    "label_en": "strong"
    },
    "flavour_tags": [
     "kräuterig/frisch"
@@ -5636,13 +7736,31 @@
     }
    ],
    "hidden_on_card": false,
-   "card_action": ""
+   "card_action": "",
+   "tagline_en": "Two ingredients, stirred ice cold. The drink every bar is measured against.",
+   "bartender_note_en": "The king of cocktails. Gin or vodka with a hint of vermouth, shaken or stirred, Bond would have an opinion.",
+   "ingredients_guest_en": [
+    "Gin or vodka",
+    "Dry vermouth"
+   ],
+   "glass_en": "Coupe",
+   "section_en": "Gin",
+   "serve_style_en": "Stirred",
+   "flavour_tags_en": [
+    "herbal/fresh"
+   ],
+   "moment_en": [
+    "Opener",
+    "Late night"
+   ],
+   "allergens_en": [],
+   "unavailable_reason_en": ""
   },
   {
    "name": "Johnnie Black Sour",
    "section": "Sours",
    "tagline_de": "Blended Scotch mit Zitrone. Rauchig, aber freundlich.",
-   "bartender_note_de": "",
+   "bartender_note_de": "Rauchiger Scotch als Sour. Johnnie Walker Black, Zitrone, Zucker, kantig und gut.",
    "ingredients_guest": [
     "Johnnie Walker Black",
     "Zitrone",
@@ -5652,7 +7770,8 @@
    "serve_style": "Sour",
    "strength": {
     "level": 4,
-    "label": "kräftig"
+    "label": "kräftig",
+    "label_en": "bold"
    },
    "flavour_tags": [
     "sauer/zitrus",
@@ -5688,13 +7807,32 @@
     }
    ],
    "hidden_on_card": false,
-   "card_action": ""
+   "card_action": "",
+   "tagline_en": "Blended Scotch with lemon. Smoky, but friendly.",
+   "bartender_note_en": "Smoky Scotch as a sour. Johnnie Walker Black, lemon, sugar, edgy and good.",
+   "ingredients_guest_en": [
+    "Johnnie Walker Black",
+    "Lemon",
+    "Sugar"
+   ],
+   "glass_en": "Tumbler",
+   "section_en": "Sours",
+   "serve_style_en": "Sour",
+   "flavour_tags_en": [
+    "sour/citrus",
+    "smoky"
+   ],
+   "moment_en": [
+    "Late night"
+   ],
+   "allergens_en": [],
+   "unavailable_reason_en": ""
   },
   {
    "name": "Mai Tai",
    "section": "Cocktails",
    "tagline_de": "Rum, Mandel, Limette, Orange. Der Tiki Klassiker, der wirklich einer ist.",
-   "bartender_note_de": "",
+   "bartender_note_de": "1944 von Trader Vic erfunden. Ein Gast probierte und sagte Mai Tai roa ae, tahitianisch fuer das Beste. Der Name blieb.",
    "ingredients_guest": [
     "Rum",
     "Orgeat",
@@ -5705,7 +7843,8 @@
    "serve_style": "Shaken",
    "strength": {
     "level": 4,
-    "label": "kräftig"
+    "label": "kräftig",
+    "label_en": "bold"
    },
    "flavour_tags": [
     "fruchtig",
@@ -5752,13 +7891,36 @@
     }
    ],
    "hidden_on_card": false,
-   "card_action": ""
+   "card_action": "",
+   "tagline_en": "Rum, almond, lime, orange. The tiki classic that really is one.",
+   "bartender_note_en": "Invented in 1944 by Trader Vic. A guest tasted it and said Mai Tai roa ae, Tahitian for the best. The name stuck.",
+   "ingredients_guest_en": [
+    "Rum",
+    "Orgeat",
+    "Cointreau",
+    "Lime"
+   ],
+   "glass_en": "Tumbler",
+   "section_en": "Cocktails",
+   "serve_style_en": "Shaken",
+   "flavour_tags_en": [
+    "fruity",
+    "sweet",
+    "sour/citrus"
+   ],
+   "moment_en": [
+    "Midway"
+   ],
+   "allergens_en": [
+    "Nuts"
+   ],
+   "unavailable_reason_en": ""
   },
   {
    "name": "Alkoholfrei - Italian Stallion",
    "section": "Alkoholfrei",
    "tagline_de": "Aprikose und Granatapfel ohne Alkohol. Fruchtig und trotzdem nicht kindisch.",
-   "bartender_note_de": "",
+   "bartender_note_de": "Der Haus Liebling ohne Alkohol. Aprikose und Granatapfel, gleiche Muskeln, kein Rausch.",
    "ingredients_guest": [
     "alkoholfreier Wodka",
     "Aprikose",
@@ -5769,7 +7931,8 @@
    "serve_style": "Sour",
    "strength": {
     "level": 0,
-    "label": "alkoholfrei"
+    "label": "alkoholfrei",
+    "label_en": "alcohol free"
    },
    "flavour_tags": [
     "fruchtig",
@@ -5813,13 +7976,33 @@
     }
    ],
    "hidden_on_card": false,
-   "card_action": ""
+   "card_action": "",
+   "tagline_en": "Apricot and pomegranate without alcohol. Fruity and still not childish.",
+   "bartender_note_en": "The house favourite without alcohol. Apricot and pomegranate, same muscle, no buzz.",
+   "ingredients_guest_en": [
+    "Non-alcoholic vodka",
+    "Apricot",
+    "Lemon",
+    "Pomegranate"
+   ],
+   "glass_en": "Coupe",
+   "section_en": "Non-Alcoholic",
+   "serve_style_en": "Sour",
+   "flavour_tags_en": [
+    "fruity",
+    "sweet"
+   ],
+   "moment_en": [
+    "All evening"
+   ],
+   "allergens_en": [],
+   "unavailable_reason_en": ""
   },
   {
    "name": "Alkoholfrei - Mule",
    "section": "Alkoholfrei",
    "tagline_de": "Ingwer und Limette im Kupferbecher. Scharf genug, dass niemand den Wodka vermisst.",
-   "bartender_note_de": "",
+   "bartender_note_de": "Der Mule ohne Wodka. Ingwer und Limette, scharf und erfrischend.",
    "ingredients_guest": [
     "alkoholfreier Wodka",
     "Limette",
@@ -5830,7 +8013,8 @@
    "serve_style": "Highball",
    "strength": {
     "level": 0,
-    "label": "alkoholfrei"
+    "label": "alkoholfrei",
+    "label_en": "alcohol free"
    },
    "flavour_tags": [
     "prickelnd",
@@ -5874,13 +8058,33 @@
     }
    ],
    "hidden_on_card": false,
-   "card_action": ""
+   "card_action": "",
+   "tagline_en": "Ginger and lime in a copper mug. Sharp enough that nobody misses the vodka.",
+   "bartender_note_en": "The mule without vodka. Ginger and lime, sharp and refreshing.",
+   "ingredients_guest_en": [
+    "Non-alcoholic vodka",
+    "Lime",
+    "Thomas Henry Spicy Ginger",
+    "Angostura"
+   ],
+   "glass_en": "Copper mug",
+   "section_en": "Non-Alcoholic",
+   "serve_style_en": "Highball",
+   "flavour_tags_en": [
+    "sparkling",
+    "sour/citrus"
+   ],
+   "moment_en": [
+    "All evening"
+   ],
+   "allergens_en": [],
+   "unavailable_reason_en": ""
   },
   {
    "name": "Alkoholfrei - Singapore Sling",
    "section": "Alkoholfrei",
    "tagline_de": "Alle acht Zutaten, kein Alkohol. Der aufwendigste alkoholfreie Drink, den wir haben.",
-   "bartender_note_de": "",
+   "bartender_note_de": "Der tropische Klassiker ohne Alkohol. Kirsche, Ananas, Granatapfel, bunt und suess.",
    "ingredients_guest": [
     "Tanqueray 0.0",
     "Kirsche",
@@ -5893,7 +8097,8 @@
    "serve_style": "Sling",
    "strength": {
     "level": 0,
-    "label": "alkoholfrei"
+    "label": "alkoholfrei",
+    "label_en": "alcohol free"
    },
    "flavour_tags": [
     "fruchtig",
@@ -5945,13 +8150,35 @@
     }
    ],
    "hidden_on_card": false,
-   "card_action": ""
+   "card_action": "",
+   "tagline_en": "All eight ingredients, no alcohol. The most elaborate alcohol-free drink we have.",
+   "bartender_note_en": "The tropical classic without alcohol. Cherry, pineapple, pomegranate, colourful and sweet.",
+   "ingredients_guest_en": [
+    "Tanqueray 0.0",
+    "Cherry",
+    "Pineapple",
+    "Lime",
+    "Pomegranate",
+    "Angostura"
+   ],
+   "glass_en": "Highball",
+   "section_en": "Non-Alcoholic",
+   "serve_style_en": "Sling",
+   "flavour_tags_en": [
+    "fruity",
+    "sweet"
+   ],
+   "moment_en": [
+    "Midway"
+   ],
+   "allergens_en": [],
+   "unavailable_reason_en": ""
   },
   {
    "name": "Caipiroska",
    "section": "Vodka",
    "tagline_de": "Caipirinha mit Wodka. Klarer und gerader als das Original.",
-   "bartender_note_de": "",
+   "bartender_note_de": "Die Caipirinha mit Wodka statt Cachaca. Etwas milder, genauso erfrischend.",
    "ingredients_guest": [
     "Absolut",
     "Limette",
@@ -5961,7 +8188,8 @@
    "serve_style": "Muddled",
    "strength": {
     "level": 3,
-    "label": "mittel"
+    "label": "mittel",
+    "label_en": "medium"
    },
    "flavour_tags": [
     "sauer/zitrus",
@@ -5993,13 +8221,32 @@
     }
    ],
    "hidden_on_card": false,
-   "card_action": ""
+   "card_action": "",
+   "tagline_en": "A Caipirinha with vodka. Cleaner and more straightforward than the original.",
+   "bartender_note_en": "The Caipirinha with vodka instead of cachaca. A little milder, just as refreshing.",
+   "ingredients_guest_en": [
+    "Absolut",
+    "Lime",
+    "Sugar"
+   ],
+   "glass_en": "Tumbler",
+   "section_en": "Vodka",
+   "serve_style_en": "Muddled",
+   "flavour_tags_en": [
+    "sour/citrus",
+    "sweet"
+   ],
+   "moment_en": [
+    "Midway"
+   ],
+   "allergens_en": [],
+   "unavailable_reason_en": ""
   },
   {
    "name": "Gin Tonic - Hendriks",
    "section": "Gin",
    "tagline_de": "Gurke und Rose statt Wacholder. Der Gin Tonic für Leute, die keinen Gin mögen.",
-   "bartender_note_de": "",
+   "bartender_note_de": "Hendrick's mit Gurke, so will es die Marke. Rose und Gurke in der Destillation machen ihn unverwechselbar.",
    "ingredients_guest": [
     "Hendrick's",
     "Tonic Water",
@@ -6009,7 +8256,8 @@
    "serve_style": "Highball",
    "strength": {
     "level": 3,
-    "label": "mittel"
+    "label": "mittel",
+    "label_en": "medium"
    },
    "flavour_tags": [
     "kräuterig/frisch",
@@ -6050,13 +8298,33 @@
     }
    ],
    "hidden_on_card": false,
-   "card_action": ""
+   "card_action": "",
+   "tagline_en": "Cucumber and rose instead of juniper. The gin and tonic for people who do not like gin.",
+   "bartender_note_en": "Hendrick's with cucumber, as the brand insists. Rose and cucumber in the distillation make it unmistakable.",
+   "ingredients_guest_en": [
+    "Hendrick's",
+    "Tonic water",
+    "Cucumber"
+   ],
+   "glass_en": "Balloon glass",
+   "section_en": "Gin",
+   "serve_style_en": "Highball",
+   "flavour_tags_en": [
+    "herbal/fresh",
+    "sparkling"
+   ],
+   "moment_en": [
+    "Opener",
+    "Midway"
+   ],
+   "allergens_en": [],
+   "unavailable_reason_en": ""
   },
   {
    "name": "Himbeere Mojito",
    "section": "Rum/Cachaça",
    "tagline_de": "Mojito mit frischen Himbeeren. Süsser, roter und bei Tischen sehr ansteckend.",
-   "bartender_note_de": "",
+   "bartender_note_de": "Der Mojito in Rot. Frische Himbeeren zwischen Minze und Limette.",
    "ingredients_guest": [
     "Bacardi",
     "Himbeeren",
@@ -6069,7 +8337,8 @@
    "serve_style": "Highball",
    "strength": {
     "level": 2,
-    "label": "mild"
+    "label": "mild",
+    "label_en": "mild"
    },
    "flavour_tags": [
     "fruchtig",
@@ -6126,13 +8395,36 @@
     }
    ],
    "hidden_on_card": false,
-   "card_action": ""
+   "card_action": "",
+   "tagline_en": "A Mojito with fresh raspberries. Sweeter, redder and very contagious across tables.",
+   "bartender_note_en": "The Mojito in red. Fresh raspberries between mint and lime.",
+   "ingredients_guest_en": [
+    "Bacardi",
+    "Raspberries",
+    "Lime",
+    "Mint",
+    "Sugar",
+    "Soda"
+   ],
+   "glass_en": "Highball",
+   "section_en": "Rum/Cachaça",
+   "serve_style_en": "Highball",
+   "flavour_tags_en": [
+    "fruity",
+    "herbal/fresh",
+    "sparkling"
+   ],
+   "moment_en": [
+    "Midway"
+   ],
+   "allergens_en": [],
+   "unavailable_reason_en": ""
   },
   {
    "name": "Johnnie Black & Ginger",
    "section": "Mixgetränke",
    "tagline_de": "Scotch auf Ingwer. Der einfachste Weg, Whisky im Sommer zu trinken.",
-   "bartender_note_de": "",
+   "bartender_note_de": "Rauchiger Scotch trifft scharfen Ingwer. Ein Highball fuer kuehle Abende.",
    "ingredients_guest": [
     "Johnnie Walker Black",
     "Thomas Henry Spicy Ginger"
@@ -6141,7 +8433,8 @@
    "serve_style": "Highball",
    "strength": {
     "level": 3,
-    "label": "mittel"
+    "label": "mittel",
+    "label_en": "medium"
    },
    "flavour_tags": [
     "prickelnd",
@@ -6173,13 +8466,31 @@
     }
    ],
    "hidden_on_card": false,
-   "card_action": ""
+   "card_action": "",
+   "tagline_en": "Scotch on ginger. The easiest way to drink whisky in summer.",
+   "bartender_note_en": "Smoky Scotch meets sharp ginger. A highball for cool evenings.",
+   "ingredients_guest_en": [
+    "Johnnie Walker Black",
+    "Thomas Henry Spicy Ginger"
+   ],
+   "glass_en": "Highball",
+   "section_en": "Mixed Drinks",
+   "serve_style_en": "Highball",
+   "flavour_tags_en": [
+    "sparkling",
+    "smoky"
+   ],
+   "moment_en": [
+    "Midway"
+   ],
+   "allergens_en": [],
+   "unavailable_reason_en": ""
   },
   {
    "name": "Mimosa",
    "section": "Spritz",
    "tagline_de": "Prosecco und Orangensaft. Der einzige Drink, den man auch zum Frühstück verteidigen kann.",
-   "bartender_note_de": "",
+   "bartender_note_de": "Champagner und Orangensaft, 1925 im Pariser Ritz erfunden. Der Brunch Klassiker schlechthin.",
    "ingredients_guest": [
     "Prosecco",
     "Orangensaft"
@@ -6188,7 +8499,8 @@
    "serve_style": "Spritz",
    "strength": {
     "level": 1,
-    "label": "leicht"
+    "label": "leicht",
+    "label_en": "light"
    },
    "flavour_tags": [
     "fruchtig",
@@ -6220,13 +8532,31 @@
     }
    ],
    "hidden_on_card": false,
-   "card_action": ""
+   "card_action": "",
+   "tagline_en": "Prosecco and orange juice. The only drink you can defend at breakfast.",
+   "bartender_note_en": "Champagne and orange juice, invented in 1925 at the Paris Ritz. The brunch classic.",
+   "ingredients_guest_en": [
+    "Prosecco",
+    "Orange juice"
+   ],
+   "glass_en": "Wine glass",
+   "section_en": "Spritz",
+   "serve_style_en": "Spritz",
+   "flavour_tags_en": [
+    "fruity",
+    "sparkling"
+   ],
+   "moment_en": [
+    "Opener"
+   ],
+   "allergens_en": [],
+   "unavailable_reason_en": ""
   },
   {
    "name": "White Russian",
    "section": "Vodka",
    "tagline_de": "Wodka, Kaffeelikör, Sahne. Drei Zutaten, kein Aufwand, grosse Wirkung.",
-   "bartender_note_de": "",
+   "bartender_note_de": "Wodka, Kaffeelikoer, Sahne. Durch The Big Lebowski und den Dude endgueltig Kult, der Drink zum Teppich.",
    "ingredients_guest": [
     "Wodka",
     "Kahlúa",
@@ -6236,7 +8566,8 @@
    "serve_style": "Built",
    "strength": {
     "level": 3,
-    "label": "mittel"
+    "label": "mittel",
+    "label_en": "medium"
    },
    "flavour_tags": [
     "cremig",
@@ -6275,13 +8606,35 @@
     }
    ],
    "hidden_on_card": false,
-   "card_action": ""
+   "card_action": "",
+   "tagline_en": "Vodka, coffee liqueur, cream. Three ingredients, no effort, big effect.",
+   "bartender_note_en": "Vodka, coffee liqueur, cream. The Big Lebowski and the Dude turned it into a cult, the drink for the rug.",
+   "ingredients_guest_en": [
+    "Vodka",
+    "Kahlúa",
+    "Cream"
+   ],
+   "glass_en": "Tumbler",
+   "section_en": "Vodka",
+   "serve_style_en": "Built",
+   "flavour_tags_en": [
+    "creamy",
+    "coffee",
+    "sweet"
+   ],
+   "moment_en": [
+    "Late night"
+   ],
+   "allergens_en": [
+    "Milk"
+   ],
+   "unavailable_reason_en": ""
   },
   {
    "name": "Zacapa Wolke",
    "section": "Rum/Cachaça",
    "tagline_de": "Gereifter Rum unter Zuckerwatte. Die Wolke löst sich im Glas auf, dann trinkst du.",
-   "bartender_note_de": "",
+   "bartender_note_de": "Zacapa Rum unter einer Wolke aus Zuckerwatte. Erst schauen, dann schmelzen, dann trinken.",
    "ingredients_guest": [
     "Zacapa 23",
     "Zuckerwatte"
@@ -6290,7 +8643,8 @@
    "serve_style": "Built",
    "strength": {
     "level": 5,
-    "label": "stark"
+    "label": "stark",
+    "label_en": "strong"
    },
    "flavour_tags": [
     "süß"
@@ -6317,13 +8671,30 @@
     }
    ],
    "hidden_on_card": true,
-   "card_action": "Bleibt auf der Karte versteckt (Dan 19.08.2026)"
+   "card_action": "Bleibt auf der Karte versteckt (Dan 19.08.2026)",
+   "tagline_en": "Aged rum under cotton candy. The cloud dissolves in the glass, then you drink.",
+   "bartender_note_en": "Zacapa rum under a cloud of cotton candy. First look, then melt, then drink.",
+   "ingredients_guest_en": [
+    "Zacapa 23",
+    "Cotton candy"
+   ],
+   "glass_en": "Tumbler",
+   "section_en": "Rum/Cachaça",
+   "serve_style_en": "Built",
+   "flavour_tags_en": [
+    "sweet"
+   ],
+   "moment_en": [
+    "Late night"
+   ],
+   "allergens_en": [],
+   "unavailable_reason_en": ""
   },
   {
    "name": "gingerle Spritz",
    "section": "Spritz",
    "tagline_de": "Ingwer und Zitrone aus dem Likör, dazu Prosecco. Schärfer als jeder andere Spritz hier.",
-   "bartender_note_de": "",
+   "bartender_note_de": "Ingwer Zitronen Likoer im Spritz, wuerzig und prickelnd.",
    "ingredients_guest": [
     "gingerle",
     "Prosecco",
@@ -6333,7 +8704,8 @@
    "serve_style": "Spritz",
    "strength": {
     "level": 1,
-    "label": "leicht"
+    "label": "leicht",
+    "label_en": "light"
    },
    "flavour_tags": [
     "prickelnd",
@@ -6373,13 +8745,32 @@
     }
    ],
    "hidden_on_card": true,
-   "card_action": "Bleibt auf der Karte versteckt (Dan 19.08.2026)"
+   "card_action": "Bleibt auf der Karte versteckt (Dan 19.08.2026)",
+   "tagline_en": "Ginger and lemon from the liqueur, plus prosecco. Sharper than any other spritz here.",
+   "bartender_note_en": "Ginger lemon liqueur in a spritz, spicy and sparkling.",
+   "ingredients_guest_en": [
+    "gingerle",
+    "Prosecco",
+    "Soda"
+   ],
+   "glass_en": "Wine glass",
+   "section_en": "Spritz",
+   "serve_style_en": "Spritz",
+   "flavour_tags_en": [
+    "sparkling",
+    "sour/citrus"
+   ],
+   "moment_en": [
+    "Opener"
+   ],
+   "allergens_en": [],
+   "unavailable_reason_en": "Gingerle liqueur delisted, no longer in the house"
   },
   {
    "name": "Alkoholfrei - Clover Club",
    "section": "Alkoholfrei",
    "tagline_de": "Himbeere mit Schaumkrone, ganz ohne Alkohol. Sieht genauso gut aus wie das Original.",
-   "bartender_note_de": "",
+   "bartender_note_de": "Der Vor Prohibition Klassiker ohne Alkohol. Himbeere und Zitrone, rosa und samtig.",
    "ingredients_guest": [
     "Tanqueray 0.0",
     "Himbeere",
@@ -6390,7 +8781,8 @@
    "serve_style": "Sour",
    "strength": {
     "level": 0,
-    "label": "alkoholfrei"
+    "label": "alkoholfrei",
+    "label_en": "alcohol free"
    },
    "flavour_tags": [
     "fruchtig",
@@ -6432,13 +8824,35 @@
     }
    ],
    "hidden_on_card": false,
-   "card_action": ""
+   "card_action": "",
+   "tagline_en": "Raspberry with a foam crown, entirely without alcohol. Looks just as good as the original.",
+   "bartender_note_en": "The pre-Prohibition classic without alcohol. Raspberry and lemon, pink and velvety.",
+   "ingredients_guest_en": [
+    "Tanqueray 0.0",
+    "Raspberry",
+    "Lemon",
+    "Sugar"
+   ],
+   "glass_en": "Coupe",
+   "section_en": "Non-Alcoholic",
+   "serve_style_en": "Sour",
+   "flavour_tags_en": [
+    "fruity",
+    "creamy"
+   ],
+   "moment_en": [
+    "All evening"
+   ],
+   "allergens_en": [
+    "Egg"
+   ],
+   "unavailable_reason_en": ""
   },
   {
    "name": "Alkoholfrei - Mermaid's Melody",
    "section": "Alkoholfrei",
    "tagline_de": "Blau, Kokos, Limette. Der Urlaubsdrink ohne Kopfschmerzen.",
-   "bartender_note_de": "",
+   "bartender_note_de": "Die tuerkise Meerjungfrau ohne Rum. Kokos und Limette, Karibik ohne Kater.",
    "ingredients_guest": [
     "alkoholfreier Rum",
     "Blue Curaçao",
@@ -6449,7 +8863,8 @@
    "serve_style": "Highball",
    "strength": {
     "level": 0,
-    "label": "alkoholfrei"
+    "label": "alkoholfrei",
+    "label_en": "alcohol free"
    },
    "flavour_tags": [
     "fruchtig",
@@ -6498,13 +8913,34 @@
     }
    ],
    "hidden_on_card": false,
-   "card_action": ""
+   "card_action": "",
+   "tagline_en": "Blue, coconut, lime. The holiday drink without the headache.",
+   "bartender_note_en": "The turquoise mermaid without rum. Coconut and lime, the Caribbean without the hangover.",
+   "ingredients_guest_en": [
+    "Non-alcoholic rum",
+    "Blue Curaçao",
+    "Lime",
+    "Coconut"
+   ],
+   "glass_en": "Highball",
+   "section_en": "Non-Alcoholic",
+   "serve_style_en": "Highball",
+   "flavour_tags_en": [
+    "fruity",
+    "creamy",
+    "sweet"
+   ],
+   "moment_en": [
+    "All evening"
+   ],
+   "allergens_en": [],
+   "unavailable_reason_en": ""
   },
   {
    "name": "Alkoholfrei - Ricky Ricky",
    "section": "Alkoholfrei",
    "tagline_de": "Limette, Minze, Soda. Leicht und frisch, der beste Einstieg ohne Alkohol.",
-   "bartender_note_de": "",
+   "bartender_note_de": "Der Haus Mojito Cousin ohne Gin. Minze und Limette, leicht und frech.",
    "ingredients_guest": [
     "Tanqueray 0.0",
     "Limette",
@@ -6516,7 +8952,8 @@
    "serve_style": "Highball",
    "strength": {
     "level": 0,
-    "label": "alkoholfrei"
+    "label": "alkoholfrei",
+    "label_en": "alcohol free"
    },
    "flavour_tags": [
     "kräuterig/frisch",
@@ -6560,13 +8997,34 @@
     }
    ],
    "hidden_on_card": false,
-   "card_action": ""
+   "card_action": "",
+   "tagline_en": "Lime, mint, soda. Light and fresh, the best way in without alcohol.",
+   "bartender_note_en": "The house Mojito cousin without gin. Mint and lime, light and cheeky.",
+   "ingredients_guest_en": [
+    "Tanqueray 0.0",
+    "Lime",
+    "Mint",
+    "Sugar",
+    "Soda"
+   ],
+   "glass_en": "Highball",
+   "section_en": "Non-Alcoholic",
+   "serve_style_en": "Highball",
+   "flavour_tags_en": [
+    "herbal/fresh",
+    "sparkling"
+   ],
+   "moment_en": [
+    "Opener"
+   ],
+   "allergens_en": [],
+   "unavailable_reason_en": ""
   },
   {
    "name": "Asbach & Cola 4cl",
    "section": "Mixgetränke",
    "tagline_de": "Weinbrand und Cola. Der deutsche Longdrink, bevor es Longdrinks gab.",
-   "bartender_note_de": "",
+   "bartender_note_de": "Deutscher Weinbrand mit Cola. Asbach Uralt war schon der Cognac Ersatz der Nachkriegszeit.",
    "ingredients_guest": [
     "Asbach Uralt",
     "Cola"
@@ -6575,7 +9033,8 @@
    "serve_style": "Highball",
    "strength": {
     "level": 3,
-    "label": "mittel"
+    "label": "mittel",
+    "label_en": "medium"
    },
    "flavour_tags": [
     "süß",
@@ -6611,13 +9070,31 @@
     }
    ],
    "hidden_on_card": false,
-   "card_action": ""
+   "card_action": "",
+   "tagline_en": "Brandy and cola. The German long drink before long drinks existed.",
+   "bartender_note_en": "German brandy with cola. Asbach Uralt was already the cognac substitute of the post-war years.",
+   "ingredients_guest_en": [
+    "Asbach Uralt",
+    "Cola"
+   ],
+   "glass_en": "Highball",
+   "section_en": "Mixed Drinks",
+   "serve_style_en": "Highball",
+   "flavour_tags_en": [
+    "sweet",
+    "sparkling"
+   ],
+   "moment_en": [
+    "Midway"
+   ],
+   "allergens_en": [],
+   "unavailable_reason_en": ""
   },
   {
    "name": "Bacardi & Cola 6cl",
    "section": "Mixgetränke",
    "tagline_de": "Weisser Rum und Cola. Cuba Libre ohne die Limette.",
-   "bartender_note_de": "",
+   "bartender_note_de": "Rum und Cola, ohne Limette der kleine Bruder des Cuba Libre.",
    "ingredients_guest": [
     "Bacardi",
     "Cola"
@@ -6626,7 +9103,8 @@
    "serve_style": "Highball",
    "strength": {
     "level": 3,
-    "label": "mittel"
+    "label": "mittel",
+    "label_en": "medium"
    },
    "flavour_tags": [
     "süß",
@@ -6654,13 +9132,31 @@
     }
    ],
    "hidden_on_card": false,
-   "card_action": ""
+   "card_action": "",
+   "tagline_en": "White rum and cola. A Cuba Libre without the lime.",
+   "bartender_note_en": "Rum and cola, without the lime the little brother of the Cuba Libre.",
+   "ingredients_guest_en": [
+    "Bacardi",
+    "Cola"
+   ],
+   "glass_en": "Highball",
+   "section_en": "Mixed Drinks",
+   "serve_style_en": "Highball",
+   "flavour_tags_en": [
+    "sweet",
+    "sparkling"
+   ],
+   "moment_en": [
+    "Midway"
+   ],
+   "allergens_en": [],
+   "unavailable_reason_en": ""
   },
   {
    "name": "Berliner Luft 4cl",
    "section": "Shots",
    "tagline_de": "Doppelte Pfefferminze. Kälter geht nicht.",
-   "bartender_note_de": "",
+   "bartender_note_de": "Der Pfefferminz Klassiker, jetzt in gross. Eiskalt serviert pustet er richtig durch.",
    "ingredients_guest": [
     "Berliner Luft"
    ],
@@ -6668,7 +9164,8 @@
    "serve_style": "Shot",
    "strength": {
     "level": 3,
-    "label": "mittel"
+    "label": "mittel",
+    "label_en": "medium"
    },
    "flavour_tags": [
     "kräuterig/frisch",
@@ -6696,7 +9193,24 @@
     }
    ],
    "hidden_on_card": false,
-   "card_action": ""
+   "card_action": "",
+   "tagline_en": "Double peppermint. It does not get colder.",
+   "bartender_note_en": "The peppermint classic, now in large. Served ice cold it really clears you out.",
+   "ingredients_guest_en": [
+    "Berliner Luft"
+   ],
+   "glass_en": "Shot glass",
+   "section_en": "Shots",
+   "serve_style_en": "Shot",
+   "flavour_tags_en": [
+    "herbal/fresh",
+    "sweet"
+   ],
+   "moment_en": [
+    "Late night"
+   ],
+   "allergens_en": [],
+   "unavailable_reason_en": ""
   },
   {
    "name": "Bramble",
@@ -6714,7 +9228,8 @@
    "serve_style": "Sour",
    "strength": {
     "level": 3,
-    "label": "mittel"
+    "label": "mittel",
+    "label_en": "medium"
    },
    "flavour_tags": [
     "fruchtig",
@@ -6762,13 +9277,34 @@
     }
    ],
    "hidden_on_card": false,
-   "card_action": ""
+   "card_action": "",
+   "tagline_en": "Blackberry liqueur bleeds down through crushed ice. Looks like a sunset and tastes like a summer.",
+   "bartender_note_en": "Invented in 1980s London by Dick Bradsell. Gin over crushed ice with blackberry liqueur bleeding down through it.",
+   "ingredients_guest_en": [
+    "Tanqueray",
+    "Lemon",
+    "Crème de Mûre",
+    "Raspberries",
+    "Sugar"
+   ],
+   "glass_en": "Tumbler",
+   "section_en": "Premium Cocktails",
+   "serve_style_en": "Sour",
+   "flavour_tags_en": [
+    "fruity",
+    "sour/citrus"
+   ],
+   "moment_en": [
+    "Midway"
+   ],
+   "allergens_en": [],
+   "unavailable_reason_en": ""
   },
   {
    "name": "Dark & Stormy",
    "section": "Rum/Cachaça",
    "tagline_de": "Dunkler Rum auf Ingwer, Limette obendrauf. Zwei Zutaten, ein Gewitter.",
-   "bartender_note_de": "",
+   "bartender_note_de": "Bermudas Nationaldrink, sogar markenrechtlich geschuetzt. Dunkler Rum ueber Ginger Beer, der Sturm ueber der Ruhe.",
    "ingredients_guest": [
     "dunkler Rum",
     "Thomas Henry Spicy Ginger",
@@ -6778,7 +9314,8 @@
    "serve_style": "Highball",
    "strength": {
     "level": 3,
-    "label": "mittel"
+    "label": "mittel",
+    "label_en": "medium"
    },
    "flavour_tags": [
     "prickelnd",
@@ -6814,7 +9351,26 @@
     }
    ],
    "hidden_on_card": false,
-   "card_action": ""
+   "card_action": "",
+   "tagline_en": "Dark rum on ginger, lime on top. Two ingredients, one storm.",
+   "bartender_note_en": "Bermuda's national drink, even trademark protected. Dark rum over ginger beer, the storm above the calm.",
+   "ingredients_guest_en": [
+    "Dark rum",
+    "Thomas Henry Spicy Ginger",
+    "Lime"
+   ],
+   "glass_en": "Highball",
+   "section_en": "Rum/Cachaça",
+   "serve_style_en": "Highball",
+   "flavour_tags_en": [
+    "sparkling",
+    "sweet"
+   ],
+   "moment_en": [
+    "Midway"
+   ],
+   "allergens_en": [],
+   "unavailable_reason_en": ""
   },
   {
    "name": "Don Julio Reposado Margerita",
@@ -6831,7 +9387,8 @@
    "serve_style": "Shaken",
    "strength": {
     "level": 4,
-    "label": "kräftig"
+    "label": "kräftig",
+    "label_en": "bold"
    },
    "flavour_tags": [
     "sauer/zitrus",
@@ -6846,7 +9403,7 @@
    "units_sold": 0,
    "popularity_rank": null,
    "available": false,
-   "unavailable_reason": "Von Dan aussortiert am 19.08.2026, nicht in die App.",
+   "unavailable_reason": "Zusammengelegt mit der Margarita Rojas",
    "on_printed_menu": false,
    "pos_sku": "384",
    "recipe_known": true,
@@ -6871,13 +9428,33 @@
     }
    ],
    "hidden_on_card": false,
-   "card_action": ""
+   "card_action": "",
+   "tagline_en": "A Margarita with aged tequila. Rounder, warmer, a touch pricier.",
+   "bartender_note_en": "",
+   "ingredients_guest_en": [
+    "Don Julio Reposado",
+    "Cointreau",
+    "Lime",
+    "Agave"
+   ],
+   "glass_en": "Coupe",
+   "section_en": "Tequila",
+   "serve_style_en": "Shaken",
+   "flavour_tags_en": [
+    "sour/citrus",
+    "sweet"
+   ],
+   "moment_en": [
+    "Midway"
+   ],
+   "allergens_en": [],
+   "unavailable_reason_en": "Merged into the Margarita Rojas"
   },
   {
    "name": "Erdbeer Spritz",
    "section": "Spritz",
    "tagline_de": "Erdbeere im Prosecco. Süss, rot und ohne Hintergedanken.",
-   "bartender_note_de": "",
+   "bartender_note_de": "Der Spritz mit frischer Erdbeere. Sommer im Glas.",
    "ingredients_guest": [
     "Erdbeere",
     "Prosecco",
@@ -6887,7 +9464,8 @@
    "serve_style": "Spritz",
    "strength": {
     "level": 1,
-    "label": "leicht"
+    "label": "leicht",
+    "label_en": "light"
    },
    "flavour_tags": [
     "fruchtig",
@@ -6924,13 +9502,33 @@
     }
    ],
    "hidden_on_card": false,
-   "card_action": ""
+   "card_action": "",
+   "tagline_en": "Strawberry in prosecco. Sweet, red and with no ulterior motive.",
+   "bartender_note_en": "The spritz with fresh strawberry. Summer in a glass.",
+   "ingredients_guest_en": [
+    "Strawberry",
+    "Prosecco",
+    "Soda"
+   ],
+   "glass_en": "Wine glass",
+   "section_en": "Spritz",
+   "serve_style_en": "Spritz",
+   "flavour_tags_en": [
+    "fruity",
+    "sweet",
+    "sparkling"
+   ],
+   "moment_en": [
+    "Opener"
+   ],
+   "allergens_en": [],
+   "unavailable_reason_en": ""
   },
   {
    "name": "Erdbeere Daiquiri",
    "section": "Frozen",
    "tagline_de": "Frozen, rot, eiskalt. Der Drink, den man im Sommer aus der Hand nicht mehr weglegt.",
-   "bartender_note_de": "",
+   "bartender_note_de": "Der Daiquiri mit Erdbeere. Hemingway trank ihn ohne Zucker, wir machen ihn fruchtig.",
    "ingredients_guest": [
     "Bacardi",
     "Erdbeere",
@@ -6941,7 +9539,8 @@
    "serve_style": "Frozen",
    "strength": {
     "level": 2,
-    "label": "mild"
+    "label": "mild",
+    "label_en": "mild"
    },
    "flavour_tags": [
     "fruchtig",
@@ -6982,13 +9581,34 @@
     }
    ],
    "hidden_on_card": false,
-   "card_action": ""
+   "card_action": "",
+   "tagline_en": "Frozen, red, ice cold. The drink you will not put down all summer.",
+   "bartender_note_en": "The Daiquiri with strawberry. Hemingway drank it without sugar, we make it fruity.",
+   "ingredients_guest_en": [
+    "Bacardi",
+    "Strawberry",
+    "Lime",
+    "Sugar"
+   ],
+   "glass_en": "Coupe",
+   "section_en": "Frozen",
+   "serve_style_en": "Frozen",
+   "flavour_tags_en": [
+    "fruity",
+    "sweet",
+    "sour/citrus"
+   ],
+   "moment_en": [
+    "Midway"
+   ],
+   "allergens_en": [],
+   "unavailable_reason_en": ""
   },
   {
    "name": "Espresso Royal",
    "section": "Vodka Cocktails",
    "tagline_de": "Espresso Martini in gross. Ketel One und frischer Espresso, weicher und runder als das Original.",
-   "bartender_note_de": "",
+   "bartender_note_de": "Espresso Martini mit einem Schuss mehr. Ketel One und frischer Kaffee, wach und edel.",
    "ingredients_guest": [
     "Ketel One",
     "Kahlúa",
@@ -6999,7 +9619,8 @@
    "serve_style": "Shaken",
    "strength": {
     "level": 3,
-    "label": "mittel"
+    "label": "mittel",
+    "label_en": "medium"
    },
    "flavour_tags": [
     "kaffee",
@@ -7045,13 +9666,35 @@
     }
    ],
    "hidden_on_card": false,
-   "card_action": ""
+   "card_action": "",
+   "tagline_en": "An Espresso Martini, supersized. Ketel One and fresh espresso, softer and rounder than the original.",
+   "bartender_note_en": "An Espresso Martini with a little extra. Ketel One and fresh coffee, awake and elegant.",
+   "ingredients_guest_en": [
+    "Ketel One",
+    "Kahlúa",
+    "Fresh espresso",
+    "Sugar"
+   ],
+   "glass_en": "Coupe",
+   "section_en": "Vodka Cocktails",
+   "serve_style_en": "Shaken",
+   "flavour_tags_en": [
+    "coffee",
+    "creamy",
+    "sweet"
+   ],
+   "moment_en": [
+    "Midway",
+    "Late night"
+   ],
+   "allergens_en": [],
+   "unavailable_reason_en": ""
   },
   {
    "name": "Ficken 4cl",
    "section": "Shots",
    "tagline_de": "Der gleiche Shot, doppelt. Für Tische, die es ernst meinen.",
-   "bartender_note_de": "",
+   "bartender_note_de": "Der Kult Shot, jetzt in gross. Immer noch mehr Name als Getraenk.",
    "ingredients_guest": [
     "Ficken Likör"
    ],
@@ -7059,7 +9702,8 @@
    "serve_style": "Shot",
    "strength": {
     "level": 2,
-    "label": "mild"
+    "label": "mild",
+    "label_en": "mild"
    },
    "flavour_tags": [
     "süß",
@@ -7087,13 +9731,30 @@
     }
    ],
    "hidden_on_card": false,
-   "card_action": ""
+   "card_action": "",
+   "tagline_en": "The same shot, doubled. For tables that mean business.",
+   "bartender_note_en": "The cult shot, now large. Still more name than drink.",
+   "ingredients_guest_en": [
+    "Ficken liqueur"
+   ],
+   "glass_en": "Shot glass",
+   "section_en": "Shots",
+   "serve_style_en": "Shot",
+   "flavour_tags_en": [
+    "sweet",
+    "fruity"
+   ],
+   "moment_en": [
+    "Late night"
+   ],
+   "allergens_en": [],
+   "unavailable_reason_en": ""
   },
   {
    "name": "Frozen Aperol",
    "section": "Frozen",
    "tagline_de": "Aperol Spritz als Slush. Im Hochsommer die einzig richtige Antwort.",
-   "bartender_note_de": "",
+   "bartender_note_de": "Aperol Spritz als Slush. Bei Hitze die einzig richtige Antwort.",
    "ingredients_guest": [
     "Aperol",
     "Prosecco",
@@ -7103,7 +9764,8 @@
    "serve_style": "Frozen",
    "strength": {
     "level": 1,
-    "label": "leicht"
+    "label": "leicht",
+    "label_en": "light"
    },
    "flavour_tags": [
     "bitter",
@@ -7131,13 +9793,32 @@
     }
    ],
    "hidden_on_card": false,
-   "card_action": ""
+   "card_action": "",
+   "tagline_en": "Aperol Spritz as a slush. In high summer the only right answer.",
+   "bartender_note_en": "Aperol Spritz as a slush. In high summer the only right answer.",
+   "ingredients_guest_en": [
+    "Aperol",
+    "Prosecco",
+    "Ice"
+   ],
+   "glass_en": "Wine glass",
+   "section_en": "Frozen",
+   "serve_style_en": "Frozen",
+   "flavour_tags_en": [
+    "bitter",
+    "fruity"
+   ],
+   "moment_en": [
+    "Midway"
+   ],
+   "allergens_en": [],
+   "unavailable_reason_en": ""
   },
   {
    "name": "Frozen Sarti",
    "section": "Frozen",
    "tagline_de": "Sarti als Slush. Blumig, rosa und sehr kalt.",
-   "bartender_note_de": "",
+   "bartender_note_de": "Sarti Spritz auf Eis gecrusht. Pink, kalt, Sommer.",
    "ingredients_guest": [
     "Sarti Rosa",
     "Prosecco",
@@ -7147,7 +9828,8 @@
    "serve_style": "Frozen",
    "strength": {
     "level": 1,
-    "label": "leicht"
+    "label": "leicht",
+    "label_en": "light"
    },
    "flavour_tags": [
     "fruchtig"
@@ -7174,13 +9856,31 @@
     }
    ],
    "hidden_on_card": false,
-   "card_action": ""
+   "card_action": "",
+   "tagline_en": "Sarti as a slush. Floral, pink and very cold.",
+   "bartender_note_en": "Sarti Spritz crushed over ice. Pink, cold, summer.",
+   "ingredients_guest_en": [
+    "Sarti Rosa",
+    "Prosecco",
+    "Ice"
+   ],
+   "glass_en": "Wine glass",
+   "section_en": "Frozen",
+   "serve_style_en": "Frozen",
+   "flavour_tags_en": [
+    "fruity"
+   ],
+   "moment_en": [
+    "Midway"
+   ],
+   "allergens_en": [],
+   "unavailable_reason_en": ""
   },
   {
    "name": "Frozen Spritz",
    "section": "Frozen",
    "tagline_de": "Spritz als Slush, ohne Umwege. Für Tage, an denen Eiswürfel nicht reichen.",
-   "bartender_note_de": "",
+   "bartender_note_de": "Der Spritz als Frozen. Loeffel oder Strohhalm, beides erlaubt.",
    "ingredients_guest": [
     "Aperitivo",
     "Prosecco",
@@ -7190,7 +9890,8 @@
    "serve_style": "Frozen",
    "strength": {
     "level": 1,
-    "label": "leicht"
+    "label": "leicht",
+    "label_en": "light"
    },
    "flavour_tags": [
     "bitter",
@@ -7226,13 +9927,32 @@
     }
    ],
    "hidden_on_card": false,
-   "card_action": ""
+   "card_action": "",
+   "tagline_en": "Spritz as a slush, no detour. For days when ice cubes are not enough.",
+   "bartender_note_en": "The spritz frozen. Spoon or straw, both allowed.",
+   "ingredients_guest_en": [
+    "Aperitivo",
+    "Prosecco",
+    "Ice"
+   ],
+   "glass_en": "Wine glass",
+   "section_en": "Frozen",
+   "serve_style_en": "Frozen",
+   "flavour_tags_en": [
+    "bitter",
+    "fruity"
+   ],
+   "moment_en": [
+    "Midway"
+   ],
+   "allergens_en": [],
+   "unavailable_reason_en": ""
   },
   {
    "name": "Gin Tonic - Alkoholfrei",
    "section": "Alkoholfrei",
    "tagline_de": "Tanqueray 0.0 mit Tonic. Sieht aus wie ein Gin Tonic, schmeckt wie einer, ist keiner.",
-   "bartender_note_de": "",
+   "bartender_note_de": "Gin Tonic komplett ohne Alkohol. Tanqueray 0.0 mit Tonic, Wacholder ohne Reue.",
    "ingredients_guest": [
     "Tanqueray 0.0",
     "Tonic Water",
@@ -7242,7 +9962,8 @@
    "serve_style": "Highball",
    "strength": {
     "level": 0,
-    "label": "alkoholfrei"
+    "label": "alkoholfrei",
+    "label_en": "alcohol free"
    },
    "flavour_tags": [
     "bitter",
@@ -7275,13 +9996,33 @@
     }
    ],
    "hidden_on_card": false,
-   "card_action": ""
+   "card_action": "",
+   "tagline_en": "Tanqueray 0.0 with tonic. Looks like a gin and tonic, tastes like one, is not one.",
+   "bartender_note_en": "A gin and tonic entirely without alcohol. Tanqueray 0.0 with tonic, juniper without the regret.",
+   "ingredients_guest_en": [
+    "Tanqueray 0.0",
+    "Tonic water",
+    "Lime"
+   ],
+   "glass_en": "Balloon glass",
+   "section_en": "Non-Alcoholic",
+   "serve_style_en": "Highball",
+   "flavour_tags_en": [
+    "bitter",
+    "sparkling",
+    "herbal/fresh"
+   ],
+   "moment_en": [
+    "All evening"
+   ],
+   "allergens_en": [],
+   "unavailable_reason_en": ""
   },
   {
    "name": "Gin Tonic - August",
    "section": "Gin",
    "tagline_de": "Auch aus Augsburg, etwas weicher als der Fugger. Zwei Städte, zwei Gins.",
-   "bartender_note_de": "",
+   "bartender_note_de": "Mit August Gin, dem Augsburger Tropfen. Lokalstolz im Glas.",
    "ingredients_guest": [
     "August Gin",
     "Tonic Water",
@@ -7291,7 +10032,8 @@
    "serve_style": "Highball",
    "strength": {
     "level": 3,
-    "label": "mittel"
+    "label": "mittel",
+    "label_en": "medium"
    },
    "flavour_tags": [
     "kräuterig/frisch",
@@ -7325,13 +10067,34 @@
     }
    ],
    "hidden_on_card": false,
-   "card_action": ""
+   "card_action": "",
+   "tagline_en": "Also from Augsburg, a touch softer than the Fugger. Two cities, two gins.",
+   "bartender_note_en": "Made with August Gin, the Augsburg drop. Local pride in a glass.",
+   "ingredients_guest_en": [
+    "August Gin",
+    "Tonic water",
+    "Lime"
+   ],
+   "glass_en": "Balloon glass",
+   "section_en": "Gin",
+   "serve_style_en": "Highball",
+   "flavour_tags_en": [
+    "herbal/fresh",
+    "bitter",
+    "sparkling"
+   ],
+   "moment_en": [
+    "Opener",
+    "Midway"
+   ],
+   "allergens_en": [],
+   "unavailable_reason_en": ""
   },
   {
    "name": "Gingerle 4cl & Tonic",
    "section": "Gin",
    "tagline_de": "Ingwer Zitronen Likör auf Tonic. Scharf und bitter, eine gute Alternative zum Gin Tonic.",
-   "bartender_note_de": "",
+   "bartender_note_de": "Ingwer Zitronen Likoer mit Tonic, wuerzig und lang.",
    "ingredients_guest": [
     "gingerle",
     "Tonic Water"
@@ -7340,7 +10103,8 @@
    "serve_style": "Highball",
    "strength": {
     "level": 2,
-    "label": "mild"
+    "label": "mild",
+    "label_en": "mild"
    },
    "flavour_tags": [
     "prickelnd",
@@ -7376,13 +10140,31 @@
     }
    ],
    "hidden_on_card": false,
-   "card_action": ""
+   "card_action": "",
+   "tagline_en": "Ginger lemon liqueur on tonic. Sharp and bitter, a good alternative to the gin and tonic.",
+   "bartender_note_en": "Ginger lemon liqueur with tonic, spicy and long.",
+   "ingredients_guest_en": [
+    "gingerle",
+    "Tonic water"
+   ],
+   "glass_en": "Balloon glass",
+   "section_en": "Gin",
+   "serve_style_en": "Highball",
+   "flavour_tags_en": [
+    "sparkling",
+    "bitter"
+   ],
+   "moment_en": [
+    "Midway"
+   ],
+   "allergens_en": [],
+   "unavailable_reason_en": ""
   },
   {
    "name": "Haselnuss 4cl",
    "section": "Shots",
    "tagline_de": "Doppelt nussig. Eher ein Absacker als ein Shot.",
-   "bartender_note_de": "",
+   "bartender_note_de": "Fluessiges Nougat, jetzt doppelt. Suess und ueber Kopf.",
    "ingredients_guest": [
     "Haselnusslikör"
    ],
@@ -7390,7 +10172,8 @@
    "serve_style": "Shot",
    "strength": {
     "level": 2,
-    "label": "mild"
+    "label": "mild",
+    "label_en": "mild"
    },
    "flavour_tags": [
     "süß",
@@ -7420,13 +10203,32 @@
     }
    ],
    "hidden_on_card": false,
-   "card_action": ""
+   "card_action": "",
+   "tagline_en": "Twice as nutty. More of a nightcap than a shot.",
+   "bartender_note_en": "Liquid nougat, now doubled. Sweet and over the head.",
+   "ingredients_guest_en": [
+    "Hazelnut liqueur"
+   ],
+   "glass_en": "Shot glass",
+   "section_en": "Shots",
+   "serve_style_en": "Shot",
+   "flavour_tags_en": [
+    "sweet",
+    "creamy"
+   ],
+   "moment_en": [
+    "Late night"
+   ],
+   "allergens_en": [
+    "Nuts"
+   ],
+   "unavailable_reason_en": ""
   },
   {
    "name": "Heidi",
    "section": "Spritzig Selects",
    "tagline_de": "Dunkle Beeren und Prosecco. Der tiefste Spritz auf der Karte und der, den man am Nebentisch sieht.",
-   "bartender_note_de": "",
+   "bartender_note_de": "Lillet mit Johannisbeere und Heidelbeere. Ein beeriger Haus Spritz mit Almcharme.",
    "ingredients_guest": [
     "Lillet",
     "Johannisbeere",
@@ -7438,7 +10240,8 @@
    "serve_style": "Spritz",
    "strength": {
     "level": 1,
-    "label": "leicht"
+    "label": "leicht",
+    "label_en": "light"
    },
    "flavour_tags": [
     "fruchtig",
@@ -7486,13 +10289,34 @@
     }
    ],
    "hidden_on_card": false,
-   "card_action": ""
+   "card_action": "",
+   "tagline_en": "Dark berries and prosecco. The deepest spritz on the menu and the one you notice at the next table.",
+   "bartender_note_en": "Lillet with blackcurrant and blueberry. A berry house spritz with alpine charm.",
+   "ingredients_guest_en": [
+    "Lillet",
+    "Blackcurrant",
+    "Blueberries",
+    "Prosecco",
+    "Soda"
+   ],
+   "glass_en": "Wine glass",
+   "section_en": "Sparkling Selects",
+   "serve_style_en": "Spritz",
+   "flavour_tags_en": [
+    "fruity",
+    "sparkling"
+   ],
+   "moment_en": [
+    "Opener"
+   ],
+   "allergens_en": [],
+   "unavailable_reason_en": ""
   },
   {
    "name": "La Dama Rosa",
    "section": "Premium Cocktails",
    "tagline_de": "Grapefruit, Agave und Tajín am Rand. Salzig, sauer, rosa.",
-   "bartender_note_de": "",
+   "bartender_note_de": "Don Julio Blanco mit Grapefruit und Tajin. Rosa, salzig, eine elegante Dame mit Biss. Haus Kreation.",
    "ingredients_guest": [
     "Don Julio Blanco",
     "Grapefruit",
@@ -7505,7 +10329,8 @@
    "serve_style": "Highball",
    "strength": {
     "level": 3,
-    "label": "mittel"
+    "label": "mittel",
+    "label_en": "medium"
    },
    "flavour_tags": [
     "fruchtig",
@@ -7555,13 +10380,37 @@
     }
    ],
    "hidden_on_card": false,
-   "card_action": ""
+   "card_action": "",
+   "tagline_en": "Grapefruit, agave and Tajin on the rim. Salty, sour, pink.",
+   "bartender_note_en": "Don Julio Blanco with grapefruit and Tajin. Pink, salty, an elegant lady with bite. A house creation.",
+   "ingredients_guest_en": [
+    "Don Julio Blanco",
+    "Grapefruit",
+    "Lime",
+    "Agave",
+    "Tajín",
+    "Soda"
+   ],
+   "glass_en": "Highball",
+   "section_en": "Premium Cocktails",
+   "serve_style_en": "Highball",
+   "flavour_tags_en": [
+    "fruity",
+    "sour/citrus",
+    "sparkling"
+   ],
+   "moment_en": [
+    "Opener",
+    "Midway"
+   ],
+   "allergens_en": [],
+   "unavailable_reason_en": ""
   },
   {
    "name": "Licor 43 2cl",
    "section": "Shots",
    "tagline_de": "Vanille und Zitrus aus Spanien. Der süsseste Shot auf der Karte.",
-   "bartender_note_de": "",
+   "bartender_note_de": "Spaniens Vanillelikoer mit dreiundvierzig Zutaten, daher der Name. Suess und golden.",
    "ingredients_guest": [
     "Licor 43"
    ],
@@ -7569,7 +10418,8 @@
    "serve_style": "Shot",
    "strength": {
     "level": 2,
-    "label": "mild"
+    "label": "mild",
+    "label_en": "mild"
    },
    "flavour_tags": [
     "süß"
@@ -7596,13 +10446,29 @@
     }
    ],
    "hidden_on_card": false,
-   "card_action": ""
+   "card_action": "",
+   "tagline_en": "Vanilla and citrus from Spain. The sweetest shot on the menu.",
+   "bartender_note_en": "Spain's vanilla liqueur with forty-three ingredients, hence the name. Sweet and golden.",
+   "ingredients_guest_en": [
+    "Licor 43"
+   ],
+   "glass_en": "Shot glass",
+   "section_en": "Shots",
+   "serve_style_en": "Shot",
+   "flavour_tags_en": [
+    "sweet"
+   ],
+   "moment_en": [
+    "Late night"
+   ],
+   "allergens_en": [],
+   "unavailable_reason_en": ""
   },
   {
    "name": "Licor 43 4cl & Ginger",
    "section": "Mixgetränke",
    "tagline_de": "Vanillelikör auf Ingwer. Süss und scharf, ein Widerspruch, der funktioniert.",
-   "bartender_note_de": "",
+   "bartender_note_de": "Licor 43 mit scharfem Ingwer. Vanille trifft Feuer.",
    "ingredients_guest": [
     "Licor 43",
     "Thomas Henry Spicy Ginger"
@@ -7611,7 +10477,8 @@
    "serve_style": "Highball",
    "strength": {
     "level": 2,
-    "label": "mild"
+    "label": "mild",
+    "label_en": "mild"
    },
    "flavour_tags": [
     "süß",
@@ -7647,7 +10514,25 @@
     }
    ],
    "hidden_on_card": false,
-   "card_action": ""
+   "card_action": "",
+   "tagline_en": "Vanilla liqueur on ginger. Sweet and sharp, a contradiction that works.",
+   "bartender_note_en": "Licor 43 with sharp ginger. Vanilla meets fire.",
+   "ingredients_guest_en": [
+    "Licor 43",
+    "Thomas Henry Spicy Ginger"
+   ],
+   "glass_en": "Highball",
+   "section_en": "Mixed Drinks",
+   "serve_style_en": "Highball",
+   "flavour_tags_en": [
+    "sweet",
+    "sparkling"
+   ],
+   "moment_en": [
+    "Late night"
+   ],
+   "allergens_en": [],
+   "unavailable_reason_en": ""
   },
   {
    "name": "Old Cuban",
@@ -7665,7 +10550,8 @@
    "serve_style": "Shaken",
    "strength": {
     "level": 3,
-    "label": "mittel"
+    "label": "mittel",
+    "label_en": "medium"
    },
    "flavour_tags": [
     "kräuterig/frisch",
@@ -7714,13 +10600,35 @@
     }
    ],
    "hidden_on_card": false,
-   "card_action": ""
+   "card_action": "",
+   "tagline_en": "A Mojito meets a Champagne cocktail. Aged rum, mint, lime and prosecco on top.",
+   "bartender_note_en": "Created in 2004 in New York by Audrey Saunders. A Mojito in an evening gown, with champagne on top.",
+   "ingredients_guest_en": [
+    "Zacapa 23",
+    "Lime",
+    "Sugar",
+    "Mint",
+    "Prosecco"
+   ],
+   "glass_en": "Coupe",
+   "section_en": "Premium Cocktails",
+   "serve_style_en": "Shaken",
+   "flavour_tags_en": [
+    "herbal/fresh",
+    "sparkling",
+    "sweet"
+   ],
+   "moment_en": [
+    "Midway"
+   ],
+   "allergens_en": [],
+   "unavailable_reason_en": ""
   },
   {
    "name": "Picante de la Casa",
    "section": "Tequila",
    "tagline_de": "Tequila mit Chili und Koriander. Scharf, frisch und unser mutigster Drink.",
-   "bartender_note_de": "",
+   "bartender_note_de": "Unsere scharfe Margarita mit Chili und Koriander. Reposado, Limette, Feuer, das Haus Rezept fuer Mutige.",
    "ingredients_guest": [
     "Reposado",
     "Limette",
@@ -7732,7 +10640,8 @@
    "serve_style": "Shaken",
    "strength": {
     "level": 4,
-    "label": "kräftig"
+    "label": "kräftig",
+    "label_en": "bold"
    },
    "flavour_tags": [
     "sauer/zitrus",
@@ -7773,13 +10682,35 @@
     }
    ],
    "hidden_on_card": true,
-   "card_action": "Bleibt auf der Karte versteckt (Dan 19.08.2026)"
+   "card_action": "Bleibt auf der Karte versteckt (Dan 19.08.2026)",
+   "tagline_en": "Tequila with chili and coriander. Spicy, fresh and our boldest drink.",
+   "bartender_note_en": "Our spicy Margarita with chili and coriander. Reposado, lime, fire, the house recipe for the brave.",
+   "ingredients_guest_en": [
+    "Reposado",
+    "Lime",
+    "Agave",
+    "Chili",
+    "Coriander"
+   ],
+   "glass_en": "Tumbler",
+   "section_en": "Tequila",
+   "serve_style_en": "Shaken",
+   "flavour_tags_en": [
+    "sour/citrus",
+    "spicy",
+    "herbal/fresh"
+   ],
+   "moment_en": [
+    "Midway"
+   ],
+   "allergens_en": [],
+   "unavailable_reason_en": ""
   },
   {
    "name": "Raki 2cl",
    "section": "Shots",
    "tagline_de": "Türkischer Anis, klar und kräftig. Trinkt man langsam, auch als Shot.",
-   "bartender_note_de": "",
+   "bartender_note_de": "Anis Spirituose aus der Tuerkei, mit Wasser wird sie milchig weiss und heisst dann Loewenmilch.",
    "ingredients_guest": [
     "Raki"
    ],
@@ -7787,7 +10718,8 @@
    "serve_style": "Shot",
    "strength": {
     "level": 4,
-    "label": "kräftig"
+    "label": "kräftig",
+    "label_en": "bold"
    },
    "flavour_tags": [
     "kräuterig/frisch"
@@ -7801,7 +10733,7 @@
    "units_sold": 0,
    "popularity_rank": null,
    "available": false,
-   "unavailable_reason": "Von Dan aussortiert am 19.08.2026, nicht in die App.",
+   "unavailable_reason": "Nicht mehr im Angebot",
    "on_printed_menu": false,
    "pos_sku": "268",
    "recipe_known": true,
@@ -7814,13 +10746,29 @@
     }
    ],
    "hidden_on_card": false,
-   "card_action": ""
+   "card_action": "",
+   "tagline_en": "Turkish anise, clear and strong. Sip it slowly, even as a shot.",
+   "bartender_note_en": "An anise spirit from Turkey, it turns milky white with water and is then called lion's milk.",
+   "ingredients_guest_en": [
+    "Raki"
+   ],
+   "glass_en": "Shot glass",
+   "section_en": "Shots",
+   "serve_style_en": "Shot",
+   "flavour_tags_en": [
+    "herbal/fresh"
+   ],
+   "moment_en": [
+    "Late night"
+   ],
+   "allergens_en": [],
+   "unavailable_reason_en": "No longer offered"
   },
   {
    "name": "Raki 4cl",
    "section": "Shots",
    "tagline_de": "Doppelter Raki. Am besten mit Wasser daneben.",
-   "bartender_note_de": "",
+   "bartender_note_de": "Anis Spirituose aus der Tuerkei, mit Wasser wird sie milchig weiss und heisst dann Loewenmilch.",
    "ingredients_guest": [
     "Raki"
    ],
@@ -7828,7 +10776,8 @@
    "serve_style": "Shot",
    "strength": {
     "level": 4,
-    "label": "kräftig"
+    "label": "kräftig",
+    "label_en": "bold"
    },
    "flavour_tags": [
     "kräuterig/frisch"
@@ -7842,7 +10791,7 @@
    "units_sold": 0,
    "popularity_rank": null,
    "available": false,
-   "unavailable_reason": "Von Dan aussortiert am 19.08.2026, nicht in die App.",
+   "unavailable_reason": "Nicht mehr im Angebot",
    "on_printed_menu": false,
    "pos_sku": "285",
    "recipe_known": true,
@@ -7855,13 +10804,29 @@
     }
    ],
    "hidden_on_card": false,
-   "card_action": ""
+   "card_action": "",
+   "tagline_en": "A double Raki. Best with water on the side.",
+   "bartender_note_en": "An anise spirit from Turkey, it turns milky white with water and is then called lion's milk.",
+   "ingredients_guest_en": [
+    "Raki"
+   ],
+   "glass_en": "Shot glass",
+   "section_en": "Shots",
+   "serve_style_en": "Shot",
+   "flavour_tags_en": [
+    "herbal/fresh"
+   ],
+   "moment_en": [
+    "Late night"
+   ],
+   "allergens_en": [],
+   "unavailable_reason_en": "No longer offered"
   },
   {
    "name": "Royal Mojito",
    "section": "Rum / Cachaca",
    "tagline_de": "Mojito mit gereiftem Rum und Prosecco statt Soda. Die erwachsene Version.",
-   "bartender_note_de": "",
+   "bartender_note_de": "Der Mojito mit einer Krone aus Prosecco. Havana Club, Minze und Blubber.",
    "ingredients_guest": [
     "Havana Club",
     "Limette",
@@ -7873,7 +10838,8 @@
    "serve_style": "Highball",
    "strength": {
     "level": 3,
-    "label": "mittel"
+    "label": "mittel",
+    "label_en": "medium"
    },
    "flavour_tags": [
     "kräuterig/frisch",
@@ -7922,13 +10888,35 @@
     }
    ],
    "hidden_on_card": false,
-   "card_action": ""
+   "card_action": "",
+   "tagline_en": "A Mojito with aged rum and prosecco instead of soda. The grown-up version.",
+   "bartender_note_en": "A Mojito with a crown of prosecco. Havana Club, mint and bubbles.",
+   "ingredients_guest_en": [
+    "Havana Club",
+    "Lime",
+    "Mint",
+    "Sugar",
+    "Prosecco"
+   ],
+   "glass_en": "Highball",
+   "section_en": "Rum / Cachaca",
+   "serve_style_en": "Highball",
+   "flavour_tags_en": [
+    "herbal/fresh",
+    "sparkling",
+    "sour/citrus"
+   ],
+   "moment_en": [
+    "Midway"
+   ],
+   "allergens_en": [],
+   "unavailable_reason_en": ""
   },
   {
    "name": "Sambuca 4 cl",
    "section": "Shots",
    "tagline_de": "Doppelter Anis. Meistens der letzte des Abends.",
-   "bartender_note_de": "",
+   "bartender_note_de": "Anislikoer aus Rom, jetzt in gross. Traditionell mit drei Kaffeebohnen.",
    "ingredients_guest": [
     "Sambuca"
    ],
@@ -7936,7 +10924,8 @@
    "serve_style": "Shot",
    "strength": {
     "level": 3,
-    "label": "mittel"
+    "label": "mittel",
+    "label_en": "medium"
    },
    "flavour_tags": [
     "süß",
@@ -7964,13 +10953,30 @@
     }
    ],
    "hidden_on_card": false,
-   "card_action": ""
+   "card_action": "",
+   "tagline_en": "A double anise. Usually the last of the night.",
+   "bartender_note_en": "A Roman anise liqueur, now large. Traditionally served with three coffee beans.",
+   "ingredients_guest_en": [
+    "Sambuca"
+   ],
+   "glass_en": "Shot glass",
+   "section_en": "Shots",
+   "serve_style_en": "Shot",
+   "flavour_tags_en": [
+    "sweet",
+    "herbal/fresh"
+   ],
+   "moment_en": [
+    "Late night"
+   ],
+   "allergens_en": [],
+   "unavailable_reason_en": ""
   },
   {
    "name": "Scotch Sour",
    "section": "Premium Cocktails",
    "tagline_de": "Rauchiger Whisky, sauer abgezogen, mit Schaumkrone. Für alle, die einen Sour mit Charakter wollen.",
-   "bartender_note_de": "",
+   "bartender_note_de": "Der Sour mit rauchigem Talisker. Fuer alle, die den Whiskey Sour eine Spur wilder moegen.",
    "ingredients_guest": [
     "Talisker",
     "Zitrone",
@@ -7981,7 +10987,8 @@
    "serve_style": "Sour",
    "strength": {
     "level": 4,
-    "label": "kräftig"
+    "label": "kräftig",
+    "label_en": "bold"
    },
    "flavour_tags": [
     "sauer/zitrus",
@@ -8027,13 +11034,35 @@
     }
    ],
    "hidden_on_card": false,
-   "card_action": ""
+   "card_action": "",
+   "tagline_en": "Smoky whisky, shaken sour, with a foam crown. For anyone who wants a sour with character.",
+   "bartender_note_en": "A sour with smoky Talisker. For anyone who likes the Whiskey Sour a touch wilder.",
+   "ingredients_guest_en": [
+    "Talisker",
+    "Lemon",
+    "Sugar",
+    "Egg white"
+   ],
+   "glass_en": "Tumbler",
+   "section_en": "Premium Cocktails",
+   "serve_style_en": "Sour",
+   "flavour_tags_en": [
+    "sour/citrus",
+    "creamy"
+   ],
+   "moment_en": [
+    "Late night"
+   ],
+   "allergens_en": [
+    "Egg"
+   ],
+   "unavailable_reason_en": ""
   },
   {
    "name": "Swimming Pool",
    "section": "Vodka",
    "tagline_de": "Blau, cremig, mit Ananas und Kokos. Ein Drink, der niemandem etwas beweisen muss.",
-   "bartender_note_de": "",
+   "bartender_note_de": "Ein Tiki Klassiker der 70er aus Wien. Blau und cremig mit Kokos, wie ein Sprung ins Becken.",
    "ingredients_guest": [
     "Absolut",
     "Blue Curaçao",
@@ -8045,7 +11074,8 @@
    "serve_style": "Shaken",
    "strength": {
     "level": 3,
-    "label": "mittel"
+    "label": "mittel",
+    "label_en": "medium"
    },
    "flavour_tags": [
     "fruchtig",
@@ -8092,13 +11122,37 @@
     }
    ],
    "hidden_on_card": false,
-   "card_action": ""
+   "card_action": "",
+   "tagline_en": "Blue, creamy, with pineapple and coconut. A drink that has nothing to prove.",
+   "bartender_note_en": "A 70s tiki classic from Vienna. Blue and creamy with coconut, like a dive into the pool.",
+   "ingredients_guest_en": [
+    "Absolut",
+    "Blue Curaçao",
+    "Pineapple",
+    "Coconut",
+    "Cream"
+   ],
+   "glass_en": "Hurricane",
+   "section_en": "Vodka",
+   "serve_style_en": "Shaken",
+   "flavour_tags_en": [
+    "fruity",
+    "creamy",
+    "sweet"
+   ],
+   "moment_en": [
+    "Midway"
+   ],
+   "allergens_en": [
+    "Milk"
+   ],
+   "unavailable_reason_en": ""
   },
   {
    "name": "Tiramisu Martini",
    "section": "Vodka Cocktails",
    "tagline_de": "Espresso Martini mit Baileys und Zimt. Nachtisch und Absacker in einem Glas.",
-   "bartender_note_de": "",
+   "bartender_note_de": "Das Dessert als Cocktail. Amaretto, Baileys, Kaffee und Zimt, loeffelfertig im Glas.",
    "ingredients_guest": [
     "Amaretto",
     "Baileys",
@@ -8111,7 +11165,8 @@
    "serve_style": "Shaken",
    "strength": {
     "level": 3,
-    "label": "mittel"
+    "label": "mittel",
+    "label_en": "medium"
    },
    "flavour_tags": [
     "kaffee",
@@ -8167,13 +11222,39 @@
     }
    ],
    "hidden_on_card": true,
-   "card_action": "Bleibt auf der Karte versteckt (Dan 19.08.2026)"
+   "card_action": "Bleibt auf der Karte versteckt (Dan 19.08.2026)",
+   "tagline_en": "An Espresso Martini with Baileys and cinnamon. Dessert and nightcap in one glass.",
+   "bartender_note_en": "Dessert as a cocktail. Amaretto, Baileys, coffee and cinnamon, spoon-ready in a glass.",
+   "ingredients_guest_en": [
+    "Amaretto",
+    "Baileys",
+    "Kahlúa",
+    "Cinnamon",
+    "Sugar",
+    "Fresh espresso"
+   ],
+   "glass_en": "Coupe",
+   "section_en": "Vodka Cocktails",
+   "serve_style_en": "Shaken",
+   "flavour_tags_en": [
+    "coffee",
+    "creamy",
+    "sweet"
+   ],
+   "moment_en": [
+    "Late night"
+   ],
+   "allergens_en": [
+    "Milk",
+    "Nuts"
+   ],
+   "unavailable_reason_en": ""
   },
   {
    "name": "Turbo Mate",
    "section": "Mixgetränke",
    "tagline_de": "Wodka in Club Mate. Kein Cocktail, sondern eine Absichtserklärung.",
-   "bartender_note_de": "",
+   "bartender_note_de": "Wodka und Club Mate. Der Treibstoff fuer durchtanzte Naechte.",
    "ingredients_guest": [
     "Absolut",
     "Club Mate"
@@ -8182,7 +11263,8 @@
    "serve_style": "Highball",
    "strength": {
     "level": 3,
-    "label": "mittel"
+    "label": "mittel",
+    "label_en": "medium"
    },
    "flavour_tags": [
     "prickelnd",
@@ -8214,13 +11296,31 @@
     }
    ],
    "hidden_on_card": false,
-   "card_action": ""
+   "card_action": "",
+   "tagline_en": "Vodka in Club Mate. Not a cocktail, more a statement of intent.",
+   "bartender_note_en": "Vodka and Club Mate. The fuel for danced-through nights.",
+   "ingredients_guest_en": [
+    "Absolut",
+    "Club Mate"
+   ],
+   "glass_en": "Highball",
+   "section_en": "Mixed Drinks",
+   "serve_style_en": "Highball",
+   "flavour_tags_en": [
+    "sparkling",
+    "bitter"
+   ],
+   "moment_en": [
+    "Late night"
+   ],
+   "allergens_en": [],
+   "unavailable_reason_en": ""
   },
   {
    "name": "Vanilla Blush",
    "section": "Spritzig Selects",
    "tagline_de": "Rhabarber und Vanille im Prosecco. Sauer und cremig zugleich, was selten so gut zusammengeht.",
-   "bartender_note_de": "",
+   "bartender_note_de": "Rhabarber und Vanille im Prosecco. Zart, rosa, ein Fruehlingsdrink.",
    "ingredients_guest": [
     "Rhabarber",
     "Vanille",
@@ -8231,7 +11331,8 @@
    "serve_style": "Spritz",
    "strength": {
     "level": 1,
-    "label": "leicht"
+    "label": "leicht",
+    "label_en": "light"
    },
    "flavour_tags": [
     "fruchtig",
@@ -8276,13 +11377,34 @@
     }
    ],
    "hidden_on_card": false,
-   "card_action": ""
+   "card_action": "",
+   "tagline_en": "Rhubarb and vanilla in prosecco. Sour and creamy at once, which rarely goes together this well.",
+   "bartender_note_en": "Rhubarb and vanilla in prosecco. Delicate, pink, a spring drink.",
+   "ingredients_guest_en": [
+    "Rhubarb",
+    "Vanilla",
+    "Prosecco",
+    "Soda"
+   ],
+   "glass_en": "Wine glass",
+   "section_en": "Sparkling Selects",
+   "serve_style_en": "Spritz",
+   "flavour_tags_en": [
+    "fruity",
+    "sweet",
+    "sparkling"
+   ],
+   "moment_en": [
+    "Opener"
+   ],
+   "allergens_en": [],
+   "unavailable_reason_en": ""
   },
   {
    "name": "Don Julio Anejo Manhattan",
    "section": "Tequila",
    "tagline_de": "Manhattan, aber mit Anejo Tequila statt Whiskey. Warm, holzig, ein Tick suess durch den roten Wermut.",
-   "bartender_note_de": "",
+   "bartender_note_de": "Der Manhattan mit gereiftem Don Julio Tequila statt Whiskey. Warm, holzig, ein Tick suess durch den roten Wermut.",
    "ingredients_guest": [
     "Don Julio Anejo",
     "Roter Wermut",
@@ -8292,7 +11414,8 @@
    "serve_style": "Stirred",
    "strength": {
     "level": 4,
-    "label": "stark"
+    "label": "stark",
+    "label_en": "strong"
    },
    "flavour_tags": [
     "kraeftig",
@@ -8329,8 +11452,32 @@
     }
    ],
    "hidden_on_card": false,
-   "card_action": ""
+   "card_action": "",
+   "tagline_en": "A Manhattan, but with Anejo tequila instead of whiskey. Warm, woody, a touch sweet from the red vermouth.",
+   "bartender_note_en": "The Manhattan with aged Don Julio tequila instead of whiskey. Warm, woody, a touch sweet from the red vermouth.",
+   "ingredients_guest_en": [
+    "Don Julio Anejo",
+    "Sweet vermouth",
+    "Angostura"
+   ],
+   "glass_en": "Coupe",
+   "section_en": "Tequila",
+   "serve_style_en": "Stirred",
+   "flavour_tags_en": [
+    "bold",
+    "woody",
+    "bittersweet"
+   ],
+   "moment_en": [
+    "Late night"
+   ],
+   "allergens_en": [],
+   "unavailable_reason_en": ""
   }
  ],
- "decision_log": "Nie-verkauft-Liste von Dan entschieden 19.08.2026: 7 bleiben, 19 raus. Gin Basil und Alkoholfrei Gin Basil bleiben separat gesperrt (kein Basilikum)."
+ "decision_log": "Nie-verkauft-Liste von Dan entschieden 19.08.2026: 7 bleiben, 19 raus. Gin Basil und Alkoholfrei Gin Basil bleiben separat gesperrt (kein Basilikum).",
+ "languages": [
+  "de",
+  "en"
+ ]
 }
