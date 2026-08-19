@@ -4,7 +4,7 @@
  * Source:    data/cocktails.json (BrunnenBar Augsburg, export 2026-08-19)
  * Rebuild:   node tools/build-menu.js
  *
- * 126 drinks available, 21 dropped as unavailable.
+ * 125 drinks available, 23 dropped as unavailable.
  * Sales basis: BarPatrol Verkaufsimporte 31.12.2024-25.03.2025, 05.-12.05.2025, 06.-13.04.2026. Zusammen 5.566 Artikel.
  */
 (function (root) {
@@ -40,7 +40,7 @@
      "Ei"
     ],
     "alcoholFree": false,
-    "price": 13.7,
+    "price": 14.9,
     "sold": 338,
     "rank": 1,
     "onPrintedMenu": true,
@@ -220,7 +220,7 @@
     ],
     "allergens": [],
     "alcoholFree": false,
-    "price": 10.7,
+    "price": 9.7,
     "sold": 80,
     "rank": 7,
     "onPrintedMenu": true,
@@ -256,7 +256,7 @@
      "Ei"
     ],
     "alcoholFree": false,
-    "price": 11.5,
+    "price": 9.7,
     "sold": 73,
     "rank": 8,
     "onPrintedMenu": true,
@@ -291,7 +291,7 @@
     ],
     "allergens": [],
     "alcoholFree": false,
-    "price": 10.7,
+    "price": 12.5,
     "sold": 71,
     "rank": 9,
     "onPrintedMenu": true,
@@ -1792,7 +1792,7 @@
     ],
     "allergens": [],
     "alcoholFree": true,
-    "price": 7.7,
+    "price": 7.9,
     "sold": 9,
     "rank": 52,
     "onPrintedMenu": true,
@@ -1892,7 +1892,7 @@
     ],
     "allergens": [],
     "alcoholFree": false,
-    "price": 7.9,
+    "price": 6.9,
     "sold": 8,
     "rank": 55,
     "onPrintedMenu": true,
@@ -2026,7 +2026,7 @@
     ],
     "allergens": [],
     "alcoholFree": true,
-    "price": 9.7,
+    "price": 8.9,
     "sold": 6,
     "rank": 59,
     "onPrintedMenu": false,
@@ -2102,39 +2102,6 @@
     "base": "tequila",
     "spirits": [
      "tequila"
-    ]
-   },
-   {
-    "id": "gingerle-sour",
-    "name": "Gingerle Sour",
-    "section": "Sours",
-    "tagline": "Ingwer Zitronen Likör, sauer abgezogen. Wärmt von innen, ohne scharf zu sein.",
-    "note": "",
-    "ing": [
-     "gingerle",
-     "Zitrone",
-     "Zucker"
-    ],
-    "glass": "Tumbler",
-    "serve": "Sour",
-    "strength": 2,
-    "strengthLabel": "mild",
-    "flavours": [
-     "sauer/zitrus",
-     "prickelnd"
-    ],
-    "moments": [
-     "Mittendrin"
-    ],
-    "allergens": [],
-    "alcoholFree": false,
-    "price": 9.7,
-    "sold": 6,
-    "rank": 63,
-    "onPrintedMenu": false,
-    "base": "likoer",
-    "spirits": [
-     "likoer"
     ]
    },
    {
@@ -2593,7 +2560,7 @@
     ],
     "allergens": [],
     "alcoholFree": false,
-    "price": 10.7,
+    "price": 13.5,
     "sold": 4,
     "rank": 77,
     "onPrintedMenu": true,
@@ -2812,7 +2779,7 @@
     ],
     "allergens": [],
     "alcoholFree": false,
-    "price": 10.2,
+    "price": 12.9,
     "sold": 3,
     "rank": 83,
     "onPrintedMenu": false,
@@ -2846,7 +2813,7 @@
     ],
     "allergens": [],
     "alcoholFree": false,
-    "price": 10.2,
+    "price": 12.9,
     "sold": 3,
     "rank": 84,
     "onPrintedMenu": false,
@@ -3152,7 +3119,7 @@
      "Ei"
     ],
     "alcoholFree": true,
-    "price": 9.7,
+    "price": 11.5,
     "sold": 2,
     "rank": 93,
     "onPrintedMenu": false,
@@ -3186,7 +3153,7 @@
     ],
     "allergens": [],
     "alcoholFree": true,
-    "price": 9.7,
+    "price": 8.9,
     "sold": 2,
     "rank": 94,
     "onPrintedMenu": false,
@@ -3292,7 +3259,7 @@
     ],
     "allergens": [],
     "alcoholFree": true,
-    "price": 7.7,
+    "price": 7.9,
     "sold": 2,
     "rank": 97,
     "onPrintedMenu": true,
@@ -3772,40 +3739,6 @@
     ]
    },
    {
-    "id": "gingerle-spritz",
-    "name": "gingerle Spritz",
-    "section": "Spritz",
-    "tagline": "Ingwer und Zitrone aus dem Likör, dazu Prosecco. Schärfer als jeder andere Spritz hier.",
-    "note": "",
-    "ing": [
-     "gingerle",
-     "Prosecco",
-     "Soda"
-    ],
-    "glass": "Weinglas",
-    "serve": "Spritz",
-    "strength": 1,
-    "strengthLabel": "leicht",
-    "flavours": [
-     "prickelnd",
-     "sauer/zitrus"
-    ],
-    "moments": [
-     "Auftakt"
-    ],
-    "allergens": [],
-    "alcoholFree": false,
-    "price": 7.9,
-    "sold": 1,
-    "rank": 112,
-    "onPrintedMenu": true,
-    "base": "likoer",
-    "spirits": [
-     "likoer",
-     "sekt"
-    ]
-   },
-   {
     "id": "alkoholfrei-clover-club",
     "name": "Alkoholfrei - Clover Club",
     "section": "Alkoholfrei",
@@ -3832,7 +3765,7 @@
      "Ei"
     ],
     "alcoholFree": true,
-    "price": 9.7,
+    "price": 8.9,
     "sold": 0,
     "rank": 999,
     "onPrintedMenu": false,
@@ -3865,7 +3798,7 @@
     ],
     "allergens": [],
     "alcoholFree": true,
-    "price": 9.7,
+    "price": 8.9,
     "sold": 0,
     "rank": 999,
     "onPrintedMenu": false,
@@ -4366,14 +4299,49 @@
     "spirits": [
      "sekt"
     ]
+   },
+   {
+    "id": "don-julio-anejo-manhattan",
+    "name": "Don Julio Anejo Manhattan",
+    "section": "Agave Cocktails",
+    "tagline": "Manhattan, aber mit Anejo Tequila statt Whiskey. Warm, holzig, ein Tick suess durch den roten Wermut.",
+    "note": "",
+    "ing": [
+     "Don Julio Anejo",
+     "Roter Wermut",
+     "Angostura"
+    ],
+    "glass": "Coupe",
+    "serve": "Stirred",
+    "strength": 4,
+    "strengthLabel": "stark",
+    "flavours": [
+     "kraeftig",
+     "holzig",
+     "bitter-suess"
+    ],
+    "moments": [
+     "Spaeter Abend"
+    ],
+    "allergens": [],
+    "alcoholFree": false,
+    "price": 12.9,
+    "sold": 0,
+    "rank": 999,
+    "onPrintedMenu": false,
+    "base": "tequila",
+    "spirits": [
+     "tequila",
+     "aperitivo"
+    ]
    }
   ];
   var META = {
    "bar": "BrunnenBar Augsburg",
    "generated": "2026-08-19",
-   "version": 2,
+   "version": 3,
    "salesBasis": "BarPatrol Verkaufsimporte 31.12.2024-25.03.2025, 05.-12.05.2025, 06.-13.04.2026. Zusammen 5.566 Artikel.",
-   "count": 126
+   "count": 125
   };
   var api = { MENU: MENU, META: META };
   if (typeof module !== 'undefined' && module.exports) module.exports = api;

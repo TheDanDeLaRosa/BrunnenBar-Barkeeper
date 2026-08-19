@@ -4,7 +4,7 @@ A cocktail recommender for [brunnenbar.com](https://brunnenbar.com). It asks a
 guest the questions we'd ask across the bar, then recommends drinks **from our
 actual card**, with a plain-language reason for each.
 
-Driven entirely by the bar's own export: 126 available drinks, real sales
+Driven entirely by the bar's own export: 125 available drinks, real sales
 figures, prices, availability and allergens. Mobile-first, no build step to
 run it, no dependencies, no tracking.
 
@@ -108,6 +108,23 @@ a guest expresses no serve preference — there is simply no way to ask for them
 by name. To bring them back, restore the two options in `data/questions.js`;
 the engine already groups both styles.
 
+### Runner-ups say how they differ
+
+"Also a good fit" tells a guest nothing. Each runner-up is instead labelled by
+the single thing that separates it from the top pick — *"Was mit Ananas"*,
+*"Was Kräftigeres"*, *"Was Längeres"* — chosen in this order:
+
+1. an ingredient the top pick does not have (the **rarest** such ingredient
+   across the whole card, since that carries the most character; generic
+   things like Zucker, Soda and Limette are never named)
+2. noticeably stronger or lighter
+3. a different shape in the glass
+4. a flavour the top pick does not have
+
+If nothing separates them it falls back to "Passt ebenfalls" rather than
+inventing a difference. A test walks every pair of drinks on the card and
+asserts the claim is actually true of that pair.
+
 ### Predictable, not random
 
 The same answers give the same advice. A per-visit seed exists only to break
@@ -137,11 +154,29 @@ JSON either way and the warning goes away.
 | `Don Julio Reposado Margerita` | Margarita |
 | `Gin Tonic - Hendriks` | Hendrick's |
 
-**3. Nine drinks still have draft recipes** (`recipe_status: ENTWURF`) awaiting
+**3. Export v3 introduced three one-off flavour tags.** `Don Julio Anejo
+Manhattan` is tagged `kraeftig`, `holzig` and `bitter-suess`, none of which
+match the vocabulary the other 124 drinks use, and all three are ASCII
+transliterations while the established tags carry umlauts (`süß`,
+`kräuterig/frisch`). Worth a look:
+
+| Tag | Probably should be |
+|---|---|
+| `kraeftig` | dropped — it duplicates the strength scale, where the drink is already `4 stark` |
+| `bitter-suess` | the existing `bitter` + `süß` |
+| `holzig` | genuinely new and useful. If you want guests to be able to *ask* for woody drinks, it needs a question option too |
+
+The interface has copy for all three so nothing shows as a raw slug, and the
+build now warns whenever a tag arrives without any. Same drink also spells its
+tequila `Don Julio Anejo` without the ñ; the build matches on a normalised key
+so this no longer costs the drink its spirit, but the card spelling is worth
+fixing.
+
+**4. Nine drinks still have draft recipes** (`recipe_status: ENTWURF`) awaiting
 the Barchef. They are live in the app because `available: true`. Scotch Sour in
 particular has an open question about which Talisker is actually used.
 
-**4. Drink descriptions are German only.** The taglines and bartender notes are
+**5. Drink descriptions are German only.** The taglines and bartender notes are
 the bar's own words and are never machine-translated — the interface chrome
 switches to English, the drink copy does not. If you want English taglines, they
 need writing by someone in the house voice.
@@ -165,5 +200,6 @@ test/engine.test.js     node test/engine.test.js
 
 The test suite checks that the built menu matches the export exactly, that no
 unavailable drink can leak through, that every question value corresponds to
-real data, that allergen and spirit exclusions are absolute, and that all 4,752
-reachable answer combinations return a recommendation.
+real data, that allergen and spirit exclusions are absolute, that no runner-up
+label makes a false claim, and that every reachable answer combination returns
+a recommendation.

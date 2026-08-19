@@ -265,6 +265,18 @@
     return fill(copy, { x: x });
   }
 
+  /* A runner-up earns its place by being different, so label it with the
+   * difference rather than with "also a good fit". */
+  function contrastLabel(item) {
+    var c = item.contrast;
+    if (!c) return t().alsoGood;
+    var copy = t().contrast[c.kind];
+    if (!copy) return t().alsoGood;
+    var x = c.value;
+    if (c.kind === 'flavour') x = t().flavourCompare[c.value] || c.value;
+    return fill(copy, { x: x });
+  }
+
   function renderCard(item, rank) {
     var d = item.drink;
     var hero = rank === 0;
@@ -276,7 +288,7 @@
     if (!d.onPrintedMenu) badges.appendChild(el('span', { class: 'badge off', text: t().notOnCard }));
 
     var children = [
-      el('p', { class: 'card-rank', text: hero ? t().topPick : t().alsoGood }),
+      el('p', { class: 'card-rank', text: hero ? t().topPick : contrastLabel(item) }),
       el('div', { class: 'card-top' }, [
         el('h3', { text: d.name }),
         el('span', { class: 'match', text: fill(t().match, { n: item.match }) })
@@ -330,8 +342,10 @@
     var frag = document.createDocumentFragment();
     frag.appendChild(el('div', { class: 'results-head' }, [
       el('h2', { text: res.items.length ? t().results : t().empty }),
-      el('p', { text: res.items.length ? t().resultsSub : t().emptySub })
-    ]));
+      (res.items.length ? t().resultsSub : t().emptySub)
+        ? el('p', { text: res.items.length ? t().resultsSub : t().emptySub })
+        : null
+    ].filter(Boolean)));
 
     if (res.relaxed) frag.appendChild(el('div', { class: 'notice', text: t().loosened }));
 

@@ -49,6 +49,58 @@
   /* The guest explicitly handing the choice back to us. Not a flavour tag. */
   var NO_PREFERENCE = 'barkeeper';
 
+  /* Ingredients too common to tell two drinks apart. Naming one of these as
+   * the difference would be true but useless. */
+  var GENERIC_ING = [
+    'Zucker', 'Eis', 'Soda', 'Mineralwasser', 'Limette', 'Zitrone',
+    'Angostura', 'Salz', 'nach Absprache'
+  ];
+
+  /* Serve groups a guest would recognise as a shape, for the runner-up hook. */
+  var SERVE_CONTRAST = { lang: 'longer', kurz: 'shorter', spritzig: 'sparkling', schaum: 'shaken' };
+
+  /* Why take this one INSTEAD of the top pick. Runner-ups are only useful if
+   * they say how they differ, so each is labelled by its single most
+   * distinguishing feature, cheapest and most concrete first:
+   *   1. an ingredient the top pick does not have, rarest one wins
+   *   2. noticeably stronger or lighter
+   *   3. a different shape in the glass
+   *   4. a flavour the top pick does not have
+   * Returns null when nothing separates them, and the page falls back to a
+   * generic label rather than inventing a difference.
+   */
+  function contrastOf(hero, alt, ingFreq) {
+    if (!hero || !alt) return null;
+
+    var heroIng = hero.ing || [];
+    var unique = (alt.ing || []).filter(function (i) {
+      return heroIng.indexOf(i) === -1 && GENERIC_ING.indexOf(i) === -1;
+    });
+    if (unique.length) {
+      // The rarest one across the whole card carries the most character.
+      unique.sort(function (a, b) {
+        return (ingFreq[a] || 0) - (ingFreq[b] || 0) || (a < b ? -1 : 1);
+      });
+      return { kind: 'ingredient', value: unique[0] };
+    }
+
+    var delta = alt.strength - hero.strength;
+    if (delta >= 1) return { kind: 'stronger' };
+    if (delta <= -1) return { kind: 'lighter' };
+
+    var heroServe = serveGroupOf(hero.serve);
+    var altServe = serveGroupOf(alt.serve);
+    if (altServe && altServe !== heroServe && SERVE_CONTRAST[altServe]) {
+      return { kind: SERVE_CONTRAST[altServe] };
+    }
+
+    var heroFlav = hero.flavours || [];
+    var newFlav = (alt.flavours || []).filter(function (f) { return heroFlav.indexOf(f) === -1; });
+    if (newFlav.length) return { kind: 'flavour', value: newFlav[0] };
+
+    return null;
+  }
+
   function asArray(v) { return Array.isArray(v) ? v : (v == null || v === '' ? [] : [v]); }
 
   function serveGroupOf(serve) {
@@ -239,8 +291,19 @@
     });
 
     scored.sort(function (x, y) { return y.score - x.score; });
+    var items = scored.slice(0, limit);
 
-    return { items: scored.slice(0, limit), relaxed: relaxed, total: scored.length };
+    // How often each ingredient appears across the whole card, so the
+    // runner-up hook can pick the rarest distinguishing one.
+    var ingFreq = {};
+    menu.forEach(function (d) {
+      (d.ing || []).forEach(function (i) { ingFreq[i] = (ingFreq[i] || 0) + 1; });
+    });
+    items.forEach(function (item, i) {
+      item.contrast = i === 0 ? null : contrastOf(items[0].drink, item.drink, ingFreq);
+    });
+
+    return { items: items, relaxed: relaxed, total: scored.length };
   }
 
   var api = {
@@ -248,6 +311,7 @@
     passesHard: passesHard,
     serveGroupOf: serveGroupOf,
     NO_PREFERENCE: NO_PREFERENCE,
+    contrastOf: contrastOf,
     SERVE_GROUPS: SERVE_GROUPS,
     WEIGHTS: W
   };

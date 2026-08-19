@@ -1,7 +1,7 @@
 {
  "bar": "BrunnenBar Augsburg",
  "generated": "2026-08-19",
- "version": 2,
+ "version": 3,
  "voice": "Kurz, warm, ein bisschen Insiderwissen, nie werblich. Duzen. Deutsch.",
  "sales_basis": "BarPatrol Verkaufsimporte 31.12.2024-25.03.2025, 05.-12.05.2025, 06.-13.04.2026. Zusammen 5.566 Artikel.",
  "field_notes": {
@@ -44,7 +44,7 @@
    "allergens": [
     "Ei"
    ],
-   "price_eur": 13.7,
+   "price_eur": 14.9,
    "units_sold": 338,
    "popularity_rank": 1,
    "available": true,
@@ -417,7 +417,7 @@
    ],
    "alcohol_free": false,
    "allergens": [],
-   "price_eur": 10.7,
+   "price_eur": 9.7,
    "units_sold": 80,
    "popularity_rank": 7,
    "available": true,
@@ -476,7 +476,7 @@
    "allergens": [
     "Ei"
    ],
-   "price_eur": 11.5,
+   "price_eur": 9.7,
    "units_sold": 73,
    "popularity_rank": 8,
    "available": true,
@@ -538,7 +538,7 @@
    ],
    "alcohol_free": false,
    "allergens": [],
-   "price_eur": 10.7,
+   "price_eur": 12.5,
    "units_sold": 71,
    "popularity_rank": 9,
    "available": true,
@@ -3062,7 +3062,7 @@
    ],
    "alcohol_free": true,
    "allergens": [],
-   "price_eur": 7.7,
+   "price_eur": 7.9,
    "units_sold": 9,
    "popularity_rank": 52,
    "available": true,
@@ -3219,7 +3219,7 @@
    ],
    "alcohol_free": true,
    "allergens": [],
-   "price_eur": 7.9,
+   "price_eur": 6.9,
    "units_sold": 8,
    "popularity_rank": 55,
    "available": true,
@@ -3432,7 +3432,7 @@
    ],
    "alcohol_free": true,
    "allergens": [],
-   "price_eur": 9.7,
+   "price_eur": 8.9,
    "units_sold": 6,
    "popularity_rank": 59,
    "available": true,
@@ -3494,7 +3494,7 @@
    ],
    "alcohol_free": true,
    "allergens": [],
-   "price_eur": 9.7,
+   "price_eur": 8.9,
    "units_sold": 6,
    "popularity_rank": 60,
    "available": false,
@@ -3674,8 +3674,8 @@
    "price_eur": 9.7,
    "units_sold": 6,
    "popularity_rank": 63,
-   "available": true,
-   "unavailable_reason": "",
+   "available": false,
+   "unavailable_reason": "Gingerle Likoer ausgelistet, nicht mehr im Haus",
    "on_printed_menu": false,
    "pos_sku": "429",
    "recipe_known": true,
@@ -4375,7 +4375,7 @@
    ],
    "alcohol_free": false,
    "allergens": [],
-   "price_eur": 10.7,
+   "price_eur": 13.5,
    "units_sold": 4,
    "popularity_rank": 77,
    "available": true,
@@ -4742,7 +4742,7 @@
    ],
    "alcohol_free": false,
    "allergens": [],
-   "price_eur": 10.2,
+   "price_eur": 12.9,
    "units_sold": 3,
    "popularity_rank": 83,
    "available": true,
@@ -4794,7 +4794,7 @@
    ],
    "alcohol_free": false,
    "allergens": [],
-   "price_eur": 10.2,
+   "price_eur": 12.9,
    "units_sold": 3,
    "popularity_rank": 84,
    "available": true,
@@ -5258,7 +5258,7 @@
    "allergens": [
     "Ei"
    ],
-   "price_eur": 9.7,
+   "price_eur": 11.5,
    "units_sold": 2,
    "popularity_rank": 93,
    "available": true,
@@ -5329,7 +5329,7 @@
    ],
    "alcohol_free": true,
    "allergens": [],
-   "price_eur": 9.7,
+   "price_eur": 8.9,
    "units_sold": 2,
    "popularity_rank": 94,
    "available": true,
@@ -5520,7 +5520,7 @@
    ],
    "alcohol_free": true,
    "allergens": [],
-   "price_eur": 7.7,
+   "price_eur": 7.9,
    "units_sold": 2,
    "popularity_rank": 97,
    "available": true,
@@ -6347,8 +6347,8 @@
    "price_eur": 7.9,
    "units_sold": 1,
    "popularity_rank": 112,
-   "available": true,
-   "unavailable_reason": "",
+   "available": false,
+   "unavailable_reason": "Gingerle Likoer ausgelistet, nicht mehr im Haus",
    "on_printed_menu": true,
    "pos_sku": "419",
    "recipe_known": true,
@@ -6403,7 +6403,7 @@
    "allergens": [
     "Ei"
    ],
-   "price_eur": 9.7,
+   "price_eur": 8.9,
    "units_sold": 0,
    "popularity_rank": null,
    "available": true,
@@ -6461,7 +6461,7 @@
    ],
    "alcohol_free": true,
    "allergens": [],
-   "price_eur": 9.7,
+   "price_eur": 8.9,
    "units_sold": 0,
    "popularity_rank": null,
    "available": false,
@@ -6527,7 +6527,7 @@
    ],
    "alcohol_free": true,
    "allergens": [],
-   "price_eur": 9.7,
+   "price_eur": 8.9,
    "units_sold": 0,
    "popularity_rank": null,
    "available": true,
@@ -8273,6 +8273,59 @@
     {
      "amount": "4.6 oz",
      "product": "Eiswuerfel - Solid 5 kg"
+    }
+   ],
+   "hidden_on_card": false,
+   "card_action": ""
+  },
+  {
+   "name": "Don Julio Anejo Manhattan",
+   "section": "Tequila",
+   "tagline_de": "Manhattan, aber mit Anejo Tequila statt Whiskey. Warm, holzig, ein Tick suess durch den roten Wermut.",
+   "bartender_note_de": "",
+   "ingredients_guest": [
+    "Don Julio Anejo",
+    "Roter Wermut",
+    "Angostura"
+   ],
+   "glass": "Coupe",
+   "serve_style": "Stirred",
+   "strength": {
+    "level": 4,
+    "label": "stark"
+   },
+   "flavour_tags": [
+    "kraeftig",
+    "holzig",
+    "bitter-suess"
+   ],
+   "moment": [
+    "Spaeter Abend"
+   ],
+   "alcohol_free": false,
+   "allergens": [],
+   "price_eur": 12.9,
+   "units_sold": 0,
+   "popularity_rank": null,
+   "available": true,
+   "unavailable_reason": "",
+   "on_printed_menu": false,
+   "pos_sku": "385",
+   "recipe_known": true,
+   "recipe_status": "live",
+   "recipe_note": "",
+   "bar_recipe": [
+    {
+     "amount": "60 ml",
+     "product": "Don Julio Anejo 700ml"
+    },
+    {
+     "amount": "20 ml",
+     "product": "Rubino Sweet Vermouth 750ml"
+    },
+    {
+     "amount": "1 Dash",
+     "product": "Angostura Bitters"
     }
    ],
    "hidden_on_card": false,

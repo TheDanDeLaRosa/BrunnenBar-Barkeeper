@@ -334,6 +334,84 @@ test('a bartender\'s-choice catch-all never outranks a real drink', function () 
   }
 });
 
+console.log('\nRunner-up contrast');
+
+function byName(n) { return MENU.filter(function (d) { return d.name === n; })[0]; }
+function freq() {
+  var f = {};
+  MENU.forEach(function (d) { d.ing.forEach(function (i) { f[i] = (f[i] || 0) + 1; }); });
+  return f;
+}
+
+test('a runner-up is labelled by an ingredient the top pick lacks', function () {
+  var hero = byName("Mermaid's Melody"), alt = byName('La Rosa');
+  assert.ok(hero && alt, 'both drinks should be on the menu');
+  var c = engine.contrastOf(hero, alt, freq());
+  assert.strictEqual(c.kind, 'ingredient');
+  assert.ok(hero.ing.indexOf(c.value) === -1, 'the named ingredient must be absent from the top pick');
+  assert.ok(alt.ing.indexOf(c.value) !== -1, 'the named ingredient must be in the runner-up');
+});
+
+test('the contrast never names a filler ingredient', function () {
+  var f = freq();
+  var generic = ['Zucker', 'Eis', 'Soda', 'Limette', 'Zitrone', 'Angostura', 'Mineralwasser'];
+  MENU.forEach(function (hero) {
+    MENU.forEach(function (alt) {
+      if (hero === alt) return;
+      var c = engine.contrastOf(hero, alt, f);
+      if (c && c.kind === 'ingredient') {
+        assert.ok(generic.indexOf(c.value) === -1,
+          hero.name + ' vs ' + alt.name + ' was distinguished by "' + c.value + '"');
+      }
+    });
+  });
+});
+
+test('a contrast is always true of the pair it describes', function () {
+  var f = freq();
+  MENU.slice(0, 40).forEach(function (hero) {
+    MENU.slice(0, 40).forEach(function (alt) {
+      if (hero === alt) return;
+      var c = engine.contrastOf(hero, alt, f);
+      if (!c) return;
+      if (c.kind === 'ingredient') {
+        assert.ok(alt.ing.indexOf(c.value) !== -1 && hero.ing.indexOf(c.value) === -1,
+          'false ingredient claim: ' + hero.name + ' vs ' + alt.name);
+      } else if (c.kind === 'stronger') {
+        assert.ok(alt.strength > hero.strength, 'false strength claim: ' + alt.name);
+      } else if (c.kind === 'lighter') {
+        assert.ok(alt.strength < hero.strength, 'false strength claim: ' + alt.name);
+      } else if (c.kind === 'flavour') {
+        assert.ok(alt.flavours.indexOf(c.value) !== -1 && hero.flavours.indexOf(c.value) === -1,
+          'false flavour claim: ' + hero.name + ' vs ' + alt.name);
+      }
+    });
+  });
+});
+
+test('recommend attaches a contrast to every runner-up and none to the top pick', function () {
+  [ask({}), ask({ flavours: [engine.NO_PREFERENCE] }), ask({ moment: 'shots' }),
+   ask({ strength: '0' })].forEach(function (a) {
+    var res = engine.recommend(MENU, a, { limit: 6 });
+    assert.strictEqual(res.items[0].contrast, null, 'the top pick should carry no contrast');
+    res.items.slice(1).forEach(function (i) {
+      if (i.contrast) {
+        assert.ok(questions.UI.de.contrast[i.contrast.kind], 'no German copy for "' + i.contrast.kind + '"');
+        assert.ok(questions.UI.en.contrast[i.contrast.kind], 'no English copy for "' + i.contrast.kind + '"');
+      }
+    });
+  });
+});
+
+test('every flavour tag has a comparative phrase in both languages', function () {
+  var tags = {};
+  MENU.forEach(function (d) { d.flavours.forEach(function (f) { tags[f] = true; }); });
+  Object.keys(tags).forEach(function (f) {
+    assert.ok(questions.UI.de.flavourCompare[f], 'no German comparative for "' + f + '"');
+    assert.ok(questions.UI.en.flavourCompare[f], 'no English comparative for "' + f + '"');
+  });
+});
+
 console.log('\nOutput contract');
 
 test('results are ordered, capped, and carry usable reasons', function () {

@@ -181,17 +181,36 @@
   var UI = {
     de: {
       title: 'BrunnenBar',
-      lede: 'Ein paar kurze Fragen, dieselben, die wir am Tresen stellen würden. Am Ende stehen drei Drinks von unserer Karte, die zu dir passen.',
+      lede: 'Lass uns kurz gemeinsam überlegen, worauf du heute Lust hast. Ein paar Fragen und wir haben deinen Drink.',
       start: 'Los geht’s',
       fullCard: 'Zur ganzen Cocktailkarte',
       back: 'Zurück',
       next: 'Weiter',
       skip: 'Egal, weiter',
       step: 'Frage {n} von {total}',
-      results: 'Das würden wir dir einschenken',
-      resultsSub: 'Zeig das gern einfach dem Team am Tresen.',
-      topPick: 'Unsere Empfehlung',
+      results: 'Unsere Empfehlungen',
+      resultsSub: '',
+      topPick: 'Unser Favorit',
       alsoGood: 'Passt ebenfalls',
+      // Each runner-up is labelled by how it differs from the favourite.
+      contrast: {
+        ingredient: 'Was mit {x}',
+        stronger: 'Was Kräftigeres',
+        lighter: 'Was Leichteres',
+        longer: 'Was Längeres',
+        shorter: 'Was Kürzeres',
+        sparkling: 'Was mit Perlage',
+        shaken: 'Was Geschütteltes',
+        flavour: 'Was {x}'
+      },
+      // Written out by hand so every comparative is correct German.
+      flavourCompare: {
+        'sauer/zitrus': 'mit mehr Säure', 'fruchtig': 'Fruchtigeres', 'bitter': 'Bittereres',
+        'kräuterig/frisch': 'Frischeres', 'süß': 'Süßeres', 'cremig': 'Cremigeres',
+        'prickelnd': 'mit Perlage', 'kaffee': 'mit Kaffee', 'rauchig': 'Rauchigeres',
+        'scharf': 'Schärferes', 'salzig': 'Salzigeres', 'überraschend': 'Überraschenderes',
+        'kraeftig': 'Kräftigeres', 'holzig': 'Holzigeres', 'bitter-suess': 'Bittersüßeres'
+      },
       match: '{n}% Übereinstimmung',
       house: 'Signature',
       zeroProof: 'Alkoholfrei',
@@ -231,22 +250,41 @@
         'sauer/zitrus': 'sauer und frisch', 'fruchtig': 'fruchtig', 'bitter': 'bitter',
         'kräuterig/frisch': 'kräuterig', 'süß': 'süß', 'cremig': 'cremig',
         'prickelnd': 'prickelnd', 'kaffee': 'nach Kaffee', 'rauchig': 'rauchig',
-        'scharf': 'scharf', 'salzig': 'salzig', 'überraschend': 'überraschend'
+        'scharf': 'scharf', 'salzig': 'salzig', 'überraschend': 'überraschend',
+        // Ad-hoc tags that arrived on one drink in export v3. See the README.
+        'kraeftig': 'kräftig', 'holzig': 'holzig', 'bitter-suess': 'bittersüß'
       }
     },
     en: {
       title: 'BrunnenBar',
-      lede: 'A few short questions, the same ones we would ask across the bar. At the end you get three drinks from our card that suit you.',
+      lede: 'Let’s work out what you feel like tonight. A few quick questions and we’ll find your drink.',
       start: 'Start',
       fullCard: 'See the full cocktail list',
       back: 'Back',
       next: 'Next',
       skip: 'No preference',
       step: 'Question {n} of {total}',
-      results: 'This is what we’d pour you',
-      resultsSub: 'Feel free to just show this to the team at the bar. Drink descriptions are in German, as they are on our card.',
-      topPick: 'Our recommendation',
+      results: 'Our recommendations',
+      resultsSub: 'Drink descriptions are in German, as they are on our card.',
+      topPick: 'Our pick',
       alsoGood: 'Also a good fit',
+      contrast: {
+        ingredient: 'Something with {x}',
+        stronger: 'Something stronger',
+        lighter: 'Something lighter',
+        longer: 'Something longer',
+        shorter: 'Something shorter',
+        sparkling: 'Something with bubbles',
+        shaken: 'Something shaken',
+        flavour: 'Something {x}'
+      },
+      flavourCompare: {
+        'sauer/zitrus': 'with more acidity', 'fruchtig': 'fruitier', 'bitter': 'more bitter',
+        'kräuterig/frisch': 'fresher', 'süß': 'sweeter', 'cremig': 'creamier',
+        'prickelnd': 'with bubbles', 'kaffee': 'with coffee', 'rauchig': 'smokier',
+        'scharf': 'spicier', 'salzig': 'saltier', 'überraschend': 'more surprising',
+        'kraeftig': 'bolder', 'holzig': 'woodier', 'bitter-suess': 'more bittersweet'
+      },
       match: '{n}% match',
       house: 'Signature',
       zeroProof: 'Zero proof',
@@ -286,7 +324,8 @@
         'sauer/zitrus': 'sour and fresh', 'fruchtig': 'fruity', 'bitter': 'bitter',
         'kräuterig/frisch': 'herbal', 'süß': 'sweet', 'cremig': 'creamy',
         'prickelnd': 'sparkling', 'kaffee': 'of coffee', 'rauchig': 'smoky',
-        'scharf': 'spicy', 'salzig': 'salty', 'überraschend': 'surprising'
+        'scharf': 'spicy', 'salzig': 'salty', 'überraschend': 'surprising',
+        'kraeftig': 'bold', 'holzig': 'woody', 'bitter-suess': 'bittersweet'
       }
     }
   };

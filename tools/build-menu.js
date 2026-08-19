@@ -79,6 +79,23 @@ const SPIRIT_OF = {
 // "Gin oder Wodka" is a genuine either/or on the card, not one spirit.
 const MULTI = { 'Gin oder Wodka': ['gin', 'vodka'] };
 
+/* Exports have arrived carrying "Don Julio Anejo" and "Roter Wermut"
+ * alongside "Don Julio Añejo" and "roter Wermut". Match on a normalised key
+ * so a dropped accent or a stray capital cannot silently cost a drink its
+ * spirit, and the dictionary above stays readable in its proper spelling. */
+function normKey(str) {
+  return String(str).toLowerCase().trim()
+    .replace(/ñ/g, 'n').replace(/[áàâ]/g, 'a').replace(/[éèê]/g, 'e')
+    .replace(/[íì]/g, 'i').replace(/[óò]/g, 'o').replace(/[úù]/g, 'u')
+    .replace(/ä/g, 'ae').replace(/ö/g, 'oe').replace(/ü/g, 'ue').replace(/ß/g, 'ss')
+    .replace(/\s+/g, ' ');
+}
+
+const SPIRIT_LOOKUP = {};
+Object.keys(SPIRIT_OF).forEach(k => { SPIRIT_LOOKUP[normKey(k)] = SPIRIT_OF[k]; });
+const MULTI_LOOKUP = {};
+Object.keys(MULTI).forEach(k => { MULTI_LOOKUP[normKey(k)] = MULTI[k]; });
+
 /* A drink counts as alcohol free only when the export says so AND rates it
  * at strength 0. The two fields disagreeing means someone changed one and
  * not the other, and the safe reading of "maybe alcoholic" is "alcoholic".
@@ -92,9 +109,9 @@ function spiritsOf(drink) {
   const found = [];
   const add = f => { if (!found.includes(f)) found.push(f); };
   for (const ing of drink.ingredients_guest || []) {
-    const key = String(ing).trim();
-    if (MULTI[key]) { MULTI[key].forEach(add); continue; }
-    if (SPIRIT_OF[key]) add(SPIRIT_OF[key]);
+    const key = normKey(ing);
+    if (MULTI_LOOKUP[key]) { MULTI_LOOKUP[key].forEach(add); continue; }
+    if (SPIRIT_LOOKUP[key]) add(SPIRIT_LOOKUP[key]);
   }
   return { base: found[0] || 'other', spirits: found };
 }
@@ -211,6 +228,25 @@ function main() {
       console.log('     recipe: ' + (d.bar_recipe || []).map(r => r.product).join(', '));
     });
     console.log('   Fix data/cocktails.json, then rebuild.');
+  }
+
+  // A new flavour tag with no interface copy would reach a guest as a raw slug.
+  let copy = null;
+  try { copy = require('../data/questions.js').UI; } catch (e) { /* optional */ }
+  if (copy) {
+    const unknown = {};
+    menu.forEach(d => (d.flavours || []).forEach(f => {
+      if (!copy.de.flavourNames[f] || !copy.en.flavourNames[f]) {
+        (unknown[f] = unknown[f] || []).push(d.name);
+      }
+    }));
+    const keys = Object.keys(unknown);
+    if (keys.length) {
+      console.log('\n!! FLAVOUR TAGS WITH NO INTERFACE COPY:');
+      keys.forEach(f => console.log('   "' + f + '"  on ' + unknown[f].join(', ')));
+      console.log('   Add them to flavourNames and flavourCompare in data/questions.js,');
+      console.log('   or fold them into the tags the rest of the card already uses.');
+    }
   }
 
   const noSpirit = menu.filter(d => !d.alcoholFree && d.base === 'other');
