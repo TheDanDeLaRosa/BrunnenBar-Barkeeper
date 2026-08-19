@@ -15,7 +15,9 @@
     "name": "Porn Star Martini",
     "section": "Signature Cocktails",
     "tagline": "Maracuja, Vanille und ein Glas Prosecco daneben. Erst der Drink, dann der Schluck Schaumwein. Genau in der Reihenfolge.",
+    "taglineEn": "",
     "note": "2002 in London von Douglas Ankrah erfunden. Seitdem der meistbestellte Cocktail fast jeder Bar. Bei uns auch.",
+    "noteEn": "",
     "ing": [
      "Absolut",
      "Maracuja",
@@ -55,7 +57,9 @@
     "name": "Lemon Drop",
     "section": "Shots",
     "tagline": "Kalt, sauer, vorbei. Der Shot, bei dem am Tisch keiner Nein sagt.",
+    "taglineEn": "",
     "note": "",
+    "noteEn": "",
     "ing": [
      "Vodka",
      "Zitrone",
@@ -89,7 +93,9 @@
     "name": "Espresso Martini",
     "section": "Vodka",
     "tagline": "Wach werden und trotzdem feiern. Der einzige Drink, der beides gleichzeitig kann.",
+    "taglineEn": "",
     "note": "Dick Bradsell mixte ihn in den Achtzigern in London für ein Model, das wach werden und feiern wollte.",
+    "noteEn": "",
     "ing": [
      "Vodka",
      "Kahlúa",
@@ -126,7 +132,9 @@
     "name": "Cinnamon Toast Crunch",
     "section": "Shots",
     "tagline": "Schmeckt wirklich nach dem Zimtmüsli. Wir haben es selbst nicht geglaubt, bis wir ihn gemacht haben.",
+    "taglineEn": "",
     "note": "",
+    "noteEn": "",
     "ing": [
      "RumChata",
      "Whiskey",
@@ -163,7 +171,9 @@
     "name": "Aperol Spritz",
     "section": "Spritz",
     "tagline": "Der Klassiker, der den Abend eröffnet. Bitter genug, um Hunger zu machen.",
+    "taglineEn": "",
     "note": "",
+    "noteEn": "",
     "ing": [
      "Aperol",
      "Prosecco",
@@ -198,7 +208,9 @@
     "name": "Paloma",
     "section": "Agave Cocktails",
     "tagline": "In Mexiko trinkt man das, nicht Margarita. Grapefruit, Tequila, fertig.",
+    "taglineEn": "",
     "note": "",
+    "noteEn": "",
     "ing": [
      "El Destilador Blanco",
      "Thomas Henry Pink Grapefruit",
@@ -234,7 +246,9 @@
     "name": "Whiskey Sour",
     "section": "Signature Cocktails",
     "tagline": "Bourbon, Zitrone, Zucker und Eiweiss für die Schaumkrone. So alt wie die Barkultur selbst.",
+    "taglineEn": "",
     "note": "",
+    "noteEn": "",
     "ing": [
      "Four Roses",
      "Zitrone",
@@ -270,7 +284,9 @@
     "name": "Augsburg Sour",
     "section": "Signature Cocktails",
     "tagline": "Unser Sour mit Wodka aus der Stadt. Wenn du einen Drink von hier probieren willst, dann diesen.",
+    "taglineEn": "",
     "note": "",
+    "noteEn": "",
     "ing": [
      "Augsburg City Wodka",
      "Zitrone",
@@ -305,7 +321,9 @@
     "name": "Sarti Spritz",
     "section": "Spritz",
     "tagline": "Blumiger und weicher als der Aperol. Für alle, denen der Klassiker zu bitter ist.",
+    "taglineEn": "",
     "note": "",
+    "noteEn": "",
     "ing": [
      "Sarti Rosa",
      "Prosecco",
@@ -339,7 +357,9 @@
     "name": "Ficken 2cl",
     "section": "Shots",
     "tagline": "Kalt, süss, in einem Zug. Fragt keiner nach dem Namen, alle nach der zweiten Runde.",
+    "taglineEn": "",
     "note": "",
+    "noteEn": "",
     "ing": [
      "Ficken Likör"
     ],
@@ -371,7 +391,9 @@
     "name": "Mojito",
     "section": "Rum/Cachaça",
     "tagline": "Minze, Limette, weisser Rum. Wird bei uns gebaut, nicht zerdrückt, damit die Minze nicht bitter wird.",
+    "taglineEn": "",
     "note": "",
+    "noteEn": "",
     "ing": [
      "Bacardi",
      "Limette",
@@ -408,7 +430,9 @@
     "name": "Negroni",
     "section": "Aperitivo Cocktails",
     "tagline": "Drei Zutaten zu gleichen Teilen, gerührt, ein Stück Orange. Bitter und kompromisslos.",
+    "taglineEn": "",
     "note": "Graf Camillo Negroni liess sich 1919 in Florenz den Soda im Americano durch Gin ersetzen.",
+    "noteEn": "",
     "ing": [
      "Gin",
      "Campari",
@@ -443,7 +467,9 @@
     "name": "Apfelstrudel 2cl",
     "section": "Shots",
     "tagline": "Kokos und Apfel mit Zimt. Schmeckt tatsächlich wie Apfelstrudel.",
+    "taglineEn": "",
     "note": "",
+    "noteEn": "",
     "ing": [
      "Malibu",
      "Apfel",
@@ -476,7 +502,9 @@
     "name": "Berliner Luft 2cl",
     "section": "Shots",
     "tagline": "Eiskalte Pfefferminze. Räumt den Mund auf und den Kopf gleich mit.",
+    "taglineEn": "",
     "note": "",
+    "noteEn": "",
     "ing": [
      "Berliner Luft"
     ],
@@ -507,7 +535,9 @@
     "name": "Green Tea Shot",
     "section": "Shots",
     "tagline": "Kein Tee drin. Schmeckt trotzdem so und ist der freundlichste Whiskey Shot, den es gibt.",
+    "taglineEn": "",
     "note": "",
+    "noteEn": "",
     "ing": [
      "Irish Whiskey",
      "Pfirsichlikör",
@@ -543,7 +573,9 @@
     "name": "Gin Tonic - Bombay",
     "section": "Gin",
     "tagline": "Klassisch, wacholderbetont, immer richtig. Der Gin Tonic für alle, die wissen, was sie wollen.",
+    "taglineEn": "",
     "note": "",
+    "noteEn": "",
     "ing": [
      "Bombay Sapphire",
      "Tonic Water",
@@ -578,7 +610,9 @@
     "name": "London Mule",
     "section": "Mules",
     "tagline": "Der Mule mit Gin statt Wodka. Scharfer Ingwer trifft Wacholder und das passt besser, als es klingt.",
+    "taglineEn": "",
     "note": "",
+    "noteEn": "",
     "ing": [
      "Tanqueray",
      "Limette",
@@ -613,7 +647,9 @@
     "name": "Singapore Sling",
     "section": "Signature Cocktails",
     "tagline": "Acht Zutaten, hundert Jahre alt und immer noch ein Fest. Wer Zeit hat, bestellt den.",
+    "taglineEn": "",
     "note": "Um 1915 im Raffles Hotel in Singapur entstanden. Kaum ein Drink hat so viele Zutaten und so wenig Angeberei.",
+    "noteEn": "",
     "ing": [
      "Tanqueray",
      "Kirsche",
@@ -653,7 +689,9 @@
     "name": "Moscow Mule",
     "section": "Mules",
     "tagline": "Ingwer, Limette, Gurke. Kalt im Kupferbecher, weil der die Kälte hält.",
+    "taglineEn": "",
     "note": "",
+    "noteEn": "",
     "ing": [
      "Absolut",
      "Limette",
@@ -689,7 +727,9 @@
     "name": "Alkoholfreie Cocktails",
     "section": "Alkoholfrei",
     "tagline": "Sag uns einfach, welchen Cocktail du magst. Fast jeden auf der Karte bauen wir dir ohne Alkohol.",
+    "taglineEn": "",
     "note": "",
+    "noteEn": "",
     "ing": [
      "nach Absprache"
     ],
@@ -717,7 +757,9 @@
     "name": "Aperol Sour",
     "section": "Sours",
     "tagline": "Aperol ohne Prosecco, dafür mit Zitrone und Orange. Bitterer, ernster, besser.",
+    "taglineEn": "",
     "note": "",
+    "noteEn": "",
     "ing": [
      "Aperol",
      "Zitrone",
@@ -753,7 +795,9 @@
     "name": "Cuba Libre 6cl",
     "section": "Mixgetränke",
     "tagline": "Rum, Cola, viel Limette. Simpel und deshalb schwer gut zu machen.",
+    "taglineEn": "",
     "note": "",
+    "noteEn": "",
     "ing": [
      "Bacardi",
      "Cola",
@@ -786,7 +830,9 @@
     "name": "Special Cocktail",
     "section": "Cocktails",
     "tagline": "Sag uns, was du magst, und wir bauen dir etwas. Nicht auf der Karte, aber immer möglich.",
+    "taglineEn": "",
     "note": "",
+    "noteEn": "",
     "ing": [
      "nach Absprache"
     ],
@@ -815,7 +861,9 @@
     "name": "Raspberry Mule",
     "section": "Mules",
     "tagline": "Frische Himbeeren im Ingwer. Der süsseste der vier Mules und der, den am meisten Leute zweimal bestellen.",
+    "taglineEn": "",
     "note": "",
+    "noteEn": "",
     "ing": [
      "Absolut",
      "Himbeeren",
@@ -851,7 +899,9 @@
     "name": "Caipirinha",
     "section": "Rum/Cachaça",
     "tagline": "Cachaça, Limette, Zucker, crushed Ice. Mehr braucht Brasilien nicht.",
+    "taglineEn": "",
     "note": "",
+    "noteEn": "",
     "ing": [
      "Cachaça",
      "Limette",
@@ -884,7 +934,9 @@
     "name": "Italian Stallion",
     "section": "Signature Cocktails",
     "tagline": "Aprikose und Granatapfel auf Wodka. Süss, aber mit Kante.",
+    "taglineEn": "",
     "note": "",
+    "noteEn": "",
     "ing": [
      "Absolut",
      "Aprikose",
@@ -918,7 +970,9 @@
     "name": "Mexico Mule",
     "section": "Mules",
     "tagline": "Der Mule auf Tequila. Etwas erdiger, etwas wilder als das Original.",
+    "taglineEn": "",
     "note": "",
+    "noteEn": "",
     "ing": [
      "El Destilador Blanco",
      "Limette",
@@ -952,7 +1006,9 @@
     "name": "Pisco Sour",
     "section": "Sours",
     "tagline": "Perus Nationaldrink. Eiweiss oben, Limette darunter und ein Spritzer Bitter aufs Schaumhäubchen.",
+    "taglineEn": "",
     "note": "",
+    "noteEn": "",
     "ing": [
      "Pisco",
      "Limette",
@@ -989,7 +1045,9 @@
     "name": "Cosmopolitan",
     "section": "Vodka",
     "tagline": "Cranberry, Cointreau, Limette. In den Neunzigern überall, heute wieder zu Recht.",
+    "taglineEn": "",
     "note": "",
+    "noteEn": "",
     "ing": [
      "Vodka",
      "Cranberry",
@@ -1025,7 +1083,9 @@
     "name": "Gin Tonic - Tanqueray",
     "section": "Best Sellers",
     "tagline": "Trocken, klar, kein Schnickschnack. Unser meistbestellter Gin Tonic.",
+    "taglineEn": "",
     "note": "",
+    "noteEn": "",
     "ing": [
      "Tanqueray",
      "Tonic Water",
@@ -1060,7 +1120,9 @@
     "name": "Amaretto Sour",
     "section": "Sours",
     "tagline": "Mandel und Bourbon, weich und mit Schaum. Der Sour für alle, die es lieber rund mögen.",
+    "taglineEn": "",
     "note": "",
+    "noteEn": "",
     "ing": [
      "Amaretto",
      "Whiskey",
@@ -1101,7 +1163,9 @@
     "name": "Ricky Ricky",
     "section": "Gin",
     "tagline": "Gin, Limette, Minze und Soda. Leicht wie ein Sommerabend, auch im Januar.",
+    "taglineEn": "",
     "note": "",
+    "noteEn": "",
     "ing": [
      "Tanqueray",
      "Limette",
@@ -1137,7 +1201,9 @@
     "name": "Wildberry Lillet Spritz",
     "section": "Spritz",
     "tagline": "Lillet mit Waldbeere. Der Spritz, den fast jeder schon mal getrunken hat und trotzdem wieder bestellt.",
+    "taglineEn": "",
     "note": "",
+    "noteEn": "",
     "ing": [
      "Lillet Blanc",
      "Prosecco",
@@ -1171,7 +1237,9 @@
     "name": "Margarita",
     "section": "Agave Cocktails",
     "tagline": "Tequila, Limette, Cointreau und Salz am Rand. Der Massstab für jede Bar.",
+    "taglineEn": "",
     "note": "",
+    "noteEn": "",
     "ing": [
      "Tequila",
      "Limette",
@@ -1208,7 +1276,9 @@
     "name": "Haselnuss 2cl",
     "section": "Shots",
     "tagline": "Nussig und weich. Der Shot für alle, die es nicht scharf mögen.",
+    "taglineEn": "",
     "note": "",
+    "noteEn": "",
     "ing": [
      "Haselnusslikör"
     ],
@@ -1241,7 +1311,9 @@
     "name": "Skinny Lady",
     "section": "Mixgetränke",
     "tagline": "Wodka, Limette, Sprudel. Kein Zucker, kein Schnickschnack, unter hundert Kalorien.",
+    "taglineEn": "",
     "note": "",
+    "noteEn": "",
     "ing": [
      "Absolut",
      "Limette",
@@ -1274,7 +1346,9 @@
     "name": "Johnnie Black White Peach",
     "section": "Mixgetränke",
     "tagline": "Scotch mit weissem Pfirsich. Klingt ungewöhnlich, trinkt sich gefährlich leicht.",
+    "taglineEn": "",
     "note": "",
+    "noteEn": "",
     "ing": [
      "Johnnie Walker Black",
      "Schweppes White Peach"
@@ -1306,7 +1380,9 @@
     "name": "Naughty or Nice",
     "section": "Cocktails",
     "tagline": "Gin und Campari mit Trauben. Bitter und fruchtig zugleich, je nach Schluck.",
+    "taglineEn": "",
     "note": "",
+    "noteEn": "",
     "ing": [
      "Tanqueray",
      "Campari",
@@ -1343,7 +1419,9 @@
     "name": "Alkoholfrei - Porn Star Martini",
     "section": "Alkoholfrei",
     "tagline": "Maracuja und Vanille, alles wie im Original, nur ohne Alkohol. Sogar der Prosecco daneben.",
+    "taglineEn": "",
     "note": "",
+    "noteEn": "",
     "ing": [
      "alkoholfreier Gin",
      "Maracuja",
@@ -1380,7 +1458,9 @@
     "name": "La Rosa",
     "section": "Cocktails",
     "tagline": "Cachaça mit Ananas und Granatapfel. Fruchtig ohne süsslich zu werden.",
+    "taglineEn": "",
     "note": "",
+    "noteEn": "",
     "ing": [
      "Cachaça",
      "Ananas",
@@ -1416,7 +1496,9 @@
     "name": "Clover Club",
     "section": "Gin",
     "tagline": "Himbeere und Gin mit Schaumkrone. Rosa im Glas und deutlich erwachsener, als es aussieht.",
+    "taglineEn": "",
     "note": "Benannt nach einem Herrenclub in Philadelphia, lange vor der Prohibition.",
+    "noteEn": "",
     "ing": [
      "Tanqueray",
      "Himbeere",
@@ -1452,7 +1534,9 @@
     "name": "Frangelico Sour",
     "section": "Sours",
     "tagline": "Haselnuss und Wodka, sauer abgezogen. Klingt seltsam, funktioniert überraschend gut.",
+    "taglineEn": "",
     "note": "",
+    "noteEn": "",
     "ing": [
      "Frangelico",
      "Vodka",
@@ -1493,7 +1577,9 @@
     "name": "Pina Colada",
     "section": "Frozen",
     "tagline": "Ananas, Kokos, Rum. Kein bisschen ironisch gemeint.",
+    "taglineEn": "",
     "note": "",
+    "noteEn": "",
     "ing": [
      "Rum",
      "Ananas",
@@ -1530,7 +1616,9 @@
     "name": "Long Island Ice Tea",
     "section": "Cocktails",
     "tagline": "Fünf Spirituosen und ein Schuss Cola. Schmeckt nach Eistee und ist es ganz sicher nicht.",
+    "taglineEn": "",
     "note": "",
+    "noteEn": "",
     "ing": [
      "Wodka",
      "Gin",
@@ -1572,7 +1660,9 @@
     "name": "Campari Spritz",
     "section": "Spritz",
     "tagline": "Der bittere Bruder vom Aperol Spritz. Wer den mag, geht nicht mehr zurück.",
+    "taglineEn": "",
     "note": "",
+    "noteEn": "",
     "ing": [
      "Campari",
      "Prosecco",
@@ -1606,7 +1696,9 @@
     "name": "Mint Julep",
     "section": "Whiskey",
     "tagline": "Bourbon über crushed Ice, ein Wald aus Minze obendrauf. Trink ihn langsam, das Glas soll beschlagen.",
+    "taglineEn": "",
     "note": "",
+    "noteEn": "",
     "ing": [
      "Bulleit Bourbon",
      "Minze",
@@ -1640,7 +1732,9 @@
     "name": "Wodka & Orange 6cl",
     "section": "Mixgetränke",
     "tagline": "Wodka und Orangensaft. Ehrlich und ohne Anspruch.",
+    "taglineEn": "",
     "note": "",
+    "noteEn": "",
     "ing": [
      "Absolut",
      "Orangensaft"
@@ -1671,7 +1765,9 @@
     "name": "Boulvadier",
     "section": "Aperitivo Cocktails",
     "tagline": "Negroni, aber mit Bourbon statt Gin. Wärmer, runder, im Winter der bessere von beiden.",
+    "taglineEn": "",
     "note": "",
+    "noteEn": "",
     "ing": [
      "Bourbon",
      "Campari",
@@ -1705,7 +1801,9 @@
     "name": "Gin Tonic - Fugger",
     "section": "Gin",
     "tagline": "Gin aus Augsburg mit Tonic. Der lokalste Gin Tonic, den wir haben.",
+    "taglineEn": "",
     "note": "",
+    "noteEn": "",
     "ing": [
      "Fugger Gin",
      "Tonic Water",
@@ -1740,7 +1838,9 @@
     "name": "Maple Old Fashioned",
     "section": "Whiskey",
     "tagline": "Ahornsirup statt Zucker. Macht den Old Fashioned weicher, ohne ihn brav zu machen.",
+    "taglineEn": "",
     "note": "",
+    "noteEn": "",
     "ing": [
      "Four Roses",
      "Ahornsirup",
@@ -1773,7 +1873,9 @@
     "name": "Vibrante Alkoholfrei Spritz",
     "section": "Spritz alkoholfrei",
     "tagline": "Die bittere alkoholfreie Variante. Orange und Kräuter, ohne Kompromiss.",
+    "taglineEn": "",
     "note": "",
+    "noteEn": "",
     "ing": [
      "Martini Vibrante",
      "alkoholfreier Sekt",
@@ -1804,7 +1906,9 @@
     "name": "Limoncello Spritz",
     "section": "Spritz",
     "tagline": "Zitrone pur, süss und kalt. Der Spritz für alle, die Sonne bestellen wollen.",
+    "taglineEn": "",
     "note": "",
+    "noteEn": "",
     "ing": [
      "Limoncello",
      "Prosecco",
@@ -1839,7 +1943,9 @@
     "name": "Negroni Sbagliato",
     "section": "Aperitivo Cocktails",
     "tagline": "Der verwechselte Negroni. Statt Gin kam Prosecco ins Glas und alle fanden es besser.",
+    "taglineEn": "",
     "note": "Sbagliato heisst auf Italienisch schlicht falsch. Ein Barkeeper in Mailand griff zur falschen Flasche.",
+    "noteEn": "",
     "ing": [
      "Campari",
      "roter Wermut",
@@ -1873,7 +1979,9 @@
     "name": "Rosato Spritz",
     "section": "Spritz",
     "tagline": "Der leichteste Spritz auf der Karte. Blumig, trocken, unaufdringlich.",
+    "taglineEn": "",
     "note": "",
+    "noteEn": "",
     "ing": [
      "Rosato Aperitivo",
      "Prosecco",
@@ -1907,7 +2015,9 @@
     "name": "Campari & Soda",
     "section": "Mixgetränke",
     "tagline": "Zwei Zutaten, maximal bitter. Der Aperitif für Puristen.",
+    "taglineEn": "",
     "note": "",
+    "noteEn": "",
     "ing": [
      "Campari",
      "Soda"
@@ -1939,7 +2049,9 @@
     "name": "Gin Fizz",
     "section": "Gin",
     "tagline": "Gin, Zitrone, Soda, viel Schaum. Der Drink, mit dem man um zehn Uhr morgens anfangen könnte.",
+    "taglineEn": "",
     "note": "",
+    "noteEn": "",
     "ing": [
      "Gin",
      "Zitrone",
@@ -1973,7 +2085,9 @@
     "name": "Old Fashioned",
     "section": "Whiskey",
     "tagline": "Whiskey, Zucker, Bitter, Eis. Der älteste Cocktail der Welt und immer noch der ehrlichste.",
+    "taglineEn": "",
     "note": "",
+    "noteEn": "",
     "ing": [
      "Whiskey",
      "Zucker",
@@ -2006,7 +2120,9 @@
     "name": "Alkoholfrei - Caipirinha",
     "section": "Alkoholfrei",
     "tagline": "Limette und Rohrzucker über crushed Ice. Braucht keinen Alkohol, um zu funktionieren.",
+    "taglineEn": "",
     "note": "",
+    "noteEn": "",
     "ing": [
      "alkoholfreie Cachaça",
      "Limette",
@@ -2038,7 +2154,9 @@
     "name": "Danube Morning",
     "section": "Cocktails",
     "tagline": "Erdbeere und Basilikum auf Cachaça. Schmeckt nach Garten im Juni.",
+    "taglineEn": "",
     "note": "",
+    "noteEn": "",
     "ing": [
      "Cachaça",
      "Erdbeere",
@@ -2076,7 +2194,9 @@
     "name": "Don Julio Ranch Water",
     "section": "Agave Cocktails",
     "tagline": "Tequila, Limette, Sprudel. Aus Texas und so unkompliziert, wie es klingt.",
+    "taglineEn": "",
     "note": "",
+    "noteEn": "",
     "ing": [
      "Don Julio Blanco",
      "Limette",
@@ -2109,7 +2229,9 @@
     "name": "Pfeffi 2cl",
     "section": "Shots",
     "tagline": "Ostdeutsche Pfefferminze, eiskalt. Kult, und das zu Recht.",
+    "taglineEn": "",
     "note": "",
+    "noteEn": "",
     "ing": [
      "Pfeffi"
     ],
@@ -2140,7 +2262,9 @@
     "name": "Philosoph",
     "section": "Sours",
     "tagline": "Pfirsich und Wodka, sauer abgezogen. Unkompliziert und genau deshalb gut.",
+    "taglineEn": "",
     "note": "",
+    "noteEn": "",
     "ing": [
      "Absolut",
      "Pfirsichlikör",
@@ -2175,7 +2299,9 @@
     "name": "Talisker Campfire",
     "section": "Whiskey",
     "tagline": "Rauchiger Whisky in warmer Schokolade. Klingt verrückt, wärmt aber wie nichts sonst.",
+    "taglineEn": "",
     "note": "",
+    "noteEn": "",
     "ing": [
      "Talisker",
      "Milch",
@@ -2210,7 +2336,9 @@
     "name": "Campari Orange",
     "section": "Aperitivo Cocktails",
     "tagline": "Bitter trifft Orange. Der italienische Nachmittag im Glas.",
+    "taglineEn": "",
     "note": "",
+    "noteEn": "",
     "ing": [
      "Campari",
      "Orangensaft"
@@ -2242,7 +2370,9 @@
     "name": "Hugo Spritz",
     "section": "Spritz",
     "tagline": "Holunderblüte, Prosecco, Minze. In Südtirol erfunden und seitdem aus keinem Sommer wegzudenken.",
+    "taglineEn": "",
     "note": "",
+    "noteEn": "",
     "ing": [
      "Holunderblüte",
      "Prosecco",
@@ -2277,7 +2407,9 @@
     "name": "Jack & Cola 6cl",
     "section": "Mixgetränke",
     "tagline": "Tennessee Whiskey und Cola. Muss man nicht erklären.",
+    "taglineEn": "",
     "note": "",
+    "noteEn": "",
     "ing": [
      "Jack Daniel's",
      "Cola"
@@ -2309,7 +2441,9 @@
     "name": "Manhattan",
     "section": "Whiskey",
     "tagline": "Bourbon und Wermut, gerührt, kalt, ohne Umwege. Ein Drink für Leute, die nicht viel reden müssen.",
+    "taglineEn": "",
     "note": "",
+    "noteEn": "",
     "ing": [
      "Bourbon",
      "roter Wermut",
@@ -2343,7 +2477,9 @@
     "name": "Marille 2cl",
     "section": "Shots",
     "tagline": "Marille aus Österreich. Fruchtig und wärmer, als du erwartest.",
+    "taglineEn": "",
     "note": "",
+    "noteEn": "",
     "ing": [
      "Marillenschnaps"
     ],
@@ -2373,7 +2509,9 @@
     "name": "Mate Spritz",
     "section": "Spritz",
     "tagline": "Club Mate trifft Prosecco. Koffein und Bläschen, der Spritz für lange Abende.",
+    "taglineEn": "",
     "note": "",
+    "noteEn": "",
     "ing": [
      "Club Mate",
      "Prosecco",
@@ -2407,7 +2545,9 @@
     "name": "Paper Plane",
     "section": "Whiskey",
     "tagline": "Vier Zutaten zu gleichen Teilen. Bitter, sauer, fruchtig und völlig im Gleichgewicht.",
+    "taglineEn": "",
     "note": "2008 von Sam Ross in New York gebaut. Einer der wenigen modernen Drinks, die schon jetzt Klassiker sind.",
+    "noteEn": "",
     "ing": [
      "Bourbon",
      "Amaro",
@@ -2443,7 +2583,9 @@
     "name": "Sambuca 2cl",
     "section": "Shots",
     "tagline": "Anis, eiskalt. Entweder dein Ding oder gar nicht.",
+    "taglineEn": "",
     "note": "",
+    "noteEn": "",
     "ing": [
      "Sambuca"
     ],
@@ -2474,7 +2616,9 @@
     "name": "Zacapa & Ginger",
     "section": "Mixgetränke",
     "tagline": "Gereifter Rum auf Ingwer. Teuer, aber genau richtig.",
+    "taglineEn": "",
     "note": "",
+    "noteEn": "",
     "ing": [
      "Zacapa 23",
      "Thomas Henry Spicy Ginger"
@@ -2506,7 +2650,9 @@
     "name": "Mandelino",
     "section": "Spritzig Selects",
     "tagline": "Mandel und Kirschblüte im Prosecco. Süss, blumig und ziemlich hübsch im Glas.",
+    "taglineEn": "",
     "note": "",
+    "noteEn": "",
     "ing": [
      "Prosecco",
      "Mandelsirup",
@@ -2539,7 +2685,9 @@
     "name": "Margarita Rojas",
     "section": "Agave Cocktails",
     "tagline": "Margarita auf Mezcal, mit Tajín am Rand. Rauchig und salzig, ein anderes Tier als die klassische.",
+    "taglineEn": "",
     "note": "",
+    "noteEn": "",
     "ing": [
      "Mezcal",
      "Limette",
@@ -2575,7 +2723,9 @@
     "name": "Mermaid's Melody",
     "section": "Rum/Cachaça",
     "tagline": "Blau, Kokos, Limette. Sieht aus wie Urlaub und schmeckt auch so.",
+    "taglineEn": "",
     "note": "",
+    "noteEn": "",
     "ing": [
      "Bacardi",
      "Blue Curaçao",
@@ -2612,7 +2762,9 @@
     "name": "Mikki",
     "section": "Agave Cocktails",
     "tagline": "Reposado mit Amaretto und Orange Bitters. Gerührt, nicht geschüttelt, und deutlich ernster als er klingt.",
+    "taglineEn": "",
     "note": "",
+    "noteEn": "",
     "ing": [
      "Don Julio Reposado",
      "Amaretto",
@@ -2649,7 +2801,9 @@
     "name": "Touchdown",
     "section": "Vodka",
     "tagline": "Maracuja, Aprikose und Granatapfel. Der fruchtigste Drink auf der Karte, ohne Entschuldigung.",
+    "taglineEn": "",
     "note": "",
+    "noteEn": "",
     "ing": [
      "Absolut",
      "Aprikose",
@@ -2685,7 +2839,9 @@
     "name": "Augsburg Blume",
     "section": "Cocktails",
     "tagline": "Wodka, Aperol und Holunderblüte. Unser leisester Drink und einer der besten.",
+    "taglineEn": "",
     "note": "",
+    "noteEn": "",
     "ing": [
      "Absolut",
      "Aperol",
@@ -2722,7 +2878,9 @@
     "name": "Dama Elena",
     "section": "Agave Cocktails",
     "tagline": "Tequila Sour mit Eiweiss. Cremig oben, scharf darunter.",
+    "taglineEn": "",
     "note": "",
+    "noteEn": "",
     "ing": [
      "Don Julio Blanco",
      "Cointreau",
@@ -2760,7 +2918,9 @@
     "name": "Don Julio Anejo Negroni",
     "section": "Agave Cocktails",
     "tagline": "Negroni auf Añejo Tequila. Holzig, bitter, ungewöhnlich und richtig gut.",
+    "taglineEn": "",
     "note": "",
+    "noteEn": "",
     "ing": [
      "Don Julio Añejo",
      "Campari",
@@ -2794,7 +2954,9 @@
     "name": "Don Julio Reposado Old Fashioned",
     "section": "Agave Cocktails",
     "tagline": "Old Fashioned mit Tequila statt Whiskey. Weicher, blumiger, überraschend.",
+    "taglineEn": "",
     "note": "",
+    "noteEn": "",
     "ing": [
      "Don Julio Reposado",
      "Agave",
@@ -2827,7 +2989,9 @@
     "name": "Fresco Spritz",
     "section": "Spritz",
     "tagline": "Klar, trocken, kaum süss. Wenn dir alle Spritz zu klebrig sind, nimm den.",
+    "taglineEn": "",
     "note": "",
+    "noteEn": "",
     "ing": [
      "Fresco Aperitivo",
      "Prosecco",
@@ -2861,7 +3025,9 @@
     "name": "Gin Tonic - Tanqueray 10",
     "section": "Gin",
     "tagline": "Der teure Tanqueray, mit frischer Zitrusfrucht destilliert. Merkst du sofort.",
+    "taglineEn": "",
     "note": "",
+    "noteEn": "",
     "ing": [
      "Tanqueray No. Ten",
      "Tonic Water",
@@ -2896,7 +3062,9 @@
     "name": "Jaegermeister & Red Bull 6cl",
     "section": "Mixgetränke",
     "tagline": "Kräuter und Koffein. Der Abend nimmt ab hier eine Richtung.",
+    "taglineEn": "",
     "note": "",
+    "noteEn": "",
     "ing": [
      "Jägermeister",
      "Red Bull"
@@ -2929,7 +3097,9 @@
     "name": "Secco Spritz",
     "section": "Spritz",
     "tagline": "Prosecco, Soda, ein Stück Zitrone. Der Spritz ohne Umweg.",
+    "taglineEn": "",
     "note": "",
+    "noteEn": "",
     "ing": [
      "Prosecco",
      "Soda",
@@ -2961,7 +3131,9 @@
     "name": "Take-It-Easy",
     "section": "Cocktails",
     "tagline": "Rum, Aperol und Mandel. Klein, süss und genau so entspannt, wie der Name sagt.",
+    "taglineEn": "",
     "note": "",
+    "noteEn": "",
     "ing": [
      "Bacardi",
      "Aperol",
@@ -2999,7 +3171,9 @@
     "name": "Wodka & Red Bull 6cl",
     "section": "Mixgetränke",
     "tagline": "Wodka mit Red Bull. Du weisst, warum du den bestellst.",
+    "taglineEn": "",
     "note": "",
+    "noteEn": "",
     "ing": [
      "Absolut",
      "Red Bull"
@@ -3031,7 +3205,9 @@
     "name": "Zacapa Espresso Martini",
     "section": "Best Sellers",
     "tagline": "Espresso Martini auf gereiftem Rum. Karamellig, tief und deutlich teurer als der normale. Zu Recht.",
+    "taglineEn": "",
     "note": "",
+    "noteEn": "",
     "ing": [
      "Zacapa 23",
      "Kahlúa",
@@ -3067,7 +3243,9 @@
     "name": "Alk Freier Spritz",
     "section": "Spritz",
     "tagline": "Alkoholfreier Sekt mit Soda. Schlicht, kalt und immer richtig.",
+    "taglineEn": "",
     "note": "",
+    "noteEn": "",
     "ing": [
      "Freixenet 0,0",
      "Soda",
@@ -3097,7 +3275,9 @@
     "name": "Alkoholfrei - Augsburg Sour",
     "section": "Alkoholfrei",
     "tagline": "Unser Hausdrink ohne Alkohol. Himbeere, Zitrone, Orange und die gleiche Schaumkrone.",
+    "taglineEn": "",
     "note": "",
+    "noteEn": "",
     "ing": [
      "Tanqueray 0.0",
      "Zitrone",
@@ -3131,7 +3311,9 @@
     "name": "Alkoholfrei - Mojito",
     "section": "Alkoholfrei",
     "tagline": "Minze, Limette, Soda. Der Mojito ohne Rum und trotzdem ein richtiger Drink.",
+    "taglineEn": "",
     "note": "",
+    "noteEn": "",
     "ing": [
      "alkoholfreier Rum",
      "Limette",
@@ -3165,7 +3347,9 @@
     "name": "Cherry Amaretto Margarita",
     "section": "Agave Cocktails",
     "tagline": "Margarita mit Kirsche und Mandel. Weicher als das Original, ohne die Säure zu verlieren.",
+    "taglineEn": "",
     "note": "",
+    "noteEn": "",
     "ing": [
      "El Destilador Blanco",
      "Amaretto",
@@ -3204,7 +3388,9 @@
     "name": "Dirty Martini",
     "section": "Cocktails",
     "tagline": "Eiskalt, trocken, mit Olivenlake. Entweder man liebt ihn oder man bestellt etwas anderes.",
+    "taglineEn": "",
     "note": "",
+    "noteEn": "",
     "ing": [
      "Tanqueray",
      "trockener Wermut",
@@ -3239,7 +3425,9 @@
     "name": "Floreale Alkoholfrei Spritz",
     "section": "Spritz alkoholfrei",
     "tagline": "Alkoholfreier Aperitivo, blumig und bitter. Der Spritz, bei dem keiner merkt, dass nichts drin ist.",
+    "taglineEn": "",
     "note": "",
+    "noteEn": "",
     "ing": [
      "Martini Floreale",
      "alkoholfreier Sekt",
@@ -3271,7 +3459,9 @@
     "name": "Frangelico 2cl",
     "section": "Shots",
     "tagline": "Haselnusslikör aus Italien. Süss, rund und ohne Schärfe.",
+    "taglineEn": "",
     "note": "",
+    "noteEn": "",
     "ing": [
      "Frangelico"
     ],
@@ -3304,7 +3494,9 @@
     "name": "Gin/Vodka Martini",
     "section": "Gin",
     "tagline": "Zwei Zutaten, eiskalt gerührt. Der Drink, an dem sich jede Bar messen lassen muss.",
+    "taglineEn": "",
     "note": "",
+    "noteEn": "",
     "ing": [
      "Gin oder Wodka",
      "trockener Wermut"
@@ -3338,7 +3530,9 @@
     "name": "Johnnie Black Sour",
     "section": "Sours",
     "tagline": "Blended Scotch mit Zitrone. Rauchig, aber freundlich.",
+    "taglineEn": "",
     "note": "",
+    "noteEn": "",
     "ing": [
      "Johnnie Walker Black",
      "Zitrone",
@@ -3371,7 +3565,9 @@
     "name": "Mai Tai",
     "section": "Cocktails",
     "tagline": "Rum, Mandel, Limette, Orange. Der Tiki Klassiker, der wirklich einer ist.",
+    "taglineEn": "",
     "note": "",
+    "noteEn": "",
     "ing": [
      "Rum",
      "Orgeat",
@@ -3409,7 +3605,9 @@
     "name": "Alkoholfrei - Italian Stallion",
     "section": "Alkoholfrei",
     "tagline": "Aprikose und Granatapfel ohne Alkohol. Fruchtig und trotzdem nicht kindisch.",
+    "taglineEn": "",
     "note": "",
+    "noteEn": "",
     "ing": [
      "alkoholfreier Wodka",
      "Aprikose",
@@ -3441,7 +3639,9 @@
     "name": "Alkoholfrei - Mule",
     "section": "Alkoholfrei",
     "tagline": "Ingwer und Limette im Kupferbecher. Scharf genug, dass niemand den Wodka vermisst.",
+    "taglineEn": "",
     "note": "",
+    "noteEn": "",
     "ing": [
      "alkoholfreier Wodka",
      "Limette",
@@ -3473,7 +3673,9 @@
     "name": "Alkoholfrei - Singapore Sling",
     "section": "Alkoholfrei",
     "tagline": "Alle acht Zutaten, kein Alkohol. Der aufwendigste alkoholfreie Drink, den wir haben.",
+    "taglineEn": "",
     "note": "",
+    "noteEn": "",
     "ing": [
      "Tanqueray 0.0",
      "Kirsche",
@@ -3507,7 +3709,9 @@
     "name": "Caipiroska",
     "section": "Vodka",
     "tagline": "Caipirinha mit Wodka. Klarer und gerader als das Original.",
+    "taglineEn": "",
     "note": "",
+    "noteEn": "",
     "ing": [
      "Absolut",
      "Limette",
@@ -3540,7 +3744,9 @@
     "name": "Gin Tonic - Hendriks",
     "section": "Gin",
     "tagline": "Gurke und Rose statt Wacholder. Der Gin Tonic für Leute, die keinen Gin mögen.",
+    "taglineEn": "",
     "note": "",
+    "noteEn": "",
     "ing": [
      "Hendrick's",
      "Tonic Water",
@@ -3574,7 +3780,9 @@
     "name": "Himbeere Mojito",
     "section": "Rum/Cachaça",
     "tagline": "Mojito mit frischen Himbeeren. Süsser, roter und bei Tischen sehr ansteckend.",
+    "taglineEn": "",
     "note": "",
+    "noteEn": "",
     "ing": [
      "Bacardi",
      "Himbeeren",
@@ -3611,7 +3819,9 @@
     "name": "Johnnie Black & Ginger",
     "section": "Mixgetränke",
     "tagline": "Scotch auf Ingwer. Der einfachste Weg, Whisky im Sommer zu trinken.",
+    "taglineEn": "",
     "note": "",
+    "noteEn": "",
     "ing": [
      "Johnnie Walker Black",
      "Thomas Henry Spicy Ginger"
@@ -3643,7 +3853,9 @@
     "name": "Mimosa",
     "section": "Spritz",
     "tagline": "Prosecco und Orangensaft. Der einzige Drink, den man auch zum Frühstück verteidigen kann.",
+    "taglineEn": "",
     "note": "",
+    "noteEn": "",
     "ing": [
      "Prosecco",
      "Orangensaft"
@@ -3675,7 +3887,9 @@
     "name": "White Russian",
     "section": "Vodka",
     "tagline": "Wodka, Kaffeelikör, Sahne. Drei Zutaten, kein Aufwand, grosse Wirkung.",
+    "taglineEn": "",
     "note": "",
+    "noteEn": "",
     "ing": [
      "Wodka",
      "Kahlúa",
@@ -3712,7 +3926,9 @@
     "name": "Zacapa Wolke",
     "section": "Rum/Cachaça",
     "tagline": "Gereifter Rum unter Zuckerwatte. Die Wolke löst sich im Glas auf, dann trinkst du.",
+    "taglineEn": "",
     "note": "",
+    "noteEn": "",
     "ing": [
      "Zacapa 23",
      "Zuckerwatte"
@@ -3743,7 +3959,9 @@
     "name": "Alkoholfrei - Clover Club",
     "section": "Alkoholfrei",
     "tagline": "Himbeere mit Schaumkrone, ganz ohne Alkohol. Sieht genauso gut aus wie das Original.",
+    "taglineEn": "",
     "note": "",
+    "noteEn": "",
     "ing": [
      "Tanqueray 0.0",
      "Himbeere",
@@ -3777,7 +3995,9 @@
     "name": "Alkoholfrei - Ricky Ricky",
     "section": "Alkoholfrei",
     "tagline": "Limette, Minze, Soda. Leicht und frisch, der beste Einstieg ohne Alkohol.",
+    "taglineEn": "",
     "note": "",
+    "noteEn": "",
     "ing": [
      "Tanqueray 0.0",
      "Limette",
@@ -3810,7 +4030,9 @@
     "name": "Asbach & Cola 4cl",
     "section": "Mixgetränke",
     "tagline": "Weinbrand und Cola. Der deutsche Longdrink, bevor es Longdrinks gab.",
+    "taglineEn": "",
     "note": "",
+    "noteEn": "",
     "ing": [
      "Asbach Uralt",
      "Cola"
@@ -3842,7 +4064,9 @@
     "name": "Bacardi & Cola 6cl",
     "section": "Mixgetränke",
     "tagline": "Weisser Rum und Cola. Cuba Libre ohne die Limette.",
+    "taglineEn": "",
     "note": "",
+    "noteEn": "",
     "ing": [
      "Bacardi",
      "Cola"
@@ -3874,7 +4098,9 @@
     "name": "Bramble",
     "section": "Premium Cocktails",
     "tagline": "Brombeerlikör läuft über crushed Ice nach unten. Sieht aus wie ein Sonnenuntergang und schmeckt wie ein Sommer.",
+    "taglineEn": "",
     "note": "Mitte der Achtziger von Dick Bradsell im Fred's Club in Soho gebaut. Einer der besten Drinks, die aus diesem Jahrzehnt kamen.",
+    "noteEn": "",
     "ing": [
      "Tanqueray",
      "Zitrone",
@@ -3910,7 +4136,9 @@
     "name": "Espresso Royal",
     "section": "Vodka",
     "tagline": "Espresso Martini in gross. Ketel One und frischer Espresso, weicher und runder als das Original.",
+    "taglineEn": "",
     "note": "",
+    "noteEn": "",
     "ing": [
      "Ketel One",
      "Kahlúa",
@@ -3947,7 +4175,9 @@
     "name": "Gin Tonic - Alkoholfrei",
     "section": "Alkoholfrei",
     "tagline": "Tanqueray 0.0 mit Tonic. Sieht aus wie ein Gin Tonic, schmeckt wie einer, ist keiner.",
+    "taglineEn": "",
     "note": "",
+    "noteEn": "",
     "ing": [
      "Tanqueray 0.0",
      "Tonic Water",
@@ -3979,7 +4209,9 @@
     "name": "Gin Tonic - August",
     "section": "Gin",
     "tagline": "Auch aus Augsburg, etwas weicher als der Fugger. Zwei Städte, zwei Gins.",
+    "taglineEn": "",
     "note": "",
+    "noteEn": "",
     "ing": [
      "August Gin",
      "Tonic Water",
@@ -4014,7 +4246,9 @@
     "name": "Heidi",
     "section": "Spritzig Selects",
     "tagline": "Dunkle Beeren und Prosecco. Der tiefste Spritz auf der Karte und der, den man am Nebentisch sieht.",
+    "taglineEn": "",
     "note": "",
+    "noteEn": "",
     "ing": [
      "Lillet",
      "Johannisbeere",
@@ -4050,7 +4284,9 @@
     "name": "La Dama Rosa",
     "section": "Premium Cocktails",
     "tagline": "Grapefruit, Agave und Tajín am Rand. Salzig, sauer, rosa.",
+    "taglineEn": "",
     "note": "",
+    "noteEn": "",
     "ing": [
      "Don Julio Blanco",
      "Grapefruit",
@@ -4088,7 +4324,9 @@
     "name": "Old Cuban",
     "section": "Premium Cocktails",
     "tagline": "Mojito trifft Champagnercocktail. Gereifter Rum, Minze, Limette und Prosecco obendrauf.",
+    "taglineEn": "",
     "note": "2001 von Audrey Saunders in New York erfunden. Heute offizieller IBA Cocktail.",
+    "noteEn": "",
     "ing": [
      "Zacapa 23",
      "Limette",
@@ -4125,7 +4363,9 @@
     "name": "Royal Mojito",
     "section": "Rum/Cachaça",
     "tagline": "Mojito mit gereiftem Rum und Prosecco statt Soda. Die erwachsene Version.",
+    "taglineEn": "",
     "note": "",
+    "noteEn": "",
     "ing": [
      "Havana Club",
      "Limette",
@@ -4162,7 +4402,9 @@
     "name": "Scotch Sour",
     "section": "Premium Cocktails",
     "tagline": "Rauchiger Whisky, sauer abgezogen, mit Schaumkrone. Für alle, die einen Sour mit Charakter wollen.",
+    "taglineEn": "",
     "note": "",
+    "noteEn": "",
     "ing": [
      "Talisker",
      "Zitrone",
@@ -4198,7 +4440,9 @@
     "name": "Tiramisu Martini",
     "section": "Vodka",
     "tagline": "Espresso Martini mit Baileys und Zimt. Nachtisch und Absacker in einem Glas.",
+    "taglineEn": "",
     "note": "",
+    "noteEn": "",
     "ing": [
      "Amaretto",
      "Baileys",
@@ -4238,7 +4482,9 @@
     "name": "Turbo Mate",
     "section": "Mixgetränke",
     "tagline": "Wodka in Club Mate. Kein Cocktail, sondern eine Absichtserklärung.",
+    "taglineEn": "",
     "note": "",
+    "noteEn": "",
     "ing": [
      "Absolut",
      "Club Mate"
@@ -4270,7 +4516,9 @@
     "name": "Vanilla Blush",
     "section": "Spritzig Selects",
     "tagline": "Rhabarber und Vanille im Prosecco. Sauer und cremig zugleich, was selten so gut zusammengeht.",
+    "taglineEn": "",
     "note": "",
+    "noteEn": "",
     "ing": [
      "Rhabarber",
      "Vanille",
@@ -4305,7 +4553,9 @@
     "name": "Don Julio Anejo Manhattan",
     "section": "Agave Cocktails",
     "tagline": "Manhattan, aber mit Anejo Tequila statt Whiskey. Warm, holzig, ein Tick suess durch den roten Wermut.",
+    "taglineEn": "",
     "note": "",
+    "noteEn": "",
     "ing": [
      "Don Julio Anejo",
      "Roter Wermut",

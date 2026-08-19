@@ -161,8 +161,12 @@ function main() {
       id,
       name: d.name,
       section,
+      // English is used when the export supplies it and falls back to the
+      // German otherwise, so adding tagline_en later needs no code change.
       tagline: d.tagline_de || '',
+      taglineEn: d.tagline_en || '',
       note: d.bartender_note_de || '',
+      noteEn: d.bartender_note_en || '',
       ing: d.ingredients_guest || [],
       glass: d.glass || '',
       serve: d.serve_style || '',
@@ -247,6 +251,31 @@ function main() {
       console.log('   Add them to flavourNames and flavourCompare in data/questions.js,');
       console.log('   or fold them into the tags the rest of the card already uses.');
     }
+  }
+
+  // Nothing German should reach an English-speaking guest unnoticed.
+  let terms = null;
+  try { terms = require('../data/terms.js'); } catch (e) { /* optional */ }
+  if (terms) {
+    const known = new Set(Object.keys(terms.ING_EN).concat(terms.PASSTHROUGH));
+    const missIng = new Set(), missGlass = new Set();
+    menu.forEach(d => {
+      (d.ing || []).forEach(i => { if (!known.has(i)) missIng.add(i); });
+      if (d.glass && !terms.GLASS_EN[d.glass]) missGlass.add(d.glass);
+    });
+    if (missIng.size || missGlass.size) {
+      console.log('\n!! NO ENGLISH FOR THESE TERMS:');
+      if (missIng.size) console.log('   ingredients: ' + [...missIng].join(', '));
+      if (missGlass.size) console.log('   glassware:   ' + [...missGlass].join(', '));
+      console.log('   Add a translation to data/terms.js, or list it in PASSTHROUGH');
+      console.log('   if it is a brand name that should stay as it is.');
+    }
+  }
+
+  const withoutEn = menu.filter(d => !d.taglineEn).length;
+  if (withoutEn) {
+    console.log('\n   ' + withoutEn + '/' + menu.length + ' drinks have no tagline_en.' +
+      ' English guests see the German tagline for those.');
   }
 
   const noSpirit = menu.filter(d => !d.alcoholFree && d.base === 'other');

@@ -9,6 +9,7 @@ var engine = require('../assets/engine.js');
 var menuMod = require('../data/menu.js');
 var questions = require('../data/questions.js');
 var source = require('../data/cocktails.json');
+var terms = require('../data/terms.js');
 
 var MENU = menuMod.MENU;
 var passed = 0;
@@ -185,6 +186,55 @@ test('dropping Frozen and Hot from the question leaves those drinks reachable', 
   }), { limit: 999 });
   assert.ok(reachable.items.some(function (i) { return i.drink.serve === 'Frozen'; }),
     'frozen drinks should still be recommendable when no serve style is asked for');
+});
+
+console.log('\nEnglish never falls back to German silently');
+
+test('every ingredient on the card is either translated or a known brand name', function () {
+  var known = {};
+  Object.keys(terms.ING_EN).forEach(function (k) { known[k] = true; });
+  terms.PASSTHROUGH.forEach(function (k) { known[k] = true; });
+  var missing = [];
+  MENU.forEach(function (d) {
+    d.ing.forEach(function (i) { if (!known[i]) missing.push(d.name + ': ' + i); });
+  });
+  assert.deepStrictEqual(missing, [], 'unaccounted ingredients:\n       ' + missing.join('\n       '));
+});
+
+test('every glass on the card has an English form', function () {
+  var missing = MENU.filter(function (d) { return !terms.GLASS_EN[d.glass]; })
+    .map(function (d) { return d.name + ': ' + d.glass; });
+  assert.deepStrictEqual(missing, [], 'glassware with no English:\n       ' + missing.join('\n       '));
+});
+
+test('the German common nouns really do change in English', function () {
+  [['Zitrone', 'Lemon'], ['Limette', 'Lime'], ['Zucker', 'Sugar'],
+   ['Eiweiss', 'Egg white'], ['Minze', 'Mint'], ['Gurke', 'Cucumber']].forEach(function (pair) {
+    assert.strictEqual(terms.ingredient(pair[0], 'en'), pair[1]);
+    assert.strictEqual(terms.ingredient(pair[0], 'de'), pair[0], 'German must be left alone');
+  });
+  assert.strictEqual(terms.glass('Weinglas', 'en'), 'Wine glass');
+  assert.strictEqual(terms.glass('Weinglas', 'de'), 'Weinglas');
+});
+
+test('brand names are never translated', function () {
+  ['Aperol', 'Tanqueray', 'Campari', 'Prosecco', 'Absolut'].forEach(function (b) {
+    assert.strictEqual(terms.ingredient(b, 'en'), b);
+  });
+});
+
+test('a translation table entry is never also a passthrough', function () {
+  var clash = Object.keys(terms.ING_EN).filter(function (k) {
+    return terms.PASSTHROUGH.indexOf(k) !== -1;
+  });
+  assert.deepStrictEqual(clash, [], 'listed as both translated and passthrough: ' + clash.join(', '));
+});
+
+test('the menu carries English tagline fields, even when the export has none', function () {
+  MENU.forEach(function (d) {
+    assert.ok('taglineEn' in d, d.name + ': no taglineEn field');
+    assert.ok('noteEn' in d, d.name + ': no noteEn field');
+  });
 });
 
 console.log('\nHard rules — these must never be violated');

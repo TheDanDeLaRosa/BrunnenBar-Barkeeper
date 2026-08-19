@@ -9,6 +9,7 @@
   'use strict';
 
   var MENU = window.BBMenu.MENU;
+  var TERMS = window.BBTerms;
   var QUESTIONS = window.BBQuestions.QUESTIONS;
   var UI = window.BBQuestions.UI;
   var CARD_URL = 'https://brunnenbar.com/cocktailkarte/';
@@ -37,6 +38,16 @@
       return vars && vars[k] != null ? vars[k] : m;
     });
   }
+  /* Ingredients and glassware are plain nouns and do get translated. The
+   * taglines and bartender notes are the house voice and only ever appear in
+   * English if the export supplies an English version. */
+  function ingList(d) {
+    return d.ing.map(function (i) { return TERMS.ingredient(i, state.lang); }).join(' · ');
+  }
+  function glassOf(d) { return TERMS.glass(d.glass, state.lang); }
+  function taglineOf(d) { return (state.lang === 'en' && d.taglineEn) || d.tagline; }
+  function noteOf(d) { return (state.lang === 'en' && d.noteEn) || d.note; }
+
   function euro(n) {
     return n == null ? '' : n.toFixed(2).replace('.', ',') + ' €';
   }
@@ -274,6 +285,7 @@
     if (!copy) return t().alsoGood;
     var x = c.value;
     if (c.kind === 'flavour') x = t().flavourCompare[c.value] || c.value;
+    if (c.kind === 'ingredient') x = TERMS.ingredient(c.value, state.lang);
     return fill(copy, { x: x });
   }
 
@@ -294,23 +306,23 @@
         el('span', { class: 'match', text: fill(t().match, { n: item.match }) })
       ]),
       badges.childNodes.length ? badges : null,
-      d.tagline && el('p', { class: 'note', text: d.tagline })
+      taglineOf(d) && el('p', { class: 'note', text: taglineOf(d) })
     ];
 
-    if (hero && d.note) {
-      children.push(el('p', { class: 'bartender-note', text: d.note }));
+    if (hero && noteOf(d)) {
+      children.push(el('p', { class: 'bartender-note', text: noteOf(d) }));
     }
 
     var meta = el('div', { class: 'meta' }, [
       el('div', { class: 'meta-row' }, [
         el('span', { class: 'meta-key', text: t().ingredients }),
-        el('span', { class: 'meta-val', text: d.ing.join(' · ') })
+        el('span', { class: 'meta-val', text: ingList(d) })
       ])
     ]);
     if (hero) {
       meta.appendChild(el('div', { class: 'meta-row' }, [
         el('span', { class: 'meta-key', text: t().served }),
-        el('span', { class: 'meta-val', text: d.glass })
+        el('span', { class: 'meta-val', text: glassOf(d) })
       ]));
     }
     if (d.price != null) {
