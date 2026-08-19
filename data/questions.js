@@ -21,10 +21,10 @@
     {
       id: 'occasion',
       type: 'single',
-      title: { de: 'Wobei sollen wir helfen?', en: 'What are we pouring for?' },
+      title: { de: 'Worauf hast du Lust?', en: 'What are you in the mood for?' },
       sub: {
-        de: 'Der erste Drink des Abends stellt andere Ansprüche als der letzte.',
-        en: 'The first drink of the night has a different job than the last one.'
+        de: 'Der erste Drink des Abends darf was anderes können als der letzte.',
+        en: 'The first drink of the night can do a different job than the last one.'
       },
       options: [
         { value: 'aperitif', label: { de: 'Ankommen', en: 'Settling in' }, hint: { de: 'Der Aperitif, der Appetit macht', en: 'An aperitif to open things up' } },
