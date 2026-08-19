@@ -487,3 +487,76 @@ a.btn { text-decoration: none; display: inline-block; }
   .card { border: 1px solid #ccc; background: #fff; page-break-inside: avoid; }
   .card h3, .note, .meta-val, .why li { color: #000; }
 }
+
+/* ------------------------------------------------------ strength scale --- */
+
+.scale { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.6rem; }
+
+@media (min-width: 34rem) { .scale { grid-template-columns: repeat(6, 1fr); } }
+
+.scale-stop {
+  appearance: none;
+  font: inherit;
+  color: var(--muted);
+  background: var(--ink-2);
+  border: 1px solid var(--line-soft);
+  border-radius: var(--radius);
+  padding: 0.85rem 0.4rem 0.7rem;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+  min-height: 4.4rem;
+  transition: border-color 0.18s var(--ease), background 0.18s var(--ease),
+              color 0.18s var(--ease);
+}
+
+.scale-stop:hover { border-color: var(--brass); background: var(--ink-3); }
+
+.scale-stop[aria-pressed="true"] {
+  border-color: var(--brass);
+  color: var(--cream);
+  background: linear-gradient(180deg, rgba(201, 163, 78, 0.16), rgba(201, 163, 78, 0.07));
+}
+
+/* Five pips per stop, filled to show intensity. Zero filled = alcohol free. */
+.pips { display: flex; gap: 3px; height: 0.9rem; align-items: center; }
+
+.pip {
+  width: 0.34rem;
+  height: 0.34rem;
+  border-radius: 50%;
+  background: var(--line);
+  transition: background 0.18s var(--ease), transform 0.18s var(--ease);
+}
+
+.pip.on { background: var(--muted-dim); }
+
+.scale-stop[aria-pressed="true"] .pip.on { background: var(--brass); transform: scale(1.25); }
+
+.scale-label { font-size: 0.82rem; font-weight: 600; text-align: center; line-height: 1.2; }
+
+/* ------------------------------------------------------ result extras --- */
+
+.bartender-note {
+  margin: 0.9rem 0 0;
+  padding-left: 0.9rem;
+  border-left: 2px solid var(--line);
+  color: var(--muted);
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.badge.best { color: var(--brass); border-color: rgba(201, 163, 78, 0.4); }
+.badge.off  { color: var(--muted-dim); }
+
+.meta-val.price { font-variant-numeric: tabular-nums; color: var(--cream); }
+
+.data-note {
+  margin-top: 2.25rem;
+  font-size: 0.74rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted-dim);
+}

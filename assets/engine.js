@@ -1,60 +1,64 @@
 /*
  * BrunnenBar — recommendation engine
  * =========================================================================
- * Pure scoring. No DOM, no globals beyond the export — so it can be unit
- * tested in node (see test/engine.test.js).
+ * Pure scoring against the bar's own export. No DOM, no interface code, so
+ * it can be unit tested in node (see test/engine.test.js).
  *
- * Two kinds of rule:
- *   HARD  — allergens and "never pour me this spirit". Never relaxed. Ever.
- *   GATE  — zero-proof and shots. Relaxed only if nothing at all survives,
- *           and the UI then tells the guest we loosened something.
- *   SOFT  — everything else, scored and summed.
+ * Three tiers of rule:
+ *   HARD  Allergens and "never pour me this spirit". Never relaxed. Ever.
+ *   GATE  Zero proof and shots. Relaxed only if nothing survives, and the
+ *         page then tells the guest that something was loosened.
+ *   SOFT  Everything else, scored and summed.
+ *
+ * Drinks with available:false never reach this file - tools/build-menu.js
+ * drops them at build time.
  * =========================================================================
  */
 (function (root) {
   'use strict';
 
   var W = {
-    occasion: 18,
-    strengthExact: 26,
-    strengthNear: 8,
-    strengthFarPenalty: -34,
+    moment: 20,
+    strengthExact: 28,
+    strengthNear: 10,
+    strengthOff2: -18,
+    strengthFar: -40,
     spiritBase: 30,
-    spiritSupport: 12,
-    flavour: 40,
-    texture: 20,
-    textureAdjacent: 7,
-    adventure: 18,
-    house: 9,
-    hotPenalty: -35
+    spiritSupport: 14,
+    flavour: 34,
+    serve: 18,
+    familiarity: 16,
+    catchAll: -22
   };
 
-  // How each flavour answer reads onto the profile axes.
-  var FLAVOUR_MAP = {
-    citrus: { sour: 3, fresh: 3, fruity: 1, sweet: -1, creamy: -1 },
-    bitter: { bitter: 4, herbal: 1, boozy: 1, sweet: -1 },
-    herbal: { herbal: 4, fresh: 2, bitter: 0.5 },
-    fruity: { fruity: 4, sweet: 1, sour: 1, bitter: -1 },
-    rich: { creamy: 3, sweet: 3, bitter: 0.5, sour: -2, fresh: -1 },
-    smoky: { smoky: 3, spicy: 3, boozy: 1 },
-    spirit: { boozy: 4, sweet: -1, fruity: -1, sour: -1, creamy: -1 }
+  /* Serve styles grouped the way a guest thinks about them, rather than the
+   * way a bartender writes them on a spec. */
+  var SERVE_GROUPS = {
+    lang: ['Highball', 'Built', 'Sling', 'Muddled', 'Julep'],
+    kurz: ['Stirred'],
+    schaum: ['Sour', 'Shaken', 'Fizz'],
+    spritzig: ['Spritz'],
+    frozen: ['Frozen'],
+    heiss: ['Hot'],
+    shot: ['Shot']
   };
 
-  // Textures that are "close enough" to earn a partial credit.
-  var TEXTURE_NEIGHBOURS = {
-    long: ['sparkling'],
-    sparkling: ['long'],
-    short: ['frothy'],
-    frothy: ['short'],
-    hot: [],
-    shot: []
-  };
+  // Drinks that are an offer to build something, not a drink in themselves.
+  var CATCH_ALL = "Bartender's Choice";
 
   function asArray(v) { return Array.isArray(v) ? v : (v == null || v === '' ? [] : [v]); }
 
-  /* Deterministic 0..1 jitter so "surprise me" varies between visits but a
-   * given (id, seed) pair always scores the same — results stay stable while
-   * the guest pages back and forth through their answers. */
+  function serveGroupOf(serve) {
+    for (var g in SERVE_GROUPS) {
+      if (Object.prototype.hasOwnProperty.call(SERVE_GROUPS, g) &&
+          SERVE_GROUPS[g].indexOf(serve) !== -1) return g;
+    }
+    return null;
+  }
+
+  /* Deterministic 0..1 jitter. Keeps ties from always resolving the same
+   * way, so two guests at one table get different suggestions, while any
+   * single guest paging back and forth sees a stable list. */
   function jitter(id, seed) {
     var h = 2166136261;
     var s = String(id) + '|' + String(seed);
@@ -65,183 +69,162 @@
     return (h % 1000) / 1000;
   }
 
-  /* HARD rules — a drink failing any of these is never shown, at any cost. */
-  function passesHard(c, a) {
-    var flags = asArray(a.avoidFlags);
-    for (var i = 0; i < flags.length; i++) {
-      if ((c.flags || []).indexOf(flags[i]) !== -1) return false;
+  /* HARD rules. A drink failing any of these is never shown, at any cost. */
+  function passesHard(d, a) {
+    var avoidAllergens = asArray(a.allergens);
+    for (var i = 0; i < avoidAllergens.length; i++) {
+      if ((d.allergens || []).indexOf(avoidAllergens[i]) !== -1) return false;
     }
     var avoid = asArray(a.avoid);
     if (avoid.length) {
-      if (avoid.indexOf(c.base) !== -1) return false;
-      var also = c.also || [];
-      for (var j = 0; j < also.length; j++) {
-        if (avoid.indexOf(also[j]) !== -1) return false;
+      if (avoid.indexOf(d.base) !== -1) return false;
+      var sp = d.spirits || [];
+      for (var j = 0; j < sp.length; j++) {
+        if (avoid.indexOf(sp[j]) !== -1) return false;
       }
     }
     return true;
   }
 
-  function passesZeroProofGate(c, a) {
-    return a.strength === '0' ? c.strength === 0 : c.strength !== 0;
+  function passesZeroProofGate(d, a) {
+    return a.strength === '0' ? d.alcoholFree : !d.alcoholFree;
   }
 
-  function passesShotGate(c, a) {
-    var wantsShot = a.occasion === 'shot';
-    var isShot = c.texture === 'shot';
-    return wantsShot === isShot;
-  }
-
-  function flavourScore(c, flavour) {
-    var map = FLAVOUR_MAP[flavour];
-    if (!map) return { points: 0, max: 0 };
-    var raw = 0, maxRaw = 0;
-    for (var dim in map) {
-      if (!Object.prototype.hasOwnProperty.call(map, dim)) continue;
-      var w = map[dim];
-      raw += (c.profile[dim] || 0) * w;
-      if (w > 0) maxRaw += 4 * w;
-    }
-    return { points: maxRaw ? (W.flavour * raw) / maxRaw : 0, max: W.flavour };
-  }
-
-  function adventureScore(c, want) {
-    // want: '0' known classic · '2' something new · '3' bartender's call
-    if (want === '0') return c.adventure <= 1 ? W.adventure - c.adventure * 5 : -12;
-    if (want === '2') return c.adventure >= 2 ? W.adventure : c.adventure * 4 - 6;
-    return 0; // '3' — deliberately neutral, the jitter does the choosing
+  function passesShotGate(d, a) {
+    return (a.moment === 'shots') === (d.serve === 'Shot');
   }
 
   /**
-   * @param {Array}  cocktails  the menu
-   * @param {Object} answers    {occasion, strength, spirit[], avoid[], flavour, texture, adventure, avoidFlags[]}
-   * @param {Object} [opts]     {seed, limit}
-   * @returns {{items: Array, relaxed: string|null, total: number}}
+   * @param {Array}  menu     from data/menu.js
+   * @param {Object} answers  {moment, strength, spirit[], avoid[], flavours[],
+   *                           serve, familiarity, allergens[]}
+   * @param {Object} [opts]   {seed, limit}
+   * @returns {{items:Array, relaxed:string|null, total:number}}
    */
-  function recommend(cocktails, answers, opts) {
+  function recommend(menu, answers, opts) {
     opts = opts || {};
     var a = answers || {};
     var seed = opts.seed == null ? 0 : opts.seed;
-    var limit = opts.limit == null ? 6 : opts.limit;
+    var limit = opts.limit == null ? 3 : opts.limit;
 
-    var hardPool = cocktails.filter(function (c) { return passesHard(c, a); });
+    var hardPool = menu.filter(function (d) { return passesHard(d, a); });
 
-    // Apply gates, loosening only as far as we must to have anything to say.
+    // Loosen the gates only as far as we must to have something to say.
     var relaxed = null;
-    var pool = hardPool.filter(function (c) {
-      return passesZeroProofGate(c, a) && passesShotGate(c, a);
+    var pool = hardPool.filter(function (d) {
+      return passesZeroProofGate(d, a) && passesShotGate(d, a);
     });
     if (!pool.length) {
-      pool = hardPool.filter(function (c) { return passesZeroProofGate(c, a); });
-      relaxed = pool.length ? 'shot' : null;
+      pool = hardPool.filter(function (d) { return passesZeroProofGate(d, a); });
+      if (pool.length) relaxed = 'shot';
     }
     if (!pool.length) {
       pool = hardPool.slice();
-      relaxed = pool.length ? 'strength' : null;
+      if (pool.length) relaxed = 'strength';
     }
 
     var prefs = asArray(a.spirit);
-    var scored = pool.map(function (c) {
-      var score = 0;
-      var maxScore = 0;
-      var reasons = [];
+    var wantFlavours = asArray(a.flavours);
+    var maxSold = 1;
+    menu.forEach(function (d) { if (d.sold > maxSold) maxSold = d.sold; });
 
-      // — occasion —
-      maxScore += W.occasion;
-      if (a.occasion && (c.occasion || []).indexOf(a.occasion) !== -1) {
-        score += W.occasion;
-        reasons.push({ key: 'occasion', weight: W.occasion });
+    var scored = pool.map(function (d) {
+      var score = 0, maxScore = 0, reasons = [];
+
+      // — moment in the evening — "Ganzer Abend" fits wherever you are —
+      if (a.moment && a.moment !== 'shots') {
+        maxScore += W.moment;
+        var m = d.moments || [];
+        if (m.indexOf(a.moment) !== -1 || m.indexOf('Ganzer Abend') !== -1) {
+          score += W.moment;
+          reasons.push({ key: 'moment', weight: W.moment, x: a.moment });
+        }
       }
 
       // — strength —
       if (a.strength != null && a.strength !== '') {
         maxScore += W.strengthExact;
-        var delta = Math.abs(c.strength - Number(a.strength));
+        var delta = Math.abs(d.strength - Number(a.strength));
         if (delta === 0) {
           score += W.strengthExact;
-          reasons.push({ key: c.strength === 0 ? 'zero' : 'strength_exact', weight: W.strengthExact });
+          reasons.push({ key: d.alcoholFree ? 'zero' : 'strength_exact', weight: W.strengthExact, x: d.strengthLabel });
         } else if (delta === 1) {
           score += W.strengthNear;
-          reasons.push({ key: 'strength_near', weight: W.strengthNear });
+          reasons.push({ key: 'strength_near', weight: W.strengthNear, x: d.strengthLabel });
+        } else if (delta === 2) {
+          score += W.strengthOff2;
         } else {
-          score += W.strengthFarPenalty;
+          score += W.strengthFar;
         }
       }
 
       // — preferred spirit —
       if (prefs.length) {
         maxScore += W.spiritBase;
-        if (prefs.indexOf(c.base) !== -1) {
+        if (prefs.indexOf(d.base) !== -1) {
           score += W.spiritBase;
-          reasons.push({ key: 'spirit', weight: W.spiritBase, x: c.base });
+          reasons.push({ key: 'spirit', weight: W.spiritBase, x: d.base });
         } else {
-          var also = c.also || [];
-          for (var k = 0; k < also.length; k++) {
-            if (prefs.indexOf(also[k]) !== -1) {
+          var sp = d.spirits || [];
+          for (var k = 0; k < sp.length; k++) {
+            if (prefs.indexOf(sp[k]) !== -1) {
               score += W.spiritSupport;
-              reasons.push({ key: 'spirit', weight: W.spiritSupport, x: also[k] });
+              reasons.push({ key: 'spirit', weight: W.spiritSupport, x: sp[k] });
               break;
             }
           }
         }
       }
 
-      // — flavour direction —
-      if (a.flavour) {
-        var f = flavourScore(c, a.flavour);
-        score += f.points;
-        maxScore += f.max;
-        if (f.points > f.max * 0.55) {
-          reasons.push({ key: 'flavour', weight: f.points, x: a.flavour });
+      // — flavour — share of what the guest asked for that this drink has —
+      if (wantFlavours.length) {
+        maxScore += W.flavour;
+        var hits = wantFlavours.filter(function (f) { return (d.flavours || []).indexOf(f) !== -1; });
+        if (hits.length) {
+          score += W.flavour * (hits.length / wantFlavours.length);
+          reasons.push({ key: 'flavour', weight: W.flavour * hits.length, x: hits.join(', ') });
         }
       }
 
-      // — texture —
-      if (a.texture) {
-        maxScore += W.texture;
-        if (c.texture === a.texture) {
-          score += W.texture;
-          reasons.push({ key: 'texture', weight: W.texture });
-        } else if ((TEXTURE_NEIGHBOURS[a.texture] || []).indexOf(c.texture) !== -1) {
-          score += W.textureAdjacent;
+      // — how it is served —
+      if (a.serve) {
+        maxScore += W.serve;
+        if (serveGroupOf(d.serve) === a.serve) {
+          score += W.serve;
+          reasons.push({ key: 'serve', weight: W.serve, x: a.serve });
         }
       }
 
-      // — familiar vs. new —
-      if (a.adventure) {
-        maxScore += W.adventure;
-        var adv = adventureScore(c, a.adventure);
-        score += adv;
-        if (adv > 0) {
-          reasons.push({ key: a.adventure === '0' ? 'classic' : 'newish', weight: adv });
+      // — familiar vs. overlooked, driven by real sales rather than a guess —
+      if (a.familiarity === 'beliebt' || a.familiarity === 'entdecken') {
+        maxScore += W.familiarity;
+        var share = d.sold / maxSold;                     // 0..1
+        if (a.familiarity === 'beliebt') {
+          score += W.familiarity * share;
+          if (d.rank <= 15) reasons.push({ key: 'beliebt', weight: W.familiarity * share, x: d.sold });
+        } else {
+          score += W.familiarity * (1 - share);
+          if (d.rank > 40) reasons.push({ key: 'entdecken', weight: W.familiarity * (1 - share) });
         }
       }
 
-      // A house drink is worth surfacing when the guest is open to new things.
-      if (c.house && a.adventure !== '0') {
-        score += W.house;
-        maxScore += W.house;
-        reasons.push({ key: 'house', weight: W.house });
-      }
+      // An offer to build something is a fallback, never a recommendation.
+      if (d.serve === CATCH_ALL) score += W.catchAll;
 
-      // Hot drinks are wrong unless actually asked for.
-      if (c.texture === 'hot' && a.texture !== 'hot' && a.occasion !== 'nightcap') {
-        score += W.hotPenalty;
-      }
+      // Among otherwise equal drinks, let the proven one edge ahead.
+      score += 3 * (d.sold / maxSold);
 
-      // Acknowledge the exclusions we honoured.
-      if (asArray(a.avoidFlags).length || asArray(a.avoid).length) {
+      if (asArray(a.allergens).length || asArray(a.avoid).length) {
         reasons.push({ key: 'safe', weight: 1 });
       }
 
-      // Tie-break, and the actual engine of "surprise me".
-      score += jitter(c.id, seed) * (a.adventure === '3' ? W.adventure : 1.5);
+      score += jitter(d.id, seed) * 2;
 
-      var pct = maxScore > 0 ? Math.round((100 * score) / maxScore) : 0;
+      var pct = maxScore > 0 ? Math.round((100 * score) / maxScore) : 50;
       reasons.sort(function (x, y) { return y.weight - x.weight; });
 
       return {
-        cocktail: c,
+        drink: d,
         score: score,
         match: Math.max(35, Math.min(99, pct)),
         reasons: reasons.slice(0, 3)
@@ -256,7 +239,8 @@
   var api = {
     recommend: recommend,
     passesHard: passesHard,
-    FLAVOUR_MAP: FLAVOUR_MAP,
+    serveGroupOf: serveGroupOf,
+    SERVE_GROUPS: SERVE_GROUPS,
     WEIGHTS: W
   };
   if (typeof module !== 'undefined' && module.exports) module.exports = api;

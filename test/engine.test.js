@@ -6,263 +6,296 @@
 
 var assert = require('assert');
 var engine = require('../assets/engine.js');
-var data = require('../data/cocktails.js');
+var menuMod = require('../data/menu.js');
 var questions = require('../data/questions.js');
+var source = require('../data/cocktails.json');
 
-var MENU = data.COCKTAILS;
+var MENU = menuMod.MENU;
 var passed = 0;
 
 function test(name, fn) {
-  try {
-    fn();
-    passed++;
-    console.log('  ok   ' + name);
-  } catch (err) {
-    console.error('  FAIL ' + name + '\n       ' + err.message);
-    process.exitCode = 1;
-  }
+  try { fn(); passed++; console.log('  ok   ' + name); }
+  catch (err) { console.error('  FAIL ' + name + '\n       ' + err.message); process.exitCode = 1; }
 }
 
-function ids(result) {
-  return result.items.map(function (i) { return i.cocktail.id; });
-}
+function ids(res) { return res.items.map(function (i) { return i.drink.id; }); }
+function names(res) { return res.items.map(function (i) { return i.drink.name; }); }
 
-function ask(overrides) {
+function ask(over) {
   return Object.assign({
-    occasion: 'main', strength: '2', spirit: [], avoid: [],
-    flavour: 'citrus', texture: '', adventure: '2', avoidFlags: []
-  }, overrides);
+    moment: 'Mittendrin', strength: '3', spirit: [], avoid: [],
+    flavours: ['sauer/zitrus'], serve: '', familiarity: 'egal', allergens: []
+  }, over);
 }
 
-console.log('\nData integrity');
-
-test('every cocktail has a unique id', function () {
-  var seen = {};
-  MENU.forEach(function (c) {
-    assert.ok(!seen[c.id], 'duplicate id: ' + c.id);
-    seen[c.id] = true;
-  });
-});
-
-test('every cocktail is fully populated', function () {
-  var dims = ['sour', 'sweet', 'bitter', 'herbal', 'fruity', 'boozy', 'creamy', 'smoky', 'spicy', 'fresh'];
-  var textures = ['long', 'short', 'frothy', 'sparkling', 'hot', 'shot'];
-  MENU.forEach(function (c) {
-    assert.ok(c.name, c.id + ': missing name');
-    assert.ok(data.BASES.indexOf(c.base) !== -1, c.id + ': unknown base ' + c.base);
-    assert.ok(textures.indexOf(c.texture) !== -1, c.id + ': unknown texture ' + c.texture);
-    assert.ok(c.strength >= 0 && c.strength <= 3, c.id + ': strength out of range');
-    assert.ok(c.adventure >= 0 && c.adventure <= 3, c.id + ': adventure out of range');
-    assert.ok((c.occasion || []).length > 0, c.id + ': no occasion');
-    assert.ok(c.ing.de.length && c.ing.en.length, c.id + ': missing ingredients');
-    assert.ok(c.note.de && c.note.en, c.id + ': missing bartender note');
-    assert.ok(c.glass.de && c.glass.en, c.id + ': missing glassware');
-    dims.forEach(function (d) {
-      assert.ok(typeof c.profile[d] === 'number' && c.profile[d] >= 0 && c.profile[d] <= 4,
-        c.id + ': profile.' + d + ' out of range');
-    });
-  });
-});
-
-test('zero-proof drinks are flagged consistently in both directions', function () {
-  MENU.forEach(function (c) {
-    if (c.naOf) {
-      var parent = MENU.filter(function (x) { return x.id === c.naOf; })[0];
-      assert.ok(parent, c.id + ': naOf points at missing ' + c.naOf);
-      assert.strictEqual(parent.hasNA, c.id, c.naOf + ': hasNA does not point back');
-      assert.strictEqual(c.strength, 0, c.id + ': zero-proof build must have strength 0');
-      assert.strictEqual(c.base, 'none', c.id + ': zero-proof build must have base "none"');
-      assert.strictEqual(c.profile.boozy, 0, c.id + ': zero-proof build must not read boozy');
-    }
-    if (c.hasNA) {
-      var na = MENU.filter(function (x) { return x.id === c.hasNA; })[0];
-      assert.ok(na, c.id + ': hasNA points at missing ' + c.hasNA);
-    }
-  });
-});
-
-test('every question option value is reachable and every flag is offered', function () {
-  var offeredFlags = questions.QUESTIONS
-    .filter(function (q) { return q.id === 'avoidFlags'; })[0]
+function opt(id) {
+  return questions.QUESTIONS.filter(function (q) { return q.id === id; })[0]
     .options.map(function (o) { return o.value; });
-  MENU.forEach(function (c) {
-    (c.flags || []).forEach(function (f) {
-      assert.ok(offeredFlags.indexOf(f) !== -1, c.id + ': flag "' + f + '" cannot be filtered out by any question');
-    });
+}
+
+console.log('\nBuild output matches the source export');
+
+test('every available drink from the export is in the menu, and no others', function () {
+  var expected = source.drinks.filter(function (d) { return d.available; });
+  assert.strictEqual(MENU.length, expected.length,
+    'menu has ' + MENU.length + ' drinks, export has ' + expected.length + ' available');
+  var built = MENU.map(function (d) { return d.name; }).sort();
+  var want = expected.map(function (d) { return d.name; }).sort();
+  assert.deepStrictEqual(built, want);
+});
+
+test('nothing marked unavailable can ever be recommended', function () {
+  var blocked = source.drinks.filter(function (d) { return !d.available; })
+    .map(function (d) { return d.name; });
+  assert.ok(blocked.length > 0, 'the export should contain unavailable drinks');
+  var inMenu = MENU.filter(function (d) { return blocked.indexOf(d.name) !== -1; });
+  assert.deepStrictEqual(inMenu, [], 'unavailable drinks leaked into the menu');
+});
+
+test('Gin Basil stays out while there is no basil', function () {
+  assert.ok(!MENU.some(function (d) { return /Gin Basil/.test(d.name); }),
+    'Gin Basil is unavailable and must not appear');
+});
+
+test('ids are unique and every drink is fully populated', function () {
+  var seen = {};
+  MENU.forEach(function (d) {
+    assert.ok(d.id && !seen[d.id], 'duplicate or missing id: ' + d.id);
+    seen[d.id] = true;
+    assert.ok(d.name, d.id + ': no name');
+    assert.ok(d.tagline, d.id + ': no tagline for the guest');
+    assert.ok(d.ing.length, d.id + ': no ingredients');
+    assert.ok(d.glass, d.id + ': no glass');
+    assert.ok(d.strength >= 0 && d.strength <= 5, d.id + ': strength out of the 0-5 range');
+    assert.ok(d.moments.length, d.id + ': no moment');
+    assert.ok(Array.isArray(d.spirits), d.id + ': no spirits array');
+  });
+});
+
+test('alcohol-free drinks are consistent', function () {
+  MENU.filter(function (d) { return d.alcoholFree; }).forEach(function (d) {
+    assert.strictEqual(d.strength, 0, d.name + ': alcohol-free but strength ' + d.strength);
+    assert.strictEqual(d.base, 'none', d.name + ': alcohol-free but base ' + d.base);
+    assert.deepStrictEqual(d.spirits, [], d.name + ': alcohol-free but carries spirits');
+  });
+  assert.ok(MENU.filter(function (d) { return d.alcoholFree; }).length >= 10,
+    'expected a real zero-proof selection');
+});
+
+console.log('\nQuestion values line up with the data');
+
+test('every strength option matches drinks that exist', function () {
+  opt('strength').forEach(function (v) {
+    assert.ok(MENU.some(function (d) { return d.strength === Number(v); }),
+      'no drink at strength ' + v);
+  });
+});
+
+test('every flavour option is a real flavour_tag', function () {
+  opt('flavours').forEach(function (v) {
+    assert.ok(MENU.some(function (d) { return d.flavours.indexOf(v) !== -1; }),
+      'no drink tagged "' + v + '"');
+  });
+});
+
+test('every allergen option is a real allergen string', function () {
+  var used = {};
+  MENU.forEach(function (d) { d.allergens.forEach(function (x) { used[x] = true; }); });
+  opt('allergens').forEach(function (v) {
+    assert.ok(used[v], 'no drink declares allergen "' + v + '"');
+  });
+  Object.keys(used).forEach(function (x) {
+    assert.ok(opt('allergens').indexOf(x) !== -1,
+      'allergen "' + x + '" exists in the data but no question can filter it out');
+  });
+});
+
+test('every moment option is a real moment', function () {
+  opt('moment').filter(function (v) { return v !== 'shots'; }).forEach(function (v) {
+    assert.ok(MENU.some(function (d) { return d.moments.indexOf(v) !== -1; }),
+      'no drink for moment "' + v + '"');
+  });
+});
+
+test('every spirit option matches at least one drink', function () {
+  opt('spirit').forEach(function (v) {
+    assert.ok(MENU.some(function (d) { return d.spirits.indexOf(v) !== -1; }),
+      'no drink contains spirit "' + v + '"');
+  });
+});
+
+test('every serve option maps to drinks that exist', function () {
+  opt('serve').forEach(function (v) {
+    assert.ok(MENU.some(function (d) { return engine.serveGroupOf(d.serve) === v; }),
+      'no drink in serve group "' + v + '"');
+  });
+});
+
+test('every serve style in the data is covered by a group', function () {
+  MENU.forEach(function (d) {
+    assert.ok(engine.serveGroupOf(d.serve) || d.serve === "Bartender's Choice",
+      d.name + ': serve style "' + d.serve + '" belongs to no group');
   });
 });
 
 console.log('\nHard rules — these must never be violated');
 
 test('an allergen exclusion is absolute', function () {
-  ['egg', 'dairy', 'nuts', 'coffee'].forEach(function (flag) {
-    var res = engine.recommend(MENU, ask({ avoidFlags: [flag] }), { limit: 99 });
+  ['Ei', 'Milch', 'Nüsse'].forEach(function (al) {
+    var res = engine.recommend(MENU, ask({ allergens: [al] }), { limit: 999 });
     res.items.forEach(function (i) {
-      assert.ok((i.cocktail.flags || []).indexOf(flag) === -1,
-        i.cocktail.id + ' surfaced despite "' + flag + '" being excluded');
+      assert.ok(i.drink.allergens.indexOf(al) === -1,
+        i.drink.name + ' surfaced despite "' + al + '" being excluded');
     });
   });
 });
 
-test('excluding every allergen at once still never leaks one through', function () {
-  var res = engine.recommend(MENU, ask({ avoidFlags: ['egg', 'dairy', 'nuts', 'coffee'] }), { limit: 99 });
-  assert.ok(res.items.length > 0, 'should still have plenty to offer');
+test('excluding every allergen at once never leaks one through', function () {
+  var res = engine.recommend(MENU, ask({ allergens: ['Ei', 'Milch', 'Nüsse'] }), { limit: 999 });
+  assert.ok(res.items.length > 20, 'should still have plenty to offer');
   res.items.forEach(function (i) {
-    assert.strictEqual((i.cocktail.flags || []).length, 0, i.cocktail.id + ' has flags but was shown');
+    assert.strictEqual(i.drink.allergens.length, 0, i.drink.name + ' has allergens but was shown');
   });
 });
 
-test('a rejected spirit never appears, as base or as support', function () {
-  var res = engine.recommend(MENU, ask({ avoid: ['whiskey', 'aperitivo'] }), { limit: 99 });
+test('a rejected spirit never appears, as base or as a supporting pour', function () {
+  var res = engine.recommend(MENU, ask({ avoid: ['whiskey', 'aperitivo'] }), { limit: 999 });
   res.items.forEach(function (i) {
-    var c = i.cocktail;
-    assert.notStrictEqual(c.base, 'whiskey', c.id + ' is whiskey-based');
-    assert.notStrictEqual(c.base, 'aperitivo', c.id + ' is aperitivo-based');
-    assert.ok((c.also || []).indexOf('whiskey') === -1, c.id + ' contains whiskey');
-    assert.ok((c.also || []).indexOf('aperitivo') === -1, c.id + ' contains aperitivo');
+    var d = i.drink;
+    assert.ok(d.spirits.indexOf('whiskey') === -1, d.name + ' contains whiskey');
+    assert.ok(d.spirits.indexOf('aperitivo') === -1, d.name + ' contains aperitivo');
   });
 });
 
-test('Boulevardier is dropped for "nothing bitter" even though it is bourbon-based', function () {
-  var res = engine.recommend(MENU, ask({ avoid: ['aperitivo'] }), { limit: 99 });
-  assert.ok(ids(res).indexOf('boulevardier') === -1, 'Campari slipped through via the `also` field');
-  assert.ok(ids(res).indexOf('negroni') === -1);
-  assert.ok(ids(res).indexOf('take-it-easy') === -1);
+test('"nothing bitter" removes Campari drinks even when another spirit leads', function () {
+  var res = engine.recommend(MENU, ask({ avoid: ['aperitivo'], flavours: ['bitter'] }), { limit: 999 });
+  var shown = names(res);
+  ['Negroni', 'Boulevardier', 'Americano', 'Negroni Sbagliato'].forEach(function (n) {
+    assert.ok(shown.indexOf(n) === -1, n + ' slipped through the aperitivo exclusion');
+  });
 });
 
-test('hard rules are never relaxed, even when they empty the pool', function () {
-  // Nothing on the card is a nut-free, dairy-free, egg-free HOT shot.
+test('hard rules survive even a near-impossible combination', function () {
   var res = engine.recommend(MENU, ask({
-    occasion: 'shot', avoidFlags: ['egg', 'dairy', 'nuts', 'coffee'], avoid: ['vodka', 'whiskey', 'rum']
-  }), { limit: 99 });
+    moment: 'shots', allergens: ['Ei', 'Milch', 'Nüsse'],
+    avoid: ['vodka', 'whiskey', 'rum', 'gin', 'likoer']
+  }), { limit: 999 });
   res.items.forEach(function (i) {
-    assert.strictEqual((i.cocktail.flags || []).length, 0);
-    assert.ok(['vodka', 'whiskey', 'rum'].indexOf(i.cocktail.base) === -1);
+    assert.strictEqual(i.drink.allergens.length, 0);
+    ['vodka', 'whiskey', 'rum', 'gin', 'likoer'].forEach(function (s) {
+      assert.ok(i.drink.spirits.indexOf(s) === -1, i.drink.name + ' contains ' + s);
+    });
   });
 });
 
 console.log('\nGates');
 
-test('zero proof returns only zero-proof builds', function () {
-  var res = engine.recommend(MENU, ask({ strength: '0' }), { limit: 99 });
-  assert.ok(res.items.length >= 3, 'expected the three alcohol-free builds');
+test('zero proof returns only alcohol-free drinks', function () {
+  var res = engine.recommend(MENU, ask({ strength: '0' }), { limit: 999 });
+  assert.ok(res.items.length >= 10);
   res.items.forEach(function (i) {
-    assert.strictEqual(i.cocktail.strength, 0, i.cocktail.id + ' is not alcohol-free');
+    assert.ok(i.drink.alcoholFree, i.drink.name + ' is not alcohol-free');
   });
 });
 
-test('asking for alcohol never returns a zero-proof build', function () {
-  ['1', '2', '3'].forEach(function (s) {
-    var res = engine.recommend(MENU, ask({ strength: s }), { limit: 99 });
+test('asking for alcohol never returns an alcohol-free drink', function () {
+  ['1', '2', '3', '4', '5'].forEach(function (s) {
+    var res = engine.recommend(MENU, ask({ strength: s }), { limit: 999 });
     res.items.forEach(function (i) {
-      assert.notStrictEqual(i.cocktail.strength, 0, i.cocktail.id + ' is alcohol-free but strength ' + s + ' was asked');
+      assert.ok(!i.drink.alcoholFree, i.drink.name + ' is alcohol-free but strength ' + s + ' was asked');
     });
   });
 });
 
-test('shots are only offered when shots were asked for', function () {
-  var evening = engine.recommend(MENU, ask({ occasion: 'main' }), { limit: 99 });
+test('shots appear only when shots were asked for', function () {
+  var evening = engine.recommend(MENU, ask({ moment: 'Mittendrin' }), { limit: 999 });
   evening.items.forEach(function (i) {
-    assert.notStrictEqual(i.cocktail.texture, 'shot', i.cocktail.id + ' is a shot but the guest wanted an evening drink');
+    assert.notStrictEqual(i.drink.serve, 'Shot', i.drink.name + ' is a shot but a full drink was asked for');
   });
-  var round = engine.recommend(MENU, ask({ occasion: 'shot' }), { limit: 99 });
-  assert.ok(round.items.length >= 3, 'expected all three shots');
+  var round = engine.recommend(MENU, ask({ moment: 'shots' }), { limit: 999 });
+  assert.ok(round.items.length >= 10, 'expected the shot list');
   round.items.forEach(function (i) {
-    assert.strictEqual(i.cocktail.texture, 'shot', i.cocktail.id + ' is not a shot');
+    assert.strictEqual(i.drink.serve, 'Shot', i.drink.name + ' is not a shot');
   });
 });
 
-test('an impossible-but-legal combination relaxes a gate rather than returning nothing', function () {
-  // Zero proof + a round of shots: no such thing on the card.
-  var res = engine.recommend(MENU, ask({ occasion: 'shot', strength: '0' }), { limit: 99 });
+test('an impossible combination relaxes a gate rather than showing nothing', function () {
+  var res = engine.recommend(MENU, ask({ moment: 'shots', strength: '0' }), { limit: 999 });
   assert.ok(res.items.length > 0, 'should fall back rather than show an empty screen');
   assert.strictEqual(res.relaxed, 'shot');
   res.items.forEach(function (i) {
-    assert.strictEqual(i.cocktail.strength, 0, 'relaxing the shot gate must not smuggle alcohol in');
+    assert.ok(i.drink.alcoholFree, 'relaxing the shot gate must not smuggle alcohol in');
   });
 });
 
 console.log('\nRecommendation quality');
 
-test('bitter + spirit-forward + nightcap surfaces the bitter stirred drinks', function () {
+test('bitter + strong + late surfaces the stirred bitter drinks', function () {
   var res = engine.recommend(MENU, ask({
-    occasion: 'nightcap', strength: '3', flavour: 'bitter', texture: 'short', adventure: '2'
+    moment: 'Später Abend', strength: '5', flavours: ['bitter'], serve: 'kurz'
   }));
-  var top = ids(res).slice(0, 3);
-  assert.ok(top.indexOf('negroni') !== -1 || top.indexOf('boulevardier') !== -1,
-    'expected Negroni or Boulevardier in the top three, got: ' + top.join(', '));
+  var top = names(res);
+  assert.ok(top.some(function (n) { return /Negroni|Boulevardier|Manhattan|Old Fashioned/.test(n); }),
+    'expected a bitter stirred classic, got: ' + top.join(', '));
 });
 
-test('smoky picks up the mezcal Margarita', function () {
-  var res = engine.recommend(MENU, ask({ flavour: 'smoky', strength: '3', adventure: '2' }));
-  assert.ok(ids(res).slice(0, 3).indexOf('margarita-rojas') !== -1,
-    'expected Margarita Rojas, got: ' + ids(res).slice(0, 3).join(', '));
-});
-
-test('rich + nightcap surfaces the Espresso Martini', function () {
-  var res = engine.recommend(MENU, ask({
-    occasion: 'nightcap', strength: '3', flavour: 'rich', adventure: '0'
-  }));
-  assert.ok(ids(res).slice(0, 3).indexOf('espresso-martini') !== -1,
-    'expected Espresso Martini, got: ' + ids(res).slice(0, 3).join(', '));
-});
-
-test('rich + no caffeine drops the Espresso Martini entirely', function () {
-  var res = engine.recommend(MENU, ask({
-    occasion: 'nightcap', strength: '3', flavour: 'rich', avoidFlags: ['coffee']
-  }), { limit: 99 });
-  assert.ok(ids(res).indexOf('espresso-martini') === -1);
-});
-
-test('herbal + gin lands on a herbal gin drink', function () {
-  var res = engine.recommend(MENU, ask({ flavour: 'herbal', spirit: ['gin'], adventure: '2' }));
-  var top = ids(res).slice(0, 3);
-  assert.ok(top.indexOf('gin-basil-smash') !== -1 || top.indexOf('ricky-ricky') !== -1,
-    'expected Gin Basil Smash or Ricky Ricky, got: ' + top.join(', '));
-});
-
-test('"give me a classic" ranks classics above house creations', function () {
-  var res = engine.recommend(MENU, ask({ adventure: '0', flavour: 'citrus', strength: '3' }));
-  assert.ok(!res.items[0].cocktail.house, 'a house creation topped a request for a classic');
-});
-
-test('"show me something new" favours house creations', function () {
-  var res = engine.recommend(MENU, ask({ adventure: '2', flavour: 'fruity' }));
-  var top3 = res.items.slice(0, 3);
-  assert.ok(top3.some(function (i) { return i.cocktail.house; }),
-    'expected at least one house creation in the top three');
+test('coffee surfaces the Espresso Martini', function () {
+  var res = engine.recommend(MENU, ask({ flavours: ['kaffee'], moment: 'Später Abend' }));
+  assert.ok(names(res).indexOf('Espresso Martini') !== -1,
+    'expected Espresso Martini, got: ' + names(res).join(', '));
 });
 
 test('a preferred spirit dominates the results', function () {
-  var res = engine.recommend(MENU, ask({ spirit: ['tequila', 'mezcal'], flavour: 'citrus' }));
-  var top3 = res.items.slice(0, 3);
-  var agave = top3.filter(function (i) { return ['tequila', 'mezcal'].indexOf(i.cocktail.base) !== -1; });
-  assert.ok(agave.length >= 2, 'expected mostly agave drinks, got: ' + ids(res).slice(0, 3).join(', '));
+  var res = engine.recommend(MENU, ask({ spirit: ['tequila', 'mezcal'], flavours: ['sauer/zitrus'] }));
+  var agave = res.items.filter(function (i) {
+    return i.drink.spirits.indexOf('tequila') !== -1 || i.drink.spirits.indexOf('mezcal') !== -1;
+  });
+  assert.ok(agave.length >= 2, 'expected mostly agave drinks, got: ' + names(res).join(', '));
 });
 
-test('a hot drink is not recommended for a summer aperitif', function () {
-  var res = engine.recommend(MENU, ask({ occasion: 'aperitif', flavour: 'rich', strength: '2' }));
-  assert.notStrictEqual(res.items[0].cocktail.id, 'campfire-hot-chocolate');
+test('"what most people order" really does rank by sales', function () {
+  var res = engine.recommend(MENU, ask({ familiarity: 'beliebt', flavours: ['fruchtig'] }));
+  var best = Math.min.apply(null, res.items.map(function (i) { return i.drink.rank; }));
+  assert.ok(best <= 15, 'expected a top seller, best rank was ' + best);
 });
 
-test('a hot drink IS recommended when asked for directly', function () {
-  var res = engine.recommend(MENU, ask({
-    occasion: 'nightcap', texture: 'hot', flavour: 'rich', strength: '2', adventure: '2'
-  }));
-  assert.strictEqual(res.items[0].cocktail.id, 'campfire-hot-chocolate');
+test('"hardly anyone orders it" prefers the long tail', function () {
+  var pop = engine.recommend(MENU, ask({ familiarity: 'beliebt', flavours: ['fruchtig'] }));
+  var rare = engine.recommend(MENU, ask({ familiarity: 'entdecken', flavours: ['fruchtig'] }));
+  var avg = function (r) {
+    return r.items.reduce(function (s, i) { return s + i.drink.sold; }, 0) / r.items.length;
+  };
+  assert.ok(avg(rare) < avg(pop),
+    'the discovery path should surface less-sold drinks (' + avg(rare) + ' vs ' + avg(pop) + ')');
+});
+
+test('a spritz request returns actual spritzes', function () {
+  var res = engine.recommend(MENU, ask({ serve: 'spritzig', strength: '1', flavours: ['prickelnd'] }));
+  assert.strictEqual(res.items[0].drink.serve, 'Spritz',
+    'expected a Spritz on top, got ' + res.items[0].drink.name);
+});
+
+test('a bartender\'s-choice catch-all never outranks a real drink', function () {
+  var res = engine.recommend(MENU, ask({}), { limit: 999 });
+  var real = res.items.filter(function (i) { return i.drink.serve !== "Bartender's Choice"; });
+  var catchAll = res.items.filter(function (i) { return i.drink.serve === "Bartender's Choice"; });
+  if (catchAll.length && real.length) {
+    assert.ok(real[0].score > catchAll[0].score,
+      '"' + catchAll[0].drink.name + '" outranked every real drink');
+  }
 });
 
 console.log('\nOutput contract');
 
 test('results are ordered, capped, and carry usable reasons', function () {
-  var res = engine.recommend(MENU, ask({}), { limit: 6 });
-  assert.ok(res.items.length <= 6);
+  var res = engine.recommend(MENU, ask({ spirit: ['gin'], allergens: ['Ei'] }), { limit: 3 });
+  assert.ok(res.items.length <= 3);
   for (var i = 1; i < res.items.length; i++) {
-    assert.ok(res.items[i - 1].score >= res.items[i].score, 'results are not sorted by score');
+    assert.ok(res.items[i - 1].score >= res.items[i].score, 'results are not sorted');
   }
   res.items.forEach(function (item) {
-    assert.ok(item.match >= 35 && item.match <= 99, 'match % out of the presentable range: ' + item.match);
-    assert.ok(item.reasons.length >= 1, item.cocktail.id + ': no reason to show the guest');
+    assert.ok(item.match >= 35 && item.match <= 99, 'match % outside the presentable range: ' + item.match);
+    assert.ok(item.reasons.length >= 1, item.drink.name + ': no reason to show the guest');
     item.reasons.forEach(function (r) {
       assert.ok(questions.UI.de.reasons[r.key], 'no German copy for reason "' + r.key + '"');
       assert.ok(questions.UI.en.reasons[r.key], 'no English copy for reason "' + r.key + '"');
@@ -270,46 +303,105 @@ test('results are ordered, capped, and carry usable reasons', function () {
   });
 });
 
-test('the same answers and seed always give the same result', function () {
-  var a = ask({ adventure: '3' });
-  var one = ids(engine.recommend(MENU, a, { seed: 42 }));
-  var two = ids(engine.recommend(MENU, a, { seed: 42 }));
-  assert.deepStrictEqual(one, two, 'results are not stable for a fixed seed');
+test('every spirit family in the menu has a display name in both languages', function () {
+  var fams = {};
+  MENU.forEach(function (d) { fams[d.base] = true; d.spirits.forEach(function (s) { fams[s] = true; }); });
+  Object.keys(fams).forEach(function (f) {
+    assert.ok(questions.UI.de.spiritNames[f], 'no German name for spirit family "' + f + '"');
+    assert.ok(questions.UI.en.spiritNames[f], 'no English name for spirit family "' + f + '"');
+  });
 });
 
-test('"surprise me" actually varies between guests', function () {
-  var a = ask({ adventure: '3' });
-  var seen = {};
-  for (var s = 0; s < 25; s++) seen[ids(engine.recommend(MENU, a, { seed: s }))[0]] = true;
-  assert.ok(Object.keys(seen).length >= 4,
-    'surprise me only ever produced ' + Object.keys(seen).length + ' different top picks');
+test('every flavour tag in the data has a display name in both languages', function () {
+  var tags = {};
+  MENU.forEach(function (d) { d.flavours.forEach(function (f) { tags[f] = true; }); });
+  Object.keys(tags).forEach(function (f) {
+    assert.ok(questions.UI.de.flavourNames[f], 'no German display name for flavour "' + f + '"');
+    assert.ok(questions.UI.en.flavourNames[f], 'no English display name for flavour "' + f + '"');
+  });
+});
+
+test('the same answers and seed always give the same result', function () {
+  var a = ask({ familiarity: 'egal' });
+  assert.deepStrictEqual(
+    ids(engine.recommend(MENU, a, { seed: 42 })),
+    ids(engine.recommend(MENU, a, { seed: 42 })));
+});
+
+test('the seed breaks ties without overturning a clear winner', function () {
+  // Predictability beats novelty here: the same answers should give the same
+  // advice. The seed exists only to stop exact ties resolving by menu order.
+  var a = ask({ spirit: ['whiskey'], flavours: ['bitter'], strength: '5' });
+  var tops = {};
+  for (var s = 0; s < 30; s++) tops[ids(engine.recommend(MENU, a, { seed: s }))[0]] = true;
+  assert.strictEqual(Object.keys(tops).length, 1,
+    'a clear best match should not change between guests');
+});
+
+test('a drink whose alcohol-free flag conflicts with its strength is treated as alcoholic', function () {
+  // Rosato Spritz is alcohol_free:true in the export but rated strength 1,
+  // and its recipe carries Ramazzotti Rosato. Fail safe, never the other way.
+  var conflicted = source.drinks.filter(function (d) {
+    return d.available && d.alcohol_free && d.strength.level !== 0;
+  });
+  conflicted.forEach(function (d) {
+    var built = MENU.filter(function (m) { return m.name === d.name; })[0];
+    assert.ok(built, d.name + ' should still be on the menu, just not as zero proof');
+    assert.strictEqual(built.alcoholFree, false,
+      d.name + ' has a conflicting alcohol-free flag and must not count as zero proof');
+  });
+  // and it must never reach a guest who asked for zero proof
+  var res = engine.recommend(MENU, ask({ strength: '0' }), { limit: 999 });
+  res.items.forEach(function (i) {
+    assert.strictEqual(i.drink.strength, 0,
+      i.drink.name + ' reached the zero-proof list at strength ' + i.drink.strength);
+  });
 });
 
 test('every reachable answer combination returns something', function () {
-  var occasions = ['aperitif', 'main', 'nightcap', 'celebration', 'shot'];
-  var strengths = ['0', '1', '2', '3'];
-  var flavours = ['citrus', 'bitter', 'herbal', 'fruity', 'rich', 'smoky', 'spirit'];
-  var textures = ['', 'long', 'short', 'frothy', 'sparkling', 'hot'];
-  var adventures = ['0', '2', '3'];
-  var combos = 0;
-  occasions.forEach(function (o) {
-    strengths.forEach(function (s) {
+  var moments = opt('moment');
+  var strengths = opt('strength');
+  var flavours = opt('flavours');
+  var serves = [''].concat(opt('serve'));
+  var fams = opt('familiarity');
+  var combos = 0, worst = null;
+  moments.forEach(function (m) {
+    strengths.forEach(function (st) {
       flavours.forEach(function (f) {
-        textures.forEach(function (t) {
-          adventures.forEach(function (adv) {
+        serves.forEach(function (sv) {
+          fams.forEach(function (fam) {
             combos++;
             var res = engine.recommend(MENU, {
-              occasion: o, strength: s, spirit: [], avoid: [],
-              flavour: f, texture: t, adventure: adv, avoidFlags: []
+              moment: m, strength: st, spirit: [], avoid: [],
+              flavours: [f], serve: sv, familiarity: fam, allergens: []
             });
-            assert.ok(res.items.length > 0,
-              'empty result for ' + [o, s, f, t || 'any', adv].join(' / '));
+            if (!res.items.length) worst = [m, st, f, sv || 'any', fam].join(' / ');
           });
         });
       });
     });
   });
+  assert.strictEqual(worst, null, 'empty result for ' + worst);
   console.log('       (' + combos + ' combinations checked)');
+});
+
+test('every combination still returns something with all allergens excluded', function () {
+  var combos = 0, worst = null;
+  opt('moment').forEach(function (m) {
+    opt('strength').forEach(function (st) {
+      opt('flavours').forEach(function (f) {
+        combos++;
+        var res = engine.recommend(MENU, {
+          moment: m, strength: st, spirit: [], avoid: [],
+          flavours: [f], serve: '', familiarity: 'egal',
+          allergens: ['Ei', 'Milch', 'Nüsse']
+        });
+        if (!res.items.length) worst = [m, st, f].join(' / ');
+      });
+    });
+  });
+  assert.strictEqual(worst, null, 'empty result for ' + worst);
+  console.log('       (' + combos + ' allergen-restricted combinations checked)');
 });
 
 console.log('\n' + passed + ' passed' + (process.exitCode ? ', SOME FAILED' : '') + '\n');

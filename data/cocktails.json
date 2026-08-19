@@ -1,0 +1,8283 @@
+{
+ "bar": "BrunnenBar Augsburg",
+ "generated": "2026-08-19",
+ "version": 2,
+ "voice": "Kurz, warm, ein bisschen Insiderwissen, nie werblich. Duzen. Deutsch.",
+ "sales_basis": "BarPatrol Verkaufsimporte 31.12.2024-25.03.2025, 05.-12.05.2025, 06.-13.04.2026. Zusammen 5.566 Artikel.",
+ "field_notes": {
+  "strength": "0 alkoholfrei bis 5 stark, fuer den Staerke Regler in der App",
+  "moment": "Auftakt, Mittendrin, Spaeter Abend, Ganzer Abend",
+  "available": "false heisst aktuell nicht machbar, nicht empfehlen",
+  "ingredients_guest": "gaestetauglich, Markennamen wo sie etwas bedeuten",
+  "bar_recipe": "interne Mengen aus BarPatrol, nicht fuer Gaeste",
+  "hidden_on_card": "true = steht im Canva Design, wird Gaesten auf der gedruckten Karte aber nicht gezeigt. Trotzdem bestellbar und in der App, wenn available true."
+ },
+ "drinks": [
+  {
+   "name": "Porn Star Martini",
+   "section": "Signature Cocktails",
+   "tagline_de": "Maracuja, Vanille und ein Glas Prosecco daneben. Erst der Drink, dann der Schluck Schaumwein. Genau in der Reihenfolge.",
+   "bartender_note_de": "2002 in London von Douglas Ankrah erfunden. Seitdem der meistbestellte Cocktail fast jeder Bar. Bei uns auch.",
+   "ingredients_guest": [
+    "Absolut",
+    "Maracuja",
+    "Vanille",
+    "Zitrone",
+    "Prosecco"
+   ],
+   "glass": "Coupe mit Prosecco Sidecar",
+   "serve_style": "Sour",
+   "strength": {
+    "level": 3,
+    "label": "mittel"
+   },
+   "flavour_tags": [
+    "fruchtig",
+    "süß",
+    "prickelnd"
+   ],
+   "moment": [
+    "Auftakt",
+    "Mittendrin"
+   ],
+   "alcohol_free": false,
+   "allergens": [
+    "Ei"
+   ],
+   "price_eur": 13.7,
+   "units_sold": 338,
+   "popularity_rank": 1,
+   "available": true,
+   "unavailable_reason": "",
+   "on_printed_menu": true,
+   "pos_sku": "225",
+   "recipe_known": true,
+   "recipe_status": "live",
+   "recipe_note": "",
+   "bar_recipe": [
+    {
+     "amount": "50 ml",
+     "product": "Absolut 1L"
+    },
+    {
+     "amount": "200 ml",
+     "product": "La Gioiosa Prosecco"
+    },
+    {
+     "amount": "10 ml",
+     "product": "Galliano 700ml"
+    },
+    {
+     "amount": "50 ml",
+     "product": "Granini Fruchtsaft - Maracuja"
+    },
+    {
+     "amount": "20 ml",
+     "product": "Granini Fruchtsaft - Zitrone"
+    },
+    {
+     "amount": "0.5 Stk",
+     "product": "Frische Maracuja"
+    },
+    {
+     "amount": "2 ml",
+     "product": "Fee Brothers - Fee Foamer"
+    },
+    {
+     "amount": "20 ml",
+     "product": "Giffard Fruits de la Passion Maracujasirup - 1l"
+    },
+    {
+     "amount": "6.3 oz",
+     "product": "Eiswuerfel - Solid 5 kg"
+    }
+   ],
+   "hidden_on_card": false,
+   "card_action": ""
+  },
+  {
+   "name": "Lemon Drop",
+   "section": "Shots",
+   "tagline_de": "Kalt, sauer, vorbei. Der Shot, bei dem am Tisch keiner Nein sagt.",
+   "bartender_note_de": "",
+   "ingredients_guest": [
+    "Vodka",
+    "Zitrone",
+    "Zucker"
+   ],
+   "glass": "Shotglas",
+   "serve_style": "Shot",
+   "strength": {
+    "level": 3,
+    "label": "mittel"
+   },
+   "flavour_tags": [
+    "sauer/zitrus",
+    "süß"
+   ],
+   "moment": [
+    "Mittendrin",
+    "Später Abend"
+   ],
+   "alcohol_free": false,
+   "allergens": [],
+   "price_eur": 2.52,
+   "units_sold": 216,
+   "popularity_rank": 2,
+   "available": true,
+   "unavailable_reason": "",
+   "on_printed_menu": true,
+   "pos_sku": "182",
+   "recipe_known": true,
+   "recipe_status": "live",
+   "recipe_note": "",
+   "bar_recipe": [
+    {
+     "amount": "10 ml",
+     "product": "Absolut 1L"
+    },
+    {
+     "amount": "10 ml",
+     "product": "Granini Fruchtsaft - Lemon Squash"
+    },
+    {
+     "amount": "3.2 oz",
+     "product": "Eiswuerfel - Solid 5 kg"
+    }
+   ],
+   "hidden_on_card": false,
+   "card_action": "Auf der Karte einblenden (Dan 19.08.2026). Zweitbester Verkaeufer, war bisher versteckt."
+  },
+  {
+   "name": "Espresso Martini",
+   "section": "Vodka Cocktails",
+   "tagline_de": "Wach werden und trotzdem feiern. Der einzige Drink, der beides gleichzeitig kann.",
+   "bartender_note_de": "Dick Bradsell mixte ihn in den Achtzigern in London für ein Model, das wach werden und feiern wollte.",
+   "ingredients_guest": [
+    "Vodka",
+    "Kahlúa",
+    "frischer Espresso",
+    "Zucker"
+   ],
+   "glass": "Coupe",
+   "serve_style": "Shaken",
+   "strength": {
+    "level": 3,
+    "label": "mittel"
+   },
+   "flavour_tags": [
+    "kaffee",
+    "süß",
+    "cremig"
+   ],
+   "moment": [
+    "Mittendrin",
+    "Später Abend"
+   ],
+   "alcohol_free": false,
+   "allergens": [],
+   "price_eur": 11.5,
+   "units_sold": 215,
+   "popularity_rank": 3,
+   "available": true,
+   "unavailable_reason": "",
+   "on_printed_menu": true,
+   "pos_sku": "2110",
+   "recipe_known": true,
+   "recipe_status": "live",
+   "recipe_note": "",
+   "bar_recipe": [
+    {
+     "amount": "50 ml",
+     "product": "Absolut 1L"
+    },
+    {
+     "amount": "20 ml",
+     "product": "Kahlua 1L"
+    },
+    {
+     "amount": "40 ml",
+     "product": "Espresso"
+    },
+    {
+     "amount": "20 ml",
+     "product": "RIOBA Rohrzucker Syrup - 0,7l"
+    },
+    {
+     "amount": "6 oz",
+     "product": "Eiswuerfel - Solid 5 kg"
+    }
+   ],
+   "hidden_on_card": false,
+   "card_action": ""
+  },
+  {
+   "name": "Cinnamon Toast Crunch",
+   "section": "Shots",
+   "tagline_de": "Schmeckt wirklich nach dem Zimtmüsli. Wir haben es selbst nicht geglaubt, bis wir ihn gemacht haben.",
+   "bartender_note_de": "",
+   "ingredients_guest": [
+    "RumChata",
+    "Whiskey",
+    "Zimt"
+   ],
+   "glass": "Shotglas",
+   "serve_style": "Shot",
+   "strength": {
+    "level": 2,
+    "label": "mild"
+   },
+   "flavour_tags": [
+    "cremig",
+    "süß"
+   ],
+   "moment": [
+    "Mittendrin",
+    "Später Abend"
+   ],
+   "alcohol_free": false,
+   "allergens": [
+    "Milch"
+   ],
+   "price_eur": 3.0,
+   "units_sold": 148,
+   "popularity_rank": 4,
+   "available": true,
+   "unavailable_reason": "",
+   "on_printed_menu": true,
+   "pos_sku": "1401",
+   "recipe_known": true,
+   "recipe_status": "live",
+   "recipe_note": "",
+   "bar_recipe": [
+    {
+     "amount": "10 ml",
+     "product": "Bailey's Zimtschnecke 500ml"
+    },
+    {
+     "amount": "10 ml",
+     "product": "Jack Daniels Fire 750ml"
+    }
+   ],
+   "hidden_on_card": false,
+   "card_action": ""
+  },
+  {
+   "name": "Aperol Spritz",
+   "section": "Spritz",
+   "tagline_de": "Der Klassiker, der den Abend eröffnet. Bitter genug, um Hunger zu machen.",
+   "bartender_note_de": "",
+   "ingredients_guest": [
+    "Aperol",
+    "Prosecco",
+    "Soda"
+   ],
+   "glass": "Weinglas",
+   "serve_style": "Spritz",
+   "strength": {
+    "level": 1,
+    "label": "leicht"
+   },
+   "flavour_tags": [
+    "bitter",
+    "prickelnd",
+    "fruchtig"
+   ],
+   "moment": [
+    "Auftakt"
+   ],
+   "alcohol_free": false,
+   "allergens": [],
+   "price_eur": 7.9,
+   "units_sold": 138,
+   "popularity_rank": 5,
+   "available": true,
+   "unavailable_reason": "",
+   "on_printed_menu": true,
+   "pos_sku": "1203",
+   "recipe_known": true,
+   "recipe_status": "live",
+   "recipe_note": "",
+   "bar_recipe": [
+    {
+     "amount": "60 ml",
+     "product": "Aperol 1L"
+    },
+    {
+     "amount": "90 ml",
+     "product": "La Gioiosa Prosecco"
+    },
+    {
+     "amount": "30 ml",
+     "product": "Mozartquelle Fortissimo 0,75l"
+    },
+    {
+     "amount": "0.125 Stk",
+     "product": "Frische Orangen"
+    },
+    {
+     "amount": "4.6 oz",
+     "product": "Eiswuerfel - Solid 5 kg"
+    }
+   ],
+   "hidden_on_card": false,
+   "card_action": ""
+  },
+  {
+   "name": "Gin Basil",
+   "section": "Best Sellers",
+   "tagline_de": "Frisches Basilikum, kräftig ausgeschlagen. Grün im Glas und grün im Geschmack.",
+   "bartender_note_de": "2008 in Hamburg von Jörg Meyer erfunden. Einer der wenigen deutschen Drinks, die es um die Welt geschafft haben.",
+   "ingredients_guest": [
+    "Tanqueray",
+    "Basilikum",
+    "Zitrone",
+    "Zucker"
+   ],
+   "glass": "Tumbler",
+   "serve_style": "Sour",
+   "strength": {
+    "level": 3,
+    "label": "mittel"
+   },
+   "flavour_tags": [
+    "kräuterig/frisch",
+    "sauer/zitrus"
+   ],
+   "moment": [
+    "Auftakt",
+    "Mittendrin"
+   ],
+   "alcohol_free": false,
+   "allergens": [],
+   "price_eur": 9.7,
+   "units_sold": 113,
+   "popularity_rank": 6,
+   "available": false,
+   "unavailable_reason": "Kein Basilikum mehr im Bestand. Von der Karte genommen 19.08.2026.",
+   "on_printed_menu": false,
+   "pos_sku": "227",
+   "recipe_known": true,
+   "recipe_status": "live",
+   "recipe_note": "",
+   "bar_recipe": [
+    {
+     "amount": "60 ml",
+     "product": "Tanqueray 1L"
+    },
+    {
+     "amount": "30 ml",
+     "product": "Granini Fruchtsaft - Zitrone"
+    },
+    {
+     "amount": "0.6 oz",
+     "product": "Basil"
+    },
+    {
+     "amount": "20 ml",
+     "product": "RIOBA Rohrzucker Syrup - 0,7l"
+    },
+    {
+     "amount": "2 ml",
+     "product": "Fee Brothers - Celery Bitters"
+    },
+    {
+     "amount": "6.3 oz",
+     "product": "Eiswuerfel - Solid 5 kg"
+    }
+   ],
+   "hidden_on_card": true,
+   "card_action": "Bleibt auf der Karte versteckt (Dan 19.08.2026)"
+  },
+  {
+   "name": "Paloma",
+   "section": "Agave Cocktails",
+   "tagline_de": "In Mexiko trinkt man das, nicht Margarita. Grapefruit, Tequila, fertig.",
+   "bartender_note_de": "",
+   "ingredients_guest": [
+    "El Destilador Blanco",
+    "Thomas Henry Pink Grapefruit",
+    "Limette",
+    "Agave"
+   ],
+   "glass": "Highball",
+   "serve_style": "Highball",
+   "strength": {
+    "level": 2,
+    "label": "mild"
+   },
+   "flavour_tags": [
+    "fruchtig",
+    "prickelnd",
+    "sauer/zitrus"
+   ],
+   "moment": [
+    "Auftakt",
+    "Mittendrin"
+   ],
+   "alcohol_free": false,
+   "allergens": [],
+   "price_eur": 10.7,
+   "units_sold": 80,
+   "popularity_rank": 7,
+   "available": true,
+   "unavailable_reason": "",
+   "on_printed_menu": true,
+   "pos_sku": "274",
+   "recipe_known": true,
+   "recipe_status": "live",
+   "recipe_note": "",
+   "bar_recipe": [
+    {
+     "amount": "60 ml",
+     "product": "El Destilador Blanco 1L"
+    },
+    {
+     "amount": "1 Stk",
+     "product": "Thomas Henry -  Pink Grapefruit 0,2l"
+    },
+    {
+     "amount": "60 ml",
+     "product": "Mozartquelle Fortissimo 0,75l"
+    },
+    {
+     "amount": "15 ml",
+     "product": "Agaven Nektar"
+    }
+   ],
+   "hidden_on_card": false,
+   "card_action": ""
+  },
+  {
+   "name": "Whiskey Sour",
+   "section": "Signature Cocktails",
+   "tagline_de": "Bourbon, Zitrone, Zucker und Eiweiss für die Schaumkrone. So alt wie die Barkultur selbst.",
+   "bartender_note_de": "",
+   "ingredients_guest": [
+    "Four Roses",
+    "Zitrone",
+    "Zucker",
+    "Eiweiss"
+   ],
+   "glass": "Tumbler",
+   "serve_style": "Sour",
+   "strength": {
+    "level": 4,
+    "label": "kräftig"
+   },
+   "flavour_tags": [
+    "sauer/zitrus",
+    "cremig"
+   ],
+   "moment": [
+    "Mittendrin"
+   ],
+   "alcohol_free": false,
+   "allergens": [
+    "Ei"
+   ],
+   "price_eur": 11.5,
+   "units_sold": 73,
+   "popularity_rank": 8,
+   "available": true,
+   "unavailable_reason": "",
+   "on_printed_menu": true,
+   "pos_sku": "183",
+   "recipe_known": true,
+   "recipe_status": "live",
+   "recipe_note": "",
+   "bar_recipe": [
+    {
+     "amount": "60 ml",
+     "product": "Bulleit Bourbon 750ml"
+    },
+    {
+     "amount": "30 ml",
+     "product": "Granini Fruchtsaft - Zitrone"
+    },
+    {
+     "amount": "10 ml",
+     "product": "Eiweiss"
+    },
+    {
+     "amount": "20 ml",
+     "product": "RIOBA Rohrzucker Syrup - 0,7l"
+    },
+    {
+     "amount": "6.3 oz",
+     "product": "Eiswuerfel - Solid 5 kg"
+    }
+   ],
+   "hidden_on_card": false,
+   "card_action": ""
+  },
+  {
+   "name": "Augsburg Sour",
+   "section": "Signature Cocktails",
+   "tagline_de": "Unser Sour mit Wodka aus der Stadt. Wenn du einen Drink von hier probieren willst, dann diesen.",
+   "bartender_note_de": "",
+   "ingredients_guest": [
+    "Augsburg City Wodka",
+    "Zitrone",
+    "Orange",
+    "Himbeere",
+    "Zucker"
+   ],
+   "glass": "Tumbler",
+   "serve_style": "Sour",
+   "strength": {
+    "level": 3,
+    "label": "mittel"
+   },
+   "flavour_tags": [
+    "fruchtig",
+    "sauer/zitrus"
+   ],
+   "moment": [
+    "Mittendrin"
+   ],
+   "alcohol_free": false,
+   "allergens": [],
+   "price_eur": 10.7,
+   "units_sold": 71,
+   "popularity_rank": 9,
+   "available": true,
+   "unavailable_reason": "",
+   "on_printed_menu": true,
+   "pos_sku": "269",
+   "recipe_known": true,
+   "recipe_status": "live",
+   "recipe_note": "",
+   "bar_recipe": [
+    {
+     "amount": "40 ml",
+     "product": "Absolut 1L"
+    },
+    {
+     "amount": "20 ml",
+     "product": "Chambord 750ml"
+    },
+    {
+     "amount": "20 ml",
+     "product": "Granini Fruchtsaft - Orange"
+    },
+    {
+     "amount": "30 ml",
+     "product": "Granini Fruchtsaft - Zitrone"
+    },
+    {
+     "amount": "0.2 oz",
+     "product": "Minze"
+    },
+    {
+     "amount": "0.5 Stk",
+     "product": "Himbeeren"
+    },
+    {
+     "amount": "0.5 ml",
+     "product": "Fee Brothers - Fee Foamer"
+    }
+   ],
+   "hidden_on_card": false,
+   "card_action": ""
+  },
+  {
+   "name": "Sarti Spritz",
+   "section": "Spritz",
+   "tagline_de": "Blumiger und weicher als der Aperol. Für alle, denen der Klassiker zu bitter ist.",
+   "bartender_note_de": "",
+   "ingredients_guest": [
+    "Sarti Rosa",
+    "Prosecco",
+    "Soda"
+   ],
+   "glass": "Weinglas",
+   "serve_style": "Spritz",
+   "strength": {
+    "level": 1,
+    "label": "leicht"
+   },
+   "flavour_tags": [
+    "fruchtig",
+    "prickelnd"
+   ],
+   "moment": [
+    "Auftakt"
+   ],
+   "alcohol_free": false,
+   "allergens": [],
+   "price_eur": 7.9,
+   "units_sold": 71,
+   "popularity_rank": 10,
+   "available": true,
+   "unavailable_reason": "",
+   "on_printed_menu": true,
+   "pos_sku": "206",
+   "recipe_known": true,
+   "recipe_status": "live",
+   "recipe_note": "",
+   "bar_recipe": [
+    {
+     "amount": "60 ml",
+     "product": "Sarti 750ml"
+    },
+    {
+     "amount": "90 ml",
+     "product": "La Gioiosa Prosecco"
+    },
+    {
+     "amount": "30 ml",
+     "product": "Mozartquelle Fortissimo 0,75l"
+    }
+   ],
+   "hidden_on_card": false,
+   "card_action": ""
+  },
+  {
+   "name": "Ficken 2cl",
+   "section": "Shots",
+   "tagline_de": "Kalt, süss, in einem Zug. Fragt keiner nach dem Namen, alle nach der zweiten Runde.",
+   "bartender_note_de": "",
+   "ingredients_guest": [
+    "Ficken Likör"
+   ],
+   "glass": "Shotglas",
+   "serve_style": "Shot",
+   "strength": {
+    "level": 2,
+    "label": "mild"
+   },
+   "flavour_tags": [
+    "süß",
+    "fruchtig"
+   ],
+   "moment": [
+    "Mittendrin",
+    "Später Abend"
+   ],
+   "alcohol_free": false,
+   "allergens": [],
+   "price_eur": 2.5,
+   "units_sold": 70,
+   "popularity_rank": 11,
+   "available": true,
+   "unavailable_reason": "",
+   "on_printed_menu": false,
+   "pos_sku": "247",
+   "recipe_known": true,
+   "recipe_status": "live",
+   "recipe_note": "",
+   "bar_recipe": [
+    {
+     "amount": "20 ml",
+     "product": "Ficken"
+    }
+   ],
+   "hidden_on_card": false,
+   "card_action": ""
+  },
+  {
+   "name": "Mojito",
+   "section": "Rum / Cachaca",
+   "tagline_de": "Minze, Limette, weisser Rum. Wird bei uns gebaut, nicht zerdrückt, damit die Minze nicht bitter wird.",
+   "bartender_note_de": "",
+   "ingredients_guest": [
+    "Bacardi",
+    "Limette",
+    "Minze",
+    "Zucker",
+    "Soda"
+   ],
+   "glass": "Highball",
+   "serve_style": "Highball",
+   "strength": {
+    "level": 2,
+    "label": "mild"
+   },
+   "flavour_tags": [
+    "kräuterig/frisch",
+    "sauer/zitrus",
+    "prickelnd"
+   ],
+   "moment": [
+    "Auftakt",
+    "Mittendrin"
+   ],
+   "alcohol_free": false,
+   "allergens": [],
+   "price_eur": 9.7,
+   "units_sold": 67,
+   "popularity_rank": 12,
+   "available": true,
+   "unavailable_reason": "",
+   "on_printed_menu": true,
+   "pos_sku": "420",
+   "recipe_known": true,
+   "recipe_status": "live",
+   "recipe_note": "",
+   "bar_recipe": [
+    {
+     "amount": "60 ml",
+     "product": "Bacardi Superior Light 1L"
+    },
+    {
+     "amount": "30 ml",
+     "product": "Limettensaft"
+    },
+    {
+     "amount": "100 ml",
+     "product": "Mozartquelle Fortissimo 0,75l"
+    },
+    {
+     "amount": "0.2 oz",
+     "product": "Minze"
+    },
+    {
+     "amount": "20 ml",
+     "product": "RIOBA Rohrzucker Syrup - 0,7l"
+    },
+    {
+     "amount": "7 oz",
+     "product": "Eiswuerfel - Crushed 5 kg"
+    }
+   ],
+   "hidden_on_card": false,
+   "card_action": ""
+  },
+  {
+   "name": "Negroni",
+   "section": "Aperitivo Cocktails",
+   "tagline_de": "Drei Zutaten zu gleichen Teilen, gerührt, ein Stück Orange. Bitter und kompromisslos.",
+   "bartender_note_de": "Graf Camillo Negroni liess sich 1919 in Florenz den Soda im Americano durch Gin ersetzen.",
+   "ingredients_guest": [
+    "Gin",
+    "Campari",
+    "roter Wermut"
+   ],
+   "glass": "Tumbler",
+   "serve_style": "Stirred",
+   "strength": {
+    "level": 5,
+    "label": "stark"
+   },
+   "flavour_tags": [
+    "bitter",
+    "kräuterig/frisch"
+   ],
+   "moment": [
+    "Auftakt",
+    "Später Abend"
+   ],
+   "alcohol_free": false,
+   "allergens": [],
+   "price_eur": 9.7,
+   "units_sold": 67,
+   "popularity_rank": 13,
+   "available": true,
+   "unavailable_reason": "",
+   "on_printed_menu": true,
+   "pos_sku": "144",
+   "recipe_known": true,
+   "recipe_status": "live",
+   "recipe_note": "",
+   "bar_recipe": [
+    {
+     "amount": "30 ml",
+     "product": "Tanqueray 1L"
+    },
+    {
+     "amount": "30 ml",
+     "product": "Campari 1L"
+    },
+    {
+     "amount": "30 ml",
+     "product": "Rubino Sweet Vermouth 750ml"
+    },
+    {
+     "amount": "5.3 oz",
+     "product": "Eiswuerfel - Solid 5 kg"
+    }
+   ],
+   "hidden_on_card": false,
+   "card_action": ""
+  },
+  {
+   "name": "Apfelstrudel 2cl",
+   "section": "Shots",
+   "tagline_de": "Kokos und Apfel mit Zimt. Schmeckt tatsächlich wie Apfelstrudel.",
+   "bartender_note_de": "",
+   "ingredients_guest": [
+    "Malibu",
+    "Apfel",
+    "Zimt"
+   ],
+   "glass": "Shotglas",
+   "serve_style": "Shot",
+   "strength": {
+    "level": 2,
+    "label": "mild"
+   },
+   "flavour_tags": [
+    "süß",
+    "fruchtig"
+   ],
+   "moment": [
+    "Mittendrin"
+   ],
+   "alcohol_free": false,
+   "allergens": [],
+   "price_eur": 3.0,
+   "units_sold": 59,
+   "popularity_rank": 14,
+   "available": true,
+   "unavailable_reason": "",
+   "on_printed_menu": false,
+   "pos_sku": "396",
+   "recipe_known": true,
+   "recipe_status": "live",
+   "recipe_note": "",
+   "bar_recipe": [
+    {
+     "amount": "20 ml",
+     "product": "Malibu Coconut 1L"
+    }
+   ],
+   "hidden_on_card": false,
+   "card_action": ""
+  },
+  {
+   "name": "Berliner Luft 2cl",
+   "section": "Shots",
+   "tagline_de": "Eiskalte Pfefferminze. Räumt den Mund auf und den Kopf gleich mit.",
+   "bartender_note_de": "",
+   "ingredients_guest": [
+    "Berliner Luft"
+   ],
+   "glass": "Shotglas",
+   "serve_style": "Shot",
+   "strength": {
+    "level": 3,
+    "label": "mittel"
+   },
+   "flavour_tags": [
+    "kräuterig/frisch",
+    "süß"
+   ],
+   "moment": [
+    "Später Abend"
+   ],
+   "alcohol_free": false,
+   "allergens": [],
+   "price_eur": 2.5,
+   "units_sold": 59,
+   "popularity_rank": 15,
+   "available": true,
+   "unavailable_reason": "",
+   "on_printed_menu": false,
+   "pos_sku": "260",
+   "recipe_known": true,
+   "recipe_status": "live",
+   "recipe_note": "",
+   "bar_recipe": [
+    {
+     "amount": "20 ml",
+     "product": "Berliner Luft 1L"
+    }
+   ],
+   "hidden_on_card": false,
+   "card_action": ""
+  },
+  {
+   "name": "Green Tea Shot",
+   "section": "Shots",
+   "tagline_de": "Kein Tee drin. Schmeckt trotzdem so und ist der freundlichste Whiskey Shot, den es gibt.",
+   "bartender_note_de": "",
+   "ingredients_guest": [
+    "Irish Whiskey",
+    "Pfirsichlikör",
+    "Zitrone",
+    "Sprite"
+   ],
+   "glass": "Shotglas",
+   "serve_style": "Shot",
+   "strength": {
+    "level": 2,
+    "label": "mild"
+   },
+   "flavour_tags": [
+    "fruchtig",
+    "sauer/zitrus"
+   ],
+   "moment": [
+    "Mittendrin",
+    "Später Abend"
+   ],
+   "alcohol_free": false,
+   "allergens": [],
+   "price_eur": 2.52,
+   "units_sold": 59,
+   "popularity_rank": 16,
+   "available": true,
+   "unavailable_reason": "",
+   "on_printed_menu": true,
+   "pos_sku": "242",
+   "recipe_known": true,
+   "recipe_status": "live",
+   "recipe_note": "",
+   "bar_recipe": [
+    {
+     "amount": "0.5 ml",
+     "product": "Jameson 750ml"
+    },
+    {
+     "amount": "0.5 ml",
+     "product": "Jardins Secret Pfirsichlikör"
+    },
+    {
+     "amount": "0.5 ml",
+     "product": "Granini Fruchtsaft - Lemon Squash"
+    },
+    {
+     "amount": "0.5 ml",
+     "product": "Sprite 1l"
+    },
+    {
+     "amount": "3.2 oz",
+     "product": "Eiswuerfel - Solid 5 kg"
+    }
+   ],
+   "hidden_on_card": false,
+   "card_action": ""
+  },
+  {
+   "name": "Gin Tonic - Bombay",
+   "section": "Gin",
+   "tagline_de": "Klassisch, wacholderbetont, immer richtig. Der Gin Tonic für alle, die wissen, was sie wollen.",
+   "bartender_note_de": "",
+   "ingredients_guest": [
+    "Bombay Sapphire",
+    "Tonic Water",
+    "Limette"
+   ],
+   "glass": "Ballonglas",
+   "serve_style": "Highball",
+   "strength": {
+    "level": 3,
+    "label": "mittel"
+   },
+   "flavour_tags": [
+    "kräuterig/frisch",
+    "bitter",
+    "prickelnd"
+   ],
+   "moment": [
+    "Auftakt",
+    "Mittendrin"
+   ],
+   "alcohol_free": false,
+   "allergens": [],
+   "price_eur": 9.6,
+   "units_sold": 57,
+   "popularity_rank": 17,
+   "available": true,
+   "unavailable_reason": "",
+   "on_printed_menu": false,
+   "pos_sku": "1206",
+   "recipe_known": true,
+   "recipe_status": "live",
+   "recipe_note": "",
+   "bar_recipe": [
+    {
+     "amount": "60 ml",
+     "product": "Bombay Sapphire 750ml"
+    },
+    {
+     "amount": "200 ml",
+     "product": "Thomas Henry - Tonic Water 1L"
+    },
+    {
+     "amount": "4.6 oz",
+     "product": "Eiswuerfel - Solid 5 kg"
+    }
+   ],
+   "hidden_on_card": false,
+   "card_action": ""
+  },
+  {
+   "name": "London Mule",
+   "section": "Mules",
+   "tagline_de": "Der Mule mit Gin statt Wodka. Scharfer Ingwer trifft Wacholder und das passt besser, als es klingt.",
+   "bartender_note_de": "",
+   "ingredients_guest": [
+    "Tanqueray",
+    "Limette",
+    "Thomas Henry Spicy Ginger",
+    "Angostura"
+   ],
+   "glass": "Kupferbecher",
+   "serve_style": "Highball",
+   "strength": {
+    "level": 3,
+    "label": "mittel"
+   },
+   "flavour_tags": [
+    "prickelnd",
+    "sauer/zitrus",
+    "kräuterig/frisch"
+   ],
+   "moment": [
+    "Mittendrin"
+   ],
+   "alcohol_free": false,
+   "allergens": [],
+   "price_eur": 10.7,
+   "units_sold": 57,
+   "popularity_rank": 18,
+   "available": true,
+   "unavailable_reason": "",
+   "on_printed_menu": true,
+   "pos_sku": "231",
+   "recipe_known": true,
+   "recipe_status": "live",
+   "recipe_note": "",
+   "bar_recipe": [
+    {
+     "amount": "60 ml",
+     "product": "Tanqueray 1L"
+    },
+    {
+     "amount": "30 ml",
+     "product": "Limettensaft"
+    },
+    {
+     "amount": "120 ml",
+     "product": "Thomas Henry - Spicy Ginger 1l"
+    },
+    {
+     "amount": "1 ml",
+     "product": "Angostura Bitters"
+    },
+    {
+     "amount": "10 ml",
+     "product": "RIOBA Rohrzucker Syrup - 0,7l"
+    }
+   ],
+   "hidden_on_card": false,
+   "card_action": ""
+  },
+  {
+   "name": "Singapore Sling",
+   "section": "Signature Cocktails",
+   "tagline_de": "Acht Zutaten, hundert Jahre alt und immer noch ein Fest. Wer Zeit hat, bestellt den.",
+   "bartender_note_de": "Um 1915 im Raffles Hotel in Singapur entstanden. Kaum ein Drink hat so viele Zutaten und so wenig Angeberei.",
+   "ingredients_guest": [
+    "Tanqueray",
+    "Kirsche",
+    "Bénédictine",
+    "Grand Marnier",
+    "Ananas",
+    "Limette",
+    "Granatapfel",
+    "Angostura"
+   ],
+   "glass": "Highball",
+   "serve_style": "Sling",
+   "strength": {
+    "level": 3,
+    "label": "mittel"
+   },
+   "flavour_tags": [
+    "fruchtig",
+    "süß",
+    "sauer/zitrus"
+   ],
+   "moment": [
+    "Mittendrin"
+   ],
+   "alcohol_free": false,
+   "allergens": [],
+   "price_eur": 10.7,
+   "units_sold": 57,
+   "popularity_rank": 19,
+   "available": true,
+   "unavailable_reason": "",
+   "on_printed_menu": true,
+   "pos_sku": "265",
+   "recipe_known": true,
+   "recipe_status": "live",
+   "recipe_note": "",
+   "bar_recipe": [
+    {
+     "amount": "60 ml",
+     "product": "Tanqueray 1L"
+    },
+    {
+     "amount": "15 ml",
+     "product": "Eckes Edelkirsche"
+    },
+    {
+     "amount": "7.5 ml",
+     "product": "D.o.m Benedictine 700ml"
+    },
+    {
+     "amount": "7.5 ml",
+     "product": "Cointreau 1L"
+    },
+    {
+     "amount": "120 ml",
+     "product": "Granini Fruchtsaft - Ananas"
+    },
+    {
+     "amount": "15 ml",
+     "product": "Limettensaft"
+    },
+    {
+     "amount": "1 ml",
+     "product": "Angostura Bitters"
+    },
+    {
+     "amount": "7.5 ml",
+     "product": "Giffard - Grenadine"
+    },
+    {
+     "amount": "6.3 oz",
+     "product": "Eiswuerfel - Solid 5 kg"
+    }
+   ],
+   "hidden_on_card": false,
+   "card_action": ""
+  },
+  {
+   "name": "Moscow Mule",
+   "section": "Mules",
+   "tagline_de": "Ingwer, Limette, Gurke. Kalt im Kupferbecher, weil der die Kälte hält.",
+   "bartender_note_de": "",
+   "ingredients_guest": [
+    "Absolut",
+    "Limette",
+    "Gurke",
+    "Thomas Henry Spicy Ginger",
+    "Angostura"
+   ],
+   "glass": "Kupferbecher",
+   "serve_style": "Highball",
+   "strength": {
+    "level": 3,
+    "label": "mittel"
+   },
+   "flavour_tags": [
+    "prickelnd",
+    "sauer/zitrus",
+    "kräuterig/frisch"
+   ],
+   "moment": [
+    "Mittendrin"
+   ],
+   "alcohol_free": false,
+   "allergens": [],
+   "price_eur": 10.7,
+   "units_sold": 54,
+   "popularity_rank": 20,
+   "available": true,
+   "unavailable_reason": "",
+   "on_printed_menu": true,
+   "pos_sku": "230",
+   "recipe_known": true,
+   "recipe_status": "live",
+   "recipe_note": "",
+   "bar_recipe": [
+    {
+     "amount": "60 ml",
+     "product": "Absolut 1L"
+    },
+    {
+     "amount": "30 ml",
+     "product": "Limettensaft"
+    },
+    {
+     "amount": "120 ml",
+     "product": "Thomas Henry - Spicy Ginger 1l"
+    },
+    {
+     "amount": "0.05 oz",
+     "product": "Minze"
+    },
+    {
+     "amount": "2 ml",
+     "product": "Angostura Bitters"
+    },
+    {
+     "amount": "10 ml",
+     "product": "RIOBA Rohrzucker Syrup - 0,7l"
+    }
+   ],
+   "hidden_on_card": false,
+   "card_action": ""
+  },
+  {
+   "name": "Alkoholfreie Cocktails",
+   "section": "Alkoholfrei",
+   "tagline_de": "Sag uns einfach, welchen Cocktail du magst. Fast jeden auf der Karte bauen wir dir ohne Alkohol.",
+   "bartender_note_de": "",
+   "ingredients_guest": [
+    "nach Absprache"
+   ],
+   "glass": "je nach Drink",
+   "serve_style": "Bartender's Choice",
+   "strength": {
+    "level": 0,
+    "label": "alkoholfrei"
+   },
+   "flavour_tags": [
+    "überraschend"
+   ],
+   "moment": [
+    "Ganzer Abend"
+   ],
+   "alcohol_free": true,
+   "allergens": [],
+   "price_eur": 9.7,
+   "units_sold": 50,
+   "popularity_rank": 21,
+   "available": true,
+   "unavailable_reason": "",
+   "on_printed_menu": false,
+   "pos_sku": "195",
+   "recipe_known": true,
+   "recipe_status": "live",
+   "recipe_note": "",
+   "bar_recipe": [
+    {
+     "amount": "60 ml",
+     "product": "Tanqueray 0.0 750ml"
+    }
+   ],
+   "hidden_on_card": false,
+   "card_action": ""
+  },
+  {
+   "name": "Aperol Sour",
+   "section": "Sours",
+   "tagline_de": "Aperol ohne Prosecco, dafür mit Zitrone und Orange. Bitterer, ernster, besser.",
+   "bartender_note_de": "",
+   "ingredients_guest": [
+    "Aperol",
+    "Zitrone",
+    "Orange",
+    "Zucker"
+   ],
+   "glass": "Tumbler",
+   "serve_style": "Sour",
+   "strength": {
+    "level": 2,
+    "label": "mild"
+   },
+   "flavour_tags": [
+    "bitter",
+    "fruchtig",
+    "sauer/zitrus"
+   ],
+   "moment": [
+    "Auftakt",
+    "Mittendrin"
+   ],
+   "alcohol_free": false,
+   "allergens": [],
+   "price_eur": 8.9,
+   "units_sold": 45,
+   "popularity_rank": 22,
+   "available": true,
+   "unavailable_reason": "",
+   "on_printed_menu": true,
+   "pos_sku": "229",
+   "recipe_known": true,
+   "recipe_status": "live",
+   "recipe_note": "",
+   "bar_recipe": [
+    {
+     "amount": "50 ml",
+     "product": "Aperol 1L"
+    },
+    {
+     "amount": "20 ml",
+     "product": "Granini Fruchtsaft - Orange"
+    },
+    {
+     "amount": "30 ml",
+     "product": "Granini Fruchtsaft - Zitrone"
+    },
+    {
+     "amount": "0.125 Stk",
+     "product": "Frische Orangen"
+    },
+    {
+     "amount": "20 ml",
+     "product": "RIOBA Rohrzucker Syrup - 0,7l"
+    },
+    {
+     "amount": "6.3 oz",
+     "product": "Eiswuerfel - Solid 5 kg"
+    }
+   ],
+   "hidden_on_card": false,
+   "card_action": ""
+  },
+  {
+   "name": "Cuba Libre 6cl",
+   "section": "Mixgetränke",
+   "tagline_de": "Rum, Cola, viel Limette. Simpel und deshalb schwer gut zu machen.",
+   "bartender_note_de": "",
+   "ingredients_guest": [
+    "Bacardi",
+    "Cola",
+    "Limette"
+   ],
+   "glass": "Highball",
+   "serve_style": "Highball",
+   "strength": {
+    "level": 3,
+    "label": "mittel"
+   },
+   "flavour_tags": [
+    "süß",
+    "prickelnd"
+   ],
+   "moment": [
+    "Mittendrin"
+   ],
+   "alcohol_free": false,
+   "allergens": [],
+   "price_eur": 9.6,
+   "units_sold": 43,
+   "popularity_rank": 23,
+   "available": true,
+   "unavailable_reason": "",
+   "on_printed_menu": false,
+   "pos_sku": "1303",
+   "recipe_known": true,
+   "recipe_status": "live",
+   "recipe_note": "",
+   "bar_recipe": [
+    {
+     "amount": "60 ml",
+     "product": "Havana Club Anejo 1L"
+    },
+    {
+     "amount": "400 ml",
+     "product": "Coca Cola 1l"
+    },
+    {
+     "amount": "4.6 oz",
+     "product": "Eiswuerfel - Crushed 5 kg"
+    }
+   ],
+   "hidden_on_card": false,
+   "card_action": ""
+  },
+  {
+   "name": "Special Cocktail",
+   "section": "Cocktails",
+   "tagline_de": "Sag uns, was du magst, und wir bauen dir etwas. Nicht auf der Karte, aber immer möglich.",
+   "bartender_note_de": "",
+   "ingredients_guest": [
+    "nach Absprache"
+   ],
+   "glass": "je nach Drink",
+   "serve_style": "Bartender's Choice",
+   "strength": {
+    "level": 3,
+    "label": "mittel"
+   },
+   "flavour_tags": [
+    "überraschend"
+   ],
+   "moment": [
+    "Mittendrin",
+    "Später Abend"
+   ],
+   "alcohol_free": false,
+   "allergens": [],
+   "price_eur": 11.7,
+   "units_sold": 39,
+   "popularity_rank": 24,
+   "available": true,
+   "unavailable_reason": "",
+   "on_printed_menu": false,
+   "pos_sku": "325",
+   "recipe_known": true,
+   "recipe_status": "live",
+   "recipe_note": "",
+   "bar_recipe": [
+    {
+     "amount": "60 ml",
+     "product": "Absolut 1L"
+    }
+   ],
+   "hidden_on_card": false,
+   "card_action": ""
+  },
+  {
+   "name": "Raspberry Mule",
+   "section": "Mules",
+   "tagline_de": "Frische Himbeeren im Ingwer. Der süsseste der vier Mules und der, den am meisten Leute zweimal bestellen.",
+   "bartender_note_de": "",
+   "ingredients_guest": [
+    "Absolut",
+    "Himbeeren",
+    "Limette",
+    "Thomas Henry Spicy Ginger",
+    "Zucker"
+   ],
+   "glass": "Kupferbecher",
+   "serve_style": "Highball",
+   "strength": {
+    "level": 3,
+    "label": "mittel"
+   },
+   "flavour_tags": [
+    "fruchtig",
+    "prickelnd",
+    "sauer/zitrus"
+   ],
+   "moment": [
+    "Mittendrin"
+   ],
+   "alcohol_free": false,
+   "allergens": [],
+   "price_eur": 10.7,
+   "units_sold": 36,
+   "popularity_rank": 25,
+   "available": true,
+   "unavailable_reason": "",
+   "on_printed_menu": true,
+   "pos_sku": "347",
+   "recipe_known": true,
+   "recipe_status": "live",
+   "recipe_note": "",
+   "bar_recipe": [
+    {
+     "amount": "60 ml",
+     "product": "Absolut 1L"
+    },
+    {
+     "amount": "30 ml",
+     "product": "Limettensaft"
+    },
+    {
+     "amount": "120 ml",
+     "product": "Thomas Henry - Spicy Ginger 1l"
+    },
+    {
+     "amount": "0.5 Stk",
+     "product": "Himbeeren"
+    },
+    {
+     "amount": "10 ml",
+     "product": "RIOBA Rohrzucker Syrup - 0,7l"
+    },
+    {
+     "amount": "4.6 oz",
+     "product": "Eiswuerfel - Solid 5 kg"
+    }
+   ],
+   "hidden_on_card": false,
+   "card_action": ""
+  },
+  {
+   "name": "Caipirinha",
+   "section": "Rum / Cachaca",
+   "tagline_de": "Cachaça, Limette, Zucker, crushed Ice. Mehr braucht Brasilien nicht.",
+   "bartender_note_de": "",
+   "ingredients_guest": [
+    "Cachaça",
+    "Limette",
+    "Zucker"
+   ],
+   "glass": "Tumbler",
+   "serve_style": "Muddled",
+   "strength": {
+    "level": 3,
+    "label": "mittel"
+   },
+   "flavour_tags": [
+    "sauer/zitrus",
+    "süß"
+   ],
+   "moment": [
+    "Mittendrin"
+   ],
+   "alcohol_free": false,
+   "allergens": [],
+   "price_eur": 9.7,
+   "units_sold": 35,
+   "popularity_rank": 26,
+   "available": true,
+   "unavailable_reason": "",
+   "on_printed_menu": true,
+   "pos_sku": "2108",
+   "recipe_known": true,
+   "recipe_status": "live",
+   "recipe_note": "",
+   "bar_recipe": [
+    {
+     "amount": "60 ml",
+     "product": "Pitu Brazilian Cachaca Rum 1L"
+    },
+    {
+     "amount": "30 ml",
+     "product": "Limettensaft"
+    },
+    {
+     "amount": "90 ml",
+     "product": "Mozartquelle Fortissimo 0,75l"
+    },
+    {
+     "amount": "20 ml",
+     "product": "RIOBA Rohrzucker Syrup - 0,7l"
+    },
+    {
+     "amount": "7 oz",
+     "product": "Eiswuerfel - Crushed 5 kg"
+    }
+   ],
+   "hidden_on_card": false,
+   "card_action": ""
+  },
+  {
+   "name": "Italian Stallion",
+   "section": "Signature Cocktails",
+   "tagline_de": "Aprikose und Granatapfel auf Wodka. Süss, aber mit Kante.",
+   "bartender_note_de": "",
+   "ingredients_guest": [
+    "Absolut",
+    "Aprikose",
+    "Zitrone",
+    "Granatapfel"
+   ],
+   "glass": "Coupe",
+   "serve_style": "Sour",
+   "strength": {
+    "level": 3,
+    "label": "mittel"
+   },
+   "flavour_tags": [
+    "fruchtig",
+    "süß"
+   ],
+   "moment": [
+    "Mittendrin"
+   ],
+   "alcohol_free": false,
+   "allergens": [],
+   "price_eur": 10.7,
+   "units_sold": 34,
+   "popularity_rank": 27,
+   "available": true,
+   "unavailable_reason": "",
+   "on_printed_menu": true,
+   "pos_sku": "335",
+   "recipe_known": true,
+   "recipe_status": "live",
+   "recipe_note": "",
+   "bar_recipe": [
+    {
+     "amount": "50 ml",
+     "product": "Absolut 1L"
+    },
+    {
+     "amount": "20 ml",
+     "product": "Bols Apricot 750ml"
+    },
+    {
+     "amount": "60 ml",
+     "product": "Granini Fruchtsaft - Maracuja"
+    },
+    {
+     "amount": "20 ml",
+     "product": "Granini Fruchtsaft - Ananas"
+    },
+    {
+     "amount": "10 ml",
+     "product": "Limettensaft"
+    },
+    {
+     "amount": "30 ml",
+     "product": "Giffard - Grenadine"
+    },
+    {
+     "amount": "6.3 oz",
+     "product": "Eiswuerfel - Solid 5 kg"
+    }
+   ],
+   "hidden_on_card": false,
+   "card_action": ""
+  },
+  {
+   "name": "Mexico Mule",
+   "section": "Mules",
+   "tagline_de": "Der Mule auf Tequila. Etwas erdiger, etwas wilder als das Original.",
+   "bartender_note_de": "",
+   "ingredients_guest": [
+    "El Destilador Blanco",
+    "Limette",
+    "Thomas Henry Spicy Ginger",
+    "Angostura"
+   ],
+   "glass": "Kupferbecher",
+   "serve_style": "Highball",
+   "strength": {
+    "level": 3,
+    "label": "mittel"
+   },
+   "flavour_tags": [
+    "prickelnd",
+    "sauer/zitrus"
+   ],
+   "moment": [
+    "Mittendrin"
+   ],
+   "alcohol_free": false,
+   "allergens": [],
+   "price_eur": 10.7,
+   "units_sold": 33,
+   "popularity_rank": 28,
+   "available": true,
+   "unavailable_reason": "",
+   "on_printed_menu": true,
+   "pos_sku": "273",
+   "recipe_known": true,
+   "recipe_status": "live",
+   "recipe_note": "",
+   "bar_recipe": [
+    {
+     "amount": "60 ml",
+     "product": "El Destilador Blanco 1L"
+    },
+    {
+     "amount": "30 ml",
+     "product": "Limettensaft"
+    },
+    {
+     "amount": "120 ml",
+     "product": "Thomas Henry - Spicy Ginger 1l"
+    },
+    {
+     "amount": "0.05 oz",
+     "product": "Minze"
+    },
+    {
+     "amount": "0.125 Stk",
+     "product": "Frische Limetten - 4kg"
+    },
+    {
+     "amount": "1 ml",
+     "product": "Angostura Bitters"
+    },
+    {
+     "amount": "10 ml",
+     "product": "RIOBA Rohrzucker Syrup - 0,7l"
+    },
+    {
+     "amount": "4.6 oz",
+     "product": "Eiswuerfel - Solid 5 kg"
+    }
+   ],
+   "hidden_on_card": false,
+   "card_action": ""
+  },
+  {
+   "name": "Pisco Sour",
+   "section": "Sours",
+   "tagline_de": "Perus Nationaldrink. Eiweiss oben, Limette darunter und ein Spritzer Bitter aufs Schaumhäubchen.",
+   "bartender_note_de": "",
+   "ingredients_guest": [
+    "Pisco",
+    "Limette",
+    "Zucker",
+    "Eiweiss"
+   ],
+   "glass": "Coupe",
+   "serve_style": "Sour",
+   "strength": {
+    "level": 3,
+    "label": "mittel"
+   },
+   "flavour_tags": [
+    "sauer/zitrus",
+    "cremig"
+   ],
+   "moment": [
+    "Auftakt",
+    "Mittendrin"
+   ],
+   "alcohol_free": false,
+   "allergens": [
+    "Ei"
+   ],
+   "price_eur": 9.7,
+   "units_sold": 25,
+   "popularity_rank": 29,
+   "available": true,
+   "unavailable_reason": "",
+   "on_printed_menu": true,
+   "pos_sku": "228",
+   "recipe_known": true,
+   "recipe_status": "live",
+   "recipe_note": "",
+   "bar_recipe": [
+    {
+     "amount": "60 ml",
+     "product": "Pisco Hermano Acholado 700ml"
+    },
+    {
+     "amount": "30 ml",
+     "product": "Limettensaft"
+    },
+    {
+     "amount": "10 ml",
+     "product": "Eiweiss"
+    },
+    {
+     "amount": "20 ml",
+     "product": "RIOBA Rohrzucker Syrup - 0,7l"
+    }
+   ],
+   "hidden_on_card": false,
+   "card_action": ""
+  },
+  {
+   "name": "Cosmopolitan",
+   "section": "Vodka Cocktails",
+   "tagline_de": "Cranberry, Cointreau, Limette. In den Neunzigern überall, heute wieder zu Recht.",
+   "bartender_note_de": "",
+   "ingredients_guest": [
+    "Vodka",
+    "Cranberry",
+    "Cointreau",
+    "Limette"
+   ],
+   "glass": "Coupe",
+   "serve_style": "Shaken",
+   "strength": {
+    "level": 3,
+    "label": "mittel"
+   },
+   "flavour_tags": [
+    "fruchtig",
+    "sauer/zitrus"
+   ],
+   "moment": [
+    "Auftakt",
+    "Mittendrin"
+   ],
+   "alcohol_free": false,
+   "allergens": [],
+   "price_eur": 9.7,
+   "units_sold": 24,
+   "popularity_rank": 30,
+   "available": true,
+   "unavailable_reason": "",
+   "on_printed_menu": true,
+   "pos_sku": "223",
+   "recipe_known": true,
+   "recipe_status": "live",
+   "recipe_note": "",
+   "bar_recipe": [
+    {
+     "amount": "60 ml",
+     "product": "Absolut 1L"
+    },
+    {
+     "amount": "15 ml",
+     "product": "Cointreau 1L"
+    },
+    {
+     "amount": "30 ml",
+     "product": "Granini Fruchtsaft - Cranberry"
+    },
+    {
+     "amount": "15 ml",
+     "product": "Limettensaft"
+    }
+   ],
+   "hidden_on_card": false,
+   "card_action": ""
+  },
+  {
+   "name": "Gin Tonic - Tanqueray",
+   "section": "Best Sellers",
+   "tagline_de": "Trocken, klar, kein Schnickschnack. Unser meistbestellter Gin Tonic.",
+   "bartender_note_de": "",
+   "ingredients_guest": [
+    "Tanqueray",
+    "Tonic Water",
+    "Limette"
+   ],
+   "glass": "Ballonglas",
+   "serve_style": "Highball",
+   "strength": {
+    "level": 3,
+    "label": "mittel"
+   },
+   "flavour_tags": [
+    "kräuterig/frisch",
+    "bitter",
+    "prickelnd"
+   ],
+   "moment": [
+    "Auftakt",
+    "Mittendrin"
+   ],
+   "alcohol_free": false,
+   "allergens": [],
+   "price_eur": 8.5,
+   "units_sold": 24,
+   "popularity_rank": 31,
+   "available": true,
+   "unavailable_reason": "",
+   "on_printed_menu": false,
+   "pos_sku": "381",
+   "recipe_known": true,
+   "recipe_status": "live",
+   "recipe_note": "",
+   "bar_recipe": [
+    {
+     "amount": "60 ml",
+     "product": "Tanqueray 1L"
+    },
+    {
+     "amount": "200 ml",
+     "product": "Thomas Henry - Tonic Water 1L"
+    },
+    {
+     "amount": "0.1 Stk",
+     "product": "Gurke"
+    },
+    {
+     "amount": "4.6 oz",
+     "product": "Eiswuerfel - Solid 5 kg"
+    }
+   ],
+   "hidden_on_card": false,
+   "card_action": ""
+  },
+  {
+   "name": "Amaretto Sour",
+   "section": "Sours",
+   "tagline_de": "Mandel und Bourbon, weich und mit Schaum. Der Sour für alle, die es lieber rund mögen.",
+   "bartender_note_de": "",
+   "ingredients_guest": [
+    "Amaretto",
+    "Whiskey",
+    "Zitrone",
+    "Orange",
+    "Zucker",
+    "Eiweiss"
+   ],
+   "glass": "Tumbler",
+   "serve_style": "Sour",
+   "strength": {
+    "level": 3,
+    "label": "mittel"
+   },
+   "flavour_tags": [
+    "süß",
+    "sauer/zitrus",
+    "cremig"
+   ],
+   "moment": [
+    "Mittendrin"
+   ],
+   "alcohol_free": false,
+   "allergens": [
+    "Ei",
+    "Nüsse"
+   ],
+   "price_eur": 9.7,
+   "units_sold": 22,
+   "popularity_rank": 32,
+   "available": true,
+   "unavailable_reason": "",
+   "on_printed_menu": true,
+   "pos_sku": "258",
+   "recipe_known": true,
+   "recipe_status": "live",
+   "recipe_note": "",
+   "bar_recipe": [
+    {
+     "amount": "60 ml",
+     "product": "Antica Distilleria Quaglia Amaretto -  700ml"
+    },
+    {
+     "amount": "20 ml",
+     "product": "Four Roses Bourbon 750ml"
+    },
+    {
+     "amount": "20 ml",
+     "product": "Granini Fruchtsaft - Orange"
+    },
+    {
+     "amount": "30 ml",
+     "product": "Granini Fruchtsaft - Zitrone"
+    },
+    {
+     "amount": "10 ml",
+     "product": "Eiweiss"
+    },
+    {
+     "amount": "20 ml",
+     "product": "RIOBA Rohrzucker Syrup - 0,7l"
+    }
+   ],
+   "hidden_on_card": false,
+   "card_action": ""
+  },
+  {
+   "name": "Ricky Ricky",
+   "section": "Gin Cocktails",
+   "tagline_de": "Gin, Limette, Minze und Soda. Leicht wie ein Sommerabend, auch im Januar.",
+   "bartender_note_de": "",
+   "ingredients_guest": [
+    "Tanqueray",
+    "Limette",
+    "Minze",
+    "Zucker",
+    "Soda"
+   ],
+   "glass": "Highball",
+   "serve_style": "Highball",
+   "strength": {
+    "level": 2,
+    "label": "mild"
+   },
+   "flavour_tags": [
+    "kräuterig/frisch",
+    "sauer/zitrus",
+    "prickelnd"
+   ],
+   "moment": [
+    "Auftakt"
+   ],
+   "alcohol_free": false,
+   "allergens": [],
+   "price_eur": 9.7,
+   "units_sold": 21,
+   "popularity_rank": 33,
+   "available": true,
+   "unavailable_reason": "",
+   "on_printed_menu": true,
+   "pos_sku": "336",
+   "recipe_known": true,
+   "recipe_status": "live",
+   "recipe_note": "",
+   "bar_recipe": [
+    {
+     "amount": "60 ml",
+     "product": "Tanqueray 1L"
+    },
+    {
+     "amount": "30 ml",
+     "product": "Limettensaft"
+    },
+    {
+     "amount": "10 ml",
+     "product": "Mozartquelle Fortissimo 0,75l"
+    },
+    {
+     "amount": "0.2 oz",
+     "product": "Minze"
+    },
+    {
+     "amount": "20 ml",
+     "product": "RIOBA Rohrzucker Syrup - 0,7l"
+    }
+   ],
+   "hidden_on_card": false,
+   "card_action": ""
+  },
+  {
+   "name": "Wildberry Lillet Spritz",
+   "section": "Spritz",
+   "tagline_de": "Lillet mit Waldbeere. Der Spritz, den fast jeder schon mal getrunken hat und trotzdem wieder bestellt.",
+   "bartender_note_de": "",
+   "ingredients_guest": [
+    "Lillet Blanc",
+    "Prosecco",
+    "Schweppes Berry"
+   ],
+   "glass": "Weinglas",
+   "serve_style": "Spritz",
+   "strength": {
+    "level": 1,
+    "label": "leicht"
+   },
+   "flavour_tags": [
+    "fruchtig",
+    "prickelnd"
+   ],
+   "moment": [
+    "Auftakt"
+   ],
+   "alcohol_free": false,
+   "allergens": [],
+   "price_eur": 7.9,
+   "units_sold": 21,
+   "popularity_rank": 34,
+   "available": true,
+   "unavailable_reason": "",
+   "on_printed_menu": true,
+   "pos_sku": "264",
+   "recipe_known": true,
+   "recipe_status": "live",
+   "recipe_note": "",
+   "bar_recipe": [
+    {
+     "amount": "60 ml",
+     "product": "Lillet Blanc 750ml"
+    },
+    {
+     "amount": "90 ml",
+     "product": "La Gioiosa Prosecco"
+    },
+    {
+     "amount": "30 ml",
+     "product": "Schweppes - Berry 1L"
+    }
+   ],
+   "hidden_on_card": false,
+   "card_action": ""
+  },
+  {
+   "name": "Margarita",
+   "section": "Agave Cocktails",
+   "tagline_de": "Tequila, Limette, Cointreau und Salz am Rand. Der Massstab für jede Bar.",
+   "bartender_note_de": "",
+   "ingredients_guest": [
+    "Tequila",
+    "Limette",
+    "Cointreau",
+    "Agave",
+    "Salz"
+   ],
+   "glass": "Coupe",
+   "serve_style": "Shaken",
+   "strength": {
+    "level": 4,
+    "label": "kräftig"
+   },
+   "flavour_tags": [
+    "sauer/zitrus",
+    "süß"
+   ],
+   "moment": [
+    "Auftakt",
+    "Mittendrin"
+   ],
+   "alcohol_free": false,
+   "allergens": [],
+   "price_eur": 9.7,
+   "units_sold": 18,
+   "popularity_rank": 35,
+   "available": true,
+   "unavailable_reason": "",
+   "on_printed_menu": true,
+   "pos_sku": "1201",
+   "recipe_known": true,
+   "recipe_status": "live",
+   "recipe_note": "",
+   "bar_recipe": [
+    {
+     "amount": "60 ml",
+     "product": "Jose Cuervo Silver 700ml"
+    },
+    {
+     "amount": "30 ml",
+     "product": "Cointreau 1L"
+    },
+    {
+     "amount": "30 ml",
+     "product": "Limettensaft"
+    },
+    {
+     "amount": "15 ml",
+     "product": "Agaven Nektar"
+    }
+   ],
+   "hidden_on_card": false,
+   "card_action": ""
+  },
+  {
+   "name": "Haselnuss 2cl",
+   "section": "Shots",
+   "tagline_de": "Nussig und weich. Der Shot für alle, die es nicht scharf mögen.",
+   "bartender_note_de": "",
+   "ingredients_guest": [
+    "Haselnusslikör"
+   ],
+   "glass": "Shotglas",
+   "serve_style": "Shot",
+   "strength": {
+    "level": 2,
+    "label": "mild"
+   },
+   "flavour_tags": [
+    "süß",
+    "cremig"
+   ],
+   "moment": [
+    "Später Abend"
+   ],
+   "alcohol_free": false,
+   "allergens": [
+    "Nüsse"
+   ],
+   "price_eur": 3.0,
+   "units_sold": 17,
+   "popularity_rank": 36,
+   "available": true,
+   "unavailable_reason": "",
+   "on_printed_menu": false,
+   "pos_sku": "253",
+   "recipe_known": true,
+   "recipe_status": "live",
+   "recipe_note": "",
+   "bar_recipe": [
+    {
+     "amount": "20 ml",
+     "product": "Haselnuss"
+    }
+   ],
+   "hidden_on_card": false,
+   "card_action": ""
+  },
+  {
+   "name": "Skinny Lady",
+   "section": "Mixgetränke",
+   "tagline_de": "Wodka, Limette, Sprudel. Kein Zucker, kein Schnickschnack, unter hundert Kalorien.",
+   "bartender_note_de": "",
+   "ingredients_guest": [
+    "Absolut",
+    "Limette",
+    "Mineralwasser"
+   ],
+   "glass": "Highball",
+   "serve_style": "Highball",
+   "strength": {
+    "level": 2,
+    "label": "mild"
+   },
+   "flavour_tags": [
+    "sauer/zitrus",
+    "prickelnd"
+   ],
+   "moment": [
+    "Auftakt"
+   ],
+   "alcohol_free": false,
+   "allergens": [],
+   "price_eur": 8.5,
+   "units_sold": 16,
+   "popularity_rank": 37,
+   "available": true,
+   "unavailable_reason": "",
+   "on_printed_menu": false,
+   "pos_sku": "286",
+   "recipe_known": true,
+   "recipe_status": "live",
+   "recipe_note": "",
+   "bar_recipe": [
+    {
+     "amount": "60 ml",
+     "product": "Absolut 1L"
+    },
+    {
+     "amount": "30 ml",
+     "product": "Granini Fruchtsaft - Zitrone"
+    },
+    {
+     "amount": "200 ml",
+     "product": "Mozartquelle Fortissimo 0,75l"
+    },
+    {
+     "amount": "0.25 Stk",
+     "product": "Frische Zitrone"
+    },
+    {
+     "amount": "4.6 oz",
+     "product": "Eiswuerfel - Solid 5 kg"
+    }
+   ],
+   "hidden_on_card": false,
+   "card_action": ""
+  },
+  {
+   "name": "Johnnie Black White Peach",
+   "section": "Mixgetränke",
+   "tagline_de": "Scotch mit weissem Pfirsich. Klingt ungewöhnlich, trinkt sich gefährlich leicht.",
+   "bartender_note_de": "",
+   "ingredients_guest": [
+    "Johnnie Walker Black",
+    "Schweppes White Peach"
+   ],
+   "glass": "Highball",
+   "serve_style": "Highball",
+   "strength": {
+    "level": 3,
+    "label": "mittel"
+   },
+   "flavour_tags": [
+    "fruchtig",
+    "prickelnd"
+   ],
+   "moment": [
+    "Mittendrin"
+   ],
+   "alcohol_free": false,
+   "allergens": [],
+   "price_eur": 9.7,
+   "units_sold": 15,
+   "popularity_rank": 38,
+   "available": true,
+   "unavailable_reason": "",
+   "on_printed_menu": false,
+   "pos_sku": "373",
+   "recipe_known": true,
+   "recipe_status": "live",
+   "recipe_note": "",
+   "bar_recipe": [
+    {
+     "amount": "60 ml",
+     "product": "Johnnie Walker Black 1L"
+    },
+    {
+     "amount": "1 Stk",
+     "product": "Schweppes - White Peach 0,2l"
+    },
+    {
+     "amount": "0.3 Stk",
+     "product": "Dried Peach"
+    }
+   ],
+   "hidden_on_card": false,
+   "card_action": ""
+  },
+  {
+   "name": "Naughty or Nice",
+   "section": "Cocktails",
+   "tagline_de": "Gin und Campari mit Trauben. Bitter und fruchtig zugleich, je nach Schluck.",
+   "bartender_note_de": "",
+   "ingredients_guest": [
+    "Tanqueray",
+    "Campari",
+    "Zitrone",
+    "Trauben",
+    "Zucker"
+   ],
+   "glass": "Coupe",
+   "serve_style": "Sour",
+   "strength": {
+    "level": 4,
+    "label": "kräftig"
+   },
+   "flavour_tags": [
+    "bitter",
+    "fruchtig",
+    "sauer/zitrus"
+   ],
+   "moment": [
+    "Mittendrin"
+   ],
+   "alcohol_free": false,
+   "allergens": [],
+   "price_eur": 9.7,
+   "units_sold": 14,
+   "popularity_rank": 39,
+   "available": true,
+   "unavailable_reason": "",
+   "on_printed_menu": false,
+   "pos_sku": "337",
+   "recipe_known": true,
+   "recipe_status": "live",
+   "recipe_note": "",
+   "bar_recipe": [
+    {
+     "amount": "60 ml",
+     "product": "Tanqueray 1L"
+    },
+    {
+     "amount": "30 ml",
+     "product": "Campari 1L"
+    },
+    {
+     "amount": "30 ml",
+     "product": "Granini Fruchtsaft - Zitrone"
+    },
+    {
+     "amount": "1 Stk",
+     "product": "Trauben"
+    },
+    {
+     "amount": "20 ml",
+     "product": "RIOBA Rohrzucker Syrup - 0,7l"
+    }
+   ],
+   "hidden_on_card": true,
+   "card_action": "Bleibt auf der Karte versteckt (Dan 19.08.2026)"
+  },
+  {
+   "name": "Alkoholfrei - Porn Star Martini",
+   "section": "Alkoholfrei",
+   "tagline_de": "Maracuja und Vanille, alles wie im Original, nur ohne Alkohol. Sogar der Prosecco daneben.",
+   "bartender_note_de": "",
+   "ingredients_guest": [
+    "alkoholfreier Gin",
+    "Maracuja",
+    "Vanille",
+    "Zitrone",
+    "alkoholfreier Sekt"
+   ],
+   "glass": "Coupe mit Sidecar",
+   "serve_style": "Sour",
+   "strength": {
+    "level": 0,
+    "label": "alkoholfrei"
+   },
+   "flavour_tags": [
+    "fruchtig",
+    "süß",
+    "prickelnd"
+   ],
+   "moment": [
+    "Auftakt",
+    "Mittendrin"
+   ],
+   "alcohol_free": true,
+   "allergens": [
+    "Ei"
+   ],
+   "price_eur": 13.7,
+   "units_sold": 13,
+   "popularity_rank": 40,
+   "available": true,
+   "unavailable_reason": "",
+   "on_printed_menu": false,
+   "pos_sku": "403",
+   "recipe_known": true,
+   "recipe_status": "live",
+   "recipe_note": "",
+   "bar_recipe": [
+    {
+     "amount": "50 ml",
+     "product": "Tanqueray 0.0 750ml"
+    },
+    {
+     "amount": "200 ml",
+     "product": "Freixenet 0,0 Prosecco"
+    },
+    {
+     "amount": "20 ml",
+     "product": "Granini Fruchtsaft - Maracuja"
+    },
+    {
+     "amount": "20 ml",
+     "product": "Granini Fruchtsaft - Zitrone"
+    },
+    {
+     "amount": "0.5 Stk",
+     "product": "Frische Maracuja"
+    },
+    {
+     "amount": "0.5 ml",
+     "product": "Fee Brothers - Fee Foamer"
+    },
+    {
+     "amount": "20 ml",
+     "product": "Giffard Fruits de la Passion Maracujasirup - 1l"
+    },
+    {
+     "amount": "10 ml",
+     "product": "Giffard Vanille Sirup - 1L"
+    },
+    {
+     "amount": "6 oz",
+     "product": "Eiswuerfel - Solid 5 kg"
+    }
+   ],
+   "hidden_on_card": false,
+   "card_action": ""
+  },
+  {
+   "name": "La Rosa",
+   "section": "Cocktails",
+   "tagline_de": "Cachaça mit Ananas und Granatapfel. Fruchtig ohne süsslich zu werden.",
+   "bartender_note_de": "",
+   "ingredients_guest": [
+    "Cachaça",
+    "Ananas",
+    "Zitrone",
+    "Granatapfel",
+    "Soda"
+   ],
+   "glass": "Highball",
+   "serve_style": "Highball",
+   "strength": {
+    "level": 2,
+    "label": "mild"
+   },
+   "flavour_tags": [
+    "fruchtig",
+    "sauer/zitrus",
+    "prickelnd"
+   ],
+   "moment": [
+    "Mittendrin"
+   ],
+   "alcohol_free": false,
+   "allergens": [],
+   "price_eur": 9.7,
+   "units_sold": 13,
+   "popularity_rank": 41,
+   "available": true,
+   "unavailable_reason": "",
+   "on_printed_menu": false,
+   "pos_sku": "345",
+   "recipe_known": true,
+   "recipe_status": "live",
+   "recipe_note": "",
+   "bar_recipe": [
+    {
+     "amount": "60 ml",
+     "product": "Pitu Brazilian Cachaca Rum 1L"
+    },
+    {
+     "amount": "20 ml",
+     "product": "Granini Fruchtsaft - Zitrone"
+    },
+    {
+     "amount": "30 ml",
+     "product": "Granini Fruchtsaft - Ananas"
+    },
+    {
+     "amount": "90 ml",
+     "product": "Mozartquelle Fortissimo 0,75l"
+    },
+    {
+     "amount": "20 ml",
+     "product": "Giffard - Grenadine"
+    }
+   ],
+   "hidden_on_card": true,
+   "card_action": "Bleibt auf der Karte versteckt (Dan 19.08.2026)"
+  },
+  {
+   "name": "Clover Club",
+   "section": "Gin Cocktails",
+   "tagline_de": "Himbeere und Gin mit Schaumkrone. Rosa im Glas und deutlich erwachsener, als es aussieht.",
+   "bartender_note_de": "Benannt nach einem Herrenclub in Philadelphia, lange vor der Prohibition.",
+   "ingredients_guest": [
+    "Tanqueray",
+    "Himbeere",
+    "Zitrone",
+    "Zucker"
+   ],
+   "glass": "Coupe",
+   "serve_style": "Sour",
+   "strength": {
+    "level": 3,
+    "label": "mittel"
+   },
+   "flavour_tags": [
+    "fruchtig",
+    "cremig",
+    "sauer/zitrus"
+   ],
+   "moment": [
+    "Auftakt",
+    "Mittendrin"
+   ],
+   "alcohol_free": false,
+   "allergens": [],
+   "price_eur": 9.7,
+   "units_sold": 12,
+   "popularity_rank": 42,
+   "available": true,
+   "unavailable_reason": "",
+   "on_printed_menu": true,
+   "pos_sku": "259",
+   "recipe_known": true,
+   "recipe_status": "live",
+   "recipe_note": "",
+   "bar_recipe": [
+    {
+     "amount": "60 ml",
+     "product": "Tanqueray 1L"
+    },
+    {
+     "amount": "30 ml",
+     "product": "Granini Fruchtsaft - Zitrone"
+    },
+    {
+     "amount": "0.5 ml",
+     "product": "Fee Brothers - Fee Foamer"
+    },
+    {
+     "amount": "20 ml",
+     "product": "1883 - Himbeersirup"
+    }
+   ],
+   "hidden_on_card": false,
+   "card_action": ""
+  },
+  {
+   "name": "Frangelico Sour",
+   "section": "Sours",
+   "tagline_de": "Haselnuss und Wodka, sauer abgezogen. Klingt seltsam, funktioniert überraschend gut.",
+   "bartender_note_de": "",
+   "ingredients_guest": [
+    "Frangelico",
+    "Vodka",
+    "Zitrone",
+    "Limette",
+    "Zucker",
+    "Eiweiss"
+   ],
+   "glass": "Tumbler",
+   "serve_style": "Sour",
+   "strength": {
+    "level": 3,
+    "label": "mittel"
+   },
+   "flavour_tags": [
+    "süß",
+    "cremig",
+    "sauer/zitrus"
+   ],
+   "moment": [
+    "Später Abend"
+   ],
+   "alcohol_free": false,
+   "allergens": [
+    "Ei",
+    "Nüsse"
+   ],
+   "price_eur": 9.7,
+   "units_sold": 12,
+   "popularity_rank": 43,
+   "available": true,
+   "unavailable_reason": "",
+   "on_printed_menu": true,
+   "pos_sku": "257",
+   "recipe_known": true,
+   "recipe_status": "live",
+   "recipe_note": "",
+   "bar_recipe": [
+    {
+     "amount": "60 ml",
+     "product": "Frangelico 750ml"
+    },
+    {
+     "amount": "20 ml",
+     "product": "Absolut 1L"
+    },
+    {
+     "amount": "15 ml",
+     "product": "Granini Fruchtsaft - Zitrone"
+    },
+    {
+     "amount": "15 ml",
+     "product": "Limettensaft"
+    },
+    {
+     "amount": "10 ml",
+     "product": "Eiweiss"
+    },
+    {
+     "amount": "20 ml",
+     "product": "RIOBA Rohrzucker Syrup - 0,7l"
+    }
+   ],
+   "hidden_on_card": false,
+   "card_action": ""
+  },
+  {
+   "name": "Pina Colada",
+   "section": "Frozen",
+   "tagline_de": "Ananas, Kokos, Rum. Kein bisschen ironisch gemeint.",
+   "bartender_note_de": "",
+   "ingredients_guest": [
+    "Rum",
+    "Ananas",
+    "Kokos",
+    "Sahne"
+   ],
+   "glass": "Hurricane",
+   "serve_style": "Frozen",
+   "strength": {
+    "level": 2,
+    "label": "mild"
+   },
+   "flavour_tags": [
+    "fruchtig",
+    "cremig",
+    "süß"
+   ],
+   "moment": [
+    "Mittendrin"
+   ],
+   "alcohol_free": false,
+   "allergens": [
+    "Milch"
+   ],
+   "price_eur": 10.4,
+   "units_sold": 12,
+   "popularity_rank": 44,
+   "available": true,
+   "unavailable_reason": "",
+   "on_printed_menu": false,
+   "pos_sku": "128",
+   "recipe_known": true,
+   "recipe_status": "live",
+   "recipe_note": "",
+   "bar_recipe": [
+    {
+     "amount": "50 ml",
+     "product": "Bacardi Superior Light 1L"
+    },
+    {
+     "amount": "90 ml",
+     "product": "Granini Fruchtsaft - Ananas"
+    },
+    {
+     "amount": "30 ml",
+     "product": "CocoTara - Cream of Coconut"
+    }
+   ],
+   "hidden_on_card": false,
+   "card_action": ""
+  },
+  {
+   "name": "Long Island Ice Tea",
+   "section": "Cocktails",
+   "tagline_de": "Fünf Spirituosen und ein Schuss Cola. Schmeckt nach Eistee und ist es ganz sicher nicht.",
+   "bartender_note_de": "",
+   "ingredients_guest": [
+    "Wodka",
+    "Gin",
+    "Rum",
+    "Tequila",
+    "Cointreau",
+    "Zitrone",
+    "Cola"
+   ],
+   "glass": "Highball",
+   "serve_style": "Highball",
+   "strength": {
+    "level": 5,
+    "label": "stark"
+   },
+   "flavour_tags": [
+    "süß",
+    "sauer/zitrus",
+    "prickelnd"
+   ],
+   "moment": [
+    "Später Abend"
+   ],
+   "alcohol_free": false,
+   "allergens": [],
+   "price_eur": 10.1,
+   "units_sold": 11,
+   "popularity_rank": 45,
+   "available": true,
+   "unavailable_reason": "",
+   "on_printed_menu": false,
+   "pos_sku": "145",
+   "recipe_known": true,
+   "recipe_status": "live",
+   "recipe_note": "",
+   "bar_recipe": [
+    {
+     "amount": "15 ml",
+     "product": "Bacardi Superior Light 1L"
+    },
+    {
+     "amount": "15 ml",
+     "product": "Tanqueray 1L"
+    },
+    {
+     "amount": "15 ml",
+     "product": "Cointreau 1L"
+    },
+    {
+     "amount": "15 ml",
+     "product": "Jose Cuervo Silver 700ml"
+    },
+    {
+     "amount": "15 ml",
+     "product": "Absolut 1L"
+    },
+    {
+     "amount": "15 ml",
+     "product": "Granini Fruchtsaft - Zitrone"
+    },
+    {
+     "amount": "40 ml",
+     "product": "Coca Cola 1l"
+    },
+    {
+     "amount": "15 ml",
+     "product": "RIOBA Rohrzucker Syrup - 0,7l"
+    }
+   ],
+   "hidden_on_card": false,
+   "card_action": ""
+  },
+  {
+   "name": "Campari Spritz",
+   "section": "Spritz",
+   "tagline_de": "Der bittere Bruder vom Aperol Spritz. Wer den mag, geht nicht mehr zurück.",
+   "bartender_note_de": "",
+   "ingredients_guest": [
+    "Campari",
+    "Prosecco",
+    "Soda"
+   ],
+   "glass": "Weinglas",
+   "serve_style": "Spritz",
+   "strength": {
+    "level": 1,
+    "label": "leicht"
+   },
+   "flavour_tags": [
+    "bitter",
+    "prickelnd"
+   ],
+   "moment": [
+    "Auftakt"
+   ],
+   "alcohol_free": false,
+   "allergens": [],
+   "price_eur": 7.9,
+   "units_sold": 10,
+   "popularity_rank": 46,
+   "available": true,
+   "unavailable_reason": "",
+   "on_printed_menu": true,
+   "pos_sku": "147",
+   "recipe_known": true,
+   "recipe_status": "live",
+   "recipe_note": "",
+   "bar_recipe": [
+    {
+     "amount": "60 ml",
+     "product": "Campari 1L"
+    },
+    {
+     "amount": "90 ml",
+     "product": "La Gioiosa Prosecco"
+    },
+    {
+     "amount": "30 ml",
+     "product": "Mozartquelle Fortissimo 0,75l"
+    }
+   ],
+   "hidden_on_card": false,
+   "card_action": ""
+  },
+  {
+   "name": "Mint Julep",
+   "section": "Whiskey Cocktails",
+   "tagline_de": "Bourbon über crushed Ice, ein Wald aus Minze obendrauf. Trink ihn langsam, das Glas soll beschlagen.",
+   "bartender_note_de": "",
+   "ingredients_guest": [
+    "Bulleit Bourbon",
+    "Minze",
+    "Zucker",
+    "Angostura"
+   ],
+   "glass": "Becher",
+   "serve_style": "Julep",
+   "strength": {
+    "level": 4,
+    "label": "kräftig"
+   },
+   "flavour_tags": [
+    "kräuterig/frisch",
+    "süß"
+   ],
+   "moment": [
+    "Mittendrin"
+   ],
+   "alcohol_free": false,
+   "allergens": [],
+   "price_eur": 10.7,
+   "units_sold": 10,
+   "popularity_rank": 47,
+   "available": true,
+   "unavailable_reason": "",
+   "on_printed_menu": true,
+   "pos_sku": "2004",
+   "recipe_known": true,
+   "recipe_status": "live",
+   "recipe_note": "",
+   "bar_recipe": [
+    {
+     "amount": "60 ml",
+     "product": "Bulleit Bourbon 750ml"
+    },
+    {
+     "amount": "0.2 oz",
+     "product": "Minze"
+    },
+    {
+     "amount": "1 ml",
+     "product": "Angostura Bitters"
+    },
+    {
+     "amount": "20 ml",
+     "product": "RIOBA Rohrzucker Syrup - 0,7l"
+    }
+   ],
+   "hidden_on_card": false,
+   "card_action": ""
+  },
+  {
+   "name": "Wodka & Orange 6cl",
+   "section": "Mixgetränke",
+   "tagline_de": "Wodka und Orangensaft. Ehrlich und ohne Anspruch.",
+   "bartender_note_de": "",
+   "ingredients_guest": [
+    "Absolut",
+    "Orangensaft"
+   ],
+   "glass": "Highball",
+   "serve_style": "Highball",
+   "strength": {
+    "level": 3,
+    "label": "mittel"
+   },
+   "flavour_tags": [
+    "fruchtig"
+   ],
+   "moment": [
+    "Mittendrin"
+   ],
+   "alcohol_free": false,
+   "allergens": [],
+   "price_eur": 8.6,
+   "units_sold": 10,
+   "popularity_rank": 48,
+   "available": true,
+   "unavailable_reason": "",
+   "on_printed_menu": false,
+   "pos_sku": "1301",
+   "recipe_known": true,
+   "recipe_status": "live",
+   "recipe_note": "",
+   "bar_recipe": [
+    {
+     "amount": "60 ml",
+     "product": "Absolut 1L"
+    },
+    {
+     "amount": "90 ml",
+     "product": "Granini Fruchtsaft - Orange"
+    }
+   ],
+   "hidden_on_card": false,
+   "card_action": ""
+  },
+  {
+   "name": "Boulvadier",
+   "section": "Aperitivo Cocktails",
+   "tagline_de": "Negroni, aber mit Bourbon statt Gin. Wärmer, runder, im Winter der bessere von beiden.",
+   "bartender_note_de": "",
+   "ingredients_guest": [
+    "Bourbon",
+    "Campari",
+    "roter Wermut"
+   ],
+   "glass": "Tumbler",
+   "serve_style": "Stirred",
+   "strength": {
+    "level": 5,
+    "label": "stark"
+   },
+   "flavour_tags": [
+    "bitter",
+    "süß"
+   ],
+   "moment": [
+    "Später Abend"
+   ],
+   "alcohol_free": false,
+   "allergens": [],
+   "price_eur": 9.7,
+   "units_sold": 9,
+   "popularity_rank": 49,
+   "available": true,
+   "unavailable_reason": "",
+   "on_printed_menu": true,
+   "pos_sku": "301",
+   "recipe_known": true,
+   "recipe_status": "live",
+   "recipe_note": "",
+   "bar_recipe": [
+    {
+     "amount": "60 ml",
+     "product": "Four Roses Bourbon 750ml"
+    },
+    {
+     "amount": "22.5 ml",
+     "product": "Campari 1L"
+    },
+    {
+     "amount": "22.5 ml",
+     "product": "Rubino Sweet Vermouth 750ml"
+    }
+   ],
+   "hidden_on_card": false,
+   "card_action": ""
+  },
+  {
+   "name": "Gin Tonic - Fugger",
+   "section": "Gin",
+   "tagline_de": "Gin aus Augsburg mit Tonic. Der lokalste Gin Tonic, den wir haben.",
+   "bartender_note_de": "",
+   "ingredients_guest": [
+    "Fugger Gin",
+    "Tonic Water",
+    "Limette"
+   ],
+   "glass": "Ballonglas",
+   "serve_style": "Highball",
+   "strength": {
+    "level": 3,
+    "label": "mittel"
+   },
+   "flavour_tags": [
+    "kräuterig/frisch",
+    "bitter",
+    "prickelnd"
+   ],
+   "moment": [
+    "Auftakt",
+    "Mittendrin"
+   ],
+   "alcohol_free": false,
+   "allergens": [],
+   "price_eur": 9.6,
+   "units_sold": 9,
+   "popularity_rank": 50,
+   "available": true,
+   "unavailable_reason": "",
+   "on_printed_menu": false,
+   "pos_sku": "334",
+   "recipe_known": true,
+   "recipe_status": "live",
+   "recipe_note": "",
+   "bar_recipe": [
+    {
+     "amount": "60 ml",
+     "product": "Fugger Gin 500ml"
+    },
+    {
+     "amount": "1 Stk",
+     "product": "Thomas Henry -  Tonic Water 0,2l"
+    }
+   ],
+   "hidden_on_card": false,
+   "card_action": ""
+  },
+  {
+   "name": "Maple Old Fashioned",
+   "section": "Whiskey Cocktails",
+   "tagline_de": "Ahornsirup statt Zucker. Macht den Old Fashioned weicher, ohne ihn brav zu machen.",
+   "bartender_note_de": "",
+   "ingredients_guest": [
+    "Four Roses",
+    "Ahornsirup",
+    "Angostura"
+   ],
+   "glass": "Tumbler",
+   "serve_style": "Stirred",
+   "strength": {
+    "level": 5,
+    "label": "stark"
+   },
+   "flavour_tags": [
+    "süß",
+    "bitter"
+   ],
+   "moment": [
+    "Später Abend"
+   ],
+   "alcohol_free": false,
+   "allergens": [],
+   "price_eur": 10.7,
+   "units_sold": 9,
+   "popularity_rank": 51,
+   "available": true,
+   "unavailable_reason": "",
+   "on_printed_menu": true,
+   "pos_sku": "232",
+   "recipe_known": true,
+   "recipe_status": "live",
+   "recipe_note": "",
+   "bar_recipe": [
+    {
+     "amount": "60 ml",
+     "product": "Four Roses Bourbon 750ml"
+    },
+    {
+     "amount": "10 ml",
+     "product": "Ahornsirup"
+    }
+   ],
+   "hidden_on_card": false,
+   "card_action": ""
+  },
+  {
+   "name": "Vibrante Alkoholfrei Spritz",
+   "section": "Spritz alkoholfrei",
+   "tagline_de": "Die bittere alkoholfreie Variante. Orange und Kräuter, ohne Kompromiss.",
+   "bartender_note_de": "",
+   "ingredients_guest": [
+    "Martini Vibrante",
+    "alkoholfreier Sekt",
+    "Soda"
+   ],
+   "glass": "Weinglas",
+   "serve_style": "Spritz",
+   "strength": {
+    "level": 0,
+    "label": "alkoholfrei"
+   },
+   "flavour_tags": [
+    "bitter",
+    "prickelnd"
+   ],
+   "moment": [
+    "Auftakt"
+   ],
+   "alcohol_free": true,
+   "allergens": [],
+   "price_eur": 7.7,
+   "units_sold": 9,
+   "popularity_rank": 52,
+   "available": true,
+   "unavailable_reason": "",
+   "on_printed_menu": true,
+   "pos_sku": "366",
+   "recipe_known": true,
+   "recipe_status": "live",
+   "recipe_note": "",
+   "bar_recipe": [
+    {
+     "amount": "60 ml",
+     "product": "Martini Vibrante 750ml"
+    },
+    {
+     "amount": "90 ml",
+     "product": "La Gioiosa Prosecco"
+    },
+    {
+     "amount": "30 ml",
+     "product": "Mozartquelle Fortissimo 0,75l"
+    }
+   ],
+   "hidden_on_card": false,
+   "card_action": ""
+  },
+  {
+   "name": "Limoncello Spritz",
+   "section": "Spritz",
+   "tagline_de": "Zitrone pur, süss und kalt. Der Spritz für alle, die Sonne bestellen wollen.",
+   "bartender_note_de": "",
+   "ingredients_guest": [
+    "Limoncello",
+    "Prosecco",
+    "Soda"
+   ],
+   "glass": "Weinglas",
+   "serve_style": "Spritz",
+   "strength": {
+    "level": 1,
+    "label": "leicht"
+   },
+   "flavour_tags": [
+    "sauer/zitrus",
+    "süß",
+    "prickelnd"
+   ],
+   "moment": [
+    "Auftakt"
+   ],
+   "alcohol_free": false,
+   "allergens": [],
+   "price_eur": 7.9,
+   "units_sold": 8,
+   "popularity_rank": 53,
+   "available": true,
+   "unavailable_reason": "",
+   "on_printed_menu": true,
+   "pos_sku": "367",
+   "recipe_known": true,
+   "recipe_status": "live",
+   "recipe_note": "",
+   "bar_recipe": [
+    {
+     "amount": "60 ml",
+     "product": "Ramazzotti Lemoncello 750ml"
+    },
+    {
+     "amount": "90 ml",
+     "product": "La Gioiosa Prosecco"
+    },
+    {
+     "amount": "30 ml",
+     "product": "Mozartquelle Fortissimo 0,75l"
+    }
+   ],
+   "hidden_on_card": false,
+   "card_action": ""
+  },
+  {
+   "name": "Negroni Sbagliato",
+   "section": "Aperitivo Cocktails",
+   "tagline_de": "Der verwechselte Negroni. Statt Gin kam Prosecco ins Glas und alle fanden es besser.",
+   "bartender_note_de": "Sbagliato heisst auf Italienisch schlicht falsch. Ein Barkeeper in Mailand griff zur falschen Flasche.",
+   "ingredients_guest": [
+    "Campari",
+    "roter Wermut",
+    "Prosecco"
+   ],
+   "glass": "Tumbler",
+   "serve_style": "Stirred",
+   "strength": {
+    "level": 2,
+    "label": "mild"
+   },
+   "flavour_tags": [
+    "bitter",
+    "prickelnd"
+   ],
+   "moment": [
+    "Auftakt"
+   ],
+   "alcohol_free": false,
+   "allergens": [],
+   "price_eur": 9.7,
+   "units_sold": 8,
+   "popularity_rank": 54,
+   "available": true,
+   "unavailable_reason": "",
+   "on_printed_menu": true,
+   "pos_sku": "300",
+   "recipe_known": true,
+   "recipe_status": "live",
+   "recipe_note": "",
+   "bar_recipe": [
+    {
+     "amount": "30 ml",
+     "product": "Campari 1L"
+    },
+    {
+     "amount": "200 ml",
+     "product": "La Gioiosa Prosecco"
+    },
+    {
+     "amount": "30 ml",
+     "product": "Rubino Sweet Vermouth 750ml"
+    }
+   ],
+   "hidden_on_card": false,
+   "card_action": ""
+  },
+  {
+   "name": "Rosato Spritz",
+   "section": "Spritz",
+   "tagline_de": "Der leichteste Spritz auf der Karte. Blumig, trocken, unaufdringlich.",
+   "bartender_note_de": "",
+   "ingredients_guest": [
+    "Rosato Aperitivo",
+    "Prosecco",
+    "Soda"
+   ],
+   "glass": "Weinglas",
+   "serve_style": "Spritz",
+   "strength": {
+    "level": 1,
+    "label": "leicht"
+   },
+   "flavour_tags": [
+    "fruchtig",
+    "prickelnd"
+   ],
+   "moment": [
+    "Auftakt"
+   ],
+   "alcohol_free": true,
+   "allergens": [],
+   "price_eur": 7.9,
+   "units_sold": 8,
+   "popularity_rank": 55,
+   "available": true,
+   "unavailable_reason": "",
+   "on_printed_menu": true,
+   "pos_sku": "209",
+   "recipe_known": true,
+   "recipe_status": "live",
+   "recipe_note": "",
+   "bar_recipe": [
+    {
+     "amount": "60 ml",
+     "product": "Ramazzotti Rosato 750ml"
+    },
+    {
+     "amount": "90 ml",
+     "product": "Freixenet 0,0 Prosecco"
+    },
+    {
+     "amount": "30 ml",
+     "product": "Mozartquelle Fortissimo 0,75l"
+    }
+   ],
+   "hidden_on_card": false,
+   "card_action": ""
+  },
+  {
+   "name": "Campari & Soda",
+   "section": "Mixgetränke",
+   "tagline_de": "Zwei Zutaten, maximal bitter. Der Aperitif für Puristen.",
+   "bartender_note_de": "",
+   "ingredients_guest": [
+    "Campari",
+    "Soda"
+   ],
+   "glass": "Highball",
+   "serve_style": "Highball",
+   "strength": {
+    "level": 1,
+    "label": "leicht"
+   },
+   "flavour_tags": [
+    "bitter",
+    "prickelnd"
+   ],
+   "moment": [
+    "Auftakt"
+   ],
+   "alcohol_free": false,
+   "allergens": [],
+   "price_eur": 7.1,
+   "units_sold": 7,
+   "popularity_rank": 56,
+   "available": true,
+   "unavailable_reason": "",
+   "on_printed_menu": false,
+   "pos_sku": "192",
+   "recipe_known": true,
+   "recipe_status": "live",
+   "recipe_note": "",
+   "bar_recipe": [
+    {
+     "amount": "60 ml",
+     "product": "Campari 1L"
+    },
+    {
+     "amount": "200 ml",
+     "product": "Mozartquelle Fortissimo 0,75l"
+    }
+   ],
+   "hidden_on_card": false,
+   "card_action": ""
+  },
+  {
+   "name": "Gin Fizz",
+   "section": "Gin",
+   "tagline_de": "Gin, Zitrone, Soda, viel Schaum. Der Drink, mit dem man um zehn Uhr morgens anfangen könnte.",
+   "bartender_note_de": "",
+   "ingredients_guest": [
+    "Gin",
+    "Zitrone",
+    "Zucker",
+    "Soda"
+   ],
+   "glass": "Highball",
+   "serve_style": "Fizz",
+   "strength": {
+    "level": 2,
+    "label": "mild"
+   },
+   "flavour_tags": [
+    "sauer/zitrus",
+    "prickelnd"
+   ],
+   "moment": [
+    "Auftakt"
+   ],
+   "alcohol_free": false,
+   "allergens": [],
+   "price_eur": 9.7,
+   "units_sold": 7,
+   "popularity_rank": 57,
+   "available": true,
+   "unavailable_reason": "",
+   "on_printed_menu": false,
+   "pos_sku": "280",
+   "recipe_known": true,
+   "recipe_status": "live",
+   "recipe_note": "",
+   "bar_recipe": [
+    {
+     "amount": "60 ml",
+     "product": "Tanqueray 1L"
+    },
+    {
+     "amount": "30 ml",
+     "product": "Granini Fruchtsaft - Zitrone"
+    },
+    {
+     "amount": "90 ml",
+     "product": "Mozartquelle Fortissimo 0,75l"
+    },
+    {
+     "amount": "0.25 Stk",
+     "product": "Frische Zitrone"
+    },
+    {
+     "amount": "20 ml",
+     "product": "RIOBA Rohrzucker Syrup - 0,7l"
+    }
+   ],
+   "hidden_on_card": false,
+   "card_action": ""
+  },
+  {
+   "name": "Old Fashioned",
+   "section": "Whiskey",
+   "tagline_de": "Whiskey, Zucker, Bitter, Eis. Der älteste Cocktail der Welt und immer noch der ehrlichste.",
+   "bartender_note_de": "",
+   "ingredients_guest": [
+    "Whiskey",
+    "Zucker",
+    "Angostura"
+   ],
+   "glass": "Tumbler",
+   "serve_style": "Stirred",
+   "strength": {
+    "level": 5,
+    "label": "stark"
+   },
+   "flavour_tags": [
+    "süß",
+    "bitter"
+   ],
+   "moment": [
+    "Später Abend"
+   ],
+   "alcohol_free": false,
+   "allergens": [],
+   "price_eur": 9.7,
+   "units_sold": 7,
+   "popularity_rank": 58,
+   "available": true,
+   "unavailable_reason": "",
+   "on_printed_menu": false,
+   "pos_sku": "149",
+   "recipe_known": true,
+   "recipe_status": "live",
+   "recipe_note": "",
+   "bar_recipe": [
+    {
+     "amount": "60 ml",
+     "product": "Four Roses Bourbon 750ml"
+    },
+    {
+     "amount": "1 ml",
+     "product": "Angostura Bitters"
+    },
+    {
+     "amount": "10 ml",
+     "product": "RIOBA Rohrzucker Syrup - 0,7l"
+    }
+   ],
+   "hidden_on_card": false,
+   "card_action": "Auf der Karte einblenden (Dan 19.08.2026)"
+  },
+  {
+   "name": "Alkoholfrei - Caipirinha",
+   "section": "Alkoholfrei",
+   "tagline_de": "Limette und Rohrzucker über crushed Ice. Braucht keinen Alkohol, um zu funktionieren.",
+   "bartender_note_de": "",
+   "ingredients_guest": [
+    "alkoholfreie Cachaça",
+    "Limette",
+    "Zucker",
+    "Soda"
+   ],
+   "glass": "Tumbler",
+   "serve_style": "Muddled",
+   "strength": {
+    "level": 0,
+    "label": "alkoholfrei"
+   },
+   "flavour_tags": [
+    "sauer/zitrus",
+    "süß"
+   ],
+   "moment": [
+    "Ganzer Abend"
+   ],
+   "alcohol_free": true,
+   "allergens": [],
+   "price_eur": 9.7,
+   "units_sold": 6,
+   "popularity_rank": 59,
+   "available": true,
+   "unavailable_reason": "",
+   "on_printed_menu": false,
+   "pos_sku": "405",
+   "recipe_known": true,
+   "recipe_status": "live",
+   "recipe_note": "",
+   "bar_recipe": [
+    {
+     "amount": "60 ml",
+     "product": "Pitu Brazilian Cachaca Rum 0.0 750ml"
+    },
+    {
+     "amount": "30 ml",
+     "product": "Limettensaft"
+    },
+    {
+     "amount": "90 ml",
+     "product": "Mozartquelle Fortissimo 0,75l"
+    },
+    {
+     "amount": "20 ml",
+     "product": "RIOBA Rohrzucker Syrup - 0,7l"
+    },
+    {
+     "amount": "7 oz",
+     "product": "Eiswuerfel - Crushed 5 kg"
+    }
+   ],
+   "hidden_on_card": false,
+   "card_action": ""
+  },
+  {
+   "name": "Alkoholfrei - Gin Basil",
+   "section": "Alkoholfrei",
+   "tagline_de": "Basilikum und Zitrone auf alkoholfreiem Gin. Verliert nichts ausser dem Alkohol.",
+   "bartender_note_de": "",
+   "ingredients_guest": [
+    "Tanqueray 0.0",
+    "Basilikum",
+    "Zitrone",
+    "Zucker"
+   ],
+   "glass": "Tumbler",
+   "serve_style": "Sour",
+   "strength": {
+    "level": 0,
+    "label": "alkoholfrei"
+   },
+   "flavour_tags": [
+    "kräuterig/frisch",
+    "sauer/zitrus"
+   ],
+   "moment": [
+    "Auftakt",
+    "Mittendrin"
+   ],
+   "alcohol_free": true,
+   "allergens": [],
+   "price_eur": 9.7,
+   "units_sold": 6,
+   "popularity_rank": 60,
+   "available": false,
+   "unavailable_reason": "Kein Basilikum mehr im Bestand. Von der Karte genommen 19.08.2026.",
+   "on_printed_menu": false,
+   "pos_sku": "401",
+   "recipe_known": true,
+   "recipe_status": "live",
+   "recipe_note": "",
+   "bar_recipe": [
+    {
+     "amount": "60 ml",
+     "product": "Tanqueray 0.0 750ml"
+    },
+    {
+     "amount": "30 ml",
+     "product": "Granini Fruchtsaft - Zitrone"
+    },
+    {
+     "amount": "0.6 oz",
+     "product": "Basil"
+    },
+    {
+     "amount": "20 ml",
+     "product": "RIOBA Rohrzucker Syrup - 0,7l"
+    }
+   ],
+   "hidden_on_card": false,
+   "card_action": ""
+  },
+  {
+   "name": "Danube Morning",
+   "section": "Cocktails",
+   "tagline_de": "Erdbeere und Basilikum auf Cachaça. Schmeckt nach Garten im Juni.",
+   "bartender_note_de": "",
+   "ingredients_guest": [
+    "Cachaça",
+    "Erdbeere",
+    "Basilikum",
+    "Limette",
+    "Zucker",
+    "Soda"
+   ],
+   "glass": "Highball",
+   "serve_style": "Highball",
+   "strength": {
+    "level": 2,
+    "label": "mild"
+   },
+   "flavour_tags": [
+    "fruchtig",
+    "kräuterig/frisch",
+    "prickelnd"
+   ],
+   "moment": [
+    "Auftakt",
+    "Mittendrin"
+   ],
+   "alcohol_free": false,
+   "allergens": [],
+   "price_eur": 9.7,
+   "units_sold": 6,
+   "popularity_rank": 61,
+   "available": true,
+   "unavailable_reason": "",
+   "on_printed_menu": false,
+   "pos_sku": "343",
+   "recipe_known": true,
+   "recipe_status": "live",
+   "recipe_note": "",
+   "bar_recipe": [
+    {
+     "amount": "20 ml",
+     "product": "Pitu Brazilian Cachaca Rum 1L"
+    },
+    {
+     "amount": "30 ml",
+     "product": "Limettensaft"
+    },
+    {
+     "amount": "200 ml",
+     "product": "Mozartquelle Fortissimo 0,75l"
+    },
+    {
+     "amount": "0.2 oz",
+     "product": "Basil"
+    },
+    {
+     "amount": "1 oz",
+     "product": "Erdbeeren"
+    },
+    {
+     "amount": "20 ml",
+     "product": "RIOBA Rohrzucker Syrup - 0,7l"
+    }
+   ],
+   "hidden_on_card": true,
+   "card_action": "Bleibt auf der Karte versteckt (Dan 19.08.2026)"
+  },
+  {
+   "name": "Don Julio Ranch Water",
+   "section": "Tequila",
+   "tagline_de": "Tequila, Limette, Sprudel. Aus Texas und so unkompliziert, wie es klingt.",
+   "bartender_note_de": "",
+   "ingredients_guest": [
+    "Don Julio Blanco",
+    "Limette",
+    "Mineralwasser"
+   ],
+   "glass": "Highball",
+   "serve_style": "Highball",
+   "strength": {
+    "level": 2,
+    "label": "mild"
+   },
+   "flavour_tags": [
+    "sauer/zitrus",
+    "prickelnd"
+   ],
+   "moment": [
+    "Auftakt"
+   ],
+   "alcohol_free": false,
+   "allergens": [],
+   "price_eur": 9.7,
+   "units_sold": 6,
+   "popularity_rank": 62,
+   "available": true,
+   "unavailable_reason": "",
+   "on_printed_menu": false,
+   "pos_sku": "382",
+   "recipe_known": true,
+   "recipe_status": "live",
+   "recipe_note": "",
+   "bar_recipe": [
+    {
+     "amount": "50 ml",
+     "product": "Don Julio Blanco 700ml"
+    },
+    {
+     "amount": "20 ml",
+     "product": "Limettensaft"
+    },
+    {
+     "amount": "120 ml",
+     "product": "Soda Water"
+    }
+   ],
+   "hidden_on_card": false,
+   "card_action": ""
+  },
+  {
+   "name": "Gingerle Sour",
+   "section": "Sours",
+   "tagline_de": "Ingwer Zitronen Likör, sauer abgezogen. Wärmt von innen, ohne scharf zu sein.",
+   "bartender_note_de": "",
+   "ingredients_guest": [
+    "gingerle",
+    "Zitrone",
+    "Zucker"
+   ],
+   "glass": "Tumbler",
+   "serve_style": "Sour",
+   "strength": {
+    "level": 2,
+    "label": "mild"
+   },
+   "flavour_tags": [
+    "sauer/zitrus",
+    "prickelnd"
+   ],
+   "moment": [
+    "Mittendrin"
+   ],
+   "alcohol_free": false,
+   "allergens": [],
+   "price_eur": 9.7,
+   "units_sold": 6,
+   "popularity_rank": 63,
+   "available": true,
+   "unavailable_reason": "",
+   "on_printed_menu": false,
+   "pos_sku": "429",
+   "recipe_known": true,
+   "recipe_status": "live",
+   "recipe_note": "",
+   "bar_recipe": [
+    {
+     "amount": "40 ml",
+     "product": "gingerle Ingwer Zitronen Likoer - 1l"
+    },
+    {
+     "amount": "30 ml",
+     "product": "Granini Fruchtsaft - Zitrone"
+    },
+    {
+     "amount": "20 ml",
+     "product": "RIOBA Rohrzucker Syrup - 0,7l"
+    },
+    {
+     "amount": "20 ml",
+     "product": "Four Roses Bourbon 1L"
+    }
+   ],
+   "hidden_on_card": false,
+   "card_action": ""
+  },
+  {
+   "name": "Pfeffi 2cl",
+   "section": "Shots",
+   "tagline_de": "Ostdeutsche Pfefferminze, eiskalt. Kult, und das zu Recht.",
+   "bartender_note_de": "",
+   "ingredients_guest": [
+    "Pfeffi"
+   ],
+   "glass": "Shotglas",
+   "serve_style": "Shot",
+   "strength": {
+    "level": 2,
+    "label": "mild"
+   },
+   "flavour_tags": [
+    "kräuterig/frisch",
+    "süß"
+   ],
+   "moment": [
+    "Später Abend"
+   ],
+   "alcohol_free": false,
+   "allergens": [],
+   "price_eur": 2.5,
+   "units_sold": 6,
+   "popularity_rank": 64,
+   "available": true,
+   "unavailable_reason": "",
+   "on_printed_menu": false,
+   "pos_sku": "163",
+   "recipe_known": true,
+   "recipe_status": "live",
+   "recipe_note": "",
+   "bar_recipe": [
+    {
+     "amount": "20 ml",
+     "product": "Pfeffi"
+    }
+   ],
+   "hidden_on_card": false,
+   "card_action": ""
+  },
+  {
+   "name": "Philosoph",
+   "section": "Sours",
+   "tagline_de": "Pfirsich und Wodka, sauer abgezogen. Unkompliziert und genau deshalb gut.",
+   "bartender_note_de": "",
+   "ingredients_guest": [
+    "Absolut",
+    "Pfirsichlikör",
+    "Zitrone",
+    "Zucker"
+   ],
+   "glass": "Coupe",
+   "serve_style": "Sour",
+   "strength": {
+    "level": 3,
+    "label": "mittel"
+   },
+   "flavour_tags": [
+    "fruchtig",
+    "sauer/zitrus"
+   ],
+   "moment": [
+    "Mittendrin"
+   ],
+   "alcohol_free": false,
+   "allergens": [],
+   "price_eur": 9.7,
+   "units_sold": 6,
+   "popularity_rank": 65,
+   "available": true,
+   "unavailable_reason": "",
+   "on_printed_menu": false,
+   "pos_sku": "395",
+   "recipe_known": true,
+   "recipe_status": "live",
+   "recipe_note": "",
+   "bar_recipe": [
+    {
+     "amount": "20 ml",
+     "product": "Absolut 1L"
+    },
+    {
+     "amount": "40 ml",
+     "product": "Jardins Secret Pfirsichlikör"
+    },
+    {
+     "amount": "30 ml",
+     "product": "Granini Fruchtsaft - Zitrone"
+    },
+    {
+     "amount": "20 ml",
+     "product": "RIOBA Rohrzucker Syrup - 0,7l"
+    }
+   ],
+   "hidden_on_card": false,
+   "card_action": ""
+  },
+  {
+   "name": "Talisker Campfire",
+   "section": "Whiskey",
+   "tagline_de": "Rauchiger Whisky in warmer Schokolade. Klingt verrückt, wärmt aber wie nichts sonst.",
+   "bartender_note_de": "",
+   "ingredients_guest": [
+    "Talisker",
+    "Milch",
+    "Kakao"
+   ],
+   "glass": "Henkelglas",
+   "serve_style": "Hot",
+   "strength": {
+    "level": 3,
+    "label": "mittel"
+   },
+   "flavour_tags": [
+    "cremig",
+    "süß"
+   ],
+   "moment": [
+    "Später Abend"
+   ],
+   "alcohol_free": false,
+   "allergens": [
+    "Milch"
+   ],
+   "price_eur": 9.7,
+   "units_sold": 6,
+   "popularity_rank": 66,
+   "available": true,
+   "unavailable_reason": "",
+   "on_printed_menu": false,
+   "pos_sku": "303",
+   "recipe_known": true,
+   "recipe_status": "live",
+   "recipe_note": "",
+   "bar_recipe": [
+    {
+     "amount": "60 ml",
+     "product": "Talisker 10 Year 750ml"
+    },
+    {
+     "amount": "2 ml",
+     "product": "Kakao"
+    },
+    {
+     "amount": "130 ml",
+     "product": "Milch"
+    }
+   ],
+   "hidden_on_card": true,
+   "card_action": "Bleibt auf der Karte versteckt (Dan 19.08.2026)"
+  },
+  {
+   "name": "Campari Orange",
+   "section": "Apertive Cocktails",
+   "tagline_de": "Bitter trifft Orange. Der italienische Nachmittag im Glas.",
+   "bartender_note_de": "",
+   "ingredients_guest": [
+    "Campari",
+    "Orangensaft"
+   ],
+   "glass": "Highball",
+   "serve_style": "Highball",
+   "strength": {
+    "level": 1,
+    "label": "leicht"
+   },
+   "flavour_tags": [
+    "bitter",
+    "fruchtig"
+   ],
+   "moment": [
+    "Auftakt"
+   ],
+   "alcohol_free": false,
+   "allergens": [],
+   "price_eur": 7.6,
+   "units_sold": 5,
+   "popularity_rank": 67,
+   "available": true,
+   "unavailable_reason": "",
+   "on_printed_menu": false,
+   "pos_sku": "308",
+   "recipe_known": true,
+   "recipe_status": "live",
+   "recipe_note": "",
+   "bar_recipe": [
+    {
+     "amount": "60 ml",
+     "product": "Campari 1L"
+    },
+    {
+     "amount": "60 ml",
+     "product": "Granini Fruchtsaft - Orange"
+    }
+   ],
+   "hidden_on_card": false,
+   "card_action": ""
+  },
+  {
+   "name": "Hugo Spritz",
+   "section": "Spritz",
+   "tagline_de": "Holunderblüte, Prosecco, Minze. In Südtirol erfunden und seitdem aus keinem Sommer wegzudenken.",
+   "bartender_note_de": "",
+   "ingredients_guest": [
+    "Holunderblüte",
+    "Prosecco",
+    "Soda",
+    "Minze"
+   ],
+   "glass": "Weinglas",
+   "serve_style": "Spritz",
+   "strength": {
+    "level": 1,
+    "label": "leicht"
+   },
+   "flavour_tags": [
+    "süß",
+    "prickelnd",
+    "kräuterig/frisch"
+   ],
+   "moment": [
+    "Auftakt"
+   ],
+   "alcohol_free": false,
+   "allergens": [],
+   "price_eur": 7.9,
+   "units_sold": 5,
+   "popularity_rank": 68,
+   "available": true,
+   "unavailable_reason": "",
+   "on_printed_menu": true,
+   "pos_sku": "200",
+   "recipe_known": true,
+   "recipe_status": "live",
+   "recipe_note": "",
+   "bar_recipe": [
+    {
+     "amount": "60 ml",
+     "product": "Giffard Holunderblütensirup 1l"
+    },
+    {
+     "amount": "90 ml",
+     "product": "La Gioiosa Prosecco"
+    },
+    {
+     "amount": "30 ml",
+     "product": "Mozartquelle Fortissimo 0,75l"
+    }
+   ],
+   "hidden_on_card": false,
+   "card_action": ""
+  },
+  {
+   "name": "Jack & Cola 6cl",
+   "section": "Mixgetränke",
+   "tagline_de": "Tennessee Whiskey und Cola. Muss man nicht erklären.",
+   "bartender_note_de": "",
+   "ingredients_guest": [
+    "Jack Daniel's",
+    "Cola"
+   ],
+   "glass": "Highball",
+   "serve_style": "Highball",
+   "strength": {
+    "level": 3,
+    "label": "mittel"
+   },
+   "flavour_tags": [
+    "süß",
+    "prickelnd"
+   ],
+   "moment": [
+    "Mittendrin"
+   ],
+   "alcohol_free": false,
+   "allergens": [],
+   "price_eur": 8.5,
+   "units_sold": 5,
+   "popularity_rank": 69,
+   "available": true,
+   "unavailable_reason": "",
+   "on_printed_menu": false,
+   "pos_sku": "179",
+   "recipe_known": true,
+   "recipe_status": "live",
+   "recipe_note": "",
+   "bar_recipe": [
+    {
+     "amount": "60 ml",
+     "product": "Jack Daniels 1L"
+    },
+    {
+     "amount": "200 ml",
+     "product": "Coca Cola 1l"
+    }
+   ],
+   "hidden_on_card": false,
+   "card_action": ""
+  },
+  {
+   "name": "Manhattan",
+   "section": "Whiskey",
+   "tagline_de": "Bourbon und Wermut, gerührt, kalt, ohne Umwege. Ein Drink für Leute, die nicht viel reden müssen.",
+   "bartender_note_de": "",
+   "ingredients_guest": [
+    "Bourbon",
+    "roter Wermut",
+    "Angostura"
+   ],
+   "glass": "Coupe",
+   "serve_style": "Stirred",
+   "strength": {
+    "level": 5,
+    "label": "stark"
+   },
+   "flavour_tags": [
+    "süß",
+    "bitter"
+   ],
+   "moment": [
+    "Später Abend"
+   ],
+   "alcohol_free": false,
+   "allergens": [],
+   "price_eur": 9.7,
+   "units_sold": 5,
+   "popularity_rank": 70,
+   "available": true,
+   "unavailable_reason": "",
+   "on_printed_menu": false,
+   "pos_sku": "2109",
+   "recipe_known": true,
+   "recipe_status": "live",
+   "recipe_note": "",
+   "bar_recipe": [
+    {
+     "amount": "60 ml",
+     "product": "Four Roses Bourbon 750ml"
+    },
+    {
+     "amount": "20 ml",
+     "product": "Rubino Sweet Vermouth 750ml"
+    },
+    {
+     "amount": "1 ml",
+     "product": "Angostura Bitters"
+    }
+   ],
+   "hidden_on_card": false,
+   "card_action": "Auf der Karte einblenden (Dan 19.08.2026)"
+  },
+  {
+   "name": "Marille 2cl",
+   "section": "Shots",
+   "tagline_de": "Marille aus Österreich. Fruchtig und wärmer, als du erwartest.",
+   "bartender_note_de": "",
+   "ingredients_guest": [
+    "Marillenschnaps"
+   ],
+   "glass": "Shotglas",
+   "serve_style": "Shot",
+   "strength": {
+    "level": 3,
+    "label": "mittel"
+   },
+   "flavour_tags": [
+    "fruchtig"
+   ],
+   "moment": [
+    "Später Abend"
+   ],
+   "alcohol_free": false,
+   "allergens": [],
+   "price_eur": 3.0,
+   "units_sold": 5,
+   "popularity_rank": 71,
+   "available": true,
+   "unavailable_reason": "",
+   "on_printed_menu": false,
+   "pos_sku": "255",
+   "recipe_known": true,
+   "recipe_status": "live",
+   "recipe_note": "",
+   "bar_recipe": [
+    {
+     "amount": "20 ml",
+     "product": "Alpenschnaps Marille 35 % Vol. - 1 l Flasche"
+    }
+   ],
+   "hidden_on_card": false,
+   "card_action": ""
+  },
+  {
+   "name": "Mate Spritz",
+   "section": "Spritz",
+   "tagline_de": "Club Mate trifft Prosecco. Koffein und Bläschen, der Spritz für lange Abende.",
+   "bartender_note_de": "",
+   "ingredients_guest": [
+    "Club Mate",
+    "Prosecco",
+    "Soda"
+   ],
+   "glass": "Weinglas",
+   "serve_style": "Spritz",
+   "strength": {
+    "level": 1,
+    "label": "leicht"
+   },
+   "flavour_tags": [
+    "prickelnd",
+    "bitter"
+   ],
+   "moment": [
+    "Auftakt",
+    "Mittendrin"
+   ],
+   "alcohol_free": false,
+   "allergens": [],
+   "price_eur": 7.9,
+   "units_sold": 5,
+   "popularity_rank": 72,
+   "available": true,
+   "unavailable_reason": "",
+   "on_printed_menu": true,
+   "pos_sku": "364",
+   "recipe_known": true,
+   "recipe_status": "live",
+   "recipe_note": "",
+   "bar_recipe": [
+    {
+     "amount": "1 Stk",
+     "product": "Club Mate 0,5l"
+    },
+    {
+     "amount": "250 ml",
+     "product": "La Gioiosa Prosecco"
+    }
+   ],
+   "hidden_on_card": false,
+   "card_action": ""
+  },
+  {
+   "name": "Paper Plane",
+   "section": "Whiskey",
+   "tagline_de": "Vier Zutaten zu gleichen Teilen. Bitter, sauer, fruchtig und völlig im Gleichgewicht.",
+   "bartender_note_de": "2008 von Sam Ross in New York gebaut. Einer der wenigen modernen Drinks, die schon jetzt Klassiker sind.",
+   "ingredients_guest": [
+    "Bourbon",
+    "Amaro",
+    "Aperol",
+    "Zitrone"
+   ],
+   "glass": "Coupe",
+   "serve_style": "Shaken",
+   "strength": {
+    "level": 4,
+    "label": "kräftig"
+   },
+   "flavour_tags": [
+    "bitter",
+    "sauer/zitrus",
+    "fruchtig"
+   ],
+   "moment": [
+    "Mittendrin"
+   ],
+   "alcohol_free": false,
+   "allergens": [],
+   "price_eur": 9.7,
+   "units_sold": 5,
+   "popularity_rank": 73,
+   "available": true,
+   "unavailable_reason": "",
+   "on_printed_menu": false,
+   "pos_sku": "338",
+   "recipe_known": true,
+   "recipe_status": "live",
+   "recipe_note": "",
+   "bar_recipe": [
+    {
+     "amount": "60 ml",
+     "product": "Tanqueray 1L"
+    },
+    {
+     "amount": "22.5 ml",
+     "product": "Aperol 1L"
+    },
+    {
+     "amount": "22.5 ml",
+     "product": "Averna Amaro 1L"
+    },
+    {
+     "amount": "22.5 ml",
+     "product": "Granini Fruchtsaft - Zitrone"
+    }
+   ],
+   "hidden_on_card": true,
+   "card_action": "Bleibt auf der Karte versteckt (Dan 19.08.2026)"
+  },
+  {
+   "name": "Sambuca 2cl",
+   "section": "Shots",
+   "tagline_de": "Anis, eiskalt. Entweder dein Ding oder gar nicht.",
+   "bartender_note_de": "",
+   "ingredients_guest": [
+    "Sambuca"
+   ],
+   "glass": "Shotglas",
+   "serve_style": "Shot",
+   "strength": {
+    "level": 3,
+    "label": "mittel"
+   },
+   "flavour_tags": [
+    "süß",
+    "kräuterig/frisch"
+   ],
+   "moment": [
+    "Später Abend"
+   ],
+   "alcohol_free": false,
+   "allergens": [],
+   "price_eur": 3.0,
+   "units_sold": 5,
+   "popularity_rank": 74,
+   "available": true,
+   "unavailable_reason": "",
+   "on_printed_menu": false,
+   "pos_sku": "251",
+   "recipe_known": true,
+   "recipe_status": "live",
+   "recipe_note": "",
+   "bar_recipe": [
+    {
+     "amount": "20 ml",
+     "product": "Ramazzotti Sambuca 750ml"
+    }
+   ],
+   "hidden_on_card": false,
+   "card_action": ""
+  },
+  {
+   "name": "Zacapa & Ginger",
+   "section": "Mixgetränke",
+   "tagline_de": "Gereifter Rum auf Ingwer. Teuer, aber genau richtig.",
+   "bartender_note_de": "",
+   "ingredients_guest": [
+    "Zacapa 23",
+    "Thomas Henry Spicy Ginger"
+   ],
+   "glass": "Highball",
+   "serve_style": "Highball",
+   "strength": {
+    "level": 3,
+    "label": "mittel"
+   },
+   "flavour_tags": [
+    "prickelnd",
+    "süß"
+   ],
+   "moment": [
+    "Mittendrin"
+   ],
+   "alcohol_free": false,
+   "allergens": [],
+   "price_eur": 9.7,
+   "units_sold": 5,
+   "popularity_rank": 75,
+   "available": true,
+   "unavailable_reason": "",
+   "on_printed_menu": false,
+   "pos_sku": "393",
+   "recipe_known": true,
+   "recipe_status": "live",
+   "recipe_note": "",
+   "bar_recipe": [
+    {
+     "amount": "60 ml",
+     "product": "Ron Zacapa 23 Rum 700ml"
+    },
+    {
+     "amount": "1 Stk",
+     "product": "Schweppes - Ginger Ale 0,2l"
+    }
+   ],
+   "hidden_on_card": false,
+   "card_action": ""
+  },
+  {
+   "name": "Mandelino",
+   "section": "Spritzig Selects",
+   "tagline_de": "Mandel und Kirschblüte im Prosecco. Süss, blumig und ziemlich hübsch im Glas.",
+   "bartender_note_de": "",
+   "ingredients_guest": [
+    "Prosecco",
+    "Mandelsirup",
+    "Thomas Henry Cherry Blossom"
+   ],
+   "glass": "Weinglas",
+   "serve_style": "Spritz",
+   "strength": {
+    "level": 1,
+    "label": "leicht"
+   },
+   "flavour_tags": [
+    "süß",
+    "prickelnd"
+   ],
+   "moment": [
+    "Auftakt"
+   ],
+   "alcohol_free": false,
+   "allergens": [],
+   "price_eur": 7.9,
+   "units_sold": 4,
+   "popularity_rank": 76,
+   "available": true,
+   "unavailable_reason": "",
+   "on_printed_menu": true,
+   "pos_sku": "438",
+   "recipe_known": true,
+   "recipe_status": "live",
+   "recipe_note": "",
+   "bar_recipe": [
+    {
+     "amount": "75 ml",
+     "product": "La Gioiosa Prosecco"
+    },
+    {
+     "amount": "20 ml",
+     "product": "GIFFARD ORGEAT MANDEL SIRUP 1L"
+    },
+    {
+     "amount": "4.6 oz",
+     "product": "Eiswuerfel - Solid 5 kg"
+    },
+    {
+     "amount": "1 Stk",
+     "product": "Thomas Henry - Cherry Blossom 0,2l"
+    }
+   ],
+   "hidden_on_card": false,
+   "card_action": ""
+  },
+  {
+   "name": "Margarita Rojas",
+   "section": "Agave Cocktails",
+   "tagline_de": "Margarita auf Mezcal, mit Tajín am Rand. Rauchig und salzig, ein anderes Tier als die klassische.",
+   "bartender_note_de": "",
+   "ingredients_guest": [
+    "Mezcal",
+    "Limette",
+    "Cointreau",
+    "Agave",
+    "Tajín"
+   ],
+   "glass": "Coupe",
+   "serve_style": "Shaken",
+   "strength": {
+    "level": 4,
+    "label": "kräftig"
+   },
+   "flavour_tags": [
+    "sauer/zitrus",
+    "rauchig"
+   ],
+   "moment": [
+    "Mittendrin"
+   ],
+   "alcohol_free": false,
+   "allergens": [],
+   "price_eur": 10.7,
+   "units_sold": 4,
+   "popularity_rank": 77,
+   "available": true,
+   "unavailable_reason": "",
+   "on_printed_menu": true,
+   "pos_sku": "342",
+   "recipe_known": true,
+   "recipe_status": "live",
+   "recipe_note": "",
+   "bar_recipe": [
+    {
+     "amount": "60 ml",
+     "product": "Don Julio Reposado 750ml"
+    },
+    {
+     "amount": "30 ml",
+     "product": "Cointreau 1L"
+    },
+    {
+     "amount": "30 ml",
+     "product": "Limettensaft"
+    },
+    {
+     "amount": "15 ml",
+     "product": "Agaven Nektar"
+    }
+   ],
+   "hidden_on_card": false,
+   "card_action": ""
+  },
+  {
+   "name": "Mermaid's Melody",
+   "section": "Rum/Cachaça",
+   "tagline_de": "Blau, Kokos, Limette. Sieht aus wie Urlaub und schmeckt auch so.",
+   "bartender_note_de": "",
+   "ingredients_guest": [
+    "Bacardi",
+    "Blue Curaçao",
+    "Limette",
+    "Kokos",
+    "Soda"
+   ],
+   "glass": "Highball",
+   "serve_style": "Highball",
+   "strength": {
+    "level": 2,
+    "label": "mild"
+   },
+   "flavour_tags": [
+    "fruchtig",
+    "süß",
+    "cremig"
+   ],
+   "moment": [
+    "Mittendrin"
+   ],
+   "alcohol_free": false,
+   "allergens": [],
+   "price_eur": 9.7,
+   "units_sold": 4,
+   "popularity_rank": 78,
+   "available": true,
+   "unavailable_reason": "",
+   "on_printed_menu": false,
+   "pos_sku": "346",
+   "recipe_known": true,
+   "recipe_status": "live",
+   "recipe_note": "",
+   "bar_recipe": [
+    {
+     "amount": "60 ml",
+     "product": "Bacardi Superior Light 1L"
+    },
+    {
+     "amount": "30 ml",
+     "product": "Blue Curacao 700ml"
+    },
+    {
+     "amount": "30 ml",
+     "product": "Limettensaft"
+    },
+    {
+     "amount": "40 ml",
+     "product": "Mozartquelle Fortissimo 0,75l"
+    },
+    {
+     "amount": "10 ml",
+     "product": "RIOBA Rohrzucker Syrup - 0,7l"
+    },
+    {
+     "amount": "30 ml",
+     "product": "Kokussirup"
+    }
+   ],
+   "hidden_on_card": true,
+   "card_action": "Bleibt auf der Karte versteckt (Dan 19.08.2026)"
+  },
+  {
+   "name": "Mikki",
+   "section": "Tequila/Agave",
+   "tagline_de": "Reposado mit Amaretto und Orange Bitters. Gerührt, nicht geschüttelt, und deutlich ernster als er klingt.",
+   "bartender_note_de": "",
+   "ingredients_guest": [
+    "Don Julio Reposado",
+    "Amaretto",
+    "Agave",
+    "Orange Bitters"
+   ],
+   "glass": "Tumbler",
+   "serve_style": "Stirred",
+   "strength": {
+    "level": 5,
+    "label": "stark"
+   },
+   "flavour_tags": [
+    "süß",
+    "bitter"
+   ],
+   "moment": [
+    "Später Abend"
+   ],
+   "alcohol_free": false,
+   "allergens": [
+    "Nüsse"
+   ],
+   "price_eur": 9.7,
+   "units_sold": 4,
+   "popularity_rank": 79,
+   "available": true,
+   "unavailable_reason": "",
+   "on_printed_menu": false,
+   "pos_sku": "339",
+   "recipe_known": true,
+   "recipe_status": "live",
+   "recipe_note": "",
+   "bar_recipe": [
+    {
+     "amount": "60 ml",
+     "product": "Don Julio Reposado 750ml"
+    },
+    {
+     "amount": "7.5 ml",
+     "product": "Antica Distilleria Quaglia Amaretto -  700ml"
+    },
+    {
+     "amount": "2 ml",
+     "product": "Orange Bitters"
+    },
+    {
+     "amount": "5 ml",
+     "product": "Agaven Nektar"
+    }
+   ],
+   "hidden_on_card": true,
+   "card_action": "Bleibt auf der Karte versteckt (Dan 19.08.2026)"
+  },
+  {
+   "name": "Touchdown",
+   "section": "Vodka",
+   "tagline_de": "Maracuja, Aprikose und Granatapfel. Der fruchtigste Drink auf der Karte, ohne Entschuldigung.",
+   "bartender_note_de": "",
+   "ingredients_guest": [
+    "Absolut",
+    "Aprikose",
+    "Maracuja",
+    "Ananas",
+    "Limette",
+    "Granatapfel"
+   ],
+   "glass": "Highball",
+   "serve_style": "Shaken",
+   "strength": {
+    "level": 3,
+    "label": "mittel"
+   },
+   "flavour_tags": [
+    "fruchtig",
+    "süß"
+   ],
+   "moment": [
+    "Mittendrin"
+   ],
+   "alcohol_free": false,
+   "allergens": [],
+   "price_eur": 9.7,
+   "units_sold": 4,
+   "popularity_rank": 80,
+   "available": true,
+   "unavailable_reason": "",
+   "on_printed_menu": false,
+   "pos_sku": "1901",
+   "recipe_known": true,
+   "recipe_status": "live",
+   "recipe_note": "",
+   "bar_recipe": [
+    {
+     "amount": "60 ml",
+     "product": "Absolut 1L"
+    },
+    {
+     "amount": "20 ml",
+     "product": "Bols Apricot 750ml"
+    },
+    {
+     "amount": "60 ml",
+     "product": "Granini Fruchtsaft - Maracuja"
+    },
+    {
+     "amount": "20 ml",
+     "product": "Granini Fruchtsaft - Ananas"
+    },
+    {
+     "amount": "10 ml",
+     "product": "Limettensaft"
+    },
+    {
+     "amount": "30 ml",
+     "product": "Giffard - Grenadine"
+    }
+   ],
+   "hidden_on_card": false,
+   "card_action": ""
+  },
+  {
+   "name": "Augsburg Blume",
+   "section": "Cocktails",
+   "tagline_de": "Wodka, Aperol und Holunderblüte. Unser leisester Drink und einer der besten.",
+   "bartender_note_de": "",
+   "ingredients_guest": [
+    "Absolut",
+    "Aperol",
+    "St. Germain"
+   ],
+   "glass": "Coupe",
+   "serve_style": "Stirred",
+   "strength": {
+    "level": 4,
+    "label": "kräftig"
+   },
+   "flavour_tags": [
+    "fruchtig",
+    "bitter",
+    "süß"
+   ],
+   "moment": [
+    "Auftakt",
+    "Später Abend"
+   ],
+   "alcohol_free": false,
+   "allergens": [],
+   "price_eur": 9.7,
+   "units_sold": 3,
+   "popularity_rank": 81,
+   "available": true,
+   "unavailable_reason": "",
+   "on_printed_menu": false,
+   "pos_sku": "344",
+   "recipe_known": true,
+   "recipe_status": "live",
+   "recipe_note": "",
+   "bar_recipe": [
+    {
+     "amount": "60 ml",
+     "product": "Absolut 1L"
+    },
+    {
+     "amount": "22.5 ml",
+     "product": "Aperol 1L"
+    },
+    {
+     "amount": "15 ml",
+     "product": "St. Germain Elderflower Liqueur 700ml"
+    }
+   ],
+   "hidden_on_card": true,
+   "card_action": "Bleibt auf der Karte versteckt (Dan 19.08.2026)"
+  },
+  {
+   "name": "Dama Elena",
+   "section": "Tequila/Agave",
+   "tagline_de": "Tequila Sour mit Eiweiss. Cremig oben, scharf darunter.",
+   "bartender_note_de": "",
+   "ingredients_guest": [
+    "Don Julio Blanco",
+    "Cointreau",
+    "Zitrone",
+    "Agave",
+    "Eiweiss"
+   ],
+   "glass": "Coupe",
+   "serve_style": "Sour",
+   "strength": {
+    "level": 3,
+    "label": "mittel"
+   },
+   "flavour_tags": [
+    "sauer/zitrus",
+    "cremig"
+   ],
+   "moment": [
+    "Mittendrin"
+   ],
+   "alcohol_free": false,
+   "allergens": [
+    "Ei"
+   ],
+   "price_eur": 9.7,
+   "units_sold": 3,
+   "popularity_rank": 82,
+   "available": true,
+   "unavailable_reason": "",
+   "on_printed_menu": false,
+   "pos_sku": "340",
+   "recipe_known": true,
+   "recipe_status": "live",
+   "recipe_note": "",
+   "bar_recipe": [
+    {
+     "amount": "4.5 ml",
+     "product": "Don Julio Blanco 700ml"
+    },
+    {
+     "amount": "2.5 ml",
+     "product": "Cointreau 1L"
+    },
+    {
+     "amount": "22.5 ml",
+     "product": "Granini Fruchtsaft - Zitrone"
+    },
+    {
+     "amount": "10 ml",
+     "product": "Eiweiss"
+    },
+    {
+     "amount": "15 ml",
+     "product": "Agaven Nektar"
+    }
+   ],
+   "hidden_on_card": true,
+   "card_action": "Bleibt auf der Karte versteckt (Dan 19.08.2026)"
+  },
+  {
+   "name": "Don Julio Anejo Negroni",
+   "section": "Tequila",
+   "tagline_de": "Negroni auf Añejo Tequila. Holzig, bitter, ungewöhnlich und richtig gut.",
+   "bartender_note_de": "",
+   "ingredients_guest": [
+    "Don Julio Añejo",
+    "Campari",
+    "roter Wermut"
+   ],
+   "glass": "Tumbler",
+   "serve_style": "Stirred",
+   "strength": {
+    "level": 5,
+    "label": "stark"
+   },
+   "flavour_tags": [
+    "bitter",
+    "süß"
+   ],
+   "moment": [
+    "Später Abend"
+   ],
+   "alcohol_free": false,
+   "allergens": [],
+   "price_eur": 10.2,
+   "units_sold": 3,
+   "popularity_rank": 83,
+   "available": true,
+   "unavailable_reason": "",
+   "on_printed_menu": false,
+   "pos_sku": "386",
+   "recipe_known": true,
+   "recipe_status": "live",
+   "recipe_note": "",
+   "bar_recipe": [
+    {
+     "amount": "30 ml",
+     "product": "Don Julio Anejo 700ml"
+    },
+    {
+     "amount": "30 ml",
+     "product": "Campari 1L"
+    },
+    {
+     "amount": "30 ml",
+     "product": "Rubino Sweet Vermouth 750ml"
+    }
+   ],
+   "hidden_on_card": false,
+   "card_action": ""
+  },
+  {
+   "name": "Don Julio Reposado Old Fashioned",
+   "section": "Tequila",
+   "tagline_de": "Old Fashioned mit Tequila statt Whiskey. Weicher, blumiger, überraschend.",
+   "bartender_note_de": "",
+   "ingredients_guest": [
+    "Don Julio Reposado",
+    "Agave",
+    "Angostura"
+   ],
+   "glass": "Tumbler",
+   "serve_style": "Stirred",
+   "strength": {
+    "level": 5,
+    "label": "stark"
+   },
+   "flavour_tags": [
+    "süß",
+    "bitter"
+   ],
+   "moment": [
+    "Später Abend"
+   ],
+   "alcohol_free": false,
+   "allergens": [],
+   "price_eur": 10.2,
+   "units_sold": 3,
+   "popularity_rank": 84,
+   "available": true,
+   "unavailable_reason": "",
+   "on_printed_menu": false,
+   "pos_sku": "383",
+   "recipe_known": true,
+   "recipe_status": "live",
+   "recipe_note": "",
+   "bar_recipe": [
+    {
+     "amount": "50 ml",
+     "product": "Don Julio Reposado 750ml"
+    },
+    {
+     "amount": "1 ml",
+     "product": "Angostura Bitters"
+    },
+    {
+     "amount": "10 ml",
+     "product": "Agaven Nektar"
+    }
+   ],
+   "hidden_on_card": false,
+   "card_action": ""
+  },
+  {
+   "name": "Fresco Spritz",
+   "section": "Spritz",
+   "tagline_de": "Klar, trocken, kaum süss. Wenn dir alle Spritz zu klebrig sind, nimm den.",
+   "bartender_note_de": "",
+   "ingredients_guest": [
+    "Fresco Aperitivo",
+    "Prosecco",
+    "Soda"
+   ],
+   "glass": "Weinglas",
+   "serve_style": "Spritz",
+   "strength": {
+    "level": 1,
+    "label": "leicht"
+   },
+   "flavour_tags": [
+    "bitter",
+    "prickelnd"
+   ],
+   "moment": [
+    "Auftakt"
+   ],
+   "alcohol_free": false,
+   "allergens": [],
+   "price_eur": 7.9,
+   "units_sold": 3,
+   "popularity_rank": 85,
+   "available": true,
+   "unavailable_reason": "",
+   "on_printed_menu": true,
+   "pos_sku": "1204",
+   "recipe_known": true,
+   "recipe_status": "live",
+   "recipe_note": "",
+   "bar_recipe": [
+    {
+     "amount": "60 ml",
+     "product": "Ramazzotti Fresco 750ml"
+    },
+    {
+     "amount": "90 ml",
+     "product": "La Gioiosa Prosecco"
+    },
+    {
+     "amount": "30 ml",
+     "product": "Mozartquelle Fortissimo 0,75l"
+    }
+   ],
+   "hidden_on_card": false,
+   "card_action": ""
+  },
+  {
+   "name": "Gin Tonic - Tanqueray 10",
+   "section": "Gin",
+   "tagline_de": "Der teure Tanqueray, mit frischer Zitrusfrucht destilliert. Merkst du sofort.",
+   "bartender_note_de": "",
+   "ingredients_guest": [
+    "Tanqueray No. Ten",
+    "Tonic Water",
+    "Grapefruit"
+   ],
+   "glass": "Ballonglas",
+   "serve_style": "Highball",
+   "strength": {
+    "level": 3,
+    "label": "mittel"
+   },
+   "flavour_tags": [
+    "sauer/zitrus",
+    "bitter",
+    "prickelnd"
+   ],
+   "moment": [
+    "Auftakt",
+    "Mittendrin"
+   ],
+   "alcohol_free": false,
+   "allergens": [],
+   "price_eur": 10.6,
+   "units_sold": 3,
+   "popularity_rank": 86,
+   "available": true,
+   "unavailable_reason": "",
+   "on_printed_menu": false,
+   "pos_sku": "413",
+   "recipe_known": true,
+   "recipe_status": "live",
+   "recipe_note": "",
+   "bar_recipe": [
+    {
+     "amount": "60 ml",
+     "product": "Tanqueray 10 Gin 700ml"
+    },
+    {
+     "amount": "1 Stk",
+     "product": "Thomas Henry -  Tonic Water 0,2l"
+    }
+   ],
+   "hidden_on_card": false,
+   "card_action": ""
+  },
+  {
+   "name": "Jaegermeister & Red Bull 6cl",
+   "section": "Mixgetränke",
+   "tagline_de": "Kräuter und Koffein. Der Abend nimmt ab hier eine Richtung.",
+   "bartender_note_de": "",
+   "ingredients_guest": [
+    "Jägermeister",
+    "Red Bull"
+   ],
+   "glass": "Highball",
+   "serve_style": "Highball",
+   "strength": {
+    "level": 3,
+    "label": "mittel"
+   },
+   "flavour_tags": [
+    "süß",
+    "prickelnd",
+    "kräuterig/frisch"
+   ],
+   "moment": [
+    "Später Abend"
+   ],
+   "alcohol_free": false,
+   "allergens": [],
+   "price_eur": 9.7,
+   "units_sold": 3,
+   "popularity_rank": 87,
+   "available": true,
+   "unavailable_reason": "",
+   "on_printed_menu": false,
+   "pos_sku": "1304",
+   "recipe_known": true,
+   "recipe_status": "live",
+   "recipe_note": "",
+   "bar_recipe": [
+    {
+     "amount": "60 ml",
+     "product": "Jaegermeister 1L"
+    },
+    {
+     "amount": "1 Stk",
+     "product": "Red Bull 0,25l Dose"
+    }
+   ],
+   "hidden_on_card": false,
+   "card_action": ""
+  },
+  {
+   "name": "Secco Spritz",
+   "section": "Spritz",
+   "tagline_de": "Prosecco, Soda, ein Stück Zitrone. Der Spritz ohne Umweg.",
+   "bartender_note_de": "",
+   "ingredients_guest": [
+    "Prosecco",
+    "Soda",
+    "Zitrone"
+   ],
+   "glass": "Weinglas",
+   "serve_style": "Spritz",
+   "strength": {
+    "level": 1,
+    "label": "leicht"
+   },
+   "flavour_tags": [
+    "prickelnd"
+   ],
+   "moment": [
+    "Auftakt"
+   ],
+   "alcohol_free": false,
+   "allergens": [],
+   "price_eur": 7.9,
+   "units_sold": 3,
+   "popularity_rank": 88,
+   "available": true,
+   "unavailable_reason": "",
+   "on_printed_menu": true,
+   "pos_sku": "197",
+   "recipe_known": true,
+   "recipe_status": "live",
+   "recipe_note": "",
+   "bar_recipe": [
+    {
+     "amount": "250 ml",
+     "product": "La Gioiosa Prosecco"
+    },
+    {
+     "amount": "250 ml",
+     "product": "Mozartquelle Fortissimo 0,75l"
+    }
+   ],
+   "hidden_on_card": false,
+   "card_action": ""
+  },
+  {
+   "name": "Take-It-Easy",
+   "section": "Cocktails",
+   "tagline_de": "Rum, Aperol und Mandel. Klein, süss und genau so entspannt, wie der Name sagt.",
+   "bartender_note_de": "",
+   "ingredients_guest": [
+    "Bacardi",
+    "Aperol",
+    "Limette",
+    "Orgeat"
+   ],
+   "glass": "Coupe",
+   "serve_style": "Shaken",
+   "strength": {
+    "level": 3,
+    "label": "mittel"
+   },
+   "flavour_tags": [
+    "fruchtig",
+    "süß",
+    "bitter"
+   ],
+   "moment": [
+    "Mittendrin"
+   ],
+   "alcohol_free": false,
+   "allergens": [
+    "Nüsse"
+   ],
+   "price_eur": 9.7,
+   "units_sold": 3,
+   "popularity_rank": 89,
+   "available": true,
+   "unavailable_reason": "",
+   "on_printed_menu": false,
+   "pos_sku": "341",
+   "recipe_known": true,
+   "recipe_status": "live",
+   "recipe_note": "",
+   "bar_recipe": [
+    {
+     "amount": "60 ml",
+     "product": "Bacardi Superior Light 1L"
+    },
+    {
+     "amount": "15 ml",
+     "product": "Aperol 1L"
+    },
+    {
+     "amount": "15 ml",
+     "product": "Limettensaft"
+    },
+    {
+     "amount": "7.5 ml",
+     "product": "GIFFARD ORGEAT MANDEL SIRUP 1L"
+    }
+   ],
+   "hidden_on_card": true,
+   "card_action": "Bleibt auf der Karte versteckt (Dan 19.08.2026)"
+  },
+  {
+   "name": "Wodka & Red Bull 6cl",
+   "section": "Mixgetränke",
+   "tagline_de": "Wodka mit Red Bull. Du weisst, warum du den bestellst.",
+   "bartender_note_de": "",
+   "ingredients_guest": [
+    "Absolut",
+    "Red Bull"
+   ],
+   "glass": "Highball",
+   "serve_style": "Highball",
+   "strength": {
+    "level": 3,
+    "label": "mittel"
+   },
+   "flavour_tags": [
+    "süß",
+    "prickelnd"
+   ],
+   "moment": [
+    "Später Abend"
+   ],
+   "alcohol_free": false,
+   "allergens": [],
+   "price_eur": 9.7,
+   "units_sold": 3,
+   "popularity_rank": 90,
+   "available": true,
+   "unavailable_reason": "",
+   "on_printed_menu": false,
+   "pos_sku": "133",
+   "recipe_known": true,
+   "recipe_status": "live",
+   "recipe_note": "",
+   "bar_recipe": [
+    {
+     "amount": "60 ml",
+     "product": "Absolut 1L"
+    },
+    {
+     "amount": "1 Stk",
+     "product": "Red Bull 0,25l Dose"
+    }
+   ],
+   "hidden_on_card": false,
+   "card_action": ""
+  },
+  {
+   "name": "Zacapa Espresso Martini",
+   "section": "Best Sellers",
+   "tagline_de": "Espresso Martini auf gereiftem Rum. Karamellig, tief und deutlich teurer als der normale. Zu Recht.",
+   "bartender_note_de": "",
+   "ingredients_guest": [
+    "Zacapa 23",
+    "Kahlúa",
+    "frischer Espresso",
+    "Zucker"
+   ],
+   "glass": "Coupe",
+   "serve_style": "Shaken",
+   "strength": {
+    "level": 3,
+    "label": "mittel"
+   },
+   "flavour_tags": [
+    "kaffee",
+    "süß",
+    "cremig"
+   ],
+   "moment": [
+    "Später Abend"
+   ],
+   "alcohol_free": false,
+   "allergens": [],
+   "price_eur": 13.5,
+   "units_sold": 3,
+   "popularity_rank": 91,
+   "available": true,
+   "unavailable_reason": "",
+   "on_printed_menu": false,
+   "pos_sku": "418",
+   "recipe_known": true,
+   "recipe_status": "live",
+   "recipe_note": "",
+   "bar_recipe": [
+    {
+     "amount": "50 ml",
+     "product": "Ron Zacapa 23 Rum 700ml"
+    },
+    {
+     "amount": "20 ml",
+     "product": "Kahlua 1L"
+    },
+    {
+     "amount": "1 ml",
+     "product": "Espresso"
+    },
+    {
+     "amount": "1 ml",
+     "product": "RIOBA Rohrzucker Syrup - 0,7l"
+    },
+    {
+     "amount": "6 oz",
+     "product": "Eiswuerfel - Solid 5 kg"
+    }
+   ],
+   "hidden_on_card": false,
+   "card_action": ""
+  },
+  {
+   "name": "Alk Freier Spritz",
+   "section": "Spritz",
+   "tagline_de": "Alkoholfreier Sekt mit Soda. Schlicht, kalt und immer richtig.",
+   "bartender_note_de": "",
+   "ingredients_guest": [
+    "Freixenet 0,0",
+    "Soda",
+    "Zitrone"
+   ],
+   "glass": "Weinglas",
+   "serve_style": "Spritz",
+   "strength": {
+    "level": 0,
+    "label": "alkoholfrei"
+   },
+   "flavour_tags": [
+    "prickelnd"
+   ],
+   "moment": [
+    "Auftakt"
+   ],
+   "alcohol_free": true,
+   "allergens": [],
+   "price_eur": 6.9,
+   "units_sold": 2,
+   "popularity_rank": 92,
+   "available": true,
+   "unavailable_reason": "",
+   "on_printed_menu": false,
+   "pos_sku": "306",
+   "recipe_known": true,
+   "recipe_status": "live",
+   "recipe_note": "",
+   "bar_recipe": [
+    {
+     "amount": "90 ml",
+     "product": "Freixenet 0,0 Prosecco"
+    }
+   ],
+   "hidden_on_card": false,
+   "card_action": ""
+  },
+  {
+   "name": "Alkoholfrei - Augsburg Sour",
+   "section": "Alkoholfrei",
+   "tagline_de": "Unser Hausdrink ohne Alkohol. Himbeere, Zitrone, Orange und die gleiche Schaumkrone.",
+   "bartender_note_de": "",
+   "ingredients_guest": [
+    "Tanqueray 0.0",
+    "Zitrone",
+    "Orange",
+    "Himbeere"
+   ],
+   "glass": "Tumbler",
+   "serve_style": "Sour",
+   "strength": {
+    "level": 0,
+    "label": "alkoholfrei"
+   },
+   "flavour_tags": [
+    "fruchtig",
+    "sauer/zitrus"
+   ],
+   "moment": [
+    "Ganzer Abend"
+   ],
+   "alcohol_free": true,
+   "allergens": [
+    "Ei"
+   ],
+   "price_eur": 9.7,
+   "units_sold": 2,
+   "popularity_rank": 93,
+   "available": true,
+   "unavailable_reason": "",
+   "on_printed_menu": false,
+   "pos_sku": "402",
+   "recipe_known": true,
+   "recipe_status": "live",
+   "recipe_note": "",
+   "bar_recipe": [
+    {
+     "amount": "40 ml",
+     "product": "Tanqueray 0.0 750ml"
+    },
+    {
+     "amount": "20 ml",
+     "product": "Granini Fruchtsaft - Orange"
+    },
+    {
+     "amount": "30 ml",
+     "product": "Granini Fruchtsaft - Zitrone"
+    },
+    {
+     "amount": "0.2 oz",
+     "product": "Minze"
+    },
+    {
+     "amount": "0.5 Stk",
+     "product": "Himbeeren"
+    },
+    {
+     "amount": "0.5 ml",
+     "product": "Fee Brothers - Fee Foamer"
+    },
+    {
+     "amount": "20 ml",
+     "product": "1883 - Himbeersirup"
+    }
+   ],
+   "hidden_on_card": false,
+   "card_action": ""
+  },
+  {
+   "name": "Alkoholfrei - Mojito",
+   "section": "Alkoholfrei",
+   "tagline_de": "Minze, Limette, Soda. Der Mojito ohne Rum und trotzdem ein richtiger Drink.",
+   "bartender_note_de": "",
+   "ingredients_guest": [
+    "alkoholfreier Rum",
+    "Limette",
+    "Minze",
+    "Zucker",
+    "Soda"
+   ],
+   "glass": "Highball",
+   "serve_style": "Highball",
+   "strength": {
+    "level": 0,
+    "label": "alkoholfrei"
+   },
+   "flavour_tags": [
+    "kräuterig/frisch",
+    "sauer/zitrus",
+    "prickelnd"
+   ],
+   "moment": [
+    "Ganzer Abend"
+   ],
+   "alcohol_free": true,
+   "allergens": [],
+   "price_eur": 9.7,
+   "units_sold": 2,
+   "popularity_rank": 94,
+   "available": true,
+   "unavailable_reason": "",
+   "on_printed_menu": false,
+   "pos_sku": "414",
+   "recipe_known": true,
+   "recipe_status": "live",
+   "recipe_note": "",
+   "bar_recipe": [
+    {
+     "amount": "60 ml",
+     "product": "Pitu Brazilian Cachaca Rum 0.0 750ml"
+    },
+    {
+     "amount": "30 ml",
+     "product": "Limettensaft"
+    },
+    {
+     "amount": "100 ml",
+     "product": "Mozartquelle Fortissimo 0,75l"
+    },
+    {
+     "amount": "0.2 oz",
+     "product": "Minze"
+    },
+    {
+     "amount": "20 ml",
+     "product": "RIOBA Rohrzucker Syrup - 0,7l"
+    },
+    {
+     "amount": "7 oz",
+     "product": "Eiswuerfel - Crushed 5 kg"
+    }
+   ],
+   "hidden_on_card": false,
+   "card_action": ""
+  },
+  {
+   "name": "Cherry Amaretto Margarita",
+   "section": "Agave Cocktails",
+   "tagline_de": "Margarita mit Kirsche und Mandel. Weicher als das Original, ohne die Säure zu verlieren.",
+   "bartender_note_de": "",
+   "ingredients_guest": [
+    "El Destilador Blanco",
+    "Amaretto",
+    "Kirschen",
+    "Limette",
+    "Agave"
+   ],
+   "glass": "Coupe",
+   "serve_style": "Shaken",
+   "strength": {
+    "level": 4,
+    "label": "kräftig"
+   },
+   "flavour_tags": [
+    "fruchtig",
+    "süß",
+    "sauer/zitrus"
+   ],
+   "moment": [
+    "Mittendrin"
+   ],
+   "alcohol_free": false,
+   "allergens": [
+    "Nüsse"
+   ],
+   "price_eur": 10.7,
+   "units_sold": 2,
+   "popularity_rank": 95,
+   "available": true,
+   "unavailable_reason": "",
+   "on_printed_menu": true,
+   "pos_sku": "437",
+   "recipe_known": true,
+   "recipe_status": "live",
+   "recipe_note": "",
+   "bar_recipe": [
+    {
+     "amount": "20 ml",
+     "product": "El Destilador Blanco 1L"
+    },
+    {
+     "amount": "15 ml",
+     "product": "Antica Distilleria Quaglia Amaretto -  700ml"
+    },
+    {
+     "amount": "20 ml",
+     "product": "Limettensaft"
+    },
+    {
+     "amount": "100 ml",
+     "product": "Schweppes - Berry 1L"
+    },
+    {
+     "amount": "10 ml",
+     "product": "Agaven Nektar"
+    },
+    {
+     "amount": "5.6 oz",
+     "product": "Eiswuerfel - Solid 5 kg"
+    },
+    {
+     "amount": "1 oz",
+     "product": "Gefrorene Kirschen"
+    }
+   ],
+   "hidden_on_card": false,
+   "card_action": ""
+  },
+  {
+   "name": "Dirty Martini",
+   "section": "Cocktails",
+   "tagline_de": "Eiskalt, trocken, mit Olivenlake. Entweder man liebt ihn oder man bestellt etwas anderes.",
+   "bartender_note_de": "",
+   "ingredients_guest": [
+    "Tanqueray",
+    "trockener Wermut",
+    "Oliven"
+   ],
+   "glass": "Coupe",
+   "serve_style": "Stirred",
+   "strength": {
+    "level": 5,
+    "label": "stark"
+   },
+   "flavour_tags": [
+    "salzig",
+    "kräuterig/frisch"
+   ],
+   "moment": [
+    "Auftakt",
+    "Später Abend"
+   ],
+   "alcohol_free": false,
+   "allergens": [],
+   "price_eur": 9.7,
+   "units_sold": 2,
+   "popularity_rank": 96,
+   "available": true,
+   "unavailable_reason": "",
+   "on_printed_menu": false,
+   "pos_sku": "224",
+   "recipe_known": true,
+   "recipe_status": "live",
+   "recipe_note": "",
+   "bar_recipe": [
+    {
+     "amount": "60 ml",
+     "product": "Tanqueray 1L"
+    },
+    {
+     "amount": "15 ml",
+     "product": "Noilly Prat Dry 1L"
+    },
+    {
+     "amount": "0.1 oz",
+     "product": "Olives"
+    }
+   ],
+   "hidden_on_card": false,
+   "card_action": "Auf der Karte einblenden (Dan 19.08.2026)"
+  },
+  {
+   "name": "Floreale Alkoholfrei Spritz",
+   "section": "Spritz alkoholfrei",
+   "tagline_de": "Alkoholfreier Aperitivo, blumig und bitter. Der Spritz, bei dem keiner merkt, dass nichts drin ist.",
+   "bartender_note_de": "",
+   "ingredients_guest": [
+    "Martini Floreale",
+    "alkoholfreier Sekt",
+    "Soda"
+   ],
+   "glass": "Weinglas",
+   "serve_style": "Spritz",
+   "strength": {
+    "level": 0,
+    "label": "alkoholfrei"
+   },
+   "flavour_tags": [
+    "bitter",
+    "fruchtig",
+    "prickelnd"
+   ],
+   "moment": [
+    "Auftakt"
+   ],
+   "alcohol_free": true,
+   "allergens": [],
+   "price_eur": 7.7,
+   "units_sold": 2,
+   "popularity_rank": 97,
+   "available": true,
+   "unavailable_reason": "",
+   "on_printed_menu": true,
+   "pos_sku": "365",
+   "recipe_known": true,
+   "recipe_status": "live",
+   "recipe_note": "",
+   "bar_recipe": [
+    {
+     "amount": "60 ml",
+     "product": "Martini Floreale 750ml"
+    },
+    {
+     "amount": "90 ml",
+     "product": "Freixenet 0,0 Prosecco"
+    },
+    {
+     "amount": "30 ml",
+     "product": "Mozartquelle Fortissimo 0,75l"
+    }
+   ],
+   "hidden_on_card": false,
+   "card_action": ""
+  },
+  {
+   "name": "Frangelico 2cl",
+   "section": "Shots",
+   "tagline_de": "Haselnusslikör aus Italien. Süss, rund und ohne Schärfe.",
+   "bartender_note_de": "",
+   "ingredients_guest": [
+    "Frangelico"
+   ],
+   "glass": "Shotglas",
+   "serve_style": "Shot",
+   "strength": {
+    "level": 2,
+    "label": "mild"
+   },
+   "flavour_tags": [
+    "süß",
+    "cremig"
+   ],
+   "moment": [
+    "Später Abend"
+   ],
+   "alcohol_free": false,
+   "allergens": [
+    "Nüsse"
+   ],
+   "price_eur": 3.0,
+   "units_sold": 2,
+   "popularity_rank": 98,
+   "available": true,
+   "unavailable_reason": "",
+   "on_printed_menu": false,
+   "pos_sku": "377",
+   "recipe_known": true,
+   "recipe_status": "live",
+   "recipe_note": "",
+   "bar_recipe": [
+    {
+     "amount": "20 ml",
+     "product": "Frangelico 750ml"
+    }
+   ],
+   "hidden_on_card": false,
+   "card_action": ""
+  },
+  {
+   "name": "Gin/Vodka Martini",
+   "section": "Gin",
+   "tagline_de": "Zwei Zutaten, eiskalt gerührt. Der Drink, an dem sich jede Bar messen lassen muss.",
+   "bartender_note_de": "",
+   "ingredients_guest": [
+    "Gin oder Wodka",
+    "trockener Wermut"
+   ],
+   "glass": "Coupe",
+   "serve_style": "Stirred",
+   "strength": {
+    "level": 5,
+    "label": "stark"
+   },
+   "flavour_tags": [
+    "kräuterig/frisch"
+   ],
+   "moment": [
+    "Auftakt",
+    "Später Abend"
+   ],
+   "alcohol_free": false,
+   "allergens": [],
+   "price_eur": 9.7,
+   "units_sold": 2,
+   "popularity_rank": 99,
+   "available": true,
+   "unavailable_reason": "",
+   "on_printed_menu": false,
+   "pos_sku": "1202",
+   "recipe_known": true,
+   "recipe_status": "live",
+   "recipe_note": "",
+   "bar_recipe": [
+    {
+     "amount": "60 ml",
+     "product": "Tanqueray 1L"
+    },
+    {
+     "amount": "10 ml",
+     "product": "Noilly Prat Dry 1L"
+    }
+   ],
+   "hidden_on_card": false,
+   "card_action": ""
+  },
+  {
+   "name": "Johnnie Black Sour",
+   "section": "Sours",
+   "tagline_de": "Blended Scotch mit Zitrone. Rauchig, aber freundlich.",
+   "bartender_note_de": "",
+   "ingredients_guest": [
+    "Johnnie Walker Black",
+    "Zitrone",
+    "Zucker"
+   ],
+   "glass": "Tumbler",
+   "serve_style": "Sour",
+   "strength": {
+    "level": 4,
+    "label": "kräftig"
+   },
+   "flavour_tags": [
+    "sauer/zitrus",
+    "rauchig"
+   ],
+   "moment": [
+    "Später Abend"
+   ],
+   "alcohol_free": false,
+   "allergens": [],
+   "price_eur": 9.7,
+   "units_sold": 2,
+   "popularity_rank": 100,
+   "available": true,
+   "unavailable_reason": "",
+   "on_printed_menu": false,
+   "pos_sku": "375",
+   "recipe_known": true,
+   "recipe_status": "live",
+   "recipe_note": "",
+   "bar_recipe": [
+    {
+     "amount": "60 ml",
+     "product": "Johnnie Walker Black 1L"
+    },
+    {
+     "amount": "30 ml",
+     "product": "Granini Fruchtsaft - Zitrone"
+    },
+    {
+     "amount": "20 ml",
+     "product": "RIOBA Rohrzucker Syrup - 0,7l"
+    }
+   ],
+   "hidden_on_card": false,
+   "card_action": ""
+  },
+  {
+   "name": "Mai Tai",
+   "section": "Cocktails",
+   "tagline_de": "Rum, Mandel, Limette, Orange. Der Tiki Klassiker, der wirklich einer ist.",
+   "bartender_note_de": "",
+   "ingredients_guest": [
+    "Rum",
+    "Orgeat",
+    "Cointreau",
+    "Limette"
+   ],
+   "glass": "Tumbler",
+   "serve_style": "Shaken",
+   "strength": {
+    "level": 4,
+    "label": "kräftig"
+   },
+   "flavour_tags": [
+    "fruchtig",
+    "süß",
+    "sauer/zitrus"
+   ],
+   "moment": [
+    "Mittendrin"
+   ],
+   "alcohol_free": false,
+   "allergens": [
+    "Nüsse"
+   ],
+   "price_eur": 9.7,
+   "units_sold": 2,
+   "popularity_rank": 101,
+   "available": true,
+   "unavailable_reason": "",
+   "on_printed_menu": false,
+   "pos_sku": "2111",
+   "recipe_known": true,
+   "recipe_status": "live",
+   "recipe_note": "",
+   "bar_recipe": [
+    {
+     "amount": "40 ml",
+     "product": "Bacardi Superior Light 1L"
+    },
+    {
+     "amount": "15 ml",
+     "product": "Cointreau 1L"
+    },
+    {
+     "amount": "10 ml",
+     "product": "Myer's Dark 750ml"
+    },
+    {
+     "amount": "20 ml",
+     "product": "Limettensaft"
+    },
+    {
+     "amount": "15 ml",
+     "product": "GIFFARD ORGEAT MANDEL SIRUP 1L"
+    }
+   ],
+   "hidden_on_card": false,
+   "card_action": ""
+  },
+  {
+   "name": "Alkoholfrei - Italian Stallion",
+   "section": "Alkoholfrei",
+   "tagline_de": "Aprikose und Granatapfel ohne Alkohol. Fruchtig und trotzdem nicht kindisch.",
+   "bartender_note_de": "",
+   "ingredients_guest": [
+    "alkoholfreier Wodka",
+    "Aprikose",
+    "Zitrone",
+    "Granatapfel"
+   ],
+   "glass": "Coupe",
+   "serve_style": "Sour",
+   "strength": {
+    "level": 0,
+    "label": "alkoholfrei"
+   },
+   "flavour_tags": [
+    "fruchtig",
+    "süß"
+   ],
+   "moment": [
+    "Ganzer Abend"
+   ],
+   "alcohol_free": true,
+   "allergens": [],
+   "price_eur": 9.7,
+   "units_sold": 1,
+   "popularity_rank": 102,
+   "available": true,
+   "unavailable_reason": "",
+   "on_printed_menu": false,
+   "pos_sku": "409",
+   "recipe_known": true,
+   "recipe_status": "live",
+   "recipe_note": "",
+   "bar_recipe": [
+    {
+     "amount": "60 ml",
+     "product": "Granini Fruchtsaft - Maracuja"
+    },
+    {
+     "amount": "20 ml",
+     "product": "Granini Fruchtsaft - Ananas"
+    },
+    {
+     "amount": "10 ml",
+     "product": "Limettensaft"
+    },
+    {
+     "amount": "30 ml",
+     "product": "Giffard - Grenadine"
+    },
+    {
+     "amount": "20 ml",
+     "product": "Monin Pfirsichsirup 1l"
+    }
+   ],
+   "hidden_on_card": false,
+   "card_action": ""
+  },
+  {
+   "name": "Alkoholfrei - Mule",
+   "section": "Alkoholfrei",
+   "tagline_de": "Ingwer und Limette im Kupferbecher. Scharf genug, dass niemand den Wodka vermisst.",
+   "bartender_note_de": "",
+   "ingredients_guest": [
+    "alkoholfreier Wodka",
+    "Limette",
+    "Thomas Henry Spicy Ginger",
+    "Angostura"
+   ],
+   "glass": "Kupferbecher",
+   "serve_style": "Highball",
+   "strength": {
+    "level": 0,
+    "label": "alkoholfrei"
+   },
+   "flavour_tags": [
+    "prickelnd",
+    "sauer/zitrus"
+   ],
+   "moment": [
+    "Ganzer Abend"
+   ],
+   "alcohol_free": true,
+   "allergens": [],
+   "price_eur": 9.7,
+   "units_sold": 1,
+   "popularity_rank": 103,
+   "available": true,
+   "unavailable_reason": "",
+   "on_printed_menu": false,
+   "pos_sku": "408",
+   "recipe_known": true,
+   "recipe_status": "live",
+   "recipe_note": "",
+   "bar_recipe": [
+    {
+     "amount": "60 ml",
+     "product": "Pitu Brazilian Cachaca Rum 0.0 750ml"
+    },
+    {
+     "amount": "30 ml",
+     "product": "Limettensaft"
+    },
+    {
+     "amount": "120 ml",
+     "product": "Thomas Henry - Spicy Ginger 1l"
+    },
+    {
+     "amount": "1 ml",
+     "product": "Angostura Bitters"
+    },
+    {
+     "amount": "10 ml",
+     "product": "RIOBA Rohrzucker Syrup - 0,7l"
+    }
+   ],
+   "hidden_on_card": false,
+   "card_action": ""
+  },
+  {
+   "name": "Alkoholfrei - Singapore Sling",
+   "section": "Alkoholfrei",
+   "tagline_de": "Alle acht Zutaten, kein Alkohol. Der aufwendigste alkoholfreie Drink, den wir haben.",
+   "bartender_note_de": "",
+   "ingredients_guest": [
+    "Tanqueray 0.0",
+    "Kirsche",
+    "Ananas",
+    "Limette",
+    "Granatapfel",
+    "Angostura"
+   ],
+   "glass": "Highball",
+   "serve_style": "Sling",
+   "strength": {
+    "level": 0,
+    "label": "alkoholfrei"
+   },
+   "flavour_tags": [
+    "fruchtig",
+    "süß"
+   ],
+   "moment": [
+    "Mittendrin"
+   ],
+   "alcohol_free": true,
+   "allergens": [],
+   "price_eur": 9.7,
+   "units_sold": 1,
+   "popularity_rank": 104,
+   "available": true,
+   "unavailable_reason": "",
+   "on_printed_menu": false,
+   "pos_sku": "407",
+   "recipe_known": true,
+   "recipe_status": "live",
+   "recipe_note": "",
+   "bar_recipe": [
+    {
+     "amount": "60 ml",
+     "product": "Tanqueray 0.0 750ml"
+    },
+    {
+     "amount": "7.5 ml",
+     "product": "Granini Fruchtsaft - Orange"
+    },
+    {
+     "amount": "120 ml",
+     "product": "Granini Fruchtsaft - Ananas"
+    },
+    {
+     "amount": "15 ml",
+     "product": "Limettensaft"
+    },
+    {
+     "amount": "7.5 ml",
+     "product": "Giffard - Grenadine"
+    },
+    {
+     "amount": "7.5 ml",
+     "product": "Giffard Holunderblütensirup 1l"
+    },
+    {
+     "amount": "15 ml",
+     "product": "1883 CHERRY SYRUP"
+    }
+   ],
+   "hidden_on_card": false,
+   "card_action": ""
+  },
+  {
+   "name": "Caipiroska",
+   "section": "Vodka",
+   "tagline_de": "Caipirinha mit Wodka. Klarer und gerader als das Original.",
+   "bartender_note_de": "",
+   "ingredients_guest": [
+    "Absolut",
+    "Limette",
+    "Zucker"
+   ],
+   "glass": "Tumbler",
+   "serve_style": "Muddled",
+   "strength": {
+    "level": 3,
+    "label": "mittel"
+   },
+   "flavour_tags": [
+    "sauer/zitrus",
+    "süß"
+   ],
+   "moment": [
+    "Mittendrin"
+   ],
+   "alcohol_free": false,
+   "allergens": [],
+   "price_eur": 9.7,
+   "units_sold": 1,
+   "popularity_rank": 105,
+   "available": true,
+   "unavailable_reason": "",
+   "on_printed_menu": false,
+   "pos_sku": "400",
+   "recipe_known": true,
+   "recipe_status": "live",
+   "recipe_note": "",
+   "bar_recipe": [
+    {
+     "amount": "60 ml",
+     "product": "Absolut 1L"
+    },
+    {
+     "amount": "400 ml",
+     "product": "Mozartquelle Fortissimo 0,75l"
+    }
+   ],
+   "hidden_on_card": false,
+   "card_action": ""
+  },
+  {
+   "name": "Gin Tonic - Hendriks",
+   "section": "Gin",
+   "tagline_de": "Gurke und Rose statt Wacholder. Der Gin Tonic für Leute, die keinen Gin mögen.",
+   "bartender_note_de": "",
+   "ingredients_guest": [
+    "Hendrick's",
+    "Tonic Water",
+    "Gurke"
+   ],
+   "glass": "Ballonglas",
+   "serve_style": "Highball",
+   "strength": {
+    "level": 3,
+    "label": "mittel"
+   },
+   "flavour_tags": [
+    "kräuterig/frisch",
+    "prickelnd"
+   ],
+   "moment": [
+    "Auftakt",
+    "Mittendrin"
+   ],
+   "alcohol_free": false,
+   "allergens": [],
+   "price_eur": 10.4,
+   "units_sold": 1,
+   "popularity_rank": 106,
+   "available": true,
+   "unavailable_reason": "",
+   "on_printed_menu": false,
+   "pos_sku": "1205",
+   "recipe_known": true,
+   "recipe_status": "live",
+   "recipe_note": "",
+   "bar_recipe": [
+    {
+     "amount": "60 ml",
+     "product": "Hendrick's 750ml"
+    },
+    {
+     "amount": "1 Stk",
+     "product": "Thomas Henry -  Tonic Water 0,2l"
+    },
+    {
+     "amount": "0.05 Stk",
+     "product": "Gurke"
+    },
+    {
+     "amount": "4.6 oz",
+     "product": "Eiswuerfel - Solid 5 kg"
+    }
+   ],
+   "hidden_on_card": false,
+   "card_action": ""
+  },
+  {
+   "name": "Himbeere Mojito",
+   "section": "Rum/Cachaça",
+   "tagline_de": "Mojito mit frischen Himbeeren. Süsser, roter und bei Tischen sehr ansteckend.",
+   "bartender_note_de": "",
+   "ingredients_guest": [
+    "Bacardi",
+    "Himbeeren",
+    "Limette",
+    "Minze",
+    "Zucker",
+    "Soda"
+   ],
+   "glass": "Highball",
+   "serve_style": "Highball",
+   "strength": {
+    "level": 2,
+    "label": "mild"
+   },
+   "flavour_tags": [
+    "fruchtig",
+    "kräuterig/frisch",
+    "prickelnd"
+   ],
+   "moment": [
+    "Mittendrin"
+   ],
+   "alcohol_free": false,
+   "allergens": [],
+   "price_eur": 9.7,
+   "units_sold": 1,
+   "popularity_rank": 107,
+   "available": true,
+   "unavailable_reason": "",
+   "on_printed_menu": false,
+   "pos_sku": "315",
+   "recipe_known": true,
+   "recipe_status": "live",
+   "recipe_note": "",
+   "bar_recipe": [
+    {
+     "amount": "60 ml",
+     "product": "Bacardi Superior Light 1L"
+    },
+    {
+     "amount": "30 ml",
+     "product": "Limettensaft"
+    },
+    {
+     "amount": "100 ml",
+     "product": "Mozartquelle Fortissimo 0,75l"
+    },
+    {
+     "amount": "0.2 oz",
+     "product": "Minze"
+    },
+    {
+     "amount": "0.5 Stk",
+     "product": "Himbeeren"
+    },
+    {
+     "amount": "20 ml",
+     "product": "RIOBA Rohrzucker Syrup - 0,7l"
+    },
+    {
+     "amount": "20 ml",
+     "product": "1883 - Himbeersirup"
+    },
+    {
+     "amount": "7 oz",
+     "product": "Eiswuerfel - Crushed 5 kg"
+    }
+   ],
+   "hidden_on_card": false,
+   "card_action": ""
+  },
+  {
+   "name": "Johnnie Black & Ginger",
+   "section": "Mixgetränke",
+   "tagline_de": "Scotch auf Ingwer. Der einfachste Weg, Whisky im Sommer zu trinken.",
+   "bartender_note_de": "",
+   "ingredients_guest": [
+    "Johnnie Walker Black",
+    "Thomas Henry Spicy Ginger"
+   ],
+   "glass": "Highball",
+   "serve_style": "Highball",
+   "strength": {
+    "level": 3,
+    "label": "mittel"
+   },
+   "flavour_tags": [
+    "prickelnd",
+    "rauchig"
+   ],
+   "moment": [
+    "Mittendrin"
+   ],
+   "alcohol_free": false,
+   "allergens": [],
+   "price_eur": 9.7,
+   "units_sold": 1,
+   "popularity_rank": 108,
+   "available": true,
+   "unavailable_reason": "",
+   "on_printed_menu": false,
+   "pos_sku": "374",
+   "recipe_known": true,
+   "recipe_status": "live",
+   "recipe_note": "",
+   "bar_recipe": [
+    {
+     "amount": "60 ml",
+     "product": "Johnnie Walker Black 1L"
+    },
+    {
+     "amount": "1 Stk",
+     "product": "Schweppes - Ginger Ale 0,2l"
+    }
+   ],
+   "hidden_on_card": false,
+   "card_action": ""
+  },
+  {
+   "name": "Mimosa",
+   "section": "Spritz",
+   "tagline_de": "Prosecco und Orangensaft. Der einzige Drink, den man auch zum Frühstück verteidigen kann.",
+   "bartender_note_de": "",
+   "ingredients_guest": [
+    "Prosecco",
+    "Orangensaft"
+   ],
+   "glass": "Weinglas",
+   "serve_style": "Spritz",
+   "strength": {
+    "level": 1,
+    "label": "leicht"
+   },
+   "flavour_tags": [
+    "fruchtig",
+    "prickelnd"
+   ],
+   "moment": [
+    "Auftakt"
+   ],
+   "alcohol_free": false,
+   "allergens": [],
+   "price_eur": 3.6,
+   "units_sold": 1,
+   "popularity_rank": 109,
+   "available": true,
+   "unavailable_reason": "",
+   "on_printed_menu": false,
+   "pos_sku": "205",
+   "recipe_known": true,
+   "recipe_status": "live",
+   "recipe_note": "",
+   "bar_recipe": [
+    {
+     "amount": "100 ml",
+     "product": "La Gioiosa Prosecco"
+    },
+    {
+     "amount": "100 ml",
+     "product": "Granini Fruchtsaft - Orange"
+    }
+   ],
+   "hidden_on_card": false,
+   "card_action": ""
+  },
+  {
+   "name": "White Russian",
+   "section": "Vodka",
+   "tagline_de": "Wodka, Kaffeelikör, Sahne. Drei Zutaten, kein Aufwand, grosse Wirkung.",
+   "bartender_note_de": "",
+   "ingredients_guest": [
+    "Wodka",
+    "Kahlúa",
+    "Sahne"
+   ],
+   "glass": "Tumbler",
+   "serve_style": "Built",
+   "strength": {
+    "level": 3,
+    "label": "mittel"
+   },
+   "flavour_tags": [
+    "cremig",
+    "kaffee",
+    "süß"
+   ],
+   "moment": [
+    "Später Abend"
+   ],
+   "alcohol_free": false,
+   "allergens": [
+    "Milch"
+   ],
+   "price_eur": 9.7,
+   "units_sold": 1,
+   "popularity_rank": 110,
+   "available": true,
+   "unavailable_reason": "",
+   "on_printed_menu": false,
+   "pos_sku": "279",
+   "recipe_known": true,
+   "recipe_status": "live",
+   "recipe_note": "",
+   "bar_recipe": [
+    {
+     "amount": "60 ml",
+     "product": "Absolut 1L"
+    },
+    {
+     "amount": "30 ml",
+     "product": "Kahlua 1L"
+    },
+    {
+     "amount": "30 ml",
+     "product": "Schlagsahne"
+    }
+   ],
+   "hidden_on_card": false,
+   "card_action": ""
+  },
+  {
+   "name": "Zacapa Wolke",
+   "section": "Rum/Cachaça",
+   "tagline_de": "Gereifter Rum unter Zuckerwatte. Die Wolke löst sich im Glas auf, dann trinkst du.",
+   "bartender_note_de": "",
+   "ingredients_guest": [
+    "Zacapa 23",
+    "Zuckerwatte"
+   ],
+   "glass": "Tumbler",
+   "serve_style": "Built",
+   "strength": {
+    "level": 5,
+    "label": "stark"
+   },
+   "flavour_tags": [
+    "süß"
+   ],
+   "moment": [
+    "Später Abend"
+   ],
+   "alcohol_free": false,
+   "allergens": [],
+   "price_eur": 8.7,
+   "units_sold": 1,
+   "popularity_rank": 111,
+   "available": true,
+   "unavailable_reason": "",
+   "on_printed_menu": false,
+   "pos_sku": "275",
+   "recipe_known": true,
+   "recipe_status": "live",
+   "recipe_note": "",
+   "bar_recipe": [
+    {
+     "amount": "60 ml",
+     "product": "Ron Zacapa 23 Rum 700ml"
+    }
+   ],
+   "hidden_on_card": true,
+   "card_action": "Bleibt auf der Karte versteckt (Dan 19.08.2026)"
+  },
+  {
+   "name": "gingerle Spritz",
+   "section": "Spritz",
+   "tagline_de": "Ingwer und Zitrone aus dem Likör, dazu Prosecco. Schärfer als jeder andere Spritz hier.",
+   "bartender_note_de": "",
+   "ingredients_guest": [
+    "gingerle",
+    "Prosecco",
+    "Soda"
+   ],
+   "glass": "Weinglas",
+   "serve_style": "Spritz",
+   "strength": {
+    "level": 1,
+    "label": "leicht"
+   },
+   "flavour_tags": [
+    "prickelnd",
+    "sauer/zitrus"
+   ],
+   "moment": [
+    "Auftakt"
+   ],
+   "alcohol_free": false,
+   "allergens": [],
+   "price_eur": 7.9,
+   "units_sold": 1,
+   "popularity_rank": 112,
+   "available": true,
+   "unavailable_reason": "",
+   "on_printed_menu": true,
+   "pos_sku": "419",
+   "recipe_known": true,
+   "recipe_status": "live",
+   "recipe_note": "",
+   "bar_recipe": [
+    {
+     "amount": "60 ml",
+     "product": "gingerle Ingwer Zitronen Likoer - 1l"
+    },
+    {
+     "amount": "90 ml",
+     "product": "La Gioiosa Prosecco"
+    },
+    {
+     "amount": "30 ml",
+     "product": "Mozartquelle Fortissimo 0,75l"
+    },
+    {
+     "amount": "4.6 oz",
+     "product": "Eiswuerfel - Solid 5 kg"
+    }
+   ],
+   "hidden_on_card": true,
+   "card_action": "Bleibt auf der Karte versteckt (Dan 19.08.2026)"
+  },
+  {
+   "name": "Alkoholfrei - Clover Club",
+   "section": "Alkoholfrei",
+   "tagline_de": "Himbeere mit Schaumkrone, ganz ohne Alkohol. Sieht genauso gut aus wie das Original.",
+   "bartender_note_de": "",
+   "ingredients_guest": [
+    "Tanqueray 0.0",
+    "Himbeere",
+    "Zitrone",
+    "Zucker"
+   ],
+   "glass": "Coupe",
+   "serve_style": "Sour",
+   "strength": {
+    "level": 0,
+    "label": "alkoholfrei"
+   },
+   "flavour_tags": [
+    "fruchtig",
+    "cremig"
+   ],
+   "moment": [
+    "Ganzer Abend"
+   ],
+   "alcohol_free": true,
+   "allergens": [
+    "Ei"
+   ],
+   "price_eur": 9.7,
+   "units_sold": 0,
+   "popularity_rank": null,
+   "available": true,
+   "unavailable_reason": "",
+   "on_printed_menu": false,
+   "pos_sku": "411",
+   "recipe_known": true,
+   "recipe_status": "live",
+   "recipe_note": "",
+   "bar_recipe": [
+    {
+     "amount": "60 ml",
+     "product": "Tanqueray 0.0 750ml"
+    },
+    {
+     "amount": "30 ml",
+     "product": "Granini Fruchtsaft - Zitrone"
+    },
+    {
+     "amount": "0.5 ml",
+     "product": "Fee Brothers - Fee Foamer"
+    },
+    {
+     "amount": "20 ml",
+     "product": "1883 - Himbeersirup"
+    }
+   ],
+   "hidden_on_card": false,
+   "card_action": ""
+  },
+  {
+   "name": "Alkoholfrei - Mermaid's Melody",
+   "section": "Alkoholfrei",
+   "tagline_de": "Blau, Kokos, Limette. Der Urlaubsdrink ohne Kopfschmerzen.",
+   "bartender_note_de": "",
+   "ingredients_guest": [
+    "alkoholfreier Rum",
+    "Blue Curaçao",
+    "Limette",
+    "Kokos"
+   ],
+   "glass": "Highball",
+   "serve_style": "Highball",
+   "strength": {
+    "level": 0,
+    "label": "alkoholfrei"
+   },
+   "flavour_tags": [
+    "fruchtig",
+    "cremig",
+    "süß"
+   ],
+   "moment": [
+    "Ganzer Abend"
+   ],
+   "alcohol_free": true,
+   "allergens": [],
+   "price_eur": 9.7,
+   "units_sold": 0,
+   "popularity_rank": null,
+   "available": false,
+   "unavailable_reason": "Von Dan aussortiert am 19.08.2026, nicht in die App.",
+   "on_printed_menu": false,
+   "pos_sku": "412",
+   "recipe_known": true,
+   "recipe_status": "live",
+   "recipe_note": "",
+   "bar_recipe": [
+    {
+     "amount": "60 ml",
+     "product": "Pitu Brazilian Cachaca Rum 0.0 750ml"
+    },
+    {
+     "amount": "30 ml",
+     "product": "Limettensaft"
+    },
+    {
+     "amount": "40 ml",
+     "product": "Mozartquelle Fortissimo 0,75l"
+    },
+    {
+     "amount": "10 ml",
+     "product": "RIOBA Rohrzucker Syrup - 0,7l"
+    },
+    {
+     "amount": "30 ml",
+     "product": "Blue Curacao Syrup 700ml"
+    },
+    {
+     "amount": "30 ml",
+     "product": "Kokussirup"
+    }
+   ],
+   "hidden_on_card": false,
+   "card_action": ""
+  },
+  {
+   "name": "Alkoholfrei - Ricky Ricky",
+   "section": "Alkoholfrei",
+   "tagline_de": "Limette, Minze, Soda. Leicht und frisch, der beste Einstieg ohne Alkohol.",
+   "bartender_note_de": "",
+   "ingredients_guest": [
+    "Tanqueray 0.0",
+    "Limette",
+    "Minze",
+    "Zucker",
+    "Soda"
+   ],
+   "glass": "Highball",
+   "serve_style": "Highball",
+   "strength": {
+    "level": 0,
+    "label": "alkoholfrei"
+   },
+   "flavour_tags": [
+    "kräuterig/frisch",
+    "prickelnd"
+   ],
+   "moment": [
+    "Auftakt"
+   ],
+   "alcohol_free": true,
+   "allergens": [],
+   "price_eur": 9.7,
+   "units_sold": 0,
+   "popularity_rank": null,
+   "available": true,
+   "unavailable_reason": "",
+   "on_printed_menu": false,
+   "pos_sku": "410",
+   "recipe_known": true,
+   "recipe_status": "live",
+   "recipe_note": "",
+   "bar_recipe": [
+    {
+     "amount": "60 ml",
+     "product": "Tanqueray 0.0 750ml"
+    },
+    {
+     "amount": "30 ml",
+     "product": "Limettensaft"
+    },
+    {
+     "amount": "10 ml",
+     "product": "Mozartquelle Fortissimo 0,75l"
+    },
+    {
+     "amount": "0.2 oz",
+     "product": "Minze"
+    },
+    {
+     "amount": "20 ml",
+     "product": "RIOBA Rohrzucker Syrup - 0,7l"
+    }
+   ],
+   "hidden_on_card": false,
+   "card_action": ""
+  },
+  {
+   "name": "Asbach & Cola 4cl",
+   "section": "Mixgetränke",
+   "tagline_de": "Weinbrand und Cola. Der deutsche Longdrink, bevor es Longdrinks gab.",
+   "bartender_note_de": "",
+   "ingredients_guest": [
+    "Asbach Uralt",
+    "Cola"
+   ],
+   "glass": "Highball",
+   "serve_style": "Highball",
+   "strength": {
+    "level": 3,
+    "label": "mittel"
+   },
+   "flavour_tags": [
+    "süß",
+    "prickelnd"
+   ],
+   "moment": [
+    "Mittendrin"
+   ],
+   "alcohol_free": false,
+   "allergens": [],
+   "price_eur": 9.6,
+   "units_sold": 0,
+   "popularity_rank": null,
+   "available": true,
+   "unavailable_reason": "",
+   "on_printed_menu": false,
+   "pos_sku": "1302",
+   "recipe_known": true,
+   "recipe_status": "live",
+   "recipe_note": "",
+   "bar_recipe": [
+    {
+     "amount": "40 ml",
+     "product": "Asbach Uralt Brandy 1L"
+    },
+    {
+     "amount": "200 ml",
+     "product": "Coca Cola 1l"
+    },
+    {
+     "amount": "4.6 oz",
+     "product": "Eiswuerfel - Solid 5 kg"
+    }
+   ],
+   "hidden_on_card": false,
+   "card_action": ""
+  },
+  {
+   "name": "Bacardi & Cola 6cl",
+   "section": "Mixgetränke",
+   "tagline_de": "Weisser Rum und Cola. Cuba Libre ohne die Limette.",
+   "bartender_note_de": "",
+   "ingredients_guest": [
+    "Bacardi",
+    "Cola"
+   ],
+   "glass": "Highball",
+   "serve_style": "Highball",
+   "strength": {
+    "level": 3,
+    "label": "mittel"
+   },
+   "flavour_tags": [
+    "süß",
+    "prickelnd"
+   ],
+   "moment": [
+    "Mittendrin"
+   ],
+   "alcohol_free": false,
+   "allergens": [],
+   "price_eur": 7.2,
+   "units_sold": 0,
+   "popularity_rank": null,
+   "available": true,
+   "unavailable_reason": "",
+   "on_printed_menu": false,
+   "pos_sku": "180",
+   "recipe_known": true,
+   "recipe_status": "live",
+   "recipe_note": "",
+   "bar_recipe": [
+    {
+     "amount": "60 ml",
+     "product": "Bacardi Superior Light 1L"
+    }
+   ],
+   "hidden_on_card": false,
+   "card_action": ""
+  },
+  {
+   "name": "Berliner Luft 4cl",
+   "section": "Shots",
+   "tagline_de": "Doppelte Pfefferminze. Kälter geht nicht.",
+   "bartender_note_de": "",
+   "ingredients_guest": [
+    "Berliner Luft"
+   ],
+   "glass": "Shotglas",
+   "serve_style": "Shot",
+   "strength": {
+    "level": 3,
+    "label": "mittel"
+   },
+   "flavour_tags": [
+    "kräuterig/frisch",
+    "süß"
+   ],
+   "moment": [
+    "Später Abend"
+   ],
+   "alcohol_free": false,
+   "allergens": [],
+   "price_eur": 5.0,
+   "units_sold": 0,
+   "popularity_rank": null,
+   "available": false,
+   "unavailable_reason": "Von Dan aussortiert am 19.08.2026, nicht in die App.",
+   "on_printed_menu": false,
+   "pos_sku": "250",
+   "recipe_known": true,
+   "recipe_status": "live",
+   "recipe_note": "",
+   "bar_recipe": [
+    {
+     "amount": "40 ml",
+     "product": "Berliner Luft 1L"
+    }
+   ],
+   "hidden_on_card": false,
+   "card_action": ""
+  },
+  {
+   "name": "Bramble",
+   "section": "Premium Cocktails",
+   "tagline_de": "Brombeerlikör läuft über crushed Ice nach unten. Sieht aus wie ein Sonnenuntergang und schmeckt wie ein Sommer.",
+   "bartender_note_de": "Mitte der Achtziger von Dick Bradsell im Fred's Club in Soho gebaut. Einer der besten Drinks, die aus diesem Jahrzehnt kamen.",
+   "ingredients_guest": [
+    "Tanqueray",
+    "Zitrone",
+    "Crème de Mûre",
+    "Himbeeren",
+    "Zucker"
+   ],
+   "glass": "Tumbler",
+   "serve_style": "Sour",
+   "strength": {
+    "level": 3,
+    "label": "mittel"
+   },
+   "flavour_tags": [
+    "fruchtig",
+    "sauer/zitrus"
+   ],
+   "moment": [
+    "Mittendrin"
+   ],
+   "alcohol_free": false,
+   "allergens": [],
+   "price_eur": 11.7,
+   "units_sold": null,
+   "popularity_rank": null,
+   "available": true,
+   "unavailable_reason": "",
+   "on_printed_menu": true,
+   "pos_sku": null,
+   "recipe_known": false,
+   "recipe_status": "ENTWURF - vom Barchef zu bestaetigen",
+   "recipe_note": "",
+   "bar_recipe": [
+    {
+     "amount": "60 ml",
+     "product": "Tanqueray 1L"
+    },
+    {
+     "amount": "30 ml",
+     "product": "Granini Fruchtsaft - Zitrone"
+    },
+    {
+     "amount": "20 ml",
+     "product": "Giffard - Creme de Mure"
+    },
+    {
+     "amount": "0.5 Stk",
+     "product": "Himbeeren"
+    },
+    {
+     "amount": "20 ml",
+     "product": "RIOBA Rohrzucker Syrup - 0,7l"
+    },
+    {
+     "amount": "7 oz",
+     "product": "Eiswuerfel - Crushed 5 kg"
+    }
+   ],
+   "hidden_on_card": false,
+   "card_action": ""
+  },
+  {
+   "name": "Dark & Stormy",
+   "section": "Rum/Cachaça",
+   "tagline_de": "Dunkler Rum auf Ingwer, Limette obendrauf. Zwei Zutaten, ein Gewitter.",
+   "bartender_note_de": "",
+   "ingredients_guest": [
+    "dunkler Rum",
+    "Thomas Henry Spicy Ginger",
+    "Limette"
+   ],
+   "glass": "Highball",
+   "serve_style": "Highball",
+   "strength": {
+    "level": 3,
+    "label": "mittel"
+   },
+   "flavour_tags": [
+    "prickelnd",
+    "süß"
+   ],
+   "moment": [
+    "Mittendrin"
+   ],
+   "alcohol_free": false,
+   "allergens": [],
+   "price_eur": 9.7,
+   "units_sold": 0,
+   "popularity_rank": null,
+   "available": false,
+   "unavailable_reason": "Von Dan aussortiert am 19.08.2026, nicht in die App.",
+   "on_printed_menu": false,
+   "pos_sku": "311",
+   "recipe_known": true,
+   "recipe_status": "live",
+   "recipe_note": "",
+   "bar_recipe": [
+    {
+     "amount": "60 ml",
+     "product": "Tanqueray 1L"
+    },
+    {
+     "amount": "20 ml",
+     "product": "Limettensaft"
+    },
+    {
+     "amount": "200 ml",
+     "product": "Thomas Henry - Spicy Ginger 1l"
+    }
+   ],
+   "hidden_on_card": false,
+   "card_action": ""
+  },
+  {
+   "name": "Don Julio Reposado Margerita",
+   "section": "Tequila",
+   "tagline_de": "Margarita mit gereiftem Tequila. Runder, wärmer, ein Stück teurer.",
+   "bartender_note_de": "",
+   "ingredients_guest": [
+    "Don Julio Reposado",
+    "Cointreau",
+    "Limette",
+    "Agave"
+   ],
+   "glass": "Coupe",
+   "serve_style": "Shaken",
+   "strength": {
+    "level": 4,
+    "label": "kräftig"
+   },
+   "flavour_tags": [
+    "sauer/zitrus",
+    "süß"
+   ],
+   "moment": [
+    "Mittendrin"
+   ],
+   "alcohol_free": false,
+   "allergens": [],
+   "price_eur": 10.2,
+   "units_sold": 0,
+   "popularity_rank": null,
+   "available": false,
+   "unavailable_reason": "Von Dan aussortiert am 19.08.2026, nicht in die App.",
+   "on_printed_menu": false,
+   "pos_sku": "384",
+   "recipe_known": true,
+   "recipe_status": "live",
+   "recipe_note": "",
+   "bar_recipe": [
+    {
+     "amount": "60 ml",
+     "product": "Don Julio Reposado 750ml"
+    },
+    {
+     "amount": "30 ml",
+     "product": "Cointreau 1L"
+    },
+    {
+     "amount": "30 ml",
+     "product": "Limettensaft"
+    },
+    {
+     "amount": "15 ml",
+     "product": "Agaven Nektar"
+    }
+   ],
+   "hidden_on_card": false,
+   "card_action": ""
+  },
+  {
+   "name": "Erdbeer Spritz",
+   "section": "Spritz",
+   "tagline_de": "Erdbeere im Prosecco. Süss, rot und ohne Hintergedanken.",
+   "bartender_note_de": "",
+   "ingredients_guest": [
+    "Erdbeere",
+    "Prosecco",
+    "Soda"
+   ],
+   "glass": "Weinglas",
+   "serve_style": "Spritz",
+   "strength": {
+    "level": 1,
+    "label": "leicht"
+   },
+   "flavour_tags": [
+    "fruchtig",
+    "süß",
+    "prickelnd"
+   ],
+   "moment": [
+    "Auftakt"
+   ],
+   "alcohol_free": false,
+   "allergens": [],
+   "price_eur": 7.9,
+   "units_sold": 0,
+   "popularity_rank": null,
+   "available": false,
+   "unavailable_reason": "Von Dan aussortiert am 19.08.2026, nicht in die App.",
+   "on_printed_menu": false,
+   "pos_sku": "234",
+   "recipe_known": true,
+   "recipe_status": "live",
+   "recipe_note": "",
+   "bar_recipe": [
+    {
+     "amount": "90 ml",
+     "product": "La Gioiosa Prosecco"
+    },
+    {
+     "amount": "30 ml",
+     "product": "Mozartquelle Fortissimo 0,75l"
+    },
+    {
+     "amount": "60 ml",
+     "product": "1883 Erdbeeresirup"
+    }
+   ],
+   "hidden_on_card": false,
+   "card_action": ""
+  },
+  {
+   "name": "Erdbeere Daiquiri",
+   "section": "Frozen",
+   "tagline_de": "Frozen, rot, eiskalt. Der Drink, den man im Sommer aus der Hand nicht mehr weglegt.",
+   "bartender_note_de": "",
+   "ingredients_guest": [
+    "Bacardi",
+    "Erdbeere",
+    "Limette",
+    "Zucker"
+   ],
+   "glass": "Coupe",
+   "serve_style": "Frozen",
+   "strength": {
+    "level": 2,
+    "label": "mild"
+   },
+   "flavour_tags": [
+    "fruchtig",
+    "süß",
+    "sauer/zitrus"
+   ],
+   "moment": [
+    "Mittendrin"
+   ],
+   "alcohol_free": false,
+   "allergens": [],
+   "price_eur": 10.4,
+   "units_sold": 0,
+   "popularity_rank": null,
+   "available": false,
+   "unavailable_reason": "Von Dan aussortiert am 19.08.2026, nicht in die App.",
+   "on_printed_menu": false,
+   "pos_sku": "132",
+   "recipe_known": true,
+   "recipe_status": "live",
+   "recipe_note": "",
+   "bar_recipe": [
+    {
+     "amount": "60 ml",
+     "product": "Bacardi Superior Light 1L"
+    },
+    {
+     "amount": "30 ml",
+     "product": "Limettensaft"
+    },
+    {
+     "amount": "1 oz",
+     "product": "Erdbeeren"
+    },
+    {
+     "amount": "30 ml",
+     "product": "1883 Erdbeeresirup"
+    }
+   ],
+   "hidden_on_card": false,
+   "card_action": ""
+  },
+  {
+   "name": "Espresso Royal",
+   "section": "Vodka Cocktails",
+   "tagline_de": "Espresso Martini in gross. Ketel One und frischer Espresso, weicher und runder als das Original.",
+   "bartender_note_de": "",
+   "ingredients_guest": [
+    "Ketel One",
+    "Kahlúa",
+    "frischer Espresso",
+    "Zucker"
+   ],
+   "glass": "Coupe",
+   "serve_style": "Shaken",
+   "strength": {
+    "level": 3,
+    "label": "mittel"
+   },
+   "flavour_tags": [
+    "kaffee",
+    "cremig",
+    "süß"
+   ],
+   "moment": [
+    "Mittendrin",
+    "Später Abend"
+   ],
+   "alcohol_free": false,
+   "allergens": [],
+   "price_eur": 11.7,
+   "units_sold": null,
+   "popularity_rank": null,
+   "available": true,
+   "unavailable_reason": "",
+   "on_printed_menu": true,
+   "pos_sku": null,
+   "recipe_known": false,
+   "recipe_status": "ENTWURF - vom Barchef zu bestaetigen",
+   "recipe_note": "",
+   "bar_recipe": [
+    {
+     "amount": "50 ml",
+     "product": "Ketel One 1L"
+    },
+    {
+     "amount": "20 ml",
+     "product": "Kahlua 1L"
+    },
+    {
+     "amount": "40 ml",
+     "product": "Espresso"
+    },
+    {
+     "amount": "20 ml",
+     "product": "RIOBA Rohrzucker Syrup - 0,7l"
+    },
+    {
+     "amount": "6 oz",
+     "product": "Eiswuerfel - Solid 5 kg"
+    }
+   ],
+   "hidden_on_card": false,
+   "card_action": ""
+  },
+  {
+   "name": "Ficken 4cl",
+   "section": "Shots",
+   "tagline_de": "Der gleiche Shot, doppelt. Für Tische, die es ernst meinen.",
+   "bartender_note_de": "",
+   "ingredients_guest": [
+    "Ficken Likör"
+   ],
+   "glass": "Shotglas",
+   "serve_style": "Shot",
+   "strength": {
+    "level": 2,
+    "label": "mild"
+   },
+   "flavour_tags": [
+    "süß",
+    "fruchtig"
+   ],
+   "moment": [
+    "Später Abend"
+   ],
+   "alcohol_free": false,
+   "allergens": [],
+   "price_eur": 5.0,
+   "units_sold": 0,
+   "popularity_rank": null,
+   "available": false,
+   "unavailable_reason": "Von Dan aussortiert am 19.08.2026, nicht in die App.",
+   "on_printed_menu": false,
+   "pos_sku": "248",
+   "recipe_known": true,
+   "recipe_status": "live",
+   "recipe_note": "",
+   "bar_recipe": [
+    {
+     "amount": "40 ml",
+     "product": "Ficken"
+    }
+   ],
+   "hidden_on_card": false,
+   "card_action": ""
+  },
+  {
+   "name": "Frozen Aperol",
+   "section": "Frozen",
+   "tagline_de": "Aperol Spritz als Slush. Im Hochsommer die einzig richtige Antwort.",
+   "bartender_note_de": "",
+   "ingredients_guest": [
+    "Aperol",
+    "Prosecco",
+    "Eis"
+   ],
+   "glass": "Weinglas",
+   "serve_style": "Frozen",
+   "strength": {
+    "level": 1,
+    "label": "leicht"
+   },
+   "flavour_tags": [
+    "bitter",
+    "fruchtig"
+   ],
+   "moment": [
+    "Mittendrin"
+   ],
+   "alcohol_free": false,
+   "allergens": [],
+   "price_eur": 9.7,
+   "units_sold": 0,
+   "popularity_rank": null,
+   "available": false,
+   "unavailable_reason": "Von Dan aussortiert am 19.08.2026, nicht in die App.",
+   "on_printed_menu": false,
+   "pos_sku": "239",
+   "recipe_known": true,
+   "recipe_status": "live",
+   "recipe_note": "",
+   "bar_recipe": [
+    {
+     "amount": "60 ml",
+     "product": "Aperol 1L"
+    }
+   ],
+   "hidden_on_card": false,
+   "card_action": ""
+  },
+  {
+   "name": "Frozen Sarti",
+   "section": "Frozen",
+   "tagline_de": "Sarti als Slush. Blumig, rosa und sehr kalt.",
+   "bartender_note_de": "",
+   "ingredients_guest": [
+    "Sarti Rosa",
+    "Prosecco",
+    "Eis"
+   ],
+   "glass": "Weinglas",
+   "serve_style": "Frozen",
+   "strength": {
+    "level": 1,
+    "label": "leicht"
+   },
+   "flavour_tags": [
+    "fruchtig"
+   ],
+   "moment": [
+    "Mittendrin"
+   ],
+   "alcohol_free": false,
+   "allergens": [],
+   "price_eur": 9.7,
+   "units_sold": 0,
+   "popularity_rank": null,
+   "available": false,
+   "unavailable_reason": "Von Dan aussortiert am 19.08.2026, nicht in die App.",
+   "on_printed_menu": false,
+   "pos_sku": "236",
+   "recipe_known": true,
+   "recipe_status": "live",
+   "recipe_note": "",
+   "bar_recipe": [
+    {
+     "amount": "60 ml",
+     "product": "Sarti 750ml"
+    }
+   ],
+   "hidden_on_card": false,
+   "card_action": ""
+  },
+  {
+   "name": "Frozen Spritz",
+   "section": "Frozen",
+   "tagline_de": "Spritz als Slush, ohne Umwege. Für Tage, an denen Eiswürfel nicht reichen.",
+   "bartender_note_de": "",
+   "ingredients_guest": [
+    "Aperitivo",
+    "Prosecco",
+    "Eis"
+   ],
+   "glass": "Weinglas",
+   "serve_style": "Frozen",
+   "strength": {
+    "level": 1,
+    "label": "leicht"
+   },
+   "flavour_tags": [
+    "bitter",
+    "fruchtig"
+   ],
+   "moment": [
+    "Mittendrin"
+   ],
+   "alcohol_free": false,
+   "allergens": [],
+   "price_eur": 9.7,
+   "units_sold": 0,
+   "popularity_rank": null,
+   "available": false,
+   "unavailable_reason": "Von Dan aussortiert am 19.08.2026, nicht in die App.",
+   "on_printed_menu": false,
+   "pos_sku": "178",
+   "recipe_known": true,
+   "recipe_status": "live",
+   "recipe_note": "",
+   "bar_recipe": [
+    {
+     "amount": "60 ml",
+     "product": "Aperol 1L"
+    },
+    {
+     "amount": "60 ml",
+     "product": "La Gioiosa Prosecco"
+    },
+    {
+     "amount": "30 ml",
+     "product": "Soda Water"
+    }
+   ],
+   "hidden_on_card": false,
+   "card_action": ""
+  },
+  {
+   "name": "Gin Tonic - Alkoholfrei",
+   "section": "Alkoholfrei",
+   "tagline_de": "Tanqueray 0.0 mit Tonic. Sieht aus wie ein Gin Tonic, schmeckt wie einer, ist keiner.",
+   "bartender_note_de": "",
+   "ingredients_guest": [
+    "Tanqueray 0.0",
+    "Tonic Water",
+    "Limette"
+   ],
+   "glass": "Ballonglas",
+   "serve_style": "Highball",
+   "strength": {
+    "level": 0,
+    "label": "alkoholfrei"
+   },
+   "flavour_tags": [
+    "bitter",
+    "prickelnd",
+    "kräuterig/frisch"
+   ],
+   "moment": [
+    "Ganzer Abend"
+   ],
+   "alcohol_free": true,
+   "allergens": [],
+   "price_eur": 8.6,
+   "units_sold": 0,
+   "popularity_rank": null,
+   "available": true,
+   "unavailable_reason": "",
+   "on_printed_menu": false,
+   "pos_sku": "404",
+   "recipe_known": true,
+   "recipe_status": "live",
+   "recipe_note": "",
+   "bar_recipe": [
+    {
+     "amount": "60 ml",
+     "product": "Tanqueray 0.0 750ml"
+    },
+    {
+     "amount": "200 ml",
+     "product": "Thomas Henry - Tonic Water 1L"
+    }
+   ],
+   "hidden_on_card": false,
+   "card_action": ""
+  },
+  {
+   "name": "Gin Tonic - August",
+   "section": "Gin",
+   "tagline_de": "Auch aus Augsburg, etwas weicher als der Fugger. Zwei Städte, zwei Gins.",
+   "bartender_note_de": "",
+   "ingredients_guest": [
+    "August Gin",
+    "Tonic Water",
+    "Limette"
+   ],
+   "glass": "Ballonglas",
+   "serve_style": "Highball",
+   "strength": {
+    "level": 3,
+    "label": "mittel"
+   },
+   "flavour_tags": [
+    "kräuterig/frisch",
+    "bitter",
+    "prickelnd"
+   ],
+   "moment": [
+    "Auftakt",
+    "Mittendrin"
+   ],
+   "alcohol_free": false,
+   "allergens": [],
+   "price_eur": 9.6,
+   "units_sold": 0,
+   "popularity_rank": null,
+   "available": true,
+   "unavailable_reason": "",
+   "on_printed_menu": false,
+   "pos_sku": "244",
+   "recipe_known": true,
+   "recipe_status": "live",
+   "recipe_note": "",
+   "bar_recipe": [
+    {
+     "amount": "60 ml",
+     "product": "August Gin 700ml"
+    },
+    {
+     "amount": "1 Stk",
+     "product": "Thomas Henry -  Tonic Water 0,2l"
+    }
+   ],
+   "hidden_on_card": false,
+   "card_action": ""
+  },
+  {
+   "name": "Gingerle 4cl & Tonic",
+   "section": "Gin",
+   "tagline_de": "Ingwer Zitronen Likör auf Tonic. Scharf und bitter, eine gute Alternative zum Gin Tonic.",
+   "bartender_note_de": "",
+   "ingredients_guest": [
+    "gingerle",
+    "Tonic Water"
+   ],
+   "glass": "Ballonglas",
+   "serve_style": "Highball",
+   "strength": {
+    "level": 2,
+    "label": "mild"
+   },
+   "flavour_tags": [
+    "prickelnd",
+    "bitter"
+   ],
+   "moment": [
+    "Mittendrin"
+   ],
+   "alcohol_free": false,
+   "allergens": [],
+   "price_eur": 9.7,
+   "units_sold": 0,
+   "popularity_rank": null,
+   "available": false,
+   "unavailable_reason": "Von Dan aussortiert am 19.08.2026, nicht in die App.",
+   "on_printed_menu": false,
+   "pos_sku": "432",
+   "recipe_known": true,
+   "recipe_status": "live",
+   "recipe_note": "",
+   "bar_recipe": [
+    {
+     "amount": "40 ml",
+     "product": "gingerle Ingwer Zitronen Likoer - 1l"
+    },
+    {
+     "amount": "60 ml",
+     "product": "Thomas Henry - Tonic Water 1L"
+    },
+    {
+     "amount": "4.6 oz",
+     "product": "Eiswuerfel - Solid 5 kg"
+    }
+   ],
+   "hidden_on_card": false,
+   "card_action": ""
+  },
+  {
+   "name": "Haselnuss 4cl",
+   "section": "Shots",
+   "tagline_de": "Doppelt nussig. Eher ein Absacker als ein Shot.",
+   "bartender_note_de": "",
+   "ingredients_guest": [
+    "Haselnusslikör"
+   ],
+   "glass": "Shotglas",
+   "serve_style": "Shot",
+   "strength": {
+    "level": 2,
+    "label": "mild"
+   },
+   "flavour_tags": [
+    "süß",
+    "cremig"
+   ],
+   "moment": [
+    "Später Abend"
+   ],
+   "alcohol_free": false,
+   "allergens": [
+    "Nüsse"
+   ],
+   "price_eur": 6.0,
+   "units_sold": 0,
+   "popularity_rank": null,
+   "available": false,
+   "unavailable_reason": "Von Dan aussortiert am 19.08.2026, nicht in die App.",
+   "on_printed_menu": false,
+   "pos_sku": "254",
+   "recipe_known": true,
+   "recipe_status": "live",
+   "recipe_note": "",
+   "bar_recipe": [
+    {
+     "amount": "40 ml",
+     "product": "Haselnuss"
+    }
+   ],
+   "hidden_on_card": false,
+   "card_action": ""
+  },
+  {
+   "name": "Heidi",
+   "section": "Spritzig Selects",
+   "tagline_de": "Dunkle Beeren und Prosecco. Der tiefste Spritz auf der Karte und der, den man am Nebentisch sieht.",
+   "bartender_note_de": "",
+   "ingredients_guest": [
+    "Lillet",
+    "Johannisbeere",
+    "Heidelbeeren",
+    "Prosecco",
+    "Soda"
+   ],
+   "glass": "Weinglas",
+   "serve_style": "Spritz",
+   "strength": {
+    "level": 1,
+    "label": "leicht"
+   },
+   "flavour_tags": [
+    "fruchtig",
+    "prickelnd"
+   ],
+   "moment": [
+    "Auftakt"
+   ],
+   "alcohol_free": false,
+   "allergens": [],
+   "price_eur": 7.9,
+   "units_sold": null,
+   "popularity_rank": null,
+   "available": true,
+   "unavailable_reason": "",
+   "on_printed_menu": true,
+   "pos_sku": null,
+   "recipe_known": false,
+   "recipe_status": "ENTWURF - vom Barchef zu bestaetigen",
+   "recipe_note": "Heidelbeeren sind im System bereits als Blaubeeren angelegt (Garnishes/Fresh Fruit, 3,59 EUR). Kein neues Produkt noetig, nur Menge bestaetigen.",
+   "bar_recipe": [
+    {
+     "amount": "40 ml",
+     "product": "Lillet Blanc 750ml"
+    },
+    {
+     "amount": "30 ml",
+     "product": "Granini Fruchtsaft - Johannisbeersaft"
+    },
+    {
+     "amount": "0.5 Stk",
+     "product": "Blaubeeren"
+    },
+    {
+     "amount": "90 ml",
+     "product": "La Gioiosa Prosecco"
+    },
+    {
+     "amount": "30 ml",
+     "product": "Mozartquelle Fortissimo 0,75l"
+    },
+    {
+     "amount": "4.6 oz",
+     "product": "Eiswuerfel - Solid 5 kg"
+    }
+   ],
+   "hidden_on_card": false,
+   "card_action": ""
+  },
+  {
+   "name": "La Dama Rosa",
+   "section": "Premium Cocktails",
+   "tagline_de": "Grapefruit, Agave und Tajín am Rand. Salzig, sauer, rosa.",
+   "bartender_note_de": "",
+   "ingredients_guest": [
+    "Don Julio Blanco",
+    "Grapefruit",
+    "Limette",
+    "Agave",
+    "Tajín",
+    "Soda"
+   ],
+   "glass": "Highball",
+   "serve_style": "Highball",
+   "strength": {
+    "level": 3,
+    "label": "mittel"
+   },
+   "flavour_tags": [
+    "fruchtig",
+    "sauer/zitrus",
+    "prickelnd"
+   ],
+   "moment": [
+    "Auftakt",
+    "Mittendrin"
+   ],
+   "alcohol_free": false,
+   "allergens": [],
+   "price_eur": 14.7,
+   "units_sold": null,
+   "popularity_rank": null,
+   "available": true,
+   "unavailable_reason": "",
+   "on_printed_menu": true,
+   "pos_sku": null,
+   "recipe_known": false,
+   "recipe_status": "ENTWURF - vom Barchef zu bestaetigen",
+   "recipe_note": "Tajin ist bereits angelegt als Tajin - 400g (Garnishes/Dried Fruit, 9,49 EUR). Kein neues Produkt noetig, nur Menge bestaetigen.",
+   "bar_recipe": [
+    {
+     "amount": "50 ml",
+     "product": "Don Julio Blanco 700ml"
+    },
+    {
+     "amount": "1 Stk",
+     "product": "Thomas Henry -  Pink Grapefruit 0,2l"
+    },
+    {
+     "amount": "20 ml",
+     "product": "Limettensaft"
+    },
+    {
+     "amount": "15 ml",
+     "product": "Agaven Nektar"
+    },
+    {
+     "amount": "60 ml",
+     "product": "Mozartquelle Fortissimo 0,75l"
+    },
+    {
+     "amount": "0.1 oz",
+     "product": "Tajin - 400g"
+    }
+   ],
+   "hidden_on_card": false,
+   "card_action": ""
+  },
+  {
+   "name": "Licor 43 2cl",
+   "section": "Shots",
+   "tagline_de": "Vanille und Zitrus aus Spanien. Der süsseste Shot auf der Karte.",
+   "bartender_note_de": "",
+   "ingredients_guest": [
+    "Licor 43"
+   ],
+   "glass": "Shotglas",
+   "serve_style": "Shot",
+   "strength": {
+    "level": 2,
+    "label": "mild"
+   },
+   "flavour_tags": [
+    "süß"
+   ],
+   "moment": [
+    "Später Abend"
+   ],
+   "alcohol_free": false,
+   "allergens": [],
+   "price_eur": 3.0,
+   "units_sold": 0,
+   "popularity_rank": null,
+   "available": false,
+   "unavailable_reason": "Von Dan aussortiert am 19.08.2026, nicht in die App.",
+   "on_printed_menu": false,
+   "pos_sku": "246",
+   "recipe_known": true,
+   "recipe_status": "live",
+   "recipe_note": "",
+   "bar_recipe": [
+    {
+     "amount": "20 ml",
+     "product": "Licor 43 1L"
+    }
+   ],
+   "hidden_on_card": false,
+   "card_action": ""
+  },
+  {
+   "name": "Licor 43 4cl & Ginger",
+   "section": "Mixgetränke",
+   "tagline_de": "Vanillelikör auf Ingwer. Süss und scharf, ein Widerspruch, der funktioniert.",
+   "bartender_note_de": "",
+   "ingredients_guest": [
+    "Licor 43",
+    "Thomas Henry Spicy Ginger"
+   ],
+   "glass": "Highball",
+   "serve_style": "Highball",
+   "strength": {
+    "level": 2,
+    "label": "mild"
+   },
+   "flavour_tags": [
+    "süß",
+    "prickelnd"
+   ],
+   "moment": [
+    "Später Abend"
+   ],
+   "alcohol_free": false,
+   "allergens": [],
+   "price_eur": 9.7,
+   "units_sold": 0,
+   "popularity_rank": null,
+   "available": false,
+   "unavailable_reason": "Von Dan aussortiert am 19.08.2026, nicht in die App.",
+   "on_printed_menu": false,
+   "pos_sku": "245",
+   "recipe_known": true,
+   "recipe_status": "live",
+   "recipe_note": "",
+   "bar_recipe": [
+    {
+     "amount": "60 ml",
+     "product": "Licor 43 1L"
+    },
+    {
+     "amount": "1 Stk",
+     "product": "Schweppes - Ginger Ale 0,2l"
+    },
+    {
+     "amount": "4.6 oz",
+     "product": "Eiswuerfel - Solid 5 kg"
+    }
+   ],
+   "hidden_on_card": false,
+   "card_action": ""
+  },
+  {
+   "name": "Old Cuban",
+   "section": "Premium Cocktails",
+   "tagline_de": "Mojito trifft Champagnercocktail. Gereifter Rum, Minze, Limette und Prosecco obendrauf.",
+   "bartender_note_de": "2001 von Audrey Saunders in New York erfunden. Heute offizieller IBA Cocktail.",
+   "ingredients_guest": [
+    "Zacapa 23",
+    "Limette",
+    "Zucker",
+    "Minze",
+    "Prosecco"
+   ],
+   "glass": "Coupe",
+   "serve_style": "Shaken",
+   "strength": {
+    "level": 3,
+    "label": "mittel"
+   },
+   "flavour_tags": [
+    "kräuterig/frisch",
+    "prickelnd",
+    "süß"
+   ],
+   "moment": [
+    "Mittendrin"
+   ],
+   "alcohol_free": false,
+   "allergens": [],
+   "price_eur": 12.7,
+   "units_sold": null,
+   "popularity_rank": null,
+   "available": true,
+   "unavailable_reason": "",
+   "on_printed_menu": true,
+   "pos_sku": null,
+   "recipe_known": false,
+   "recipe_status": "ENTWURF - vom Barchef zu bestaetigen",
+   "recipe_note": "",
+   "bar_recipe": [
+    {
+     "amount": "50 ml",
+     "product": "Ron Zacapa 23 Rum 700ml"
+    },
+    {
+     "amount": "30 ml",
+     "product": "Limettensaft"
+    },
+    {
+     "amount": "20 ml",
+     "product": "RIOBA Rohrzucker Syrup - 0,7l"
+    },
+    {
+     "amount": "0.2 oz",
+     "product": "Minze"
+    },
+    {
+     "amount": "90 ml",
+     "product": "La Gioiosa Prosecco"
+    },
+    {
+     "amount": "6 oz",
+     "product": "Eiswuerfel - Solid 5 kg"
+    }
+   ],
+   "hidden_on_card": false,
+   "card_action": ""
+  },
+  {
+   "name": "Picante de la Casa",
+   "section": "Tequila",
+   "tagline_de": "Tequila mit Chili und Koriander. Scharf, frisch und unser mutigster Drink.",
+   "bartender_note_de": "",
+   "ingredients_guest": [
+    "Reposado",
+    "Limette",
+    "Agave",
+    "Chili",
+    "Koriander"
+   ],
+   "glass": "Tumbler",
+   "serve_style": "Shaken",
+   "strength": {
+    "level": 4,
+    "label": "kräftig"
+   },
+   "flavour_tags": [
+    "sauer/zitrus",
+    "scharf",
+    "kräuterig/frisch"
+   ],
+   "moment": [
+    "Mittendrin"
+   ],
+   "alcohol_free": false,
+   "allergens": [],
+   "price_eur": 12.7,
+   "units_sold": 0,
+   "popularity_rank": null,
+   "available": false,
+   "unavailable_reason": "Von Dan aussortiert am 19.08.2026, nicht in die App.",
+   "on_printed_menu": false,
+   "pos_sku": "436",
+   "recipe_known": true,
+   "recipe_status": "live",
+   "recipe_note": "",
+   "bar_recipe": [
+    {
+     "amount": "60 ml",
+     "product": "El Destilador Blanco 1L"
+    },
+    {
+     "amount": "30 ml",
+     "product": "Limettensaft"
+    },
+    {
+     "amount": "20 ml",
+     "product": "Agaven Nektar"
+    },
+    {
+     "amount": "6.3 oz",
+     "product": "Eiswuerfel - Solid 5 kg"
+    }
+   ],
+   "hidden_on_card": true,
+   "card_action": "Bleibt auf der Karte versteckt (Dan 19.08.2026)"
+  },
+  {
+   "name": "Raki 2cl",
+   "section": "Shots",
+   "tagline_de": "Türkischer Anis, klar und kräftig. Trinkt man langsam, auch als Shot.",
+   "bartender_note_de": "",
+   "ingredients_guest": [
+    "Raki"
+   ],
+   "glass": "Shotglas",
+   "serve_style": "Shot",
+   "strength": {
+    "level": 4,
+    "label": "kräftig"
+   },
+   "flavour_tags": [
+    "kräuterig/frisch"
+   ],
+   "moment": [
+    "Später Abend"
+   ],
+   "alcohol_free": false,
+   "allergens": [],
+   "price_eur": 3.0,
+   "units_sold": 0,
+   "popularity_rank": null,
+   "available": false,
+   "unavailable_reason": "Von Dan aussortiert am 19.08.2026, nicht in die App.",
+   "on_printed_menu": false,
+   "pos_sku": "268",
+   "recipe_known": true,
+   "recipe_status": "live",
+   "recipe_note": "",
+   "bar_recipe": [
+    {
+     "amount": "20 ml",
+     "product": "Raki"
+    }
+   ],
+   "hidden_on_card": false,
+   "card_action": ""
+  },
+  {
+   "name": "Raki 4cl",
+   "section": "Shots",
+   "tagline_de": "Doppelter Raki. Am besten mit Wasser daneben.",
+   "bartender_note_de": "",
+   "ingredients_guest": [
+    "Raki"
+   ],
+   "glass": "Shotglas",
+   "serve_style": "Shot",
+   "strength": {
+    "level": 4,
+    "label": "kräftig"
+   },
+   "flavour_tags": [
+    "kräuterig/frisch"
+   ],
+   "moment": [
+    "Später Abend"
+   ],
+   "alcohol_free": false,
+   "allergens": [],
+   "price_eur": 6.0,
+   "units_sold": 0,
+   "popularity_rank": null,
+   "available": false,
+   "unavailable_reason": "Von Dan aussortiert am 19.08.2026, nicht in die App.",
+   "on_printed_menu": false,
+   "pos_sku": "285",
+   "recipe_known": true,
+   "recipe_status": "live",
+   "recipe_note": "",
+   "bar_recipe": [
+    {
+     "amount": "40 ml",
+     "product": "Raki"
+    }
+   ],
+   "hidden_on_card": false,
+   "card_action": ""
+  },
+  {
+   "name": "Royal Mojito",
+   "section": "Rum / Cachaca",
+   "tagline_de": "Mojito mit gereiftem Rum und Prosecco statt Soda. Die erwachsene Version.",
+   "bartender_note_de": "",
+   "ingredients_guest": [
+    "Havana Club",
+    "Limette",
+    "Minze",
+    "Zucker",
+    "Prosecco"
+   ],
+   "glass": "Highball",
+   "serve_style": "Highball",
+   "strength": {
+    "level": 3,
+    "label": "mittel"
+   },
+   "flavour_tags": [
+    "kräuterig/frisch",
+    "prickelnd",
+    "sauer/zitrus"
+   ],
+   "moment": [
+    "Mittendrin"
+   ],
+   "alcohol_free": false,
+   "allergens": [],
+   "price_eur": 11.7,
+   "units_sold": null,
+   "popularity_rank": null,
+   "available": true,
+   "unavailable_reason": "",
+   "on_printed_menu": true,
+   "pos_sku": null,
+   "recipe_known": false,
+   "recipe_status": "ENTWURF - vom Barchef zu bestaetigen",
+   "recipe_note": "",
+   "bar_recipe": [
+    {
+     "amount": "50 ml",
+     "product": "Havana Club Anejo 1L"
+    },
+    {
+     "amount": "30 ml",
+     "product": "Limettensaft"
+    },
+    {
+     "amount": "0.2 oz",
+     "product": "Minze"
+    },
+    {
+     "amount": "20 ml",
+     "product": "RIOBA Rohrzucker Syrup - 0,7l"
+    },
+    {
+     "amount": "90 ml",
+     "product": "La Gioiosa Prosecco"
+    },
+    {
+     "amount": "7 oz",
+     "product": "Eiswuerfel - Crushed 5 kg"
+    }
+   ],
+   "hidden_on_card": false,
+   "card_action": ""
+  },
+  {
+   "name": "Sambuca 4 cl",
+   "section": "Shots",
+   "tagline_de": "Doppelter Anis. Meistens der letzte des Abends.",
+   "bartender_note_de": "",
+   "ingredients_guest": [
+    "Sambuca"
+   ],
+   "glass": "Shotglas",
+   "serve_style": "Shot",
+   "strength": {
+    "level": 3,
+    "label": "mittel"
+   },
+   "flavour_tags": [
+    "süß",
+    "kräuterig/frisch"
+   ],
+   "moment": [
+    "Später Abend"
+   ],
+   "alcohol_free": false,
+   "allergens": [],
+   "price_eur": 6.0,
+   "units_sold": 0,
+   "popularity_rank": null,
+   "available": false,
+   "unavailable_reason": "Von Dan aussortiert am 19.08.2026, nicht in die App.",
+   "on_printed_menu": false,
+   "pos_sku": "252",
+   "recipe_known": true,
+   "recipe_status": "live",
+   "recipe_note": "",
+   "bar_recipe": [
+    {
+     "amount": "40 ml",
+     "product": "Ramazzotti Sambuca 750ml"
+    }
+   ],
+   "hidden_on_card": false,
+   "card_action": ""
+  },
+  {
+   "name": "Scotch Sour",
+   "section": "Premium Cocktails",
+   "tagline_de": "Rauchiger Whisky, sauer abgezogen, mit Schaumkrone. Für alle, die einen Sour mit Charakter wollen.",
+   "bartender_note_de": "",
+   "ingredients_guest": [
+    "Talisker",
+    "Zitrone",
+    "Zucker",
+    "Eiweiss"
+   ],
+   "glass": "Tumbler",
+   "serve_style": "Sour",
+   "strength": {
+    "level": 4,
+    "label": "kräftig"
+   },
+   "flavour_tags": [
+    "sauer/zitrus",
+    "cremig"
+   ],
+   "moment": [
+    "Später Abend"
+   ],
+   "alcohol_free": false,
+   "allergens": [
+    "Ei"
+   ],
+   "price_eur": 11.7,
+   "units_sold": null,
+   "popularity_rank": null,
+   "available": true,
+   "unavailable_reason": "",
+   "on_printed_menu": true,
+   "pos_sku": null,
+   "recipe_known": false,
+   "recipe_status": "ENTWURF - vom Barchef zu bestaetigen",
+   "recipe_note": "Karte sagt Talisker 12. Im Bestand sind Talisker 10, Talisker Skye und Talisker Wilder Seas. Entwurf nutzt Talisker 10 - bitte bestaetigen welcher wirklich verwendet wird.",
+   "bar_recipe": [
+    {
+     "amount": "60 ml",
+     "product": "Talisker 10 Year 750ml"
+    },
+    {
+     "amount": "30 ml",
+     "product": "Granini Fruchtsaft - Zitrone"
+    },
+    {
+     "amount": "10 ml",
+     "product": "Eiweiss"
+    },
+    {
+     "amount": "20 ml",
+     "product": "RIOBA Rohrzucker Syrup - 0,7l"
+    },
+    {
+     "amount": "6.3 oz",
+     "product": "Eiswuerfel - Solid 5 kg"
+    }
+   ],
+   "hidden_on_card": false,
+   "card_action": ""
+  },
+  {
+   "name": "Swimming Pool",
+   "section": "Vodka",
+   "tagline_de": "Blau, cremig, mit Ananas und Kokos. Ein Drink, der niemandem etwas beweisen muss.",
+   "bartender_note_de": "",
+   "ingredients_guest": [
+    "Absolut",
+    "Blue Curaçao",
+    "Ananas",
+    "Kokos",
+    "Sahne"
+   ],
+   "glass": "Hurricane",
+   "serve_style": "Shaken",
+   "strength": {
+    "level": 3,
+    "label": "mittel"
+   },
+   "flavour_tags": [
+    "fruchtig",
+    "cremig",
+    "süß"
+   ],
+   "moment": [
+    "Mittendrin"
+   ],
+   "alcohol_free": false,
+   "allergens": [
+    "Milch"
+   ],
+   "price_eur": 9.7,
+   "units_sold": 0,
+   "popularity_rank": null,
+   "available": false,
+   "unavailable_reason": "Von Dan aussortiert am 19.08.2026, nicht in die App.",
+   "on_printed_menu": false,
+   "pos_sku": "328",
+   "recipe_known": true,
+   "recipe_status": "live",
+   "recipe_note": "",
+   "bar_recipe": [
+    {
+     "amount": "60 ml",
+     "product": "Absolut 1L"
+    },
+    {
+     "amount": "20 ml",
+     "product": "Blue Curacao 700ml"
+    },
+    {
+     "amount": "80 ml",
+     "product": "Granini Fruchtsaft - Ananas"
+    },
+    {
+     "amount": "30 ml",
+     "product": "Kokussirup"
+    },
+    {
+     "amount": "30 ml",
+     "product": "Schlagsahne"
+    }
+   ],
+   "hidden_on_card": false,
+   "card_action": ""
+  },
+  {
+   "name": "Tiramisu Martini",
+   "section": "Vodka Cocktails",
+   "tagline_de": "Espresso Martini mit Baileys und Zimt. Nachtisch und Absacker in einem Glas.",
+   "bartender_note_de": "",
+   "ingredients_guest": [
+    "Amaretto",
+    "Baileys",
+    "Kahlúa",
+    "Zimt",
+    "Zucker",
+    "frischer Espresso"
+   ],
+   "glass": "Coupe",
+   "serve_style": "Shaken",
+   "strength": {
+    "level": 3,
+    "label": "mittel"
+   },
+   "flavour_tags": [
+    "kaffee",
+    "cremig",
+    "süß"
+   ],
+   "moment": [
+    "Später Abend"
+   ],
+   "alcohol_free": false,
+   "allergens": [
+    "Milch",
+    "Nüsse"
+   ],
+   "price_eur": 11.7,
+   "units_sold": null,
+   "popularity_rank": null,
+   "available": true,
+   "unavailable_reason": "",
+   "on_printed_menu": true,
+   "pos_sku": null,
+   "recipe_known": false,
+   "recipe_status": "ENTWURF - vom Barchef zu bestaetigen",
+   "recipe_note": "Zimt gemahlen - 100g wurde am 19.08.2026 neu angelegt. EINKAUFSPREIS FEHLT NOCH, bitte nachtragen.",
+   "bar_recipe": [
+    {
+     "amount": "20 ml",
+     "product": "Antica Distilleria Quaglia Amaretto -  700ml"
+    },
+    {
+     "amount": "20 ml",
+     "product": "Bailey's 750ml"
+    },
+    {
+     "amount": "20 ml",
+     "product": "Kahlua 1L"
+    },
+    {
+     "amount": "40 ml",
+     "product": "Espresso"
+    },
+    {
+     "amount": "10 ml",
+     "product": "RIOBA Rohrzucker Syrup - 0,7l"
+    },
+    {
+     "amount": "6 oz",
+     "product": "Eiswuerfel - Solid 5 kg"
+    },
+    {
+     "amount": "0.05 oz",
+     "product": "Zimt gemahlen - 100g"
+    }
+   ],
+   "hidden_on_card": true,
+   "card_action": "Bleibt auf der Karte versteckt (Dan 19.08.2026)"
+  },
+  {
+   "name": "Turbo Mate",
+   "section": "Mixgetränke",
+   "tagline_de": "Wodka in Club Mate. Kein Cocktail, sondern eine Absichtserklärung.",
+   "bartender_note_de": "",
+   "ingredients_guest": [
+    "Absolut",
+    "Club Mate"
+   ],
+   "glass": "Highball",
+   "serve_style": "Highball",
+   "strength": {
+    "level": 3,
+    "label": "mittel"
+   },
+   "flavour_tags": [
+    "prickelnd",
+    "bitter"
+   ],
+   "moment": [
+    "Später Abend"
+   ],
+   "alcohol_free": false,
+   "allergens": [],
+   "price_eur": 7.4,
+   "units_sold": 0,
+   "popularity_rank": null,
+   "available": true,
+   "unavailable_reason": "",
+   "on_printed_menu": false,
+   "pos_sku": "461",
+   "recipe_known": true,
+   "recipe_status": "live",
+   "recipe_note": "",
+   "bar_recipe": [
+    {
+     "amount": "60 ml",
+     "product": "Absolut 1L"
+    },
+    {
+     "amount": "1 Stk",
+     "product": "Club Mate 0,5l"
+    }
+   ],
+   "hidden_on_card": false,
+   "card_action": ""
+  },
+  {
+   "name": "Vanilla Blush",
+   "section": "Spritzig Selects",
+   "tagline_de": "Rhabarber und Vanille im Prosecco. Sauer und cremig zugleich, was selten so gut zusammengeht.",
+   "bartender_note_de": "",
+   "ingredients_guest": [
+    "Rhabarber",
+    "Vanille",
+    "Prosecco",
+    "Soda"
+   ],
+   "glass": "Weinglas",
+   "serve_style": "Spritz",
+   "strength": {
+    "level": 1,
+    "label": "leicht"
+   },
+   "flavour_tags": [
+    "fruchtig",
+    "süß",
+    "prickelnd"
+   ],
+   "moment": [
+    "Auftakt"
+   ],
+   "alcohol_free": false,
+   "allergens": [],
+   "price_eur": 7.9,
+   "units_sold": null,
+   "popularity_rank": null,
+   "available": true,
+   "unavailable_reason": "",
+   "on_printed_menu": true,
+   "pos_sku": null,
+   "recipe_known": false,
+   "recipe_status": "ENTWURF - vom Barchef zu bestaetigen",
+   "recipe_note": "",
+   "bar_recipe": [
+    {
+     "amount": "40 ml",
+     "product": "Granini Fruchtsaft - Rhabarber"
+    },
+    {
+     "amount": "20 ml",
+     "product": "Giffard Vanille Sirup - 1L"
+    },
+    {
+     "amount": "90 ml",
+     "product": "La Gioiosa Prosecco"
+    },
+    {
+     "amount": "30 ml",
+     "product": "Mozartquelle Fortissimo 0,75l"
+    },
+    {
+     "amount": "4.6 oz",
+     "product": "Eiswuerfel - Solid 5 kg"
+    }
+   ],
+   "hidden_on_card": false,
+   "card_action": ""
+  }
+ ],
+ "decision_log": "Nie-verkauft-Liste von Dan entschieden 19.08.2026: 7 bleiben, 19 raus. Gin Basil und Alkoholfrei Gin Basil bleiben separat gesperrt (kein Basilikum)."
+}
