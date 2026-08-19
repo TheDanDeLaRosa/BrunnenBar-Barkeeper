@@ -5390,7 +5390,7 @@
      "bitter-suess"
     ],
     "moments": [
-     "Spaeter Abend"
+     "Später Abend"
     ],
     "allergens": [],
     "alcoholFree": false,

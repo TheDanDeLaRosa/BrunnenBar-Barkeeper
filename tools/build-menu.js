@@ -128,6 +128,16 @@ function slug(name) {
 /* The export grew a few near-duplicate section names by hand. Fold them
  * together so the card does not show "Rum/Cachaça" and "Rum / Cachaca" as
  * two different things. */
+/* The four moments the card is built on. A drink tagged with anything else
+ * silently matches no question option, so unknowns are reported rather than
+ * passed through. MOMENT_ALIASES catches the transliterated spellings that
+ * have turned up in exports. */
+const MOMENTS = ['Auftakt', 'Mittendrin', 'Später Abend', 'Ganzer Abend'];
+const MOMENT_ALIASES = {
+  'Spaeter Abend': 'Später Abend',
+  'Spaet Abend': 'Später Abend'
+};
+
 const SECTION_ALIASES = {
   'Rum / Cachaca': 'Rum/Cachaça',
   'Apertive Cocktails': 'Aperitivo Cocktails',
@@ -175,7 +185,7 @@ function main() {
       strength: d.strength && typeof d.strength.level === 'number' ? d.strength.level : 3,
       strengthLabel: (d.strength && d.strength.label) || '',
       flavours: d.flavour_tags || [],
-      moments: d.moment || [],
+      moments: (d.moment || []).map(m => MOMENT_ALIASES[m] || m),
       allergens: d.allergens || [],
       alcoholFree: isAlcoholFree(d),
       price: typeof d.price_eur === 'number' ? d.price_eur : null,
@@ -307,6 +317,25 @@ function main() {
       console.log('   Add them to flavourNames and flavourCompare in data/questions.js,');
       console.log('   or fold them into the tags the rest of the card already uses.');
     }
+  }
+
+  const fixedMoments = [];
+  const unknownMoments = {};
+  kept.forEach(d => {
+    (d.moment || []).forEach(m => {
+      if (MOMENT_ALIASES[m]) fixedMoments.push(d.name + ': "' + m + '" -> "' + MOMENT_ALIASES[m] + '"');
+      else if (MOMENTS.indexOf(m) === -1) (unknownMoments[m] = unknownMoments[m] || []).push(d.name);
+    });
+  });
+  if (fixedMoments.length) {
+    console.log('\n   Moment spellings corrected at build time:');
+    fixedMoments.forEach(f => console.log('     ' + f));
+    console.log('     Worth fixing in the export so this stops recurring.');
+  }
+  if (Object.keys(unknownMoments).length) {
+    console.log('\n!! UNKNOWN MOMENTS - these drinks match no question option:');
+    Object.keys(unknownMoments).forEach(m =>
+      console.log('   "' + m + '"  on ' + unknownMoments[m].join(', ')));
   }
 
   const noSpirit = menu.filter(d => !d.alcoholFree && d.base === 'other');

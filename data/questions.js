@@ -21,15 +21,19 @@
     {
       id: 'moment',
       type: 'single',
-      title: { de: 'Worauf hast du Lust?', en: 'What are you in the mood for?' },
+      /* The export's `moment` field says WHEN in the evening a drink fits,
+       * so the options map to it one for one. Only the framing changed: a
+       * guest recognises "first drink or last" immediately, where "where are
+       * you in the evening" reads like a survey. */
+      title: { de: 'Erster Drink oder letzter?', en: 'First drink or last?' },
       sub: {
-        de: 'Der erste Drink des Abends darf was anderes können als der letzte.',
-        en: 'The first drink of the night can do a different job than the last one.'
+        de: 'Ein Aperitif macht Lust auf mehr. Ein Absacker macht Schluss. Das sind zwei verschiedene Drinks.',
+        en: 'An aperitif makes you want another. A nightcap closes the night. Those are two different drinks.'
       },
       options: [
-        { value: 'Auftakt', label: { de: 'Ankommen', en: 'Settling in' }, hint: { de: 'Der Drink, der den Abend aufmacht', en: 'The one that opens the evening' } },
-        { value: 'Mittendrin', label: { de: 'Mittendrin', en: 'In the thick of it' }, hint: { de: 'Der Drink für den Abend', en: 'The drink for the evening' } },
-        { value: 'Später Abend', label: { de: 'Später Abend', en: 'Late' }, hint: { de: 'Kurz, stark, zum Ausklang', en: 'Short, strong, to close' } },
+        { value: 'Auftakt', label: { de: 'Der erste', en: 'The first one' }, hint: { de: 'Wir kommen gerade an', en: 'We just got here' } },
+        { value: 'Mittendrin', label: { de: 'Mittendrin', en: 'Somewhere in the middle' }, hint: { de: 'Wir sitzen schon eine Weile', en: 'We have been here a while' } },
+        { value: 'Später Abend', label: { de: 'Der letzte', en: 'The last one' }, hint: { de: 'Danach gehen wir', en: 'We head off after this' } },
         { value: 'shots', label: { de: 'Eine Runde Shots', en: 'A round of shots' }, hint: { de: 'Für den ganzen Tisch', en: 'For the whole table' } }
       ]
     },

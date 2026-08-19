@@ -138,6 +138,24 @@ If nothing separates them it falls back to "Passt ebenfalls" rather than
 inventing a difference. A test walks every pair of drinks on the card and
 asserts the claim is actually true of that pair.
 
+### Why the first question asks what it asks
+
+The export's `moment` field records **when in the evening** a drink fits, and
+nothing else. 46 drinks are openers, 36 are closers, 24 are openers *only*.
+That is real signal and worth asking about, so the four options map to it one
+for one.
+
+What changed is only the framing. "Where are you in the evening" reads like a
+survey question; "first drink or last" is something a guest recognises about
+themselves instantly, and the aperitif-versus-nightcap distinction is exactly
+what the field encodes.
+
+A tempting alternative is to ask how big a night it is — one and done versus a
+long session. The data does not support it. Nothing in the export says whether
+a drink suits a long session, and the closest honest proxies, strength and
+long-versus-short, are already their own questions. Asking it would mean
+inventing a mapping and asking the same thing twice.
+
 ### Predictable, not random
 
 The same answers give the same advice. A per-visit seed exists only to break
@@ -167,7 +185,13 @@ JSON either way and the warning goes away.
 | `Don Julio Reposado Margerita` | Margarita |
 | `Gin Tonic - Hendriks` | Hendrick's |
 
-**3. Export v3 introduced three one-off flavour tags.** `Don Julio Anejo
+**3. `Don Julio Anejo Manhattan` is tagged `Spaeter Abend`,** not
+`Später Abend`, so it matched no question option and was unreachable through
+the late-night path. The build now repairs the spelling and says so on every
+run, but it is worth fixing in the export. The same drink's `moment_en` is
+correct, so this is a German-side typo only.
+
+**4. Export v3 introduced three one-off flavour tags.** `Don Julio Anejo
 Manhattan` is tagged `kraeftig`, `holzig` and `bitter-suess`, none of which
 match the vocabulary the other 124 drinks use, and all three are ASCII
 transliterations while the established tags carry umlauts (`süß`,
@@ -185,11 +209,11 @@ tequila `Don Julio Anejo` without the ñ; the build matches on a normalised key
 so this no longer costs the drink its spirit, but the card spelling is worth
 fixing.
 
-**4. Nine drinks still have draft recipes** (`recipe_status: ENTWURF`) awaiting
+**5. Nine drinks still have draft recipes** (`recipe_status: ENTWURF`) awaiting
 the Barchef. They are live in the app because `available: true`. Scotch Sour in
 particular has an open question about which Talisker is actually used.
 
-**5. The card is fully bilingual now.** The export carries German and English
+**6. The card is fully bilingual now.** The export carries German and English
 side by side, and the app uses it everywhere a guest can see: taglines,
 bartender notes, ingredients and glassware.
 

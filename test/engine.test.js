@@ -117,6 +117,37 @@ test('every moment option is a real moment', function () {
   });
 });
 
+test('every drink moment is one the question can actually offer', function () {
+  var offered = opt('moment').filter(function (v) { return v !== 'shots'; });
+  offered.push('Ganzer Abend');           // matches any moment, never offered directly
+  var bad = [];
+  MENU.forEach(function (d) {
+    d.moments.forEach(function (m) {
+      if (offered.indexOf(m) === -1) bad.push(d.name + ': "' + m + '"');
+    });
+  });
+  assert.deepStrictEqual(bad, [],
+    'moments no guest can select:\n       ' + bad.join('\n       '));
+});
+
+test('the transliterated moment spelling is repaired at build time', function () {
+  var raw = source.drinks.filter(function (d) {
+    return d.available && (d.moment || []).some(function (m) { return /Spaet/.test(m); });
+  });
+  raw.forEach(function (d) {
+    var built = MENU.filter(function (m) { return m.name === d.name; })[0];
+    assert.ok(built, d.name + ' should be on the menu');
+    assert.ok(built.moments.indexOf('Später Abend') !== -1,
+      d.name + ' should have been normalised to "Später Abend", got ' + JSON.stringify(built.moments));
+    // and it must actually be reachable through the question
+    var res = engine.recommend(MENU, ask({
+      moment: 'Später Abend', flavours: [engine.NO_PREFERENCE], strength: String(built.strength)
+    }), { limit: 999 });
+    assert.ok(res.items.some(function (i) { return i.drink.name === d.name; }),
+      d.name + ' is still unreachable via the late-night option');
+  });
+});
+
 test('every spirit option matches at least one drink', function () {
   opt('spirit').forEach(function (v) {
     assert.ok(MENU.some(function (d) { return d.spirits.indexOf(v) !== -1; }),
