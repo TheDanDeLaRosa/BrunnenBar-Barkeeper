@@ -142,19 +142,19 @@ asserts the claim is actually true of that pair.
 
 The export's `moment` field records **when in the evening** a drink fits, and
 nothing else. 46 drinks are openers, 36 are closers, 24 are openers *only*.
-That is real signal and worth asking about, so the four options map to it one
-for one.
+That is real signal, so the four options map to it one for one.
 
-What changed is only the framing. "Where are you in the evening" reads like a
-survey question; "first drink or last" is something a guest recognises about
-themselves instantly, and the aperitif-versus-nightcap distinction is exactly
+The framing took three attempts. Asking a guest to place themselves on the
+evening's timeline reads like a survey no matter how it is worded, because it
+asks about the guest when the data is about the drink. The question now asks
+what the drink has to **do** — make you hungry, carry the next hour, round
+things off — which is both what a bartender actually thinks about and exactly
 what the field encodes.
 
-A tempting alternative is to ask how big a night it is — one and done versus a
-long session. The data does not support it. Nothing in the export says whether
-a drink suits a long session, and the closest honest proxies, strength and
-long-versus-short, are already their own questions. Asking it would mean
-inventing a mapping and asking the same thing twice.
+An earlier idea was to ask how big a night it is, one drink versus a long
+session. The data does not support it. Nothing in the export says whether a
+drink suits a long session, and the closest honest proxies, strength and
+long-versus-short, are already their own questions.
 
 ### Predictable, not random
 

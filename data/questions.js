@@ -21,19 +21,19 @@
     {
       id: 'moment',
       type: 'single',
-      /* The export's `moment` field says WHEN in the evening a drink fits,
-       * so the options map to it one for one. Only the framing changed: a
-       * guest recognises "first drink or last" immediately, where "where are
-       * you in the evening" reads like a survey. */
-      title: { de: 'Erster Drink oder letzter?', en: 'First drink or last?' },
+      /* The export's `moment` field says WHEN in the evening a drink fits.
+       * Asking a guest to locate themselves on that timeline reads like a
+       * survey, so the question asks what the drink has to DO instead. Same
+       * four values, framed as a job rather than a position. */
+      title: { de: 'Was soll der Drink können?', en: 'What should the drink do?' },
       sub: {
-        de: 'Ein Aperitif macht Lust auf mehr. Ein Absacker macht Schluss. Das sind zwei verschiedene Drinks.',
-        en: 'An aperitif makes you want another. A nightcap closes the night. Those are two different drinks.'
+        de: 'Ein Drink macht Appetit, der nächste macht Schluss. Sag uns, welcher heute dran ist.',
+        en: 'One drink opens an evening, another closes it. Tell us which one you need.'
       },
       options: [
-        { value: 'Auftakt', label: { de: 'Der erste', en: 'The first one' }, hint: { de: 'Wir kommen gerade an', en: 'We just got here' } },
-        { value: 'Mittendrin', label: { de: 'Mittendrin', en: 'Somewhere in the middle' }, hint: { de: 'Wir sitzen schon eine Weile', en: 'We have been here a while' } },
-        { value: 'Später Abend', label: { de: 'Der letzte', en: 'The last one' }, hint: { de: 'Danach gehen wir', en: 'We head off after this' } },
+        { value: 'Auftakt', label: { de: 'Appetit machen', en: 'Whet the appetite' }, hint: { de: 'Wir fangen gerade an', en: 'We are just getting started' } },
+        { value: 'Mittendrin', label: { de: 'Den Abend tragen', en: 'Carry the evening' }, hint: { de: 'Der Drink für die nächste Stunde', en: 'The drink for the next hour' } },
+        { value: 'Später Abend', label: { de: 'Den Abend abrunden', en: 'Round the evening off' }, hint: { de: 'Danach gehen wir', en: 'We head off after this' } },
         { value: 'shots', label: { de: 'Eine Runde Shots', en: 'A round of shots' }, hint: { de: 'Für den ganzen Tisch', en: 'For the whole table' } }
       ]
     },
