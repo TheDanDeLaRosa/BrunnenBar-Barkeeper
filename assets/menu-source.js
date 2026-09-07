@@ -173,10 +173,25 @@
     }, []);
   }
 
+  /* Which items the recommender can actually score.
+   *
+   * Deliberately not a list of section names. The brief forbids hard-coding
+   * those, and a list would rot the first time a section is renamed or added.
+   * The test is the data itself: a cocktail has an ingredient list, beer and
+   * wine do not. That stays true however the card is reorganised. */
+  function isScoreable(item) {
+    return !!(item && item.ingredients && item.ingredients.length);
+  }
+
+  function scoreableItems(menu) {
+    return allItems(menu).filter(isScoreable);
+  }
+
   var api = {
     MENU_URL: MENU_URL, MAX_AGE_MS: MAX_AGE_MS, STORE_KEY: STORE_KEY,
     loadMenu: loadMenu, extract: extract, hasChanged: hasChanged,
     formatPrice: formatPrice, priceList: priceList, field: field, allItems: allItems,
+    isScoreable: isScoreable, scoreableItems: scoreableItems,
     _reset: function () { memo = null; inFlight = null; }
   };
   if (typeof module !== 'undefined' && module.exports) module.exports = api;

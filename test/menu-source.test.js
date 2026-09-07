@@ -212,6 +212,34 @@ q('nothing is filtered out, since everything published is orderable', function (
     'hidden_on_card only means it is off the printed card');
 });
 
+q('beer and wine are carried but never scored, without naming any section', function () {
+  // Both fixture items are beer/wine, so neither is scoreable.
+  assert.strictEqual(src.allItems(MENU).length, 2, 'everything stays available to list');
+  assert.strictEqual(src.scoreableItems(MENU).length, 0, 'nothing without ingredients is scored');
+
+  var withCocktail = JSON.parse(JSON.stringify(MENU));
+  withCocktail.sections.push({ title: 'Sours', title_en: 'Sours', items: [{
+    name: 'Whiskey Sour', name_en: 'Whiskey Sour', group: '', group_en: '',
+    price: 9.7, prices: [{ size: '', price: 9.7 }],
+    description: 'x', description_en: 'x', bartender_note: '', bartender_note_en: '',
+    ingredients: ['Four Roses', 'Zitrone', 'Zucker'],
+    ingredients_en: ['Four Roses', 'Lemon', 'Sugar'],
+    strength: 'stark', allergens: ['Ei'], allergens_en: ['Egg'], allergen_codes: [3],
+    alcohol_free: false, pos_sku: '', hidden_on_card: false,
+    on_printed_menu: true, popularity_rank: 8
+  }] });
+  var scoreable = src.scoreableItems(withCocktail);
+  assert.strictEqual(scoreable.length, 1);
+  assert.strictEqual(scoreable[0].name, 'Whiskey Sour');
+});
+
+q('the cocktail test does not depend on section names', function () {
+  var renamed = JSON.parse(JSON.stringify(MENU));
+  renamed.sections[0].title = 'Etwas ganz Neues';
+  assert.strictEqual(src.scoreableItems(renamed).length, 0,
+    'renaming a section must not change what is scoreable');
+});
+
 queue.then(function () {
   console.log('\n' + passed + ' passed' + (process.exitCode ? ', SOME FAILED' : '') + '\n');
 });
