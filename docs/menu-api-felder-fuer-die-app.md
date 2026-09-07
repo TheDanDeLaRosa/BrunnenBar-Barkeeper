@@ -147,5 +147,63 @@ vollständiger Eintrag aus:
 }
 ```
 
+---
+
+## Die Werte müssen niemand neu vergeben
+
+Alle vier Felder stehen für alle 148 Getränke schon im letzten BarPatrol
+Export. Sie sind auf dem Weg ins Menu API verloren gegangen, nicht nie erhoben
+worden. Es ist also kein Taggen von Hand, sondern ein Durchreichen.
+
+`docs/menu-api-feldwerte.json` enthält genau diese Werte, fertig zum Mitgeben.
+Die Datei ist nach dem Getränkenamen aufgeschlüsselt und hat pro Getränk nur
+die Felder, die dem API noch fehlen.
+
+```json
+"Whiskey Sour": {
+  "flavour_tags": ["sauer/zitrus", "cremig"],
+  "flavour_tags_en": ["sour/citrus", "creamy"],
+  "serve_style": "Sour",
+  "serve_style_en": "Sour",
+  "moment": ["Mittendrin"],
+  "moment_en": ["Midway"],
+  "strength_level": 4,
+  "glass": "Tumbler",
+  "glass_en": "Tumbler"
+}
+```
+
+Erzeugt wird sie mit `node tools/export-missing-fields.js`. Drei Sachen werden
+dabei repariert und jede einzelne wird beim Lauf gemeldet.
+
+- `Spaeter Abend` wird zu `Später Abend`, betrifft nur Don Julio Anejo
+  Manhattan. Ohne den Umlaut war der Drink über die erste Frage gar nicht
+  erreichbar.
+- `kraeftig` fällt weg, weil die Stärke schon im eigenen Feld steht, und
+  `bitter-suess` wird zu `bitter` und `süß`. Betrifft denselben Drink.
+- Rosato Spritz wird gemeldet, weil `alcohol_free` true ist bei Stärke 1. Der
+  Wert wird nicht angefasst, das gehört in die Karte entschieden.
+
+`holzig` bleibt drin, weil es sinnvoll ist. Wenn Gäste danach fragen können
+sollen, sagt Bescheid, dann bekommt es eine eigene Antwortmöglichkeit.
+
+### Beim Zusammenführen aufpassen
+
+Zugeordnet wird über den Namen, und drei Namen sehen im Export nach Tippfehlern
+aus. Wenn sie im Menu API schon richtig geschrieben stehen, findet der Abgleich
+sie nicht und die Getränke bleiben ohne die neuen Felder.
+
+| Im Export | Vermutlich richtig |
+|---|---|
+| `Boulvadier` | Boulevardier |
+| `Don Julio Reposado Margerita` | Margarita |
+| `Gin Tonic - Hendriks` | Hendrick's |
+
+Der Export hat 148 Einträge, das Menu API zeigt nur das, was aktuell auf der
+Karte steht. Einträge, die es im API nicht mehr gibt, werden beim Zusammenführen
+einfach übersprungen.
+
+---
+
 Sobald das live ist, sagt Bescheid. Die App zieht die Felder dann ohne weitere
 Änderung, und der Loader meldet beim Start, wenn bei einem Getränk etwas fehlt.
