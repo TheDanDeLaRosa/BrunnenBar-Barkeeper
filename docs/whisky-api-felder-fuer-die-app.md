@@ -1,248 +1,178 @@
-# Was die Whisky App aus dem Menu API braucht
+# Whisky Felder im Menu API
 
-Stand 08.09.2026. Gegenstück zu `menu-api-felder-fuer-die-app.md`, nur für die
+Stand 08.09.2026. Gegenstück zu `menu-api-felder-fuer-die-app.md`, für die
 Whisky Empfehlung in `whiskey/`.
 
-Die App ist fertig gebaut und liest die eine Quelle über denselben Loader wie
-die Cocktail App. Was fehlt, ist ein Feld pro Flasche. Ohne dieses Feld weiss
-die Karte nicht, dass eine Flasche ein Whisky ist, und die App kann nichts
-empfehlen.
-
-Anders als beim Cocktail Brief geht es hier nicht um vier Werte, die es schon
-mal gab. Whisky Profile standen nie im Export. Sie stehen aber auf jeder
-Flasche und auf jeder Produktseite, das Ausfüllen ist also Abschreiben und
-nicht Erfinden.
+**Der grosse Teil ist da.** Fünfzehn Flaschen tragen `peat`, `origin` und
+`notes`. Damit läuft die App. Was unten unter Wunschliste steht, macht sie
+besser, blockiert sie aber nicht.
 
 ---
 
-## Die eine Regel, die alles trägt
+## Die Regel, die alles trägt
 
-Ein Eintrag ist ein Whisky, wenn er ein Objekt `whisky` hat. Sonst nicht.
+Ein Eintrag ist ein Whisky, wenn er `peat`, `origin` oder `notes` trägt.
+Sonst nicht. Der Abschnitt spielt keine Rolle.
 
-Das ist bewusst dieselbe Bauart wie bei den Cocktails, wo eine gefüllte
-`ingredients` Liste entscheidet. Kein Abschnittsname im Code, keine Liste von
-Marken, nichts das kaputt geht, wenn ihr die Karte umbaut. Ihr könnt den
-Abschnitt Whisky morgen in Braunes umbenennen und die App merkt es nicht.
+Das ist nicht Prinzipienreiterei, es ist der einzige Weg, der mit der echten
+Karte funktioniert. Jack Daniel's steht in Spirituosen und nicht in
+Whisk(e)y. Sechs weitere Flaschen liegen hinter `hidden_on_card`. Wer nach
+Abschnittstiteln filtert, verliert genau die Hälfte des Regals, und zwar
+lautlos.
 
-Ein Bier hat kein `whisky`, ein Cocktail auch nicht, und beide bleiben deshalb
-für immer aus den Empfehlungen raus, ohne dass jemand etwas filtern muss.
-
----
-
-## Das Feld
-
-```json
-"whisky": {
-  "kind": "Single Malt",
-  "kind_en": "Single malt",
-  "distillery": "Talisker",
-  "origin": "Inseln",
-  "origin_en": "The islands",
-  "age_years": 10,
-  "abv": 45.8,
-  "cask": ["Bourbonfass"],
-  "cask_en": ["Bourbon cask"],
-  "peat": 2,
-  "notes": ["maritim/salzig", "würzig", "fruchtig"],
-  "notes_en": ["maritime/salty", "spicy", "fruity"],
-  "serve": ["pur", "mit Wasser", "Highball"],
-  "serve_en": ["neat", "with water", "highball"],
-  "level": "klassiker"
-}
-```
-
-Alles andere an der Zeile bleibt wie im Menu API Brief. `prices`, `name`,
-`description`, `bartender_note`, `allergens`, `popularity_rank` und
-`on_printed_menu` liest die App aus den Feldern, die es schon gibt.
-
-### Was die App mindestens braucht
-
-`peat`, `origin` und `notes`. Mit diesen drei läuft sie.
-
-Alles andere ist Zusatz. Fehlt ein Zusatzfeld, lässt die Ergebniskarte die
-Zeile einfach weg und die passende Frage verschwindet aus dem Fragebogen. Die
-App fragt nie etwas, das die Karte nicht beantworten kann, und sie bietet nie
-eine Antwort an, die keine Flasche trägt. Wenn also nur die Hälfte der Felder
-kommt, läuft trotzdem eine kürzere und ehrliche Version.
+Damit gilt für alle drei Apps dieselbe Bauart. Ein Cocktail hat eine
+Zutatenliste, ein Agavenbrand hat `agave_kind`, ein Whisky hat ein
+Geschmacksprofil. Benennt die Abschnitte morgen um und keine App merkt es.
 
 ---
 
-## 1. `peat`
+## Was jetzt schon drin ist
 
-Typ `number`, 0 bis 4. Das wichtigste Feld überhaupt, weil Rauch die eine
-Sache ist, bei der ein falscher Vorschlag den Abend eines Gastes ruiniert.
+### `peat`
 
-| Wert | heisst | Beispiel |
+Typ `number`, 0 bis 4. Das wichtigste Feld, weil Rauch die eine Sache ist,
+bei der ein falscher Vorschlag den Abend eines Gastes ruiniert.
+
+| Wert | heisst | auf unserer Karte |
 |---|---|---|
-| 0 | kein Rauch | Singleton, Cardhu, Bourbon |
-| 1 | ein Hauch | Oban, Clynelish, Johnnie Walker Black |
-| 2 | spürbar | Talisker 10 |
-| 3 | kräftig | Caol Ila 12 |
+| 0 | kein Rauch | Singleton, Glenkinchie, Bourbon, Jameson |
+| 1 | ein Hauch | Oban, Dalwhinnie, Johnnie Walker Black |
+| 2 | spürbar | Talisker 10, Talisker Skye |
+| 3 | kräftig | noch nichts |
 | 4 | Lagerfeuer | Lagavulin 16 |
 
 **Regel, die die App durchsetzt.** Sagt ein Gast kein Rauch, sieht er nie eine
 Flasche ab Stufe 2, egal wie gut sie sonst passen würde. Diese Regel wird nie
 gelockert. Eine Flasche ohne `peat` gilt dabei als rauchig, weil die sichere
-Lesart von vielleicht rauchig rauchig ist. Ein Feld, das ihr vergesst, kostet
-die Flasche also Empfehlungen.
+Lesart von vielleicht rauchig rauchig ist.
 
 Umgekehrt gilt das nicht. Wer Lagerfeuer will und wir haben gerade nichts,
 bekommt trotzdem einen Vorschlag, aber die Seite sagt dazu, dass wir den Rauch
 nicht getroffen haben.
 
-## 2. `origin` und `origin_en`
+### `origin`
 
-Typ `string`. Genau ein Wert aus dieser Liste.
+Typ `string`. Die App liest die Werte so, wie ihr sie schreibt, und baut die
+Antwortmöglichkeiten daraus. Aktuell also Speyside, Islay, Highland, Lowland,
+Skye, Scotland, Ireland, Kentucky und Tennessee.
 
-| de | en |
-|---|---|
-| `Speyside` | `Speyside` |
-| `Islay` | `Islay` |
-| `Highlands` | `Highlands` |
-| `Lowlands` | `Lowlands` |
-| `Campbeltown` | `Campbeltown` |
-| `Inseln` | `The islands` |
-| `Irland` | `Ireland` |
-| `USA` | `USA` |
-| `Japan` | `Japan` |
-| `Schottland` | `Scotland` |
-| `Andere` | `Elsewhere` |
+**Wichtig ist nur, dass eine Schreibweise durchgehalten wird.** Steht bei einer
+Flasche Highland und bei der nächsten Highlands, sind das für die App zwei
+Gegenden, und ein Gast bekommt zwei Knöpfe für dieselbe Sache.
 
-`Schottland` ist für Blends gedacht, die aus mehreren Regionen kommen, etwa
-Johnnie Walker. Die App zeigt den Wert auf der Karte an, bietet ihn aber
-bewusst nicht als Antwort an, weil niemand nach irgendwo in Schottland fragt.
+Für Blends über mehrere Gegenden ist `Scotland` genau richtig. Die App zeigt
+den Wert an, bietet ihn aber nicht als Frage an, weil niemand nach irgendwo in
+Schottland sucht.
 
-`Inseln` meint Skye, Orkney, Jura, Mull und Arran. Islay ist bewusst getrennt,
-weil Gäste danach namentlich fragen.
+### `notes` und `notes_en`
 
-**Regel, die die App durchsetzt.** Die Herkunft ist ein Tor und keine
-Punktzahl. Wer Islay sagt, bekommt Islay. Haben wir nichts davon, öffnet die
-App die Auswahl und sagt auf der Seite, dass sie es getan hat.
+Typ `string[]`, zwei bis vier Stück, klein geschrieben. Was man schmeckt, in
+Gästesprache.
 
-## 3. `notes` und `notes_en`
+Die App kennt diese und hat für jede einen Namen und eine Steigerungsform in
+beiden Sprachen, was sie für Sätze wie was Fruchtigeres braucht.
 
-Typ `string[]`, zwei bis vier Stück. Was man schmeckt, in Gästesprache.
+`fruchtig`, `zitrus`, `honig/vanille`, `malzig`, `würzig`, `dunkle früchte`,
+`schokolade`, `maritim/salzig`, `blumig`, `nussig`, `cremig`
 
-| de | en |
-|---|---|
-| `fruchtig` | `fruity` |
-| `zitrus` | `citrus` |
-| `honig/vanille` | `honey/vanilla` |
-| `malzig` | `malty` |
-| `würzig` | `spicy` |
-| `dunkle früchte` | `dark fruit` |
-| `schokolade` | `chocolate` |
-| `maritim/salzig` | `maritime/salty` |
-| `blumig` | `floral` |
-| `nussig` | `nutty` |
-| `cremig` | `creamy` |
+Eine Note ausserhalb dieser Liste bricht nichts, sie wird nur unübersetzt
+gezeigt. Sagt Bescheid, wenn ihr eine braucht, dann kommt sie mit Übersetzung
+dazu.
 
-Klein geschrieben und mit Umlauten, genau wie in der Tabelle. Beide Listen in
-derselben Reihenfolge.
+Rauchig gehört bewusst nicht in diese Liste. Rauch hat mit `peat` eine eigene
+Achse, und zweimal dasselbe zu bewerten würde jede rauchige Flasche doppelt
+belohnen.
 
-Rauchig steht bewusst nicht drin. Rauch hat mit `peat` eine eigene Achse, und
-zweimal dasselbe zu bewerten würde jede rauchige Flasche doppelt belohnen.
+---
 
-## 4. `cask` und `cask_en`
+## Wunschliste, nach Nutzen sortiert
 
-Typ `string[]`. Was das Fass angeht, macht es meist mehr aus als die
-Jahreszahl.
+Alles hier ist optional. Fehlt ein Feld, lässt die Ergebniskarte die Zeile weg
+und die dazugehörige Frage verschwindet aus dem Fragebogen. Die App fragt nie
+etwas, das die Karte nicht beantworten kann.
 
-| de | en |
-|---|---|
-| `Bourbonfass` | `Bourbon cask` |
-| `Sherryfass` | `Sherry cask` |
-| `Portfass` | `Port cask` |
-| `Weinfass` | `Wine cask` |
-| `Rumfass` | `Rum cask` |
-| `Neue Eiche` | `New oak` |
+Die Namen sind bewusst so gewählt, dass sie neben den Agavenfeldern stehen
+können, also `whisky_kind` neben `agave_kind`.
 
-Bourbon und Tennessee Whiskey bekommen `Neue Eiche`, weil sie per Gesetz aus
-frisch ausgebrannten Fässern kommen.
+| Feld | Typ | Was es bringt |
+|---|---|---|
+| `cask`, `cask_en` | `string[]` | Bourbonfass, Sherryfass, Portfass, Weinfass, Rumfass, Neue Eiche. Das Fass macht oft mehr aus als die Jahreszahl, und es ist die zweitbeste Frage nach dem Rauch |
+| `whisky_level` | `string` | `einstieg`, `klassiker`, `kenner`, `rarität`. Erlaubt der App, einen ersten Whisky vom schweren Ende des Regals fernzuhalten |
+| `whisky_serve`, `_en` | `string[]` | `pur`, `mit Wasser`, `auf Eis`, `Highball`. Wie ihr die Flasche am liebsten ausschenkt |
+| `whisky_age_years` | `number` oder `null` | `null` heisst ohne Altersangabe und die Karte schreibt das dann auch so hin. Bitte nicht 0 |
+| `abv` | `number` | Etwa `45.8`, reine Anzeige |
+| `whisky_kind` | `string` | Single Malt, Blended Scotch, Bourbon, Rye, Irish Blend, Tennessee Whiskey |
+| `whisky_expression` | `string` | 10 Jahre, Black Label, Old No. 7 |
 
-## 5. `serve` und `serve_en`
+`brand` gibt es schon und die App liest es mit.
 
-Typ `string[]`. Wie wir die Flasche am liebsten ausschenken.
+**Wenn ihr nur eins davon macht, macht `cask`.** Danach `whisky_level`.
 
-| de | en |
-|---|---|
-| `pur` | `neat` |
-| `mit Wasser` | `with water` |
-| `auf Eis` | `on ice` |
-| `Highball` | `highball` |
+### Noch nicht profiliert
 
-Das ist eine Empfehlung und kein Verbot. Ein Gast, der einen Lagavulin auf Eis
-will, bekommt ihn auf Eis. Die App nutzt das Feld nur, um zu erkennen, welche
-Flasche in ein langes Glas passt.
+Fireball, Jack Daniel's Fire, Jack Daniel's Honey und Johnnie Walker Red. Die
+App lässt sie in Ruhe, solange sie kein Profil haben, und das ist auch richtig
+so. Ein Zimtlikör als Antwort auf eine Whiskyfrage wäre schlechter als keine
+Antwort. Wenn ihr sie doch drin haben wollt, brauchen sie dieselben drei
+Felder wie alle anderen.
 
-## 6. `level`
+---
 
-Typ `string`, genau ein Wert. Wofür die Flasche heute Abend da ist.
+## Zwei Stellen, an denen sich die Dokumente widersprechen
 
-| Wert | heisst |
-|---|---|
-| `einstieg` | erster Whisky, weich, verzeiht alles |
-| `klassiker` | kennt man, steht in jeder guten Bar |
-| `kenner` | für jemanden, der schon öfter Whisky trinkt |
-| `rarität` | die gute Flasche hinten |
+**`hidden_on_card`.** Das Datenblatt vom Website Seat sagt, solche Zeilen
+seien reine Kassenartikel und dürften Gästen nicht gezeigt werden. Das Menu
+API Brief sagt das Gegenteil, nämlich dass alles Veröffentlichte bestellbar
+ist und die Fahne nur die gedruckte Karte meint. Dan hat entschieden, und zwar
+für die zweite Lesart, damit die App das ganze Backbar empfehlen kann, während
+die gedruckte Karte kurz bleibt.
 
-**Regel, die die App durchsetzt.** Sagt ein Gast, es ist sein erster Whisky,
-sieht er nur `einstieg` und `klassiker`. Ein Anfänger mit einem Lagavulin 16
-im Glas kommt nicht wieder. Haben wir nichts Passendes, öffnet die App die
-Auswahl und sagt es dazu.
+**Die Whisky App zeigt diese Flaschen also.** Sechs von fünfzehn hängen daran.
+Sie bekommen auf der Ergebniskarte den Hinweis, dass sie nicht auf der Karte
+stehen. Der gemeinsame Loader filtert nichts weg, bietet aber `cardItems` an,
+falls eine andere App die strengere Lesart braucht.
 
-## 7. `kind`, `distillery`, `age_years` und `abv`
-
-Reine Anzeige, keine Bewertung.
-
-- `kind` und `kind_en`, Typ `string`. `Single Malt`, `Blended Scotch`,
-  `Blended Malt`, `Bourbon`, `Rye`, `Irish Blend`, `Tennessee Whiskey`,
-  `Japanese Blend`, `Grain`.
-- `distillery`, Typ `string`. Für später, wenn wir Flaschen derselben
-  Brennerei nebeneinander zeigen wollen.
-- `age_years`, Typ `number` oder `null`. `null` heisst ohne Altersangabe und
-  die Karte schreibt das dann auch so hin. Bitte nicht 0 schreiben.
-- `abv`, Typ `number`, etwa `45.8`.
+**Abfragerhythmus.** Das Datenblatt sagt höchstens stündlich, das Brief sagt
+höchstens ein paar Minuten. Der Loader macht jetzt stündlich, weil der Text
+mit der längeren Frist der neuere ist und die Karte sich ein paar Mal pro
+Woche ändert und nicht ein paar Mal pro Minute.
 
 ---
 
 ## Was die App aus vorhandenen Feldern selbst holt
 
 **Preise.** Ausschliesslich aus `prices`. Die drei Preisstufen im Fragebogen
-werden bei jedem Aufruf aus den echten Preisen der Karte geschnitten, deshalb
-steht in der App keine einzige Zahl. Verglichen wird immer mit dem günstigsten
-Ausschank einer Zeile, weil ein Gast mit Budget das kleine Glas bestellen kann.
+werden bei jedem Aufruf aus den echten Preisen geschnitten, deshalb steht in
+der App keine einzige Zahl. Verglichen wird mit dem günstigsten Ausschank
+einer Zeile, weil ein Gast mit Budget das kleine Glas bestellen kann. Eine
+Obergrenze wird nie überschritten, und eine Flasche ganz ohne Preis wird einem
+Gast mit Obergrenze nicht angeboten.
 
-**Regel, die die App durchsetzt.** Eine Obergrenze wird nie überschritten.
-Eine Flasche ganz ohne Preis wird einem Gast mit Obergrenze nicht angeboten,
-aus demselben Grund wie beim Rauch.
+**Aktualität.** Über `content_hash`, nicht über `published_at`. Ein neuer Bau
+setzt einen neuen Zeitstempel, auch wenn sich nichts geändert hat, und dann
+würde die Ansicht unter einem Gast neu aufgebaut, der gerade liest.
 
-**Beliebtheit.** Aus `popularity_rank`. Nur als Stichentscheid zwischen sonst
-gleichwertigen Flaschen und mit sehr kleinem Gewicht. Verkaufszahlen
-entscheiden nichts.
+**Beliebtheit.** Aus `popularity_rank`, nur als Stichentscheid zwischen sonst
+gleichwertigen Flaschen und mit sehr kleinem Gewicht.
 
-**Allergene, Beschreibung, Barkeeper Notiz, Karte ja nein.** Wie gehabt aus
-`allergens`, `description`, `bartender_note` und `on_printed_menu`.
+**`menu_class` wird nirgends angefasst.** Ein Test im Repo scheitert, wenn
+jemand es doch tut. Ein Gast darf nie erfahren, dass die Bar seinen Drink
+intern als Dog führt.
+
+**`recommended` bleibt bewusst ungenutzt.** Es markiert auf der Website den
+Leader eines Abschnitts. In dieser App stünde es neben unserer eigentlichen
+Empfehlung und würde ihr widersprechen, und zwei goldene Aussagen auf einem
+Bildschirm heben sich gegenseitig auf.
 
 ---
 
-## Zum Loslegen
-
-In `whiskey/data/demo-menu.js` liegen neunzehn Flaschen im richtigen Format,
-inklusive der Diageo Kernserie. Die Struktur stimmt, die Werte sind ein
-Vorschlag zum Gegenlesen und keine Wahrheit. Wer die Karte pflegt, kann die
-Profile von dort übernehmen, korrigieren und in die echten Zeilen hängen.
-
-Die Datei ist ausdrücklich keine Datenquelle. Sie wird nur geladen, wenn in der
-Adresszeile `?demo=1` steht, sie wird bei einem gescheiterten Fetch nie
-angefasst, und die Seite schreibt im Vorschaumodus in Gold auf jeden Bildschirm,
-dass nichts davon echt ist. Sobald die echten Profile live sind, fliegt sie raus.
-
 ## Zum Nachprüfen
 
-Wenn die Felder drin sind, reicht ein Blick auf eine Flasche. Die App meldet
-beim Start in der Konsole nichts, sie zeigt es direkt. Fehlt ein Feld
+Sobald republished ist, reicht ein Blick auf die App. Fehlt ein Feld
 vollständig, fehlt die dazugehörige Frage. Sind alle da, hat der Fragebogen
-sieben Fragen und die Ergebniskarte acht Zeilen.
+sieben Fragen. Heute sind es vier, nämlich Rauch, Geschmack, Herkunft und
+Preis.
 
-Sagt Bescheid, sobald das live ist. Es ist keine Änderung an der App nötig.
+`whiskey/data/demo-menu.js` bildet die fünfzehn Flaschen mit den echten
+Rauchstufen und Herkünften nach, erfindet aber Preise und Noten. Sie läuft nur
+mit `?demo=1` und fliegt raus, sobald republished ist.

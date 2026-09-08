@@ -117,7 +117,19 @@
         { value: 'Irland', label: { de: 'Irland', en: 'Ireland' }, hint: { de: 'Weich und rund', en: 'Soft and round' } },
         { value: 'USA', label: { de: 'USA', en: 'USA' }, hint: { de: 'Bourbon und Rye, süß vom neuen Fass', en: 'Bourbon and rye, sweet from new oak' } },
         { value: 'Japan', label: { de: 'Japan', en: 'Japan' }, hint: { de: 'Fein und genau gebaut', en: 'Fine and precisely built' } },
-        { value: 'Andere', label: { de: 'Woanders her', en: 'Somewhere else' }, hint: { de: 'Der Rest der Welt brennt auch', en: 'The rest of the world distils too' } }
+        { value: 'Andere', label: { de: 'Woanders her', en: 'Somewhere else' }, hint: { de: 'Der Rest der Welt brennt auch', en: 'The rest of the world distils too' } },
+
+        /* The card spells several of these its own way, Highland rather than
+         * Highlands and Kentucky rather than USA. Both spellings live here
+         * because only the ones the card actually carries are ever offered,
+         * so a duplicate costs nothing and a missing one costs a hint. */
+        { value: 'Highland', label: { de: 'Highland', en: 'Highland' }, hint: { de: 'Kräftig und weit', en: 'Bold and wide open' } },
+        { value: 'Lowland', label: { de: 'Lowland', en: 'Lowland' }, hint: { de: 'Leicht und sanft', en: 'Light and gentle' } },
+        { value: 'Skye', label: { de: 'Skye', en: 'Skye' }, hint: { de: 'Wind, Salz und meistens Rauch', en: 'Wind, salt and usually smoke' } },
+        { value: 'Scotland', label: { de: 'Schottland', en: 'Scotland' }, hint: { de: 'Ein Blend aus mehreren Gegenden', en: 'A blend from several regions' } },
+        { value: 'Ireland', label: { de: 'Irland', en: 'Ireland' }, hint: { de: 'Weich und rund', en: 'Soft and round' } },
+        { value: 'Kentucky', label: { de: 'Kentucky', en: 'Kentucky' }, hint: { de: 'Bourbon und Rye, süß vom neuen Fass', en: 'Bourbon and rye, sweet from new oak' } },
+        { value: 'Tennessee', label: { de: 'Tennessee', en: 'Tennessee' }, hint: { de: 'Durch Holzkohle gefiltert, weich', en: 'Charcoal filtered, soft' } }
       ]
     },
     {

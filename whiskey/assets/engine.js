@@ -12,18 +12,38 @@
  *   SOFT  Everything else, scored and summed.
  *
  * What counts as a bottle this app may recommend is decided by the data and
- * never by a section name. A whisky carries a `whisky` profile, a beer and a
- * cocktail do not. Rename every section on the card tomorrow and this file
- * does not care.
+ * never by a section name. A whisky carries peat, origin or tasting notes, a
+ * beer and a cocktail do not. That is not a stylistic preference. Jack
+ * Daniel's is profiled in the Spirituosen section rather than in Whisk(e)y,
+ * and six more bottles sit behind `hidden_on_card` so the printed card can
+ * stay short, so anything that filtered on the section title would quietly
+ * lose almost half the shelf.
  * =========================================================================
  */
 (function (root) {
   'use strict';
 
-  /* The one key that says "this row is a whisky the app can talk about".
-   * Its presence is the whole test, exactly the way an ingredient list is
-   * the test in the cocktail app. */
-  var PROFILE_KEY = 'whisky';
+  /* What makes a row a whisky the app can talk about.
+   *
+   * The card carries these flat on the item, the way it carries `agave_kind`
+   * and `agave_region` on an agave pour. Carrying any one of them is the
+   * whole test. It is deliberately not the section title, and that is not
+   * pedantry. Jack Daniel's sits in Spirituosen rather than in Whisk(e)y, and
+   * a section filter would have silently dropped it. */
+  var PROFILE_FIELDS = ['peat', 'origin', 'notes'];
+
+  /* The rest of the profile, read the same way, all optional. Each one that
+   * arrives on the card turns its question on by itself. */
+  var EXTRA_FIELDS = {
+    kind: 'whisky_kind',
+    expression: 'whisky_expression',
+    cask: 'cask',
+    serve: 'whisky_serve',
+    level: 'whisky_level',
+    age_years: 'whisky_age_years',
+    abv: 'abv',
+    brand: 'brand'
+  };
 
   var W = {
     peatExact: 26,
@@ -66,9 +86,31 @@
 
   // ------------------------------------------------------------- the data --
 
+  function has(v) {
+    if (v == null || v === '') return false;
+    return Array.isArray(v) ? v.length > 0 : true;
+  }
+
+  /* One view over the flat fields, so the rest of the file reads a profile
+   * and does not care how the card spells it. Returns null for anything that
+   * is not a whisky, which is what keeps beer, wine and cocktails out. */
   function profileOf(item) {
-    var p = item && item[PROFILE_KEY];
-    return p && typeof p === 'object' && !Array.isArray(p) ? p : null;
+    if (!item) return null;
+    var carries = false;
+    var i;
+    for (i = 0; i < PROFILE_FIELDS.length; i++) {
+      if (has(item[PROFILE_FIELDS[i]])) { carries = true; break; }
+    }
+    if (!carries) return null;
+
+    var p = { peat: item.peat, origin: item.origin, notes: item.notes,
+              notes_en: item.notes_en, origin_en: item.origin_en };
+    Object.keys(EXTRA_FIELDS).forEach(function (key) {
+      p[key] = item[EXTRA_FIELDS[key]];
+      var en = item[EXTRA_FIELDS[key] + '_en'];
+      if (en !== undefined) p[key + '_en'] = en;
+    });
+    return p;
   }
 
   function isWhisky(item) { return !!profileOf(item); }
@@ -173,13 +215,29 @@
       if ((cov[q.needs] || 0) < 2) return null;
       if (q.type === 'scale') return { q: q };
 
+      /* Options come from the card, not from a list in this repository.
+       *
+       * The written options are a table of labels and hints for the values we
+       * expected, nothing more. Whatever the card actually carries is what
+       * gets offered, so a region spelled Highland rather than Highlands, or
+       * a Kentucky nobody wrote down here, still reaches a guest with its own
+       * name on the button instead of vanishing. Known values keep the order
+       * they were written in, because their hints were written to read that
+       * way, and anything new follows in card order. */
       var live = valuesOf(pool, q.needs);
-      var options = (q.options || []).filter(function (o) {
-        return o.exclusive || live.indexOf(o.value) !== -1;
+      var known = {}, exclusive = [];
+      (q.options || []).forEach(function (o) {
+        if (o.exclusive) exclusive.push(o); else known[o.value] = o;
       });
-      var real = options.filter(function (o) { return !o.exclusive; });
-      if (real.length < 2) return null;
-      return { q: q, options: options };
+
+      var options = (q.options || []).filter(function (o) {
+        return !o.exclusive && live.indexOf(o.value) !== -1;
+      });
+      live.forEach(function (v) {
+        if (!known[v]) options.push({ value: v, label: { de: v, en: v } });
+      });
+      if (options.length < 2) return null;
+      return { q: q, options: options.concat(exclusive) };
     }).filter(Boolean);
   }
 
@@ -485,7 +543,8 @@
   }
 
   var api = {
-    PROFILE_KEY: PROFILE_KEY,
+    PROFILE_FIELDS: PROFILE_FIELDS,
+    EXTRA_FIELDS: EXTRA_FIELDS,
     NO_PREFERENCE: NO_PREFERENCE,
     LEVELS: LEVELS,
     SMOKE_VISIBLE: SMOKE_VISIBLE,

@@ -43,22 +43,23 @@ function row(name, whisky, extra) {
     on_printed_menu: true,
     popularity_rank: extra && extra.rank != null ? extra.rank : 9999
   };
-  if (whisky) item.whisky = whisky;
+  // The profile is flat on the row, the way the card carries it.
+  if (whisky) Object.keys(whisky).forEach(function (k) { item[k] = whisky[k]; });
   if (extra && extra.noPrices) { delete item.prices; delete item.price; }
   return item;
 }
 
 function prof(o) {
   return {
-    kind: o.kind || 'Single Malt',
+    whisky_kind: o.kind || 'Single Malt',
     origin: o.origin == null ? 'Speyside' : o.origin,
-    age_years: o.age === undefined ? 12 : o.age,
+    whisky_age_years: o.age === undefined ? 12 : o.age,
     abv: o.abv || 43,
     cask: o.cask || ['Bourbonfass'],
     peat: o.peat === undefined ? 0 : o.peat,
     notes: o.notes || ['malzig'],
-    serve: o.serve || ['pur'],
-    level: o.level || 'klassiker'
+    whisky_serve: o.serve || ['pur'],
+    whisky_level: o.level || 'klassiker'
   };
 }
 
@@ -72,7 +73,7 @@ test('a row is a whisky because it carries a profile, not because of its section
   var items = SRC.allItems(DEMO.menu);
   var found = E.bottles(items);
   assert.strictEqual(found.length, DEMO.WHISKY.length);
-  found.forEach(function (b) { assert.ok(b.whisky, b.name + ' should carry a profile'); });
+  found.forEach(function (b) { assert.ok(E.profileOf(b), b.name + ' should carry a profile'); });
 });
 
 test('beer and cocktails are never recommendable, however the sections are named', function () {
@@ -81,6 +82,30 @@ test('beer and cocktails are never recommendable, however the sections are named
   var before = E.bottles(SRC.allItems(DEMO.menu)).length;
   assert.strictEqual(E.bottles(SRC.allItems(renamed)).length, before,
     'renaming every section must not change what is recommendable');
+});
+
+test('a whisky profiled outside the whisky section is still found', function () {
+  var found = E.bottles(SRC.allItems(DEMO.menu)).map(function (b) { return b.name; });
+  assert.ok(found.some(function (n) { return /Jack Daniel/.test(n); }),
+    "Jack Daniel's is profiled in Spirituosen and a section filter would have lost it");
+});
+
+test('the back bar is recommendable even though it is off the printed card', function () {
+  var shelf = E.bottles(SRC.allItems(DEMO.menu));
+  var hidden = shelf.filter(function (b) { return b.hidden_on_card === true; });
+  assert.ok(hidden.length >= 5, 'expected the back bar to be in the pool, found ' + hidden.length);
+  var names = E.recommend(shelf, {}, { limit: 99 }).items.map(function (i) { return i.bottle.name; });
+  hidden.forEach(function (b) {
+    assert.ok(names.indexOf(b.name) !== -1, b.name + ' is behind hidden_on_card and fell out of the pool');
+  });
+});
+
+test('a whiskey the card has not profiled is left alone', function () {
+  var all = SRC.allItems(DEMO.menu);
+  var fireball = all.filter(function (i) { return i.name === 'Fireball'; })[0];
+  assert.ok(fireball, 'the fixture should carry an unprofiled whiskey');
+  assert.strictEqual(E.isWhisky(fireball), false,
+    'a flavoured bottle with no peat, origin or notes must not be recommended');
 });
 
 test('a whisky with no profile yet is not offered', function () {
@@ -180,7 +205,7 @@ test('a hint of smoke still reaches a guest who asked for none', function () {
 
 test('a bottle whose smoke nobody recorded is treated as smoky', function () {
   var unknown = row('Ohne Angabe', prof({}));
-  delete unknown.whisky.peat;
+  delete unknown.peat;
   var res = E.recommend([unknown], { peat: '0' });
   assert.strictEqual(res.items.length, 0);
 });
@@ -333,14 +358,14 @@ test('at most three reasons are given, and each one is real', function () {
   res.items.forEach(function (i) {
     assert.ok(i.reasons.length <= 3);
     i.reasons.forEach(function (r) {
-      if (r.key === 'origin') assert.strictEqual(i.bottle.whisky.origin, r.x);
+      if (r.key === 'origin') assert.strictEqual(E.profileOf(i.bottle).origin, r.x);
       if (r.key === 'notes') {
         r.x.split(', ').forEach(function (n) {
-          assert.ok(i.bottle.whisky.notes.indexOf(n) !== -1, i.bottle.name + ' does not taste ' + n);
+          assert.ok(E.profileOf(i.bottle).notes.indexOf(n) !== -1, i.bottle.name + ' does not taste ' + n);
         });
       }
-      if (r.key === 'serve') assert.ok(i.bottle.whisky.serve.indexOf('pur') !== -1);
-      if (r.key === 'peat_none') assert.strictEqual(i.bottle.whisky.peat, 0);
+      if (r.key === 'serve') assert.ok(E.profileOf(i.bottle).serve.indexOf('pur') !== -1);
+      if (r.key === 'peat_none') assert.strictEqual(E.profileOf(i.bottle).peat, 0);
     });
   });
 });
@@ -392,7 +417,7 @@ group('runner ups say how they differ, and the claim has to be true');
  * label must not be a story. Every contrast the engine can produce is checked
  * here against the two bottles it was produced from. */
 function assertContrastTrue(hero, alt, c) {
-  var h = hero.whisky, b = alt.whisky;
+  var h = E.profileOf(hero), b = E.profileOf(alt);
   var where = hero.name + ' vs ' + alt.name;
   if (c.kind === 'smokier') assert.ok(b.peat > h.peat, where + ' is not smokier');
   else if (c.kind === 'gentler') assert.ok(b.peat < h.peat, where + ' is not gentler');
@@ -543,7 +568,7 @@ test('every note on the shelf has a comparative in both languages', function () 
 test('every origin, cask and serve on the shelf can be said in English', function () {
   ['origin', 'cask', 'serve'].forEach(function (field) {
     E.valuesOf(SHELF, field).forEach(function (v) {
-      var hasEnglishArray = SHELF.some(function (b) { return b.whisky[field + '_en']; });
+      var hasEnglishArray = SHELF.some(function (b) { return (E.profileOf(b) || {})[field + '_en']; });
       assert.ok(Q.VALUE_EN[v] || /^[A-Za-z ]+$/.test(v) || hasEnglishArray,
         v + ' has no English form anywhere');
     });
@@ -582,6 +607,25 @@ test('the house voice rules hold in every guest facing string', function () {
     q.options.forEach(function (o) { walk({ label: o.label, hint: o.hint }, 'Q.' + q.id + '.' + o.value); });
   });
   assert.deepStrictEqual(offenders, [], 'no dashes, colons or semicolons in guest copy');
+});
+
+// ------------------------------------------------------------------------
+
+group('what a guest must never see');
+
+/* menu_class is the bar's own grading of a drink by popularity and margin.
+ * The data doc is explicit that it is internal. A guard on the source is
+ * cruder than a rendering test and catches the mistake earlier, which is the
+ * point, because the cost of getting this wrong is a guest reading that the
+ * bar considers their drink a dog. */
+test('the interface never touches menu_class', function () {
+  var fs = require('fs');
+  ['../whiskey/assets/app.js', '../whiskey/assets/engine.js'].forEach(function (rel) {
+    var src = fs.readFileSync(require('path').join(__dirname, rel), 'utf8');
+    var code = src.replace(/\/\*[\s\S]*?\*\//g, '').replace(/\/\/[^\n]*/g, '');
+    assert.ok(code.indexOf('menu_class') === -1,
+      rel + ' reads menu_class, which is an internal grading and never for guests');
+  });
 });
 
 // ------------------------------------------------------------------------

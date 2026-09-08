@@ -1,20 +1,27 @@
 /*
- * PREVIEW DATA. NOT THE BAR'S CARD. NOT A FALLBACK.
+ * PREVIEW DATA. NOT THE CARD. NOT A FALLBACK.
  * =========================================================================
- * Every price, every tasting note and every description in this file is
- * invented, so that the app can be looked at and argued about before the
- * Menu API carries whisky profiles. It is loaded only when the address bar
- * says ?demo=1, it is never loaded when a fetch fails, and the page shouts
- * in gold on every screen while it is in use.
+ * The Menu API now carries fifteen profiled whiskies. Until the website seat
+ * republishes menu.json to page 217 they are not reachable from a browser,
+ * and this file is the only way to see the app work in the meantime. The day
+ * that publish lands, delete it.
  *
- * The bottles are the ones a Diageo led back bar would plausibly carry, so
- * the shape is realistic. The numbers on them are not. When the real profiles
- * land in the Menu API, delete this file.
+ * What is real here and what is not:
  *
- * The payload is shaped exactly like the Menu API response, which is the
- * point. It also carries one beer and one cocktail, because the app has to
- * prove it can tell a whisky from everything else on the card by the data
- * alone and never by the name of a section.
+ *   real     which bottles are on the shelf, which of them sit behind
+ *            hidden_on_card, and that Jack Daniel's is profiled in the
+ *            Spirituosen section rather than in Whisk(e)y
+ *   real     the peat and origin values, as Dan described them
+ *   INVENTED every price, every tasting note, every description
+ *
+ * The invented half is why the page shouts in gold on every screen while
+ * this file is loaded, and why it is loaded only when the address bar says
+ * ?demo=1 and never when a fetch fails.
+ *
+ * The origin values are deliberately spelled the way the card spells them,
+ * Highland and Lowland rather than Highlands and Lowlands, Kentucky and
+ * Tennessee rather than USA. The app builds its answers from whatever the
+ * card carries, so this is also the test that it does.
  * =========================================================================
  */
 (function (root) {
@@ -36,22 +43,27 @@
       strength: 'stark',
       allergens: [], allergens_en: [], allergen_codes: [],
       alcohol_free: false,
+      image: null,
       pos_sku: o.sku || '',
-      hidden_on_card: false,
-      on_printed_menu: o.off !== true,
+      hidden_on_card: o.backBar === true,
+      on_printed_menu: o.backBar !== true,
       popularity_rank: o.rank == null ? 9999 : o.rank,
-      whisky: {
-        kind: o.kind, kind_en: o.kindEn || o.kind,
-        distillery: o.distillery || '',
-        origin: o.origin, origin_en: o.originEn || o.origin,
-        age_years: o.age == null ? null : o.age,
-        abv: o.abv,
-        cask: o.cask, cask_en: o.caskEn,
-        peat: o.peat,
-        notes: o.notes, notes_en: o.notesEn,
-        serve: o.serve, serve_en: o.serveEn,
-        level: o.level
-      }
+      menu_class: o.cls || 'plowhorse',
+      recommended: o.leader === true,
+
+      // The whisky profile, flat on the item the way the card carries it.
+      peat: o.peat,
+      origin: o.origin,
+      notes: o.notes,
+      notes_en: o.notesEn,
+      brand: o.brand,
+      whisky_kind: o.kind,
+      whisky_expression: o.expression || '',
+      whisky_age_years: o.age == null ? null : o.age,
+      abv: o.abv,
+      cask: o.cask, cask_en: o.caskEn,
+      whisky_serve: o.serve, whisky_serve_en: o.serveEn,
+      whisky_level: o.level
     };
   }
 
@@ -69,190 +81,156 @@
   var BOTH = ['Bourbonfass', 'Sherryfass'], BOTH_EN = ['Bourbon cask', 'Sherry cask'];
   var OAK = ['Neue Eiche'], OAK_EN = ['New oak'];
 
-  var WHISKY = [
+  // ------------------------------------------------- on the guest neat card --
+
+  var NEAT_CARD = [
     bottle({
-      name: 'Singleton of Dufftown 12', group: 'Single Malt', group_en: 'Single malt',
-      distillery: 'Dufftown', kind: 'Single Malt', origin: 'Speyside', age: 12, abv: 40,
-      cask: BOTH, caskEn: BOTH_EN, peat: 0, level: 'einstieg', price: 5.5, rank: 6,
-      notes: ['fruchtig', 'honig/vanille', 'malzig'], notesEn: ['fruity', 'honey/vanilla', 'malty'],
-      serve: ICE, serveEn: ICE_EN,
-      de: 'Weich, süß und ohne jede Kante. Der Whisky, mit dem hier die meisten anfangen.',
-      en: 'Soft, sweet and without an edge anywhere. The whisky most people here start with.'
-    }),
-    bottle({
-      name: 'Cardhu 12', group: 'Single Malt', group_en: 'Single malt',
-      distillery: 'Cardhu', kind: 'Single Malt', origin: 'Speyside', age: 12, abv: 40,
-      cask: BOURBON, caskEn: BOURBON_EN, peat: 0, level: 'einstieg', price: 5.5, rank: 14,
-      notes: ['blumig', 'honig/vanille', 'fruchtig'], notesEn: ['floral', 'honey/vanilla', 'fruity'],
-      serve: ICE, serveEn: ICE_EN,
-      de: 'Leicht und blumig, fast wie Honig auf einem warmen Sommerabend.',
-      en: 'Light and floral, almost like honey on a warm summer evening.'
-    }),
-    bottle({
-      name: 'Glenkinchie 12', group: 'Single Malt', group_en: 'Single malt',
-      distillery: 'Glenkinchie', kind: 'Single Malt', origin: 'Lowlands', age: 12, abv: 43,
-      cask: BOURBON, caskEn: BOURBON_EN, peat: 0, level: 'einstieg', price: 5.9,
-      notes: ['blumig', 'zitrus', 'malzig'], notesEn: ['floral', 'citrus', 'malty'],
-      serve: ICE, serveEn: ICE_EN,
-      de: 'Der Garten von Edinburgh im Glas, grasig und hell und sehr freundlich.',
-      en: 'The garden of Edinburgh in a glass, grassy and bright and very friendly.'
-    }),
-    bottle({
-      name: 'Cragganmore 12', group: 'Single Malt', group_en: 'Single malt',
-      distillery: 'Cragganmore', kind: 'Single Malt', origin: 'Speyside', age: 12, abv: 40,
-      cask: BOTH, caskEn: BOTH_EN, peat: 0, level: 'klassiker', price: 6.5,
-      notes: ['malzig', 'nussig', 'fruchtig'], notesEn: ['malty', 'nutty', 'fruity'],
-      serve: NEAT, serveEn: NEAT_EN,
-      de: 'Komplex ohne laut zu werden. Ein Whisky, der sich Zeit nimmt.',
-      en: 'Complex without ever raising its voice. A whisky that takes its time.'
-    }),
-    bottle({
-      name: 'Dalwhinnie 15', group: 'Single Malt', group_en: 'Single malt',
-      distillery: 'Dalwhinnie', kind: 'Single Malt', origin: 'Highlands', age: 15, abv: 43,
-      cask: BOURBON, caskEn: BOURBON_EN, peat: 0, level: 'kenner', price: 6.9,
-      notes: ['honig/vanille', 'blumig', 'malzig'], notesEn: ['honey/vanilla', 'floral', 'malty'],
-      serve: NEAT, serveEn: NEAT_EN,
-      de: 'Aus der kältesten Destillerie Schottlands und trotzdem der wärmste Honig.',
-      en: "From Scotland's coldest distillery and still the warmest honey.",
-      noteDe: 'Probier ihn mal ganz leicht gekühlt, das machen sie in Dalwhinnie selbst so.',
-      noteEn: 'Try it very lightly chilled, that is how they drink it at Dalwhinnie.'
-    }),
-    bottle({
-      name: 'Clynelish 14', group: 'Single Malt', group_en: 'Single malt',
-      distillery: 'Clynelish', kind: 'Single Malt', origin: 'Highlands', age: 14, abv: 46,
-      cask: BOURBON, caskEn: BOURBON_EN, peat: 1, level: 'kenner', price: 7.9,
-      notes: ['zitrus', 'honig/vanille', 'maritim/salzig'], notesEn: ['citrus', 'honey/vanilla', 'maritime/salty'],
-      serve: NEAT, serveEn: NEAT_EN,
-      de: 'Wachsig, salzig, mit einer Zitrone irgendwo dahinter. Der Liebling vieler Barleute.',
-      en: 'Waxy, salty, with a lemon hiding somewhere behind. A favourite among bar people.'
-    }),
-    bottle({
-      name: 'Oban 14', group: 'Single Malt', group_en: 'Single malt',
-      distillery: 'Oban', kind: 'Single Malt', origin: 'Highlands', age: 14, abv: 43,
-      cask: BOTH, caskEn: BOTH_EN, peat: 1, level: 'klassiker', price: 7.5, rank: 9,
+      name: 'Oban 14', brand: 'Oban', kind: 'Single Malt', expression: '14 Jahre',
+      origin: 'Highland', peat: 1, age: 14, abv: 43, price: 7.5, rank: 3, cls: 'star',
+      cask: BOTH, caskEn: BOTH_EN, level: 'klassiker', serve: NEAT, serveEn: NEAT_EN,
       notes: ['maritim/salzig', 'fruchtig', 'würzig'], notesEn: ['maritime/salty', 'fruity', 'spicy'],
-      serve: NEAT, serveEn: NEAT_EN,
       de: 'Genau zwischen den sanften Speysiders und dem Rauch der Inseln. Ein guter erster Schritt Richtung Westküste.',
       en: 'Right between the gentle Speysiders and the smoke of the islands. A good first step towards the west coast.'
     }),
     bottle({
-      name: 'Talisker 10', group: 'Single Malt', group_en: 'Single malt',
-      distillery: 'Talisker', kind: 'Single Malt', origin: 'Inseln', originEn: 'The islands',
-      age: 10, abv: 45.8, cask: BOURBON, caskEn: BOURBON_EN, peat: 2, level: 'klassiker',
-      price: 6.9, rank: 2,
+      name: 'Bulleit Bourbon', brand: 'Bulleit', kind: 'Bourbon',
+      origin: 'Kentucky', peat: 0, age: null, abv: 45, price: 5.5, rank: 2, cls: 'star',
+      cask: OAK, caskEn: OAK_EN, level: 'klassiker', serve: LONG, serveEn: LONG_EN,
+      notes: ['würzig', 'honig/vanille', 'fruchtig'], notesEn: ['spicy', 'honey/vanilla', 'fruity'],
+      de: 'Hoher Roggenanteil, deshalb pfeffriger als die meisten Bourbons. Der Whiskey in unserem Mint Julep.',
+      en: 'A high rye share, which makes it peppier than most bourbons. The whiskey in our Mint Julep.'
+    }),
+    bottle({
+      name: 'Talisker 10', brand: 'Talisker', kind: 'Single Malt', expression: '10 Jahre',
+      origin: 'Skye', peat: 2, age: 10, abv: 45.8, price: 6.9, rank: 1, cls: 'star', leader: true,
+      cask: BOURBON, caskEn: BOURBON_EN, level: 'klassiker', serve: TALL, serveEn: TALL_EN,
       notes: ['maritim/salzig', 'würzig', 'fruchtig'], notesEn: ['maritime/salty', 'spicy', 'fruity'],
-      serve: TALL, serveEn: TALL_EN,
       de: 'Pfeffer, Salz und ein Feuer am Strand. Von Skye und schmeckt auch danach.',
       en: 'Pepper, salt and a fire on the beach. From Skye and it tastes like it.',
       noteDe: 'Wir bauen daraus auch den Talisker Campfire mit warmer Schokolade, frag einfach danach.',
       noteEn: 'We also build the Talisker Campfire from it with warm chocolate, just ask.'
     }),
     bottle({
-      name: 'Caol Ila 12', group: 'Single Malt', group_en: 'Single malt',
-      distillery: 'Caol Ila', kind: 'Single Malt', origin: 'Islay', age: 12, abv: 43,
-      cask: BOURBON, caskEn: BOURBON_EN, peat: 3, level: 'kenner', price: 6.9,
-      notes: ['maritim/salzig', 'zitrus', 'würzig'], notesEn: ['maritime/salty', 'citrus', 'spicy'],
-      serve: TALL, serveEn: TALL_EN,
-      de: 'Rauch, aber schlank und frisch. Der zugänglichste Islay, den wir da stehen haben.',
-      en: 'Smoke, but lean and fresh. The most approachable Islay we have on the shelf.'
+      name: 'Singleton of Dufftown 12', brand: 'Singleton', kind: 'Single Malt', expression: '12 Jahre',
+      origin: 'Speyside', peat: 0, age: 12, abv: 40, price: 5.5, rank: 5, cls: 'plowhorse',
+      cask: BOTH, caskEn: BOTH_EN, level: 'einstieg', serve: ICE, serveEn: ICE_EN,
+      notes: ['fruchtig', 'honig/vanille', 'malzig'], notesEn: ['fruity', 'honey/vanilla', 'malty'],
+      de: 'Weich, süß und ohne jede Kante. Der Whisky, mit dem hier die meisten anfangen.',
+      en: 'Soft, sweet and without an edge anywhere. The whisky most people here start with.'
     }),
     bottle({
-      name: 'Lagavulin 16', group: 'Single Malt', group_en: 'Single malt',
-      distillery: 'Lagavulin', kind: 'Single Malt', origin: 'Islay', age: 16, abv: 43,
-      cask: BOTH, caskEn: BOTH_EN, peat: 4, level: 'rarität', price: 9.5, rank: 12,
+      name: 'Lagavulin 16', brand: 'Lagavulin', kind: 'Single Malt', expression: '16 Jahre',
+      origin: 'Islay', peat: 4, age: 16, abv: 43, price: 9.5, rank: 7, cls: 'puzzle',
+      cask: BOTH, caskEn: BOTH_EN, level: 'rarität', serve: NEAT, serveEn: NEAT_EN,
       notes: ['dunkle früchte', 'schokolade', 'maritim/salzig'], notesEn: ['dark fruit', 'chocolate', 'maritime/salty'],
-      serve: NEAT, serveEn: NEAT_EN,
       de: 'Der lauteste Whisky im Regal und gleichzeitig der eleganteste. Torf, Teer und dunkle Frucht.',
       en: 'The loudest whisky on the shelf and somehow also the most elegant. Peat, tar and dark fruit.'
     }),
     bottle({
-      name: 'Mortlach 16', group: 'Single Malt', group_en: 'Single malt',
-      distillery: 'Mortlach', kind: 'Single Malt', origin: 'Speyside', age: 16, abv: 43.4,
-      cask: SHERRY, caskEn: SHERRY_EN, peat: 0, level: 'rarität', price: 11.5, off: true,
-      notes: ['dunkle früchte', 'nussig', 'schokolade'], notesEn: ['dark fruit', 'nutty', 'chocolate'],
-      serve: NEAT, serveEn: NEAT_EN,
-      de: 'Fleischig, dunkel und sehr alt in der Machart. Wird zweieinhalb Mal gebrannt, was sonst niemand tut.',
-      en: 'Meaty, dark and very old fashioned in the making. Distilled two and a half times, which nobody else does.'
+      name: 'Dalwhinnie 15', brand: 'Dalwhinnie', kind: 'Single Malt', expression: '15 Jahre',
+      origin: 'Highland', peat: 1, age: 15, abv: 43, price: 6.9, rank: 8, cls: 'puzzle',
+      cask: BOURBON, caskEn: BOURBON_EN, level: 'kenner', serve: NEAT, serveEn: NEAT_EN,
+      notes: ['honig/vanille', 'blumig', 'malzig'], notesEn: ['honey/vanilla', 'floral', 'malty'],
+      de: 'Aus der kältesten Destillerie Schottlands und trotzdem der wärmste Honig.',
+      en: "From Scotland's coldest distillery and still the warmest honey.",
+      noteDe: 'Probier ihn mal ganz leicht gekühlt, das machen sie in Dalwhinnie selbst so.',
+      noteEn: 'Try it very lightly chilled, that is how they drink it at Dalwhinnie.'
     }),
     bottle({
-      name: 'Johnnie Walker Black Label 12', group: 'Blend', group_en: 'Blend',
-      distillery: 'Johnnie Walker', kind: 'Blended Scotch', origin: 'Schottland', originEn: 'Scotland',
-      age: 12, abv: 40, cask: BOTH, caskEn: BOTH_EN, peat: 1, level: 'klassiker',
-      price: 5.5, rank: 4,
+      name: 'Glenkinchie 12', brand: 'Glenkinchie', kind: 'Single Malt', expression: '12 Jahre',
+      origin: 'Lowland', peat: 0, age: 12, abv: 43, price: 5.9, rank: 9, cls: 'dog',
+      cask: BOURBON, caskEn: BOURBON_EN, level: 'einstieg', serve: ICE, serveEn: ICE_EN,
+      notes: ['blumig', 'zitrus', 'malzig'], notesEn: ['floral', 'citrus', 'malty'],
+      de: 'Der Garten von Edinburgh im Glas, grasig und hell und sehr freundlich.',
+      en: 'The garden of Edinburgh in a glass, grassy and bright and very friendly.'
+    }),
+    bottle({
+      name: 'Buffalo Trace', brand: 'Buffalo Trace', kind: 'Bourbon',
+      origin: 'Kentucky', peat: 0, age: null, abv: 45, price: 5.9, rank: 6, cls: 'star',
+      cask: OAK, caskEn: OAK_EN, level: 'klassiker', serve: LONG, serveEn: LONG_EN,
+      notes: ['honig/vanille', 'schokolade', 'würzig'], notesEn: ['honey/vanilla', 'chocolate', 'spicy'],
+      de: 'Vanille, Karamell und ein bisschen Minze. Der Bourbon, den Bourbontrinker bestellen.',
+      en: 'Vanilla, caramel and a little mint. The bourbon that bourbon drinkers order.'
+    })
+  ];
+
+  // ------------------------- back bar, in the app but not on the printed card --
+
+  var BACK_BAR = [
+    bottle({
+      name: 'Jameson', brand: 'Jameson', kind: 'Irish Blend', backBar: true,
+      origin: 'Ireland', peat: 0, age: null, abv: 40, price: 4.5, rank: 4, cls: 'plowhorse',
+      cask: BOTH, caskEn: BOTH_EN, level: 'einstieg', serve: LONG, serveEn: LONG_EN,
+      notes: ['fruchtig', 'nussig', 'honig/vanille'], notesEn: ['fruity', 'nutty', 'honey/vanilla'],
+      de: 'Dreifach gebrannt und deshalb so weich. Der freundlichste Weg in den Whiskey.',
+      en: 'Triple distilled and that is why it is so soft. The friendliest way into whiskey.'
+    }),
+    bottle({
+      name: 'Johnnie Walker Black Label 12', brand: 'Johnnie Walker', kind: 'Blended Scotch',
+      expression: 'Black Label 12', backBar: true,
+      origin: 'Scotland', peat: 1, age: 12, abv: 40, price: 5.5, rank: 10, cls: 'plowhorse',
+      cask: BOTH, caskEn: BOTH_EN, level: 'klassiker', serve: LONG, serveEn: LONG_EN,
       notes: ['fruchtig', 'würzig', 'honig/vanille'], notesEn: ['fruity', 'spicy', 'honey/vanilla'],
-      serve: LONG, serveEn: LONG_EN,
       de: 'Vierzig Whiskys in einer Flasche und trotzdem immer gleich gut. Der Klassiker hinter jeder Bar.',
       en: 'Forty whiskies in one bottle and reliably good every time. The classic behind every bar.'
     }),
     bottle({
-      name: 'Roe & Co', group: 'Irish', group_en: 'Irish',
-      distillery: 'Roe & Co', kind: 'Irish Blend', origin: 'Irland', originEn: 'Ireland',
-      age: null, abv: 45, cask: BOURBON, caskEn: BOURBON_EN, peat: 0, level: 'einstieg',
-      price: 5,
-      notes: ['fruchtig', 'honig/vanille', 'cremig'], notesEn: ['fruity', 'honey/vanilla', 'creamy'],
-      serve: LONG, serveEn: LONG_EN,
-      de: 'Weich und rund, gebaut für lange Gläser. Aus Dublin, direkt neben dem alten Guinness Kraftwerk.',
-      en: 'Soft and round, built for long glasses. From Dublin, right next to the old Guinness power station.'
+      name: 'Johnnie Walker Black Ruby', brand: 'Johnnie Walker', kind: 'Blended Scotch',
+      expression: 'Black Ruby', backBar: true,
+      origin: 'Scotland', peat: 1, age: null, abv: 40, price: 5.9, cls: 'puzzle',
+      cask: ['Portfass', 'Sherryfass'], caskEn: ['Port cask', 'Sherry cask'],
+      level: 'kenner', serve: LONG, serveEn: LONG_EN,
+      notes: ['dunkle früchte', 'schokolade', 'fruchtig'], notesEn: ['dark fruit', 'chocolate', 'fruity'],
+      de: 'Der Black Label mit einer dunklen roten Frucht darüber. Süßer, runder, abends.',
+      en: 'Black Label with a dark red fruit laid over it. Sweeter, rounder, an evening pour.'
     }),
     bottle({
-      name: 'Jameson', group: 'Irish', group_en: 'Irish',
-      distillery: 'Jameson', kind: 'Irish Blend', origin: 'Irland', originEn: 'Ireland',
-      age: null, abv: 40, cask: BOTH, caskEn: BOTH_EN, peat: 0, level: 'einstieg',
-      price: 4.5, rank: 3,
-      notes: ['fruchtig', 'nussig', 'honig/vanille'], notesEn: ['fruity', 'nutty', 'honey/vanilla'],
-      serve: LONG, serveEn: LONG_EN,
-      de: 'Dreifach gebrannt und deshalb so weich. Der freundlichste Weg in den Whisky.',
-      en: 'Triple distilled and that is why it is so soft. The friendliest way into whiskey.'
-    }),
-    bottle({
-      name: 'Bulleit Bourbon', group: 'Bourbon', group_en: 'Bourbon',
-      distillery: 'Bulleit', kind: 'Bourbon', origin: 'USA', age: null, abv: 45,
-      cask: OAK, caskEn: OAK_EN, peat: 0, level: 'klassiker', price: 5.5, rank: 5,
-      notes: ['würzig', 'honig/vanille', 'fruchtig'], notesEn: ['spicy', 'honey/vanilla', 'fruity'],
-      serve: LONG, serveEn: LONG_EN,
-      de: 'Hoher Roggenanteil, deshalb pfeffriger als die meisten Bourbons. Der Whiskey in unserem Mint Julep.',
-      en: 'A high rye share, which makes it peppier than most bourbons. The whiskey in our Mint Julep.'
-    }),
-    bottle({
-      name: 'Bulleit Rye', group: 'Rye', group_en: 'Rye',
-      distillery: 'Bulleit', kind: 'Rye', origin: 'USA', age: null, abv: 45,
-      cask: OAK, caskEn: OAK_EN, peat: 0, level: 'kenner', price: 5.9,
+      name: 'Bulleit Rye', brand: 'Bulleit', kind: 'Rye', backBar: true,
+      origin: 'Kentucky', peat: 0, age: null, abv: 45, price: 5.9, cls: 'puzzle',
+      cask: OAK, caskEn: OAK_EN, level: 'kenner', serve: LONG, serveEn: LONG_EN,
       notes: ['würzig', 'zitrus', 'schokolade'], notesEn: ['spicy', 'citrus', 'chocolate'],
-      serve: LONG, serveEn: LONG_EN,
       de: 'Fast nur Roggen. Trocken, scharf und genau richtig für einen Manhattan.',
       en: 'Almost all rye. Dry, sharp and exactly right for a Manhattan.'
     }),
     bottle({
-      name: 'Four Roses', group: 'Bourbon', group_en: 'Bourbon',
-      distillery: 'Four Roses', kind: 'Bourbon', origin: 'USA', age: null, abv: 40,
-      cask: OAK, caskEn: OAK_EN, peat: 0, level: 'klassiker', price: 4.5, rank: 8,
-      notes: ['fruchtig', 'honig/vanille', 'blumig'], notesEn: ['fruity', 'honey/vanilla', 'floral'],
-      serve: LONG, serveEn: LONG_EN,
-      de: 'Weicher Bourbon mit Birne und Vanille. Steht bei uns in fast jedem Old Fashioned.',
-      en: 'Soft bourbon with pear and vanilla. It goes into almost every Old Fashioned we build.'
+      name: 'Talisker Skye', brand: 'Talisker', kind: 'Single Malt', expression: 'Skye', backBar: true,
+      origin: 'Skye', peat: 2, age: null, abv: 45.8, price: 6.5, cls: 'puzzle',
+      cask: BOTH, caskEn: BOTH_EN, level: 'kenner', serve: TALL, serveEn: TALL_EN,
+      notes: ['maritim/salzig', 'honig/vanille', 'würzig'],
+      notesEn: ['maritime/salty', 'honey/vanilla', 'spicy'],
+      de: 'Der weichere Talisker. Gleicher Wind, weniger Kante, mehr Süße.',
+      en: 'The softer Talisker. Same wind, less edge, more sweetness.'
     }),
     bottle({
-      name: "Jack Daniel's Old No. 7", group: 'Tennessee', group_en: 'Tennessee',
-      distillery: "Jack Daniel's", kind: 'Tennessee Whiskey', origin: 'USA', age: null, abv: 40,
-      cask: OAK, caskEn: OAK_EN, peat: 0, level: 'einstieg', price: 4.5, rank: 1,
-      notes: ['honig/vanille', 'schokolade', 'malzig'], notesEn: ['honey/vanilla', 'chocolate', 'malty'],
-      serve: LONG, serveEn: LONG_EN,
-      de: 'Durch Holzkohle gefiltert, deshalb so weich und süß. Der meistbestellte Whiskey der Welt.',
-      en: 'Filtered through charcoal, which is why it is so soft and sweet. The most ordered whiskey in the world.'
-    }),
-    bottle({
-      name: 'Nikka From The Barrel', group: 'Japan', group_en: 'Japan',
-      distillery: 'Nikka', kind: 'Japanese Blend', origin: 'Japan', age: null, abv: 51.4,
-      cask: BOTH, caskEn: BOTH_EN, peat: 1, level: 'kenner', price: 8.5,
-      notes: ['dunkle früchte', 'würzig', 'schokolade'], notesEn: ['dark fruit', 'spicy', 'chocolate'],
-      serve: ICE, serveEn: ICE_EN,
-      de: 'Klein, eckig und überraschend kräftig. Ein Schluck Wasser und er blüht auf.',
-      en: 'Small, square and surprisingly powerful. A splash of water and it opens right up.'
+      name: 'Singleton of Dufftown 15', brand: 'Singleton', kind: 'Single Malt',
+      expression: '15 Jahre', backBar: true,
+      origin: 'Speyside', peat: 0, age: 15, abv: 40, price: 7.9, cls: 'puzzle',
+      cask: SHERRY, caskEn: SHERRY_EN, level: 'kenner', serve: NEAT, serveEn: NEAT_EN,
+      notes: ['dunkle früchte', 'nussig', 'malzig'], notesEn: ['dark fruit', 'nutty', 'malty'],
+      de: 'Der grosse Bruder vom Zwölfer. Drei Jahre länger im Sherryfass und man schmeckt jedes davon.',
+      en: 'The big brother of the twelve. Three more years in sherry and you taste every one of them.'
     })
   ];
 
-  /* Two rows that are not whisky, so the app has to prove it tells them apart
-   * by the data and not by the section they sit in. */
+  /* Profiled where it lives, which is the Spirituosen section and not the
+   * whisky one. The app finds it anyway, which is the entire argument for
+   * reading the data instead of the section title. */
+  var ELSEWHERE = [
+    bottle({
+      name: "Jack Daniel's Old No. 7", brand: "Jack Daniel's", kind: 'Tennessee Whiskey',
+      expression: 'Old No. 7',
+      origin: 'Tennessee', peat: 0, age: null, abv: 40, price: 4.5, rank: 11, cls: 'plowhorse',
+      cask: OAK, caskEn: OAK_EN, level: 'einstieg', serve: LONG, serveEn: LONG_EN,
+      notes: ['honig/vanille', 'schokolade', 'malzig'], notesEn: ['honey/vanilla', 'chocolate', 'malty'],
+      de: 'Durch Holzkohle gefiltert, deshalb so weich und süß. Der meistbestellte Whiskey der Welt.',
+      en: 'Filtered through charcoal, which is why it is so soft and sweet. The most ordered whiskey in the world.'
+    })
+  ];
+
+  /* Rows that are not whisky, so the app has to prove it tells them apart by
+   * the data and not by the section they sit in. The two flavoured bottles
+   * are the real case, they are whiskey in the bar and unprofiled on the
+   * card, and until someone profiles them the app must leave them alone. */
   var OTHER = [
     {
       name: 'Augustiner Helles 0,5l', name_en: 'Augustiner Helles 0,5l',
@@ -262,8 +240,8 @@
       bartender_note: '', bartender_note_en: '',
       ingredients: [], ingredients_en: [], strength: '',
       allergens: ['Gluten'], allergens_en: ['Gluten'], allergen_codes: [1],
-      alcohol_free: false, pos_sku: '', hidden_on_card: false,
-      on_printed_menu: true, popularity_rank: 9999
+      alcohol_free: false, image: null, pos_sku: '', hidden_on_card: false,
+      on_printed_menu: true, popularity_rank: 9999, menu_class: 'plowhorse', recommended: false
     },
     {
       name: 'Old Fashioned', name_en: 'Old Fashioned',
@@ -274,8 +252,20 @@
       ingredients: ['Four Roses', 'Zucker', 'Angostura'],
       ingredients_en: ['Four Roses', 'Sugar', 'Angostura'],
       strength: 'stark', allergens: [], allergens_en: [], allergen_codes: [],
-      alcohol_free: false, pos_sku: '149', hidden_on_card: false,
-      on_printed_menu: false, popularity_rank: 58
+      alcohol_free: false, image: null, pos_sku: '149', hidden_on_card: false,
+      on_printed_menu: false, popularity_rank: 58, menu_class: 'star', recommended: false
+    },
+    {
+      name: 'Fireball', name_en: 'Fireball',
+      group: '', group_en: '', price: 3.5, prices: [{ size: '2 cl', price: 3.5 }],
+      description: 'Zimtlikör auf Whiskeybasis, süß und heiß.',
+      description_en: 'Cinnamon liqueur on a whiskey base, sweet and hot.',
+      bartender_note: '', bartender_note_en: '',
+      ingredients: [], ingredients_en: [], strength: 'mittel',
+      allergens: [], allergens_en: [], allergen_codes: [],
+      alcohol_free: false, image: null, pos_sku: '', hidden_on_card: true,
+      on_printed_menu: false, popularity_rank: 9999, menu_class: 'plowhorse',
+      recommended: false, brand: 'Fireball'
     }
   ];
 
@@ -283,15 +273,19 @@
     name: 'BrunnenBar VORSCHAU',
     generated: '2026-09-08',
     published_at: '2026-09-08T00:00:00+02:00',
+    content_hash: 'vorschau-nicht-echt',
     url: 'preview only, not the Menu API',
     languages: ['de', 'en'],
     allergens: { de: {}, en: {}, intro_de: '', intro_en: '', outro_de: '', outro_en: '' },
     sections: [
-      { title: 'Whisky', title_en: 'Whisky', items: WHISKY },
+      { title: 'Whisk(e)y Neat', title_en: 'Whisk(e)y Neat', items: NEAT_CARD.concat(BACK_BAR) },
+      { title: 'Spirituosen', title_en: 'Spirits', items: ELSEWHERE.concat([OTHER[2]]) },
       { title: 'Bier', title_en: 'Beer', items: [OTHER[0]] },
-      { title: 'Cocktails', title_en: 'Cocktails', items: [OTHER[1]] }
+      { title: 'Whisk(e)y Cocktails', title_en: 'Whisk(e)y Cocktails', items: [OTHER[1]] }
     ]
   };
+
+  var WHISKY = NEAT_CARD.concat(BACK_BAR, ELSEWHERE);
 
   var api = { menu: MENU, WHISKY: WHISKY, OTHER: OTHER };
   if (typeof module !== 'undefined' && module.exports) module.exports = api;

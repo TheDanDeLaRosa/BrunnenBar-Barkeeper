@@ -63,11 +63,26 @@ negotiable:
 - Never hard-code a drink, a price, a section name or an allergen.
 - The order of sections and items is the display order. Do not resort it.
 - Everything published is orderable. The app does not filter for availability.
+- `hidden_on_card` is **not** a reason to hide something. The seat's data sheet
+  says it marks till-only articles, the Menu API brief and Dan both say it only
+  means off the printed card. Dan decides. `allItems` shows everything and
+  `cardItems` is there for an app that wants the stricter reading.
+- Freshness is `content_hash`, never `published_at`. Every build stamps a new
+  timestamp whether anything changed or not.
+- At most one fetch an hour.
+- `menu_class` is the bar's internal star and dog grading. A guest must never
+  see it in any form. There is a test that fails if the interface reads it.
 
 Whether an item can be recommended is decided by the data and never by a
 section name. A cocktail has an ingredient list, beer and wine do not. A whisky
-carries a `whisky` profile object, nothing else does. A tequila should get an
-`agave` block on the same principle.
+carries `peat`, `origin` or `notes`. An agave pour carries `agave_kind`,
+`agave_expression`, `agave_region` and `additive_free`. All of these are flat
+on the item, next to `brand`.
+
+**Section titles are never a filter, not even as a keyword.** Jack Daniel's is
+profiled in Spirituosen rather than in Whisk(e)y, and six of the fifteen
+whiskies sit behind `hidden_on_card` so the printed card stays short. Anything
+matching on the section would lose half the shelf without saying so.
 
 Each app also cuts its own question flow down to what the data can answer. A
 question whose field carries fewer than two values across the pool is dropped,
@@ -82,8 +97,11 @@ needs before three of its seven questions can score anything. Until those
 land, that app runs on the bundled export, which the brief forbids, so this is
 the thing blocking a clean cocktail launch.
 
-`docs/whisky-api-felder-fuer-die-app.md` specifies the `whisky` profile. The
-whisky app already reads the live API properly and shows an honest empty state
-until the profiles exist. `whiskey/data/demo-menu.js` is a preview behind
-`?demo=1` and is not a fallback, not a data source, and deleted the day the
-real profiles land.
+`docs/whisky-api-felder-fuer-die-app.md` is now mostly a thank you. Fifteen
+whiskies carry `peat`, `origin` and `notes`, which is enough for the app to
+run. `cask` and `whisky_level` are the two worth asking for next.
+
+The whisky app is blocked on one thing only, and it is not a field. The
+website seat has to republish menu.json to page 217, otherwise none of it is
+reachable from a browser. `whiskey/data/demo-menu.js` is a preview behind
+`?demo=1` until then, and is not a fallback and not a data source.

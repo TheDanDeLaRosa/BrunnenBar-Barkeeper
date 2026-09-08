@@ -24,9 +24,11 @@
 
   var MENU_URL = 'https://brunnenbar.com/wp-json/wp/v2/pages/217?_fields=content';
 
-  // How long a fetched menu is reused before going back to the network.
-  // Prices change without anyone rebuilding the app, so this stays short.
-  var MAX_AGE_MS = 5 * 60 * 1000;
+  /* How long a fetched menu is reused before going back to the network.
+   * The Menu API doc asks for at most one request an hour, on the grounds
+   * that the card changes a few times a week and not a few times a minute.
+   * A guest who opens the app twice in an evening therefore fetches once. */
+  var MAX_AGE_MS = 60 * 60 * 1000;
 
   var STORE_KEY = 'bb-menu-last-good';
 
@@ -131,10 +133,18 @@
     return inFlight;
   }
 
-  /* True when the published menu differs from the one in hand. The brief
-   * points at published_at for exactly this. */
+  /* True when the published menu differs from the one in hand.
+   *
+   * `content_hash` is the field to read, because it only moves when the
+   * content moves. Every build stamps a fresh `published_at` whether anything
+   * changed or not, so comparing timestamps would repaint the screen under a
+   * guest for nothing. Older payloads without a hash fall back to the
+   * timestamp rather than claiming nothing ever changes. */
   function hasChanged(current, incoming) {
     if (!current || !incoming) return true;
+    if (current.content_hash || incoming.content_hash) {
+      return current.content_hash !== incoming.content_hash;
+    }
     return current.published_at !== incoming.published_at;
   }
 
@@ -173,6 +183,20 @@
     }, []);
   }
 
+  /* The seat's data doc asks apps to hide `hidden_on_card` rows as till-only
+   * articles. The Menu API brief and Dan both say the opposite, that the flag
+   * only means the row is off the printed card and that everything published
+   * is orderable. Dan decides, so nothing is hidden by default and an app
+   * that wants the stricter reading asks for it here.
+   *
+   * This matters right now. Four of the twelve profiled whiskies sit behind
+   * the flag on purpose, so that the app can recommend the whole back bar
+   * while the printed card stays short. Filtering them by default would
+   * quietly delete a third of the shelf. */
+  function cardItems(menu) {
+    return allItems(menu).filter(function (i) { return i.hidden_on_card !== true; });
+  }
+
   /* Which items the recommender can actually score.
    *
    * Deliberately not a list of section names. The brief forbids hard-coding
@@ -191,6 +215,7 @@
     MENU_URL: MENU_URL, MAX_AGE_MS: MAX_AGE_MS, STORE_KEY: STORE_KEY,
     loadMenu: loadMenu, extract: extract, hasChanged: hasChanged,
     formatPrice: formatPrice, priceList: priceList, field: field, allItems: allItems,
+    cardItems: cardItems,
     isScoreable: isScoreable, scoreableItems: scoreableItems,
     _reset: function () { memo = null; inFlight = null; }
   };

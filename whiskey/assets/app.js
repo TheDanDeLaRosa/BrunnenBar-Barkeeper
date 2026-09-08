@@ -424,9 +424,24 @@
     if (typeof d.popularity_rank === 'number' && d.popularity_rank <= LOVED_RANK) {
       badges.appendChild(el('span', { class: 'badge loved', text: t().badgeLoved }));
     }
-    if (d.on_printed_menu === false) {
+    /* Six of the fifteen bottles sit behind hidden_on_card so the printed
+     * card can stay short while the app still recommends the whole back bar.
+     * Either flag means the same thing to a guest, that they will not find it
+     * on the paper in front of them, so either one earns the badge. */
+    if (d.on_printed_menu === false || d.hidden_on_card === true) {
       badges.appendChild(el('span', { class: 'badge off', text: t().notOnCard }));
     }
+
+    /* Two fields on the row are deliberately not shown.
+     *
+     * `menu_class` is the bar's own star and dog grading by margin. It is an
+     * internal number and a guest must never see it, in any form, including
+     * as an ordering they could reverse engineer.
+     *
+     * `recommended` marks the leader of a section on the website. Here it
+     * would sit next to our actual recommendation and argue with it, so the
+     * app leaves it alone rather than putting two golden claims on one
+     * screen. */
 
     var children = [
       el('p', { class: 'card-rank', text: hero ? t().topPick : contrastLabel(item) }),

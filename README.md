@@ -300,19 +300,31 @@ does that. It goes through `assets/menu-source.js`, and when the card cannot
 be reached it shows the last response that browser itself received with its
 age, exactly as the Menu API brief requires.
 
-**A bottle is a whisky because it carries a `whisky` profile.** Never because
-of the section it sits in. That mirrors the cocktail rule, where an ingredient
-list is what makes something recommendable. Rename every section on the card
-and nothing here changes. The profile is specified in
-`docs/whisky-api-felder-fuer-die-app.md` and is **not in the Menu API yet**,
-which is the one thing standing between this app and a launch.
+**A bottle is a whisky because it carries `peat`, `origin` or `notes`.** Never
+because of the section it sits in. That is not a stylistic preference. Jack
+Daniel's is profiled in Spirituosen rather than in Whisk(e)y, and six of the
+fifteen bottles sit behind `hidden_on_card` so the printed card can stay
+short, so a section filter would drop almost half the shelf in silence. The
+fields are documented in `docs/whisky-api-felder-fuer-die-app.md` and are in
+the Menu API today.
 
-**The questionnaire adapts to the data.** A question whose field carries fewer
-than two different values across the shelf is dropped before a guest sees it,
-because it could not tell two bottles apart. An answer nothing on the shelf
-carries is dropped with it, so nobody is offered Campbeltown when there is no
-Campbeltown behind the bar. As the Menu API grows fields, questions appear on
-their own, with no release.
+**It shows the back bar.** `hidden_on_card` means off the printed card, not
+off limits, so those six bottles are recommended with a badge saying a guest
+will not find them on the paper. The seat's data sheet asks apps to hide them
+and Dan decided otherwise, which is why `menu-source.js` hides nothing by
+default and offers `cardItems` to any app that wants the other reading.
+
+**The questionnaire builds itself from the data.** A question whose field
+carries fewer than two different values is dropped before a guest sees it,
+because it could not tell two bottles apart. The answers are the values the
+card actually carries, not a list in this repository, so a region spelled
+Highland rather than Highlands still reaches a guest with its own name on the
+button, and nobody is offered Campbeltown when there is no Campbeltown behind
+the bar. The written options are a table of labels and hints, nothing more. As
+the Menu API grows fields, questions appear on their own with no release.
+
+Today that gives four questions, smoke and taste and region and price.
+`cask` and `whisky_level` would make it seven.
 
 ## What it will and won't do
 
@@ -337,13 +349,15 @@ quietly handing over something gentler as though it were the answer.
 
 ## Looking at it before the data exists
 
+The data exists, but it only reaches a browser once the website seat
+republishes menu.json to page 217. Until that lands:
+
 ```bash
-open whiskey/index.html?demo=1     # nineteen invented bottles, gold warning on every screen
-node test/whiskey-engine.test.js   # 51 tests
+open whiskey/index.html?demo=1     # the real fifteen, gold warning on every screen
+node test/whiskey-engine.test.js   # 55 tests
 ```
 
-`whiskey/data/demo-menu.js` is a preview, not a data source. It is fetched only
-when the address bar asks for it, it is never reached by a failed load, and the
-page shouts in gold while it is in use. Its Diageo profiles are a draft for the
-bar to correct, and the file goes in the bin the day the real profiles are
-live.
+`whiskey/data/demo-menu.js` mirrors the real shelf, with the real peat and
+origin values and invented prices and tasting notes. It is a preview, not a
+data source. It is fetched only when the address bar asks for it, it is never
+reached by a failed load, and it goes in the bin the day the publish lands.
