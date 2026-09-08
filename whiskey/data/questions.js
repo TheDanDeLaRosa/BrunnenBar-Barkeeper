@@ -210,7 +210,10 @@
   // ---------------------------------------------------------------- copy ---
   var UI = {
     de: {
-      title: 'BrunnenBar',
+      /* The name a guest reads above the first question. The bar's own name
+       * is on the door and on the card already, so the app says what it is
+       * for instead. */
+      title: 'Der Whiskyexperte',
       lede: 'Wir haben eine Wand voller Whisky und keine Lust, dich damit allein zu lassen. Ein paar Fragen und wir haben deine Flasche.',
       start: 'Los geht’s',
       fullCard: 'Zur ganzen Karte',
@@ -305,7 +308,7 @@
       peatNames: ['ohne Rauch', 'mit einem Hauch Rauch', 'spürbar rauchig', 'kräftig rauchig', 'wie ein Lagerfeuer']
     },
     en: {
-      title: 'BrunnenBar',
+      title: 'The Whiskey Expert',
       lede: 'We have a wall full of whisky and no intention of leaving you alone with it. A few questions and we will find your bottle.',
       start: 'Start',
       fullCard: 'See the full list',
