@@ -48,6 +48,12 @@
   /* The guest explicitly handing the choice back to us. Not a flavour tag. */
   var NO_PREFERENCE = 'barkeeper';
 
+  /* A drink tagged for the whole evening fits wherever the guest is, so the
+   * question never offers it and the scoring always accepts it. Named here
+   * once, because anything checking which moments are reachable has to know
+   * about it or it reports a perfectly good drink as unreachable. */
+  var MOMENT_ANY = 'Ganzer Abend';
+
   /* Ingredients too common to tell two drinks apart. Naming one of these as
    * the difference would be true but useless. */
   var GENERIC_ING = [
@@ -193,7 +199,7 @@
       if (a.moment && a.moment !== 'shots') {
         maxScore += W.moment;
         var m = d.moments || [];
-        if (m.indexOf(a.moment) !== -1 || m.indexOf('Ganzer Abend') !== -1) {
+        if (m.indexOf(a.moment) !== -1 || m.indexOf(MOMENT_ANY) !== -1) {
           score += W.moment;
           reasons.push({ key: 'moment', weight: W.moment, x: a.moment });
         }
@@ -265,7 +271,13 @@
         reasons.push({ key: 'safe', weight: 1 });
       }
 
-      score += jitter(d.id, seed) * (freeRein ? 14 : 2);
+      /* Two points of jitter was tuned when the export carried unit sales,
+       * which spread the tie-break above it. The API gives a rank instead,
+       * and adjacent ranks are genuinely near identical, so the same jitter
+       * started overturning a real one point lead. Half a point still breaks
+       * an exact tie and cannot outvote a better match. Free rein stays wide
+       * on purpose, that is the guest asking to be surprised. */
+      score += jitter(d.id, seed) * (freeRein ? 14 : 0.5);
 
       var pct = maxScore > 0 ? Math.round((100 * score) / maxScore) : 50;
       reasons.sort(function (x, y) { return y.weight - x.weight; });
@@ -355,7 +367,7 @@
       // "Ganzer Abend" fits wherever the guest is, exactly as it scores.
       if (a.moment && a.moment !== 'shots') {
         var m = d.moments || [];
-        if (m.indexOf(a.moment) === -1 && m.indexOf('Ganzer Abend') === -1) return false;
+        if (m.indexOf(a.moment) === -1 && m.indexOf(MOMENT_ANY) === -1) return false;
       }
 
       if (a.strength != null && a.strength !== '') {
@@ -452,7 +464,7 @@
     poolFor: poolFor,
     liveOptions: liveOptions,
     canDiscriminate: canDiscriminate,
-    NO_PREFERENCE: NO_PREFERENCE,
+    NO_PREFERENCE: NO_PREFERENCE, MOMENT_ANY: MOMENT_ANY, CATCH_ALL: CATCH_ALL,
     contrastOf: contrastOf,
     SERVE_GROUPS: SERVE_GROUPS,
     WEIGHTS: W

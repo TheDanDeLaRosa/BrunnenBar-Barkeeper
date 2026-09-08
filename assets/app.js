@@ -8,8 +8,11 @@
 (function () {
   'use strict';
 
-  var MENU = window.BBMenu.MENU;
-  var ING_EN = window.BBMenu.ING_EN;
+  /* Filled in once the live menu has been read. There is no bundled copy to
+   * fall back on, by design: a copy that shipped with the app is wrong the
+   * moment a price changes, and wrong silently. */
+  var MENU = [];
+  var ING_EN = {};
   var QUESTIONS = window.BBQuestions.QUESTIONS;
   var BBEngine = window.BBEngine;
   var UI = window.BBQuestions.UI;
@@ -470,5 +473,84 @@
 
   document.documentElement.lang = state.lang;
   renderChrome();
-  render();
+  boot();
+
+  // ---------------------------------------------------------------- boot --
+
+  function bootMessage(title, detail) {
+    stage.innerHTML = '';
+    stage.appendChild(el('section', { class: 'intro' }, [
+      el('h1', { text: title }),
+      el('hr', { class: 'rule' }),
+      detail ? el('p', { class: 'lede', text: detail }) : null,
+      el('div', {}, [
+        el('a', { class: 'link-card', href: CARD_URL, target: '_blank', rel: 'noopener',
+                  text: t().fullCard })
+      ])
+    ]));
+  }
+
+  /* Reads the one source, reshapes it, and only then shows a question. The
+   * English half of the ingredient map is built from the same payload, so
+   * there is no second translation table to fall out of step with the card. */
+  /* What the questions can actually offer, read off the questions themselves
+   * so the two can never drift apart. */
+  function vocabulary() {
+    function vals(id) {
+      var q = QUESTIONS.filter(function (x) { return x.id === id; })[0];
+      return q ? q.options.map(function (o) { return o.value; }) : [];
+    }
+    return {
+      moment: vals('moment').concat([BBEngine.MOMENT_ANY]),
+      flavour_tags: vals('flavours'),
+      /* Every shape the engine knows, plus the catch all. Not the question's
+       * four options: Frozen and Hot are deliberately not offered, and those
+       * drinks are still perfectly recommendable, just not askable by shape. */
+      serve_style: Object.keys(BBEngine.SERVE_GROUPS).reduce(function (acc, g) {
+        return acc.concat(BBEngine.SERVE_GROUPS[g]);
+      }, [BBEngine.CATCH_ALL])
+    };
+  }
+
+  function boot() {
+    bootMessage(t().title, t().loading);
+
+    window.BBMenuSource.loadMenu().then(function (out) {
+      var items = window.BBMenuSource.scoreableItems(out.menu);
+      MENU = items.map(window.BBMenuAdapt.adapt);
+
+      ING_EN = {};
+      MENU.forEach(function (d) {
+        d.ing.forEach(function (de, i) { if (d.ingEn[i]) ING_EN[de] = d.ingEn[i]; });
+      });
+
+      /* Say it out loud rather than quietly scoring nothing. A question whose
+       * field is missing everywhere is a question that cannot mean anything,
+       * and that has to be visible on the first load, not discovered later. */
+      var check = window.BBMenuAdapt.report(items, vocabulary());
+      if (check.missing.length) {
+        console.warn('[BrunnenBar] Menu API is missing fields the questions score against:',
+          check.missing.join(', '),
+          '\nAffected drinks, first few per field:',
+          check.missing.reduce(function (acc, f) {
+            acc[f] = check.gaps[f].slice(0, 5); return acc;
+          }, {}));
+      }
+      if (check.unreachable.length) {
+        console.warn('[BrunnenBar] Values no question can offer, so these drinks ' +
+          'cannot be reached that way:', check.unknown);
+      }
+      state.dataNotice = check.ok ? null : check;
+      state.stale = out.fromCache ? out : null;
+
+      if (!MENU.length) {
+        bootMessage(t().title, t().noMenu);
+        return;
+      }
+      render();
+    }, function (err) {
+      console.error('[BrunnenBar]', err);
+      bootMessage(t().title, t().offline);
+    });
+  }
 })();

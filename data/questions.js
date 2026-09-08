@@ -221,6 +221,10 @@
       priceLabel: 'Preis',
       empty: 'Bei dieser Kombination wird es eng.',
       emptySub: 'Kein Problem. Komm an den Tresen, dann bauen wir dir was Eigenes.',
+      loading: 'Einen Moment, wir holen gerade die aktuelle Karte.',
+      offline: 'Wir kommen im Moment nicht an unsere Karte. Probier es gleich nochmal oder frag einfach am Tresen.',
+      noMenu: 'Gerade steht nichts auf der Karte, das wir hier empfehlen können. Am Tresen helfen wir dir sofort weiter.',
+      stale: 'Wir zeigen dir die Karte von {when}, weil wir gerade nicht an die aktuelle kommen. Frag am Tresen nach, falls sich etwas geändert hat.',
       loosened: 'Wir haben eine Vorgabe gelockert, um dir trotzdem etwas anbieten zu können.',
       footer: 'Alle Drinks werden frisch gebaut. Allergien bitte immer direkt beim Team melden.',
       reasons: {
@@ -293,6 +297,10 @@
       priceLabel: 'Price',
       empty: 'That combination gets tight.',
       emptySub: 'Not a problem. Come to the bar and we’ll build you something off-menu.',
+      loading: 'One moment, we are fetching the current card.',
+      offline: 'We cannot reach our card right now. Try again in a moment or just ask at the bar.',
+      noMenu: 'There is nothing on the card we can recommend here right now. Come to the bar and we will help you straight away.',
+      stale: 'This is our card as of {when}, because we cannot reach the current one right now. Ask at the bar in case something has changed.',
       loosened: 'We relaxed one preference so we could still offer you something.',
       footer: 'Every drink is built to order. Please always tell the team about allergies in person.',
       reasons: {

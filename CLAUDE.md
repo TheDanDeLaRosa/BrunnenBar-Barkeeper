@@ -89,10 +89,32 @@ ingredient, which the spirit fields give away.
 If a field is missing, it gets added at the source by the Website Seat and all
 three apps have it. Do not work around it in one app.
 
+## What reads the source
+
+`assets/menu-source.js` fetches and validates. `assets/menu-adapt.js` reshapes
+one published item into the drink the engine ranks. `assets/spirits.js` works
+out the base spirit from the ingredient list, since the feed carries no such
+field. Nothing else touches the payload.
+
+Neither adapt nor source repairs anything. Both report. `report()` names a
+field missing everywhere and, separately, a value no question can offer, which
+is the one that otherwise stays invisible.
+
+`test/fixtures/menu-live.json` stands in for the endpoint in tests, shaped like
+the real payload. `test/fixtures/export-2026-08-19.json` is the last BarPatrol
+export, kept only because it holds field values the API still needs. The app
+never reads either.
+
 ## Open work
 
-`docs/menu-api-felder-fuer-die-app.md` lists four fields the Menu API still
-needs before three of the seven questions can score anything. They were absent
-from the first brief and are still absent from the second, so this remains the
-one thing blocking a clean launch. Until they land the app runs on the bundled
-export, which the brief forbids.
+The app now reads the live source and carries no bundled copy. Whether the
+four fields in `docs/menu-api-felder-fuer-die-app.md` are actually in the feed
+is unverified from here, because brunnenbar.com is blocked from this
+environment. The app answers it on first load: open the console and it names
+any field that is missing and any value no question can offer.
+
+Two things need a decision from Dan rather than code. Rosato Spritz is flagged
+alcohol free at strength 1 with a real aperitivo in it, and is treated as
+alcoholic until that is settled. And `hidden_on_card` in the August export
+marked twelve real off menu cocktails, La Rosa and Mermaid's Melody among them,
+which the second brief's rule now withholds entirely.

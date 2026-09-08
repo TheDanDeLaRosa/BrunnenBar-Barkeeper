@@ -17,7 +17,7 @@
 var fs = require('fs');
 var path = require('path');
 
-var raw = require('../data/cocktails.json');
+var raw = require('../test/fixtures/export-2026-08-19.json');
 var drinks = Array.isArray(raw) ? raw : Object.values(raw).find(Array.isArray);
 
 var MOMENT_FIX = { 'Spaeter Abend': 'Später Abend' };
