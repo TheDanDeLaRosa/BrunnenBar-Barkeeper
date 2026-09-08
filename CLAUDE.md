@@ -75,7 +75,8 @@ negotiable:
 
 Whether an item can be recommended is decided by the data and never by a
 section name. A cocktail has an ingredient list, beer and wine do not. A whisky
-carries `peat`, `origin` or `notes`. An agave pour carries `agave_kind`,
+carries `peat`, `region` or `flavour_tags`, and the app accepts the older
+`origin` and `notes` spellings too. An agave pour carries `agave_kind`,
 `agave_expression`, `agave_region` and `additive_free`. All of these are flat
 on the item, next to `brand`.
 
@@ -97,9 +98,10 @@ needs before three of its seven questions can score anything. Until those
 land, that app runs on the bundled export, which the brief forbids, so this is
 the thing blocking a clean cocktail launch.
 
-`docs/whisky-api-felder-fuer-die-app.md` is now mostly a thank you. Fifteen
-whiskies carry `peat`, `origin` and `notes`, which is enough for the app to
-run. `cask` and `whisky_level` are the two worth asking for next.
+`docs/whisky-api-felder-fuer-die-app.md` is now mostly a description rather
+than a request. Fifteen whiskies carry `peat`, `region`, `flavour_tags`,
+`cask` and `whisky_level`, which is six of the app's seven questions.
+`whisky_serve` is the only one still missing.
 
 The whisky app is blocked on one thing only, and it is not a field. The
 website seat has to republish menu.json to page 217, otherwise none of it is

@@ -3,16 +3,25 @@
 Stand 08.09.2026. Gegenstück zu `menu-api-felder-fuer-die-app.md`, für die
 Whisky Empfehlung in `whiskey/`.
 
-**Der grosse Teil ist da.** Fünfzehn Flaschen tragen `peat`, `origin` und
-`notes`. Damit läuft die App. Was unten unter Wunschliste steht, macht sie
-besser, blockiert sie aber nicht.
+**Fast alles ist da.** Fünfzehn Flaschen tragen `peat`, `region`,
+`flavour_tags`, `cask` und `whisky_level`. Damit stellt die App sechs ihrer
+sieben Fragen. Es fehlt nur noch `whisky_serve`, der Rest der Wunschliste ist
+Feinschliff für die Ergebniskarte.
+
+Dieses Dokument ist damit vor allem eine Beschreibung dessen, was gilt, und
+nicht mehr eine Bitte.
 
 ---
 
 ## Die Regel, die alles trägt
 
-Ein Eintrag ist ein Whisky, wenn er `peat`, `origin` oder `notes` trägt.
-Sonst nicht. Der Abschnitt spielt keine Rolle.
+Ein Eintrag ist ein Whisky, wenn er `peat`, `region` oder `flavour_tags`
+trägt. Sonst nicht. Der Abschnitt spielt keine Rolle.
+
+Die App akzeptiert bei zweien davon beide Schreibweisen, also `region` und
+`origin`, `flavour_tags` und `notes`. Das kostet je eine Zeile und sorgt
+dafür, dass weder eine Umbenennung noch ein halb durchgelaufener Bau das
+Regal leert.
 
 Das ist nicht Prinzipienreiterei, es ist der einzige Weg, der mit der echten
 Karte funktioniert. Jack Daniel's steht in Spirituosen und nicht in
@@ -50,11 +59,16 @@ Umgekehrt gilt das nicht. Wer Lagerfeuer will und wir haben gerade nichts,
 bekommt trotzdem einen Vorschlag, aber die Seite sagt dazu, dass wir den Rauch
 nicht getroffen haben.
 
-### `origin`
+### `region`
 
 Typ `string`. Die App liest die Werte so, wie ihr sie schreibt, und baut die
-Antwortmöglichkeiten daraus. Aktuell also Speyside, Islay, Highland, Lowland,
-Skye, Scotland, Ireland, Kentucky und Tennessee.
+Antwortmöglichkeiten daraus. Aktuell also die neun normalisierten Tokens
+Highland, Lowland, Speyside, Islay, Island, Kentucky, Ireland, Tennessee und
+Blended. Alle neun haben in der App einen Namen und einen Hinweistext in
+beiden Sprachen.
+
+`Blended` ist streng genommen keine Gegend, bekommt aber trotzdem einen
+Knopf, weil ein Gast, der einen Blend sucht, genau dieses Wort kennt.
 
 **Wichtig ist nur, dass eine Schreibweise durchgehalten wird.** Steht bei einer
 Flasche Highland und bei der nächsten Highlands, sind das für die App zwei
@@ -64,7 +78,7 @@ Für Blends über mehrere Gegenden ist `Scotland` genau richtig. Die App zeigt
 den Wert an, bietet ihn aber nicht als Frage an, weil niemand nach irgendwo in
 Schottland sucht.
 
-### `notes` und `notes_en`
+### `flavour_tags` und `flavour_tags_en`
 
 Typ `string[]`, zwei bis vier Stück, klein geschrieben. Was man schmeckt, in
 Gästesprache.
@@ -79,34 +93,54 @@ Eine Note ausserhalb dieser Liste bricht nichts, sie wird nur unübersetzt
 gezeigt. Sagt Bescheid, wenn ihr eine braucht, dann kommt sie mit Übersetzung
 dazu.
 
-Rauchig gehört bewusst nicht in diese Liste. Rauch hat mit `peat` eine eigene
-Achse, und zweimal dasselbe zu bewerten würde jede rauchige Flasche doppelt
-belohnen.
+`rauchig` dürft ihr ruhig setzen, die App wirft es beim Lesen raus. Rauch hat
+mit `peat` eine eigene Achse, und zweimal dasselbe zu bewerten würde jede
+rauchige Flasche für eine Eigenschaft doppelt belohnen. Eine Flasche, deren
+einziger Tag `rauchig` ist, bleibt trotzdem ein Whisky.
 
 ---
 
-## Wunschliste, nach Nutzen sortiert
+### `cask` und `cask_en`
+
+Typ `string[]`. Bourbonfass, Sherryfass, Portfass, Weinfass, Rumfass, Neue
+Eiche. Bourbon und Tennessee Whiskey bekommen Neue Eiche, weil sie per Gesetz
+aus frisch ausgebrannten Fässern kommen.
+
+### `whisky_level`
+
+Typ `string`, genau ein Wert. Wofür die Flasche heute Abend da ist.
+
+| Wert | heisst |
+|---|---|
+| `einstieg` | erster Whisky, weich, verzeiht alles |
+| `klassiker` | kennt man, steht in jeder guten Bar |
+| `kenner` | für jemanden, der schon öfter Whisky trinkt |
+| `rarität` | die gute Flasche hinten |
+
+**Regel, die die App durchsetzt.** Sagt ein Gast, es ist sein erster Whisky,
+sieht er nur `einstieg` und `klassiker`. Ein Anfänger mit einem Lagavulin 16
+im Glas kommt nicht wieder. Haben wir nichts Passendes, öffnet die App die
+Auswahl und sagt es dazu.
+
+---
+
+## Wunschliste, was noch fehlt
 
 Alles hier ist optional. Fehlt ein Feld, lässt die Ergebniskarte die Zeile weg
-und die dazugehörige Frage verschwindet aus dem Fragebogen. Die App fragt nie
-etwas, das die Karte nicht beantworten kann.
+und die dazugehörige Frage verschwindet aus dem Fragebogen.
 
 Die Namen sind bewusst so gewählt, dass sie neben den Agavenfeldern stehen
 können, also `whisky_kind` neben `agave_kind`.
 
 | Feld | Typ | Was es bringt |
 |---|---|---|
-| `cask`, `cask_en` | `string[]` | Bourbonfass, Sherryfass, Portfass, Weinfass, Rumfass, Neue Eiche. Das Fass macht oft mehr aus als die Jahreszahl, und es ist die zweitbeste Frage nach dem Rauch |
-| `whisky_level` | `string` | `einstieg`, `klassiker`, `kenner`, `rarität`. Erlaubt der App, einen ersten Whisky vom schweren Ende des Regals fernzuhalten |
-| `whisky_serve`, `_en` | `string[]` | `pur`, `mit Wasser`, `auf Eis`, `Highball`. Wie ihr die Flasche am liebsten ausschenkt |
+| `whisky_serve`, `_en` | `string[]` | `pur`, `mit Wasser`, `auf Eis`, `Highball`. Wie ihr die Flasche am liebsten ausschenkt. Die einzige Frage, die jetzt noch fehlt |
 | `whisky_age_years` | `number` oder `null` | `null` heisst ohne Altersangabe und die Karte schreibt das dann auch so hin. Bitte nicht 0 |
 | `abv` | `number` | Etwa `45.8`, reine Anzeige |
 | `whisky_kind` | `string` | Single Malt, Blended Scotch, Bourbon, Rye, Irish Blend, Tennessee Whiskey |
 | `whisky_expression` | `string` | 10 Jahre, Black Label, Old No. 7 |
 
-`brand` gibt es schon und die App liest es mit.
-
-**Wenn ihr nur eins davon macht, macht `cask`.** Danach `whisky_level`.
+`brand` und `image` gibt es schon und die App liest beide mit.
 
 ### Noch nicht profiliert
 
@@ -131,6 +165,10 @@ die gedruckte Karte kurz bleibt.
 Sie bekommen auf der Ergebniskarte den Hinweis, dass sie nicht auf der Karte
 stehen. Der gemeinsame Loader filtert nichts weg, bietet aber `cardItems` an,
 falls eine andere App die strengere Lesart braucht.
+
+**Fotos.** `image` wird auf der Ergebniskarte neben dem Namen gezeigt, quadratisch
+und vollständig sichtbar statt beschnitten. Rund die Hälfte der Karte hat kein
+Bild, das ist der Normalfall und hinterlässt keine Lücke.
 
 **Abfragerhythmus.** Das Datenblatt sagt höchstens stündlich, das Brief sagt
 höchstens ein paar Minuten. Der Loader macht jetzt stündlich, weil der Text
@@ -169,9 +207,9 @@ Bildschirm heben sich gegenseitig auf.
 ## Zum Nachprüfen
 
 Sobald republished ist, reicht ein Blick auf die App. Fehlt ein Feld
-vollständig, fehlt die dazugehörige Frage. Sind alle da, hat der Fragebogen
-sieben Fragen. Heute sind es vier, nämlich Rauch, Geschmack, Herkunft und
-Preis.
+vollständig, fehlt die dazugehörige Frage. Mit dem, was jetzt drin ist, sind es sechs
+Fragen, nämlich Anlass, Rauch, Geschmack, Herkunft, Fass und Preis. Mit
+`whisky_serve` kommt die siebte dazu.
 
 `whiskey/data/demo-menu.js` bildet die fünfzehn Flaschen mit den echten
 Rauchstufen und Herkünften nach, erfindet aber Preise und Noten. Sie läuft nur

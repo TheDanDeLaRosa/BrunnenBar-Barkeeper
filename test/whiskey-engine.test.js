@@ -108,6 +108,35 @@ test('a whiskey the card has not profiled is left alone', function () {
     'a flavoured bottle with no peat, origin or notes must not be recommended');
 });
 
+test('the card may spell the region and the tags either way', function () {
+  var normalised = row('Neu', { region: 'Islay', flavour_tags: ['würzig'], peat: 3 });
+  var older = row('Alt', { origin: 'Islay', notes: ['würzig'], peat: 3 });
+  [normalised, older].forEach(function (item) {
+    var p = E.profileOf(item);
+    assert.ok(p, item.name + ' should read as a whisky');
+    assert.strictEqual(p.origin, 'Islay', item.name + ' region');
+    assert.deepStrictEqual(p.notes, ['würzig'], item.name + ' tags');
+  });
+});
+
+test('region wins over origin when a row carries both', function () {
+  var both = row('Beides', { region: 'Highland', origin: 'Schottland', peat: 0 });
+  assert.strictEqual(E.profileOf(both).origin, 'Highland');
+});
+
+test('smoke is never counted a second time as a tasting note', function () {
+  var item = row('Lagavulin', { peat: 4, region: 'Islay', flavour_tags: ['rauchig', 'schokolade'] });
+  assert.deepStrictEqual(E.profileOf(item).notes, ['schokolade'],
+    'the peat scale already scores smoke, so the tag must not score it again');
+  assert.ok(E.isWhisky(item), 'dropping the tag must not drop the bottle');
+});
+
+test('a bottle whose only tag was smoke is still a whisky', function () {
+  var item = row('Nur Rauch', { peat: 3, flavour_tags: ['rauchig'] });
+  assert.ok(E.isWhisky(item));
+  assert.deepStrictEqual(E.profileOf(item).notes, []);
+});
+
 test('a whisky with no profile yet is not offered', function () {
   var shelf = [row('Noch ohne Profil', null), row('Mit Profil', prof({}))];
   assert.deepStrictEqual(E.bottles(shelf).map(function (b) { return b.name; }), ['Mit Profil']);

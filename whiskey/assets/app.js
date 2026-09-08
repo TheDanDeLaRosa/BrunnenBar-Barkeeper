@@ -405,6 +405,27 @@
     ]);
   }
 
+  /* The bottle photo, where the card has one. Roughly half the rows do not,
+   * so a missing image is the normal case and never a gap in the layout.
+   *
+   * A plain path or an http address is followed, anything carrying some other
+   * scheme is not. The value comes from the card rather than from this app,
+   * and a scheme nobody expected has no business being handed to the browser,
+   * even where it would be inert.
+   *
+   * The alt text is the bottle's name. A screen reader that has just read
+   * the name in the heading does not need it twice, so the image is marked
+   * decorative there instead, which is what an empty alt means. */
+  function shotOf(item) {
+    var url = item && item.image;
+    if (typeof url !== 'string' || !url) return null;
+    if (/^[a-z][a-z0-9+.\-]*:/i.test(url) && !/^https?:/i.test(url)) return null;
+    return el('img', {
+      class: 'shot', src: url, alt: '', loading: 'lazy', decoding: 'async',
+      width: '900', height: '900'
+    });
+  }
+
   function renderCard(item, rank) {
     var d = item.bottle;
     var p = ENGINE.profileOf(d) || {};
@@ -443,12 +464,20 @@
      * app leaves it alone rather than putting two golden claims on one
      * screen. */
 
-    var children = [
-      el('p', { class: 'card-rank', text: hero ? t().topPick : contrastLabel(item) }),
+    /* The badges stay below the photo row rather than beside it. Squeezed
+     * into the space left over next to a bottle they wrap one to a line and
+     * the card starts to look like a list of warnings. */
+    var head = el('div', { class: 'card-head-body' }, [
       el('div', { class: 'card-top' }, [
         el('h3', { text: F(d, 'name') }),
         el('span', { class: 'match', text: fill(t().match, { n: item.match }) })
-      ]),
+      ])
+    ]);
+
+    var photo = shotOf(d);
+    var children = [
+      el('p', { class: 'card-rank', text: hero ? t().topPick : contrastLabel(item) }),
+      photo ? el('div', { class: 'card-head' }, [photo, head]) : head,
       badges.childNodes.length ? badges : null,
       F(d, 'description') && el('p', { class: 'note', text: F(d, 'description') })
     ];

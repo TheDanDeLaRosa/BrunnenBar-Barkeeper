@@ -300,7 +300,8 @@ does that. It goes through `assets/menu-source.js`, and when the card cannot
 be reached it shows the last response that browser itself received with its
 age, exactly as the Menu API brief requires.
 
-**A bottle is a whisky because it carries `peat`, `origin` or `notes`.** Never
+**A bottle is a whisky because it carries `peat`, `region` or
+`flavour_tags`.** Never
 because of the section it sits in. That is not a stylistic preference. Jack
 Daniel's is profiled in Spirituosen rather than in Whisk(e)y, and six of the
 fifteen bottles sit behind `hidden_on_card` so the printed card can stay
@@ -323,8 +324,8 @@ button, and nobody is offered Campbeltown when there is no Campbeltown behind
 the bar. The written options are a table of labels and hints, nothing more. As
 the Menu API grows fields, questions appear on their own with no release.
 
-Today that gives four questions, smoke and taste and region and price.
-`cask` and `whisky_level` would make it seven.
+That gives six questions today, occasion and smoke and taste and region and
+cask and price. `whisky_serve` would make it seven.
 
 ## What it will and won't do
 
@@ -354,7 +355,7 @@ republishes menu.json to page 217. Until that lands:
 
 ```bash
 open whiskey/index.html?demo=1     # the real fifteen, gold warning on every screen
-node test/whiskey-engine.test.js   # 55 tests
+node test/whiskey-engine.test.js   # 59 tests
 ```
 
 `whiskey/data/demo-menu.js` mirrors the real shelf, with the real peat and

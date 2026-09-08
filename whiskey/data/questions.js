@@ -86,6 +86,19 @@
         { value: 'blumig', label: { de: 'Blumig', en: 'Floral' }, hint: { de: 'Heide und Honigblüte, ganz leicht', en: 'Heather and honeysuckle, very light' } },
         { value: 'nussig', label: { de: 'Nussig', en: 'Nutty' }, hint: { de: 'Mandel, Walnuss, trocken', en: 'Almond, walnut, dry' } },
         { value: 'cremig', label: { de: 'Cremig', en: 'Creamy' }, hint: { de: 'Weich und rund im Mund', en: 'Soft and round in the mouth' } },
+        /* The card writes tasting tags into `flavour_tags`, the same field
+         * and the same vocabulary the cocktail export uses, so the values
+         * below can turn up on a bottle as easily as on a drink. Only the
+         * ones a bottle actually carries are ever offered, so listing them
+         * here costs nothing and buys each one a hint. */
+        { value: 'süß', label: { de: 'Süß', en: 'Sweet' }, hint: { de: 'Rund und weich', en: 'Round and soft' } },
+        { value: 'bitter', label: { de: 'Bitter', en: 'Bitter' }, hint: { de: 'Trocken, mit Kante', en: 'Dry, with an edge' } },
+        { value: 'sauer/zitrus', label: { de: 'Sauer und Zitrus', en: 'Sour and citrus' }, hint: { de: 'Zitrone, hell und wach', en: 'Lemon, bright and awake' } },
+        { value: 'kräuterig/frisch', label: { de: 'Kräuterig und frisch', en: 'Herbal and fresh' }, hint: { de: 'Gras, Heu, Minze', en: 'Grass, hay, mint' } },
+        { value: 'holzig', label: { de: 'Holzig', en: 'Woody' }, hint: { de: 'Eiche, trocken, alt', en: 'Oak, dry, old' } },
+        { value: 'salzig', label: { de: 'Salzig', en: 'Salty' }, hint: { de: 'Meer und nasser Stein', en: 'Sea and wet stone' } },
+        { value: 'scharf', label: { de: 'Scharf', en: 'Fiery' }, hint: { de: 'Pfeffer und Wärme', en: 'Pepper and heat' } },
+        { value: 'kaffee', label: { de: 'Kaffee', en: 'Coffee' }, hint: { de: 'Röstig und dunkel', en: 'Roasted and dark' } },
         /* `exclusive` clears every other pick and vice versa. The value is
          * BBWhiskyEngine.NO_PREFERENCE, which the engine reads as free rein
          * rather than as a note to match. */
@@ -129,7 +142,11 @@
         { value: 'Scotland', label: { de: 'Schottland', en: 'Scotland' }, hint: { de: 'Ein Blend aus mehreren Gegenden', en: 'A blend from several regions' } },
         { value: 'Ireland', label: { de: 'Irland', en: 'Ireland' }, hint: { de: 'Weich und rund', en: 'Soft and round' } },
         { value: 'Kentucky', label: { de: 'Kentucky', en: 'Kentucky' }, hint: { de: 'Bourbon und Rye, süß vom neuen Fass', en: 'Bourbon and rye, sweet from new oak' } },
-        { value: 'Tennessee', label: { de: 'Tennessee', en: 'Tennessee' }, hint: { de: 'Durch Holzkohle gefiltert, weich', en: 'Charcoal filtered, soft' } }
+        { value: 'Tennessee', label: { de: 'Tennessee', en: 'Tennessee' }, hint: { de: 'Durch Holzkohle gefiltert, weich', en: 'Charcoal filtered, soft' } },
+        { value: 'Island', label: { de: 'Die Inseln', en: 'The islands' }, hint: { de: 'Wind, Salz, oft etwas Rauch', en: 'Wind, salt, often a little smoke' } },
+        /* Not a region but a way of building, and it earns a button anyway
+         * because a guest who wants a blend knows the word and looks for it. */
+        { value: 'Blended', label: { de: 'Ein Blend', en: 'A blend' }, hint: { de: 'Aus mehreren Brennereien zusammengesetzt', en: 'Put together from several distilleries' } }
       ]
     },
     {
@@ -223,7 +240,11 @@
         'fruchtig': 'Fruchtigeres', 'zitrus': 'mit mehr Zitrus', 'honig/vanille': 'Süßeres',
         'malzig': 'Malzigeres', 'würzig': 'Würzigeres', 'dunkle früchte': 'mit dunklen Früchten',
         'schokolade': 'mit Schokolade', 'maritim/salzig': 'Salzigeres', 'blumig': 'Blumigeres',
-        'nussig': 'Nussigeres', 'cremig': 'Cremigeres'
+        'nussig': 'Nussigeres', 'cremig': 'Cremigeres',
+        'süß': 'Süßeres', 'bitter': 'Bittereres', 'sauer/zitrus': 'mit mehr Säure',
+        'kräuterig/frisch': 'Frischeres', 'holzig': 'Holzigeres', 'salzig': 'Salzigeres',
+        'scharf': 'Schärferes', 'kaffee': 'mit Kaffee', 'prickelnd': 'mit Perlage',
+        'überraschend': 'Überraschenderes'
       },
       match: '{n}% Übereinstimmung',
       badgeSmoke: 'Rauchig',
@@ -275,7 +296,11 @@
         'fruchtig': 'fruchtig', 'zitrus': 'nach Zitrus', 'honig/vanille': 'nach Honig und Vanille',
         'malzig': 'malzig', 'würzig': 'würzig', 'dunkle früchte': 'nach dunklen Früchten',
         'schokolade': 'nach Schokolade', 'maritim/salzig': 'salzig und maritim',
-        'blumig': 'blumig', 'nussig': 'nussig', 'cremig': 'cremig'
+        'blumig': 'blumig', 'nussig': 'nussig', 'cremig': 'cremig',
+        'süß': 'süß', 'bitter': 'bitter', 'sauer/zitrus': 'sauer und frisch',
+        'kräuterig/frisch': 'kräuterig', 'holzig': 'holzig', 'salzig': 'salzig',
+        'scharf': 'scharf', 'kaffee': 'nach Kaffee', 'prickelnd': 'prickelnd',
+        'überraschend': 'überraschend'
       },
       peatNames: ['ohne Rauch', 'mit einem Hauch Rauch', 'spürbar rauchig', 'kräftig rauchig', 'wie ein Lagerfeuer']
     },
@@ -308,7 +333,11 @@
         'fruchtig': 'fruitier', 'zitrus': 'with more citrus', 'honig/vanille': 'sweeter',
         'malzig': 'maltier', 'würzig': 'spicier', 'dunkle früchte': 'with dark fruit',
         'schokolade': 'with chocolate', 'maritim/salzig': 'saltier', 'blumig': 'more floral',
-        'nussig': 'nuttier', 'cremig': 'creamier'
+        'nussig': 'nuttier', 'cremig': 'creamier',
+        'süß': 'sweeter', 'bitter': 'more bitter', 'sauer/zitrus': 'with more acidity',
+        'kräuterig/frisch': 'fresher', 'holzig': 'woodier', 'salzig': 'saltier',
+        'scharf': 'fierier', 'kaffee': 'with coffee', 'prickelnd': 'with bubbles',
+        'überraschend': 'more surprising'
       },
       match: '{n}% match',
       badgeSmoke: 'Smoky',
@@ -359,7 +388,11 @@
         'fruchtig': 'fruity', 'zitrus': 'of citrus', 'honig/vanille': 'of honey and vanilla',
         'malzig': 'malty', 'würzig': 'spicy', 'dunkle früchte': 'of dark fruit',
         'schokolade': 'of chocolate', 'maritim/salzig': 'salty and maritime',
-        'blumig': 'floral', 'nussig': 'nutty', 'cremig': 'creamy'
+        'blumig': 'floral', 'nussig': 'nutty', 'cremig': 'creamy',
+        'süß': 'sweet', 'bitter': 'bitter', 'sauer/zitrus': 'sour and fresh',
+        'kräuterig/frisch': 'herbal', 'holzig': 'woody', 'salzig': 'salty',
+        'scharf': 'fiery', 'kaffee': 'of coffee', 'prickelnd': 'sparkling',
+        'überraschend': 'surprising'
       },
       peatNames: ['no smoke', 'a hint of smoke', 'noticeably smoky', 'boldly smoky', 'like a campfire']
     }

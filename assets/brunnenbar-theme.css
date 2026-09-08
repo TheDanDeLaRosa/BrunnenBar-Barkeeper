@@ -435,6 +435,36 @@ a.btn { text-decoration: none; display: inline-block; }
   flex-wrap: wrap;
 }
 
+/* A photo of the thing being recommended, where the card has one.
+   `.card-head` puts it beside the title block rather than above it, because
+   a bottle shot across the full width of a phone pushes the name and the
+   match below the fold, and the name is what a guest came for.
+   The source images are square with the bottle standing in the middle, so
+   the frame is square and the fit is `contain`. `cover` would take the neck
+   off a tall bottle and the label off a squat one. */
+.card-head { display: flex; align-items: flex-start; gap: 1rem; }
+.card-head-body { flex: 1 1 auto; min-width: 0; }
+
+.shot {
+  flex: 0 0 auto;
+  width: 4rem;
+  height: 4rem;
+  border-radius: var(--radius);
+  border: 1px solid var(--line-soft);
+  background: var(--ink-3);
+  object-fit: contain;
+  padding: 0.3rem;
+}
+
+/* On a phone the hero photo stays close to the runner-up size, because a
+   larger one eats a third of the row and pushes the name sideways. It grows
+   once there is room, at the one breakpoint this theme has. */
+.card.hero .shot { width: 4.25rem; height: 4.25rem; }
+
+@media (min-width: 34rem) {
+  .card.hero .shot { width: 5.5rem; height: 5.5rem; }
+}
+
 .card h3 { font-size: clamp(1.5rem, 5vw, 1.95rem); }
 .card.alt h3 { font-size: 1.3rem; }
 

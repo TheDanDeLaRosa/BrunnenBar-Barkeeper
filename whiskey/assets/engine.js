@@ -23,27 +23,38 @@
 (function (root) {
   'use strict';
 
-  /* What makes a row a whisky the app can talk about.
+  /* The profile, flat on the item the way the card carries it, next to
+   * `brand` and alongside the agave fields.
    *
-   * The card carries these flat on the item, the way it carries `agave_kind`
-   * and `agave_region` on an agave pour. Carrying any one of them is the
-   * whole test. It is deliberately not the section title, and that is not
-   * pedantry. Jack Daniel's sits in Spirituosen rather than in Whisk(e)y, and
-   * a section filter would have silently dropped it. */
+   * Each entry is the list of names the card might use for one thing, first
+   * match wins. Two of them genuinely carry two names.
+   *
+   * The region arrived as `origin` and was later normalised into `region`,
+   * and a payload may carry either or both. The tasting notes are
+   * `flavour_tags`, the same name the cocktail export uses, and were `notes`
+   * in the first draft. Accepting both spellings costs one array each and
+   * means neither a republish nor a rename can empty the shelf. */
+  var FIELDS = {
+    peat: ['peat'],
+    origin: ['region', 'origin'],
+    notes: ['flavour_tags', 'notes'],
+    cask: ['cask'],
+    level: ['whisky_level'],
+    serve: ['whisky_serve', 'serve_style'],
+    kind: ['whisky_kind'],
+    expression: ['whisky_expression'],
+    age_years: ['whisky_age_years', 'age_years'],
+    abv: ['abv'],
+    brand: ['brand']
+  };
+
+  /* Carrying any one of these is what makes a row a whisky. */
   var PROFILE_FIELDS = ['peat', 'origin', 'notes'];
 
-  /* The rest of the profile, read the same way, all optional. Each one that
-   * arrives on the card turns its question on by itself. */
-  var EXTRA_FIELDS = {
-    kind: 'whisky_kind',
-    expression: 'whisky_expression',
-    cask: 'cask',
-    serve: 'whisky_serve',
-    level: 'whisky_level',
-    age_years: 'whisky_age_years',
-    abv: 'abv',
-    brand: 'brand'
-  };
+  /* A tasting tag that duplicates an axis the app already scores on its own.
+   * Smoke has the whole peat scale behind it, so counting it a second time as
+   * a flavour would let every peated malt win twice for one property. */
+  var DOUBLE_COUNTED = ['rauchig', 'smoky'];
 
   var W = {
     peatExact: 26,
@@ -91,26 +102,42 @@
     return Array.isArray(v) ? v.length > 0 : true;
   }
 
+  /* The first spelling of `key` that this row actually carries. */
+  function raw(item, key, suffix) {
+    var names = FIELDS[key] || [key];
+    for (var i = 0; i < names.length; i++) {
+      var v = item[names[i] + (suffix || '')];
+      if (has(v)) return v;
+    }
+    return undefined;
+  }
+
   /* One view over the flat fields, so the rest of the file reads a profile
    * and does not care how the card spells it. Returns null for anything that
    * is not a whisky, which is what keeps beer, wine and cocktails out. */
   function profileOf(item) {
     if (!item) return null;
     var carries = false;
-    var i;
-    for (i = 0; i < PROFILE_FIELDS.length; i++) {
-      if (has(item[PROFILE_FIELDS[i]])) { carries = true; break; }
+    for (var i = 0; i < PROFILE_FIELDS.length; i++) {
+      if (raw(item, PROFILE_FIELDS[i]) !== undefined) { carries = true; break; }
     }
     if (!carries) return null;
 
-    var p = { peat: item.peat, origin: item.origin, notes: item.notes,
-              notes_en: item.notes_en, origin_en: item.origin_en };
-    Object.keys(EXTRA_FIELDS).forEach(function (key) {
-      p[key] = item[EXTRA_FIELDS[key]];
-      var en = item[EXTRA_FIELDS[key] + '_en'];
+    var p = {};
+    Object.keys(FIELDS).forEach(function (key) {
+      p[key] = raw(item, key);
+      var en = raw(item, key, '_en');
       if (en !== undefined) p[key + '_en'] = en;
     });
+
+    // Smoke is scored on its own scale, so it never counts twice as a note.
+    if (Array.isArray(p.notes)) p.notes = p.notes.filter(notDoubleCounted);
+    if (Array.isArray(p.notes_en)) p.notes_en = p.notes_en.filter(notDoubleCounted);
     return p;
+  }
+
+  function notDoubleCounted(tag) {
+    return DOUBLE_COUNTED.indexOf(String(tag).toLowerCase()) === -1;
   }
 
   function isWhisky(item) { return !!profileOf(item); }
@@ -544,7 +571,8 @@
 
   var api = {
     PROFILE_FIELDS: PROFILE_FIELDS,
-    EXTRA_FIELDS: EXTRA_FIELDS,
+    FIELDS: FIELDS,
+    DOUBLE_COUNTED: DOUBLE_COUNTED,
     NO_PREFERENCE: NO_PREFERENCE,
     LEVELS: LEVELS,
     SMOKE_VISIBLE: SMOKE_VISIBLE,

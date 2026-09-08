@@ -11,17 +11,21 @@
  *   real     which bottles are on the shelf, which of them sit behind
  *            hidden_on_card, and that Jack Daniel's is profiled in the
  *            Spirituosen section rather than in Whisk(e)y
- *   real     the peat and origin values, as Dan described them
- *   INVENTED every price, every tasting note, every description
+ *   real     the peat and region values, as Dan described them
+ *   INVENTED every price, every tasting tag, every description, every photo
  *
  * The invented half is why the page shouts in gold on every screen while
  * this file is loaded, and why it is loaded only when the address bar says
  * ?demo=1 and never when a fetch fails.
  *
- * The origin values are deliberately spelled the way the card spells them,
- * Highland and Lowland rather than Highlands and Lowlands, Kentucky and
- * Tennessee rather than USA. The app builds its answers from whatever the
- * card carries, so this is also the test that it does.
+ * The field names and the region tokens are the card's own. `region` rather
+ * than origin, `flavour_tags` rather than notes, Island rather than Skye and
+ * Blended for a blend. The app builds its answers from whatever the card
+ * carries, so this file is also the test that it does.
+ *
+ * The photos are one placeholder drawing, and seven bottles deliberately have
+ * none, because roughly half the real card has no image either and a missing
+ * one has to look like nothing rather than like a hole.
  * =========================================================================
  */
 (function (root) {
@@ -43,7 +47,7 @@
       strength: 'stark',
       allergens: [], allergens_en: [], allergen_codes: [],
       alcohol_free: false,
-      image: null,
+      image: o.shot === false ? null : 'data/preview-bottle.svg',
       pos_sku: o.sku || '',
       hidden_on_card: o.backBar === true,
       on_printed_menu: o.backBar !== true,
@@ -53,9 +57,9 @@
 
       // The whisky profile, flat on the item the way the card carries it.
       peat: o.peat,
-      origin: o.origin,
-      notes: o.notes,
-      notes_en: o.notesEn,
+      region: o.origin,
+      flavour_tags: o.notes,
+      flavour_tags_en: o.notesEn,
       brand: o.brand,
       whisky_kind: o.kind,
       whisky_expression: o.expression || '',
@@ -102,7 +106,7 @@
     }),
     bottle({
       name: 'Talisker 10', brand: 'Talisker', kind: 'Single Malt', expression: '10 Jahre',
-      origin: 'Skye', peat: 2, age: 10, abv: 45.8, price: 6.9, rank: 1, cls: 'star', leader: true,
+      origin: 'Island', peat: 2, age: 10, abv: 45.8, price: 6.9, rank: 1, cls: 'star', leader: true,
       cask: BOURBON, caskEn: BOURBON_EN, level: 'klassiker', serve: TALL, serveEn: TALL_EN,
       notes: ['maritim/salzig', 'würzig', 'fruchtig'], notesEn: ['maritime/salty', 'spicy', 'fruity'],
       de: 'Pfeffer, Salz und ein Feuer am Strand. Von Skye und schmeckt auch danach.',
@@ -127,7 +131,7 @@
       en: 'The loudest whisky on the shelf and somehow also the most elegant. Peat, tar and dark fruit.'
     }),
     bottle({
-      name: 'Dalwhinnie 15', brand: 'Dalwhinnie', kind: 'Single Malt', expression: '15 Jahre',
+      name: 'Dalwhinnie 15', shot: false, brand: 'Dalwhinnie', kind: 'Single Malt', expression: '15 Jahre',
       origin: 'Highland', peat: 1, age: 15, abv: 43, price: 6.9, rank: 8, cls: 'puzzle',
       cask: BOURBON, caskEn: BOURBON_EN, level: 'kenner', serve: NEAT, serveEn: NEAT_EN,
       notes: ['honig/vanille', 'blumig', 'malzig'], notesEn: ['honey/vanilla', 'floral', 'malty'],
@@ -137,7 +141,7 @@
       noteEn: 'Try it very lightly chilled, that is how they drink it at Dalwhinnie.'
     }),
     bottle({
-      name: 'Glenkinchie 12', brand: 'Glenkinchie', kind: 'Single Malt', expression: '12 Jahre',
+      name: 'Glenkinchie 12', shot: false, brand: 'Glenkinchie', kind: 'Single Malt', expression: '12 Jahre',
       origin: 'Lowland', peat: 0, age: 12, abv: 43, price: 5.9, rank: 9, cls: 'dog',
       cask: BOURBON, caskEn: BOURBON_EN, level: 'einstieg', serve: ICE, serveEn: ICE_EN,
       notes: ['blumig', 'zitrus', 'malzig'], notesEn: ['floral', 'citrus', 'malty'],
@@ -158,7 +162,7 @@
 
   var BACK_BAR = [
     bottle({
-      name: 'Jameson', brand: 'Jameson', kind: 'Irish Blend', backBar: true,
+      name: 'Jameson', shot: false, brand: 'Jameson', kind: 'Irish Blend', backBar: true,
       origin: 'Ireland', peat: 0, age: null, abv: 40, price: 4.5, rank: 4, cls: 'plowhorse',
       cask: BOTH, caskEn: BOTH_EN, level: 'einstieg', serve: LONG, serveEn: LONG_EN,
       notes: ['fruchtig', 'nussig', 'honig/vanille'], notesEn: ['fruity', 'nutty', 'honey/vanilla'],
@@ -168,16 +172,16 @@
     bottle({
       name: 'Johnnie Walker Black Label 12', brand: 'Johnnie Walker', kind: 'Blended Scotch',
       expression: 'Black Label 12', backBar: true,
-      origin: 'Scotland', peat: 1, age: 12, abv: 40, price: 5.5, rank: 10, cls: 'plowhorse',
+      origin: 'Blended', peat: 1, age: 12, abv: 40, price: 5.5, rank: 10, cls: 'plowhorse',
       cask: BOTH, caskEn: BOTH_EN, level: 'klassiker', serve: LONG, serveEn: LONG_EN,
       notes: ['fruchtig', 'würzig', 'honig/vanille'], notesEn: ['fruity', 'spicy', 'honey/vanilla'],
       de: 'Vierzig Whiskys in einer Flasche und trotzdem immer gleich gut. Der Klassiker hinter jeder Bar.',
       en: 'Forty whiskies in one bottle and reliably good every time. The classic behind every bar.'
     }),
     bottle({
-      name: 'Johnnie Walker Black Ruby', brand: 'Johnnie Walker', kind: 'Blended Scotch',
+      name: 'Johnnie Walker Black Ruby', shot: false, brand: 'Johnnie Walker', kind: 'Blended Scotch',
       expression: 'Black Ruby', backBar: true,
-      origin: 'Scotland', peat: 1, age: null, abv: 40, price: 5.9, cls: 'puzzle',
+      origin: 'Blended', peat: 1, age: null, abv: 40, price: 5.9, cls: 'puzzle',
       cask: ['Portfass', 'Sherryfass'], caskEn: ['Port cask', 'Sherry cask'],
       level: 'kenner', serve: LONG, serveEn: LONG_EN,
       notes: ['dunkle früchte', 'schokolade', 'fruchtig'], notesEn: ['dark fruit', 'chocolate', 'fruity'],
@@ -185,7 +189,7 @@
       en: 'Black Label with a dark red fruit laid over it. Sweeter, rounder, an evening pour.'
     }),
     bottle({
-      name: 'Bulleit Rye', brand: 'Bulleit', kind: 'Rye', backBar: true,
+      name: 'Bulleit Rye', shot: false, brand: 'Bulleit', kind: 'Rye', backBar: true,
       origin: 'Kentucky', peat: 0, age: null, abv: 45, price: 5.9, cls: 'puzzle',
       cask: OAK, caskEn: OAK_EN, level: 'kenner', serve: LONG, serveEn: LONG_EN,
       notes: ['würzig', 'zitrus', 'schokolade'], notesEn: ['spicy', 'citrus', 'chocolate'],
@@ -193,8 +197,8 @@
       en: 'Almost all rye. Dry, sharp and exactly right for a Manhattan.'
     }),
     bottle({
-      name: 'Talisker Skye', brand: 'Talisker', kind: 'Single Malt', expression: 'Skye', backBar: true,
-      origin: 'Skye', peat: 2, age: null, abv: 45.8, price: 6.5, cls: 'puzzle',
+      name: 'Talisker Skye', shot: false, brand: 'Talisker', kind: 'Single Malt', expression: 'Skye', backBar: true,
+      origin: 'Island', peat: 2, age: null, abv: 45.8, price: 6.5, cls: 'puzzle',
       cask: BOTH, caskEn: BOTH_EN, level: 'kenner', serve: TALL, serveEn: TALL_EN,
       notes: ['maritim/salzig', 'honig/vanille', 'würzig'],
       notesEn: ['maritime/salty', 'honey/vanilla', 'spicy'],
@@ -202,7 +206,7 @@
       en: 'The softer Talisker. Same wind, less edge, more sweetness.'
     }),
     bottle({
-      name: 'Singleton of Dufftown 15', brand: 'Singleton', kind: 'Single Malt',
+      name: 'Singleton of Dufftown 15', shot: false, brand: 'Singleton', kind: 'Single Malt',
       expression: '15 Jahre', backBar: true,
       origin: 'Speyside', peat: 0, age: 15, abv: 40, price: 7.9, cls: 'puzzle',
       cask: SHERRY, caskEn: SHERRY_EN, level: 'kenner', serve: NEAT, serveEn: NEAT_EN,

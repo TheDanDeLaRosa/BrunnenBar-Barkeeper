@@ -276,6 +276,39 @@ marks a caveat. Anything the app needs to call these locally gets an alias in
 its own stylesheet, the way the cocktail app maps `.badge.house` onto
 `.accent`.
 
+### A bottle photo
+
+Where the card carries an `image`, the result card shows it beside the title
+rather than above it. A square shot across the full width of a phone pushes
+the name and the match below the fold, and the name is what a guest came for.
+
+```html
+<div class="card-head">
+  <img class="shot" src="…" alt="" loading="lazy" decoding="async" width="900" height="900">
+  <div class="card-head-body">
+    <div class="card-top"><h3>Talisker 10</h3><span class="match">99 % Match</span></div>
+  </div>
+</div>
+<div class="badges">…</div>
+```
+
+Four rules, and they are not negotiable.
+
+**`object-fit: contain`, never `cover`.** The sources are square with the
+bottle standing in the middle. `cover` takes the neck off a tall bottle and
+the label off a squat one.
+
+**Badges stay outside `.card-head`.** Squeezed into the space next to a bottle
+they wrap one to a line and the card reads as a list of warnings.
+
+**A missing photo is the normal case**, not a gap. Roughly half the card has
+no image. When there is none, drop `.card-head` entirely and render the title
+block on its own. Never a placeholder, never an empty frame.
+
+**Only http, https or a plain path.** The URL comes from the card, and a
+scheme nobody expected has no business being handed to the browser even where
+it would be inert.
+
 ### A notice
 
 For when the app had to bend one of its own rules to answer at all, such as
