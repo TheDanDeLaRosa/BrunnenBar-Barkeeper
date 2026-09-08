@@ -12,6 +12,9 @@ node tequila/test/agave.test.js     # the derivation
 node tequila/test/engine.test.js    # the scoring
 ```
 
+`.github/workflows/tests.yml` runs these, and every other `*.test.js` in the
+repo, on each push and pull request.
+
 ---
 
 ## What is different from the cocktail app
@@ -82,6 +85,7 @@ vocabularies only where one is missing.
 | `agave_region` | shown on the card, and separates two otherwise identical suggestions |
 | `additive_free` | a hard rule the guest can ask for |
 | `aged_months` | shown on the card, and the "aged longer" contrast |
+| `abv` | shown on the card. Never scored, see below |
 | `flavour_tags` | the character question, in place of reading ingredients |
 | `recommended` | the card's own leader for its section, shown as a marker |
 | `image` | the bottle shot on the favourite, linked and never copied |
@@ -98,16 +102,32 @@ Same house, same expression, same region, same strength, same flavours. The
 card used to say "Passt ebenfalls" about the second, and now says "Was länger
 Gereiftes".
 
-### One flavour, two spellings
+`abv` is shown and never scored. Two pours at 38 and 42 per cent taste the
+same as far as a recommendation goes, the strength question runs on the card's
+own three words, and turning the two numbers into a ranking would be reading a
+difference that is not there. A guest looking at a neat pour still wants the
+number, so it is on the card.
 
-The cocktail half of the card writes `sauer/zitrus` and `kräuterig/frisch`.
-The neat pours write `zitrus` and `frisch`. `TAG_ALIASES` in `agave.js` folds
-them onto one key, because otherwise a guest asking for citrus matches the
-Margarita and not the Blanco, which is the kind of gap nobody notices.
+### Two flavour vocabularies, on purpose
 
-It is a patch over a split vocabulary and only spellings of the same thing
-belong in it. `docs/menu-api-felder-tequila.md` asks for the two halves to be
-aligned at source, and the table shrinks to nothing when they are.
+`flavour_tags` on a neat pour is deliberately granular and says `zitrus`.
+Cocktails carry no `flavour_tags` in the API at all, so their character is read
+off the ingredient list into the house forms `sauer/zitrus` and
+`kräuterig/frisch`. Both land in one result set.
+
+`TAG_ALIASES` in `agave.js` folds them onto one key. Without it a guest asking
+for citrus matches the Margarita and not the Blanco, which is the kind of gap
+nobody notices. It is a **normaliser, not a plaster**: it is inert on any
+spelling that is already canonical, so it stays whatever the card sends. Only
+spellings of the same thing belong in it, never a new meaning.
+
+### The bottle shot
+
+`image` is a URL or `null`, linked and never copied, so a new photo is live
+without an app release. The favourite gets a full frame above its name and a
+runner-up gets a thumbnail beside it, because three full-size photos turn a
+short list of suggestions into a catalogue. The component lives in the theme,
+since the whiskey app will want the same thing. See the design system.
 
 ### The fallback is not dead code
 

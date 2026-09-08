@@ -20,16 +20,3 @@
    rather than run together as one string. */
 .meta-val.price { white-space: pre-wrap; }
 
-/* The bottle shot on the favourite. The card's photos are square, and a
-   bottle in a square frame has to be contained rather than cropped, or the
-   crop takes the neck off. The ground is the theme's raised surface so a
-   photo with a white background does not punch a hole in the card. */
-.card .shot {
-  display: block;
-  width: 100%;
-  height: 9rem;
-  object-fit: contain;
-  background: var(--ink-3);
-  border-radius: var(--radius);
-  margin-bottom: 1.1rem;
-}

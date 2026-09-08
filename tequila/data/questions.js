@@ -345,6 +345,7 @@
         anejo: 'Añejo', 'extra-anejo': 'Extra Añejo', cristalino: 'Cristalino'
       },
       agedLabel: 'Im Fass',
+      abvLabel: 'Alkohol',
       agedMonths: '{n} Monate',
       agedYears: '{n} Jahre',
       /* The card writes the region freely, so only the two everyday cases get
@@ -456,6 +457,7 @@
         anejo: 'Añejo', 'extra-anejo': 'Extra Añejo', cristalino: 'Cristalino'
       },
       agedLabel: 'In oak',
+      abvLabel: 'Alcohol',
       agedMonths: '{n} months',
       agedYears: '{n} years',
       regionNames: { highland: 'Highlands', lowland: 'Lowlands' },

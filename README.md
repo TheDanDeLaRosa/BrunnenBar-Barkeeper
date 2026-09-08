@@ -45,6 +45,9 @@ node tools/build-menu.js    # 2. regenerate data/menu.js
 node test/engine.test.js    # 3. confirm nothing broke
 ```
 
+Every `*.test.js` in the repo also runs in CI on each push and pull request,
+via `.github/workflows/tests.yml`.
+
 `data/menu.js` is **generated — never edit it by hand.** The build step exists
 because a browser cannot read a `.json` file off the file system without a web
 server, and this page has to work when opened directly.

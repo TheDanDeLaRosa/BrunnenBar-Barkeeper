@@ -34,7 +34,7 @@ function item(over) {
     allergens: [], allergens_en: [], allergen_codes: [],
     alcohol_free: false, pos_sku: '', hidden_on_card: false,
     on_printed_menu: true, popularity_rank: 9999,
-    image: null, recommended: false, menu_class: 'dog'
+    abv: null, image: null, recommended: false, menu_class: 'dog'
   }, over);
 }
 
@@ -45,7 +45,7 @@ function priced(n) { return [{ size: '', price: n }]; }
 function pour(over) {
   return item(Object.assign({
     group: 'Tequila & Mezcal Neat', group_en: 'Tequila & Mezcal Neat',
-    strength: 'stark', agave_kind: 'Tequila', brand: 'Don Julio',
+    strength: 'stark', abv: 38, agave_kind: 'Tequila', brand: 'Don Julio',
     agave_region: 'Highland', additive_free: false
   }, over));
 }
@@ -117,12 +117,14 @@ var SECTIONS = [
         name: 'Don Julio Reposado', name_en: 'Don Julio Reposado',
         agave_expression: 'Reposado', aged_months: 8,
         flavour_tags: ['vanille', 'agave', 'eiche'],
+        image: 'https://brunnenbar.com/wp-content/uploads/don-julio-reposado.jpg',
         price: 11, prices: priced(11), popularity_rank: 20, pos_sku: 'T2'
       }),
       pour({
         name: 'Don Julio Añejo', name_en: 'Don Julio Anejo',
-        agave_expression: 'Añejo', aged_months: 18,
+        agave_expression: 'Añejo', aged_months: 18, abv: 38,
         flavour_tags: ['vanille', 'karamell', 'schokolade', 'eiche'],
+        image: 'https://brunnenbar.com/wp-content/uploads/don-julio-anejo.jpg',
         price: 14, prices: priced(14), popularity_rank: 30, pos_sku: 'T3'
       }),
       pour({
@@ -139,15 +141,17 @@ var SECTIONS = [
         /* Same house, same expression, same region, same strength and the
          * same tags as the Añejo above. aged_months is the only thing that
          * separates them, which is exactly why the field was asked for. */
-        agave_expression: 'Añejo', aged_months: 30,
+        agave_expression: 'Añejo', aged_months: 30, abv: 38,
         flavour_tags: ['vanille', 'karamell', 'schokolade', 'eiche'],
+        image: 'https://brunnenbar.com/wp-content/uploads/don-julio-1942.jpg',
         price: 29, prices: priced(29), on_printed_menu: false, pos_sku: 'T5'
       }),
       pour({
         name: 'Nuestra Soledad Mezcal', name_en: 'Nuestra Soledad Mezcal',
         brand: 'Nuestra Soledad', agave_kind: 'Mezcal', agave_expression: 'Joven',
-        agave_region: 'Oaxaca / Valles', additive_free: true,
+        agave_region: 'Oaxaca / Valles', additive_free: true, abv: 42,
         flavour_tags: ['rauchig', 'zitrus', 'mineralisch'],
+        image: 'https://brunnenbar.com/wp-content/uploads/nuestra-soledad.jpg',
         price: 13, prices: priced(13), popularity_rank: 40, pos_sku: 'T6'
       }),
       item({
@@ -261,7 +265,8 @@ var MENU = {
 
 /* The same card as page 217 serves it until the website seat republishes. */
 var NEW_FIELDS = ['agave_kind', 'agave_expression', 'brand', 'agave_region',
-                  'additive_free', 'aged_months', 'flavour_tags', 'flavour_tags_en'];
+                  'additive_free', 'aged_months', 'abv',
+                  'flavour_tags', 'flavour_tags_en'];
 
 function beforePublish() {
   var copy = JSON.parse(JSON.stringify(MENU));

@@ -414,6 +414,13 @@
       : fill(t().agedMonths, { n: months });
   }
 
+  /* German decimal comma, and no trailing zero on a whole number. 38 % reads
+   * like a bottle label, 38,0 % reads like a spreadsheet. */
+  function abvText(n) {
+    var s = (Math.round(n * 10) / 10).toFixed(1).replace(/\.0$/, '').replace('.', ',');
+    return s + ' %';
+  }
+
   function styleText(d) {
     var parts = [];
     if (d.expression) parts.push(t().expressionNames[d.expression] || d.expression);
@@ -439,14 +446,17 @@
     if (d.pour) badges.appendChild(el('span', { class: 'badge good', text: t().neatBadge }));
     if (item.on_printed_menu === false) badges.appendChild(el('span', { class: 'badge quiet', text: t().notOnCard }));
 
-    var children = [
-      /* The card's own photo, linked rather than copied, so a new bottle
-       * shot is live without an app update. Only on the favourite, because
-       * three of them turns a list of suggestions into a catalogue, and only
-       * where the card has one at all. */
-      hero && d.image ? el('img', {
-        class: 'shot', src: d.image, alt: '', loading: 'lazy', decoding: 'async'
-      }) : null,
+    /* The card's own photo, linked rather than copied, so a new bottle shot
+     * is live without an app update. `image` is a URL or null, so the frame
+     * is omitted entirely rather than filled with a placeholder. */
+    function shot(small) {
+      if (!d.image) return null;
+      return el('figure', { class: 'shot' + (small ? ' shot-sm' : '') }, [
+        el('img', { src: d.image, alt: '', loading: 'lazy', decoding: 'async' })
+      ]);
+    }
+
+    var head = [
       el('p', { class: 'card-rank', text: hero ? t().topPick : contrastLabel(row) }),
       el('div', { class: 'card-top' }, [
         el('h3', { text: f(item, 'name') }),
@@ -455,10 +465,22 @@
         showMatch
           ? el('span', { class: 'match', text: fill(t().match, { n: row.match }) })
           : null
-      ]),
+      ])
+    ];
+
+    /* The favourite gets the full frame above its name. A runner up gets a
+     * thumbnail beside it, big enough to recognise a bottle by and small
+     * enough that three suggestions do not read as a catalogue. */
+    var children = hero
+      ? [shot(false)].concat(head)
+      : [d.image
+          ? el('div', { class: 'card-lead' }, [shot(true), el('div', { class: 'card-lead-body' }, head)])
+          : el('div', {}, head)];
+
+    children = children.concat([
       badges.childNodes.length ? badges : null,
       f(item, 'description') && el('p', { class: 'note', text: f(item, 'description') })
-    ];
+    ]);
 
     if (hero && f(item, 'bartender_note')) {
       children.push(el('p', { class: 'house-note', text: f(item, 'bartender_note') }));
@@ -475,6 +497,7 @@
     // Shown as the card writes it, unless we have a word of our own for it.
     if (d.region) metaRow(t().regionLabel, t().regionNames[d.region.key] || d.region.text);
     if (d.agedMonths != null && d.agedMonths > 0) metaRow(t().agedLabel, agedText(d.agedMonths));
+    if (d.abv != null) metaRow(t().abvLabel, abvText(d.abv));
     if (!d.pour) {
       var ings = f(item, 'ingredients') || [];
       if (ings.length) metaRow(t().ingredients, ings.join(' · '));

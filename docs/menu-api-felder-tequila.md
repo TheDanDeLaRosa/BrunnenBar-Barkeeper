@@ -1,13 +1,14 @@
 # Was die Agave App aus dem Menu API braucht
 
-Stand 08.09.2026, zweite Fassung. Gegenstück zu
+Stand 08.09.2026, dritte Fassung. Gegenstück zu
 `menu-api-felder-fuer-die-app.md`, für den Tequila und Mezcal Empfehler unter
 `/tequila/`.
 
-**Die grosse Hälfte ist erledigt.** Der Neat Abschnitt steht in der Karte, die
-puren Flaschen tragen `strength`, und `brand`, `agave_kind`,
-`agave_expression`, `agave_region` und `additive_free` sind echte Felder. Die
-App liest alle davon direkt und rät nichts mehr, wo ein Feld steht.
+**Datenseitig ist alles da.** Der Neat Abschnitt steht in der Karte, und
+`strength`, `brand`, `agave_kind`, `agave_expression`, `agave_region`,
+`additive_free`, `aged_months`, `abv` und `flavour_tags` sind echte Felder. Die
+App liest alle direkt und rät nichts mehr, wo ein Feld steht. Was hier noch
+steht, ist ein Bildwunsch und eine Handvoll Sachen für später.
 
 **Zwei Dinge vorab.**
 
@@ -16,10 +17,11 @@ Antwort. Aus der Build Umgebung ist `brunnenbar.com` gesperrt. Der erste Lauf
 gegen die Live Daten gehört angeschaut, Abschnitt "Zum Nachprüfen" sagt worauf.
 
 Die Felder liegen in `menu.json` und stehen auf Seite 217 erst, wenn der
-Website Seat neu veröffentlicht. Bis dahin sieht ein Browser die ältere Form.
-Die App fällt dann pro Feld auf die Namensableitung zurück und verliert genau
-eine Sache, nämlich dass Don Julio 1942 ein Añejo ist. Alles andere bleibt, und
-beide Formen werden getestet.
+Website Seat `publish_menu_page.py` laufen lässt. Bis dahin sieht ein Browser
+die ältere Form. Die App fällt dann pro Feld auf die Namensableitung zurück,
+verliert die Herkunft, die Fassreife, den Alkoholgehalt und den Geschmack der
+puren Flaschen, und kann Don Julio 1942 nicht als Añejo einordnen. Sie läuft.
+Beide Formen werden getestet.
 
 ---
 
@@ -53,6 +55,7 @@ zusammengefasst, weil ein Gast das Wort sehen soll, das auf der Karte steht.
 | `additive_free` | da, `false` bei Don Julio, `true` bei Nuestra Soledad |
 | `flavour_tags` bei den puren Flaschen | da, Blanco und Añejo schmecken jetzt verschieden |
 | `aged_months` | da, Añejo 18 und 1942 30 |
+| `abv` | da, auf jeder puren Flasche |
 
 Was die App daraus macht. Die Frage nach der Agave zeigt nur noch die
 Auspraegungen, die heute hinter der Bar stehen, also Blanco, Joven, Reposado,
@@ -75,36 +78,42 @@ länger Gereiftes" statt "Passt ebenfalls", und "Im Fass 30 Monate".
 
 ---
 
+## Zu den zwei Schreibweisen, kurz zum Mitschreiben
+
+Danke fürs Aufräumen, es ändert für die App aber nichts, und das ist auch
+völlig in Ordnung.
+
+Der Unterschied lag nie innerhalb der API. Die Cocktails haben dort gar keine
+`flavour_tags`. Die App liest ihren Geschmack aus der Zutatenliste und schreibt
+dabei die Hausform, also `sauer/zitrus`. Die puren Flaschen liefern
+`flavour_tags` mit und schreiben, bewusst feiner, `zitrus`. Beide landen in
+derselben Ergebnisliste.
+
+Die Abgleichtabelle in `agave.js` legt die zwei auf einen Schlüssel. Ohne sie
+würde ein Gast, der nach Zitrus fragt, die Margarita treffen und den Blanco
+nicht, und das würde niemandem auffallen.
+
+**Sie bleibt also, und das ist kein Problem.** Sie tut nichts, wenn eine
+Schreibweise schon die Hausform ist, kostet sieben Zeilen und schützt genau
+gegen den Fall, der still schiefgeht. Von eurer Seite ist dazu nichts mehr zu
+tun. Wenn ihr irgendwann doch `flavour_tags` auch bei den Cocktails ausspielt,
+sagt Bescheid, dann liest die App die statt der Zutatenliste.
+
+---
+
 ## Teil 2, was noch fehlt
 
-### 1. Eine Schreibweise für den Geschmack, nicht zwei
+### 1. Flaschenfotos möglichst freigestellt
 
-Kein neues Feld, sondern ein Aufräumen. Die zwei Hälften der Karte schreiben
-denselben Geschmack unterschiedlich.
+Kein Feld, sondern ein Wunsch ans Bildmaterial. `image` wird verlinkt und auf
+`null` geprüft, das passt alles.
 
-| Cocktails | Pure Flaschen |
-|---|---|
-| `sauer/zitrus` | `zitrus` |
-| `kräuterig/frisch` | `frisch` |
+Die Ergebniskarte ist fast schwarz. Ein Foto auf weissem Grund füllt den Rahmen
+und steht dann als helles Rechteck darin. Das sieht ordentlich aus, es ist
+gerahmt und hat einen Rand, aber ein freigestelltes PNG mit transparentem
+Hintergrund sieht deutlich besser aus und kostet beim Export nichts.
 
-Die App gleicht das intern ab, sonst würde ein Gast, der nach Zitrus fragt, die
-Margarita treffen und den Blanco nicht. Das ist ein Pflaster. Sauberer wäre
-eine Liste, und dann fällt die Abgleichtabelle weg.
-
-Mein Vorschlag ist, die längere Schreibweise zu nehmen, weil sie schon in der
-Cocktailkarte steht. Also `sauer/zitrus` und `kräuterig/frisch` auch bei den
-puren Flaschen. Wenn ihr lieber die kurze wollt, geht das auch, dann bitte
-überall.
-
-Die Wörter, die nur bei den puren Flaschen vorkommen, sind unstrittig und
-bleiben wie sie sind. `agave`, `pfeffrig`, `vanille`, `karamell`,
-`schokolade`, `eiche`, `vegetal`, `mineralisch`, `holzig`.
-
-### 2. `abv`
-
-Typ `number`, zum Beispiel `38`. Drei Stärkeworte beschreiben einen Cocktail.
-Bei einer puren Flasche will ein Gast eine Zahl, und die steht ohnehin auf der
-Flasche. Das einzige Feld aus der ursprünglichen Liste, das noch offen ist.
+Wenn die Fotos ohnehin freigestellt sind, ist hier nichts zu tun.
 
 ---
 
@@ -117,6 +126,7 @@ Nichts davon blockiert etwas. In der Reihenfolge, in der ein Gast danach fragt.
 | `nom` | `string` | Die Destilleriennummer. Sagt, welche Flaschen aus demselben Haus kommen. Das nächste, das sich lohnt |
 | `still` | `string` | `Kupfer`, `Edelstahl`, `Tahona`. Für die Neugierigen |
 | `agave_years` | `number` | Wie lange die Agave selbst gewachsen ist, bevor sie geerntet wurde |
+| `flavour_tags` bei den Cocktails | `string[]` | Dann liest die App sie statt der Zutatenliste. Kein Muss, die Ableitung funktioniert |
 
 ---
 
@@ -126,8 +136,10 @@ Nichts davon blockiert etwas. In der Reihenfolge, in der ein Gast danach fragt.
 `allergens` und `allergen_codes` reichen für die harte Regel. `popularity_rank`
 reicht für den Bestseller Hinweis. `recommended` wird als Marker gezeigt, nicht
 gewertet, und es gibt keinen eigenen Empfehlungsblock oben in der App.
-`content_hash` wird zum Vergleichen genutzt, nicht der Zeitstempel. `image`
-wird verlinkt, nicht kopiert, und auf `null` geprüft. `menu_class` erreicht die
+`content_hash` wird zum Vergleichen genutzt, nicht der Zeitstempel. `abv` steht
+auf der Karte und wird bewusst nicht gewertet, weil 38 und 42 Prozent für eine
+Empfehlung dasselbe sind. `image` wird verlinkt, nicht kopiert, und auf `null`
+geprüft. `menu_class` erreicht die
 Oberfläche gar nicht erst, es wird beim Einlesen nicht übernommen.
 `hidden_on_card` wird nicht angezeigt.
 
@@ -179,10 +191,9 @@ So sähe eine vollständige pure Flasche aus.
   "agave_region": "Highland",
   "additive_free": false,
   "aged_months": 8,
+  "abv": 38,
   "flavour_tags": ["vanille", "agave", "eiche"],
   "flavour_tags_en": ["vanilla", "agave", "oak"],
-
-  "abv": 38,
 
   "allergens": [], "allergens_en": [], "allergen_codes": [],
   "alcohol_free": false,

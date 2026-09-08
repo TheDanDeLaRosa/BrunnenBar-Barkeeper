@@ -411,6 +411,54 @@ a.btn { text-decoration: none; display: inline-block; }
     var(--ink-2);
 }
 
+/* A product shot on a result card.
+   ---------------------------------------------------------------------------
+   The Menu API's images are square, 900 by 900, and often sit on a light or
+   transparent ground. So they are CONTAINED and never cropped, because a
+   square crop of a bottle takes the neck off, and they are given a ground of
+   their own rather than punching a hole in the card. The gold radial behind
+   them is the same wash as the page, which makes a product photo read as lit
+   on a shelf rather than pasted on.
+
+   Two sizes. `.shot` alone is the full width frame for the favourite.
+   `.shot-sm` inside a `.card-lead` row is the thumbnail for a runner up, big
+   enough to recognise a bottle by and small enough not to turn a short list
+   of suggestions into a catalogue.
+
+   `image` is a URL or null, so the markup is omitted entirely when there is
+   no photo. Never a placeholder, and a card with no photo simply has none.
+
+   A photo on a white ground fills the frame and hides the wash, which is
+   fine and is what a catalogue cutout will do. The padding keeps a thin mat
+   around it so it reads as a framed photo rather than a hole in the card. A
+   transparent PNG looks better here, and costs nothing at export time. */
+.shot {
+  margin: 0;
+  overflow: hidden;
+  border: 1px solid var(--line-soft);
+  border-radius: var(--radius);
+  background:
+    radial-gradient(62% 62% at 50% 40%, rgba(227, 200, 124, 0.1), transparent 70%),
+    var(--ink-3);
+}
+
+.shot img {
+  display: block;
+  width: 100%;
+  height: 10rem;
+  object-fit: contain;
+  padding: 0.75rem;
+  box-sizing: border-box;
+}
+
+.card > .shot { margin-bottom: 1.15rem; }
+
+.card-lead { display: flex; gap: 0.9rem; align-items: flex-start; }
+.card-lead-body { flex: 1; min-width: 0; }
+
+.shot-sm { flex: 0 0 4.6rem; }
+.shot-sm img { height: 4.6rem; padding: 0.4rem; }
+
 .card-rank {
   font-size: 0.68rem;
   letter-spacing: 0.22em;
@@ -584,6 +632,8 @@ a.btn { text-decoration: none; display: inline-block; }
 @media print {
   body { background: #fff; color: #000; }
   .top, .results-actions, .nav, .foot { display: none; }
+  /* A product photo on a sheet of paper is a smear of toner. */
+  .shot { display: none; }
   .card { border: 1px solid #ccc; background: #fff; page-break-inside: avoid; }
   .card h3, .note, .meta-val, .why li { color: #000; }
 }

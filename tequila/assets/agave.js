@@ -27,9 +27,9 @@
  * FIELDS FIRST, NAMES SECOND
  * --------------------------
  * The Menu API carries `agave_kind`, `agave_expression`, `brand`,
- * `agave_region`, `additive_free`, `aged_months` and `flavour_tags`. Every one
- * of those is read straight off the item and the vocabularies below are only
- * consulted where a field is missing.
+ * `agave_region`, `additive_free`, `aged_months`, `abv` and `flavour_tags`.
+ * Every one of those is read straight off the item and the vocabularies below
+ * are only consulted where a field is missing.
  *
  * `agave_kind` is the spirit category, `agave_expression` is the maturation.
  * That was ambiguous for a day and is settled; there is no longer any code
@@ -172,14 +172,20 @@
    * The tag values are the cocktail card's own flavour vocabulary, so the
    * day `flavour_tags` lands, it drops straight in and this dictionary
    * stops being consulted. `tagsOf` already prefers the real field. */
-  /* The card writes the same flavour two ways. The cocktail half uses
-   * `sauer/zitrus` and `kräuterig/frisch`, the neat pours use `zitrus` and
-   * `frisch`. Aliasing them onto one key here is what stops a guest asking
-   * for citrus and matching the Margarita but not the Blanco.
+  /* One key per flavour, whichever spelling arrives.
    *
-   * This is a patch over a split vocabulary, not a place to invent meanings.
-   * Only spellings of the same thing belong in it, and it should shrink to
-   * nothing once the two halves of the card agree at source. */
+   * Two vocabularies meet in this app and they are not going to converge.
+   * `flavour_tags` on a neat pour is deliberately granular, so it says
+   * `zitrus`. Cocktails carry no flavour_tags in the API at all, so their
+   * character is read off the ingredient list into the house forms
+   * `sauer/zitrus` and `kräuterig/frisch`. Both land in the same result, and
+   * without this a guest asking for citrus would match the Margarita and not
+   * the Blanco. Nobody would ever notice.
+   *
+   * So this is a normaliser and not a plaster. It is inert on any spelling
+   * that is already canonical, which is why it can stay in place whatever the
+   * card sends. Only spellings of the same thing belong in it, never a new
+   * meaning. */
   var TAG_ALIASES = {
     'zitrus': 'sauer/zitrus',
     'sauer': 'sauer/zitrus',
@@ -397,6 +403,16 @@
       ? item.aged_months : null;
   }
 
+  /* Strength by the number on the bottle.
+   *
+   * Shown and not scored. The strength question runs on the card's own three
+   * words, and turning 38 against 40 per cent into a ranking would be reading
+   * a difference into two numbers that taste the same. */
+  function abvOf(item) {
+    return typeof item.abv === 'number' && isFinite(item.abv) && item.abv > 0
+      ? item.abv : null;
+  }
+
   /* Additive free, unknown, or additives. Three states and not two, because
    * a card that does not say is not a card that says no. */
   function additiveFreeOf(item) {
@@ -541,6 +557,7 @@
       region: regionOf(item),
       additiveFree: additiveFreeOf(item),
       agedMonths: agedMonthsOf(item),
+      abv: abvOf(item),
       pour: isPour(item),
       strength: strengthOf(item),
       tags: character.tags,
@@ -565,7 +582,8 @@
     matchKind: matchKind, matchExpression: matchExpression, kindOf: kindOf, expressionOf: expressionOf, brandOf: brandOf,
     isPour: isPour, strengthOf: strengthOf, tagsOf: tagsOf, priceOf: priceOf, norm: norm,
     isAgaveWord: isAgaveWord, regionOf: regionOf, additiveFreeOf: additiveFreeOf,
-    agedMonthsOf: agedMonthsOf, canonicalTag: canonicalTag, TAG_ALIASES: TAG_ALIASES,
+    agedMonthsOf: agedMonthsOf, abvOf: abvOf,
+    canonicalTag: canonicalTag, TAG_ALIASES: TAG_ALIASES,
     bottle: bottle, shelf: shelf,
     budgetStops: budgetStops,
     SPIRIT_WORDS: SPIRIT_WORDS, BRANDS: BRANDS, PORTFOLIO: PORTFOLIO,

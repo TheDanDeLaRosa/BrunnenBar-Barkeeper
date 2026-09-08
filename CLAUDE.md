@@ -51,6 +51,11 @@ node test/engine.test.js            node tequila/test/agave.test.js
 node test/menu-source.test.js       node tequila/test/engine.test.js
 ```
 
+`.github/workflows/tests.yml` runs every `*.test.js` in the repo on each push
+and pull request. It **discovers** them rather than listing them, so a new
+suite is picked up by being named `*.test.js` and the workflow needs no edit.
+There is still nothing to install.
+
 Scoring lives in an `engine.js` with no DOM in it, which is the only reason it
 can be tested. Anything derived from the raw data lives in its own pure file
 too, the way `tequila/assets/agave.js` does. Everything visual is in `app.js`.
@@ -128,12 +133,17 @@ The build environment's network policy denies `brunnenbar.com`, so everything
 is written against the documented schema and tested against synthetic fixtures
 shaped like it. The first run against the real payload is worth watching.
 
-**The card writes one flavour two ways.** The cocktail half uses
-`sauer/zitrus` and `kräuterig/frisch`, the neat pours use `zitrus` and
-`frisch`. `TAG_ALIASES` in `tequila/assets/agave.js` folds them onto one key,
-because otherwise a guest asking for citrus matches the Margarita and not the
-Blanco. Only spellings of the same thing belong in that table, never a new
-meaning, and it should shrink to nothing once the two halves agree at source.
+**Two flavour vocabularies meet in the agave app, and that is by design.**
+`flavour_tags` on a neat pour is deliberately granular and says `zitrus`.
+Cocktails carry no `flavour_tags` in the API at all, so their character is read
+off the ingredient list into the house forms `sauer/zitrus` and
+`kräuterig/frisch`. Both land in one result. `TAG_ALIASES` in
+`tequila/assets/agave.js` folds them onto one key, or a guest asking for citrus
+would match the Margarita and not the Blanco, silently.
+
+It is a normaliser and not a plaster. It is inert on any spelling that is
+already canonical, so it stays whatever the card sends. Only spellings of the
+same thing belong in it, never a new meaning.
 
 **`agave_kind` is the spirit category and `agave_expression` is the
 maturation.** That was ambiguous for a day and is settled. No code guesses

@@ -275,6 +275,45 @@ marks a caveat. Anything the app needs to call these locally gets an alias in
 its own stylesheet, the way the cocktail app maps `.badge.house` onto
 `.accent`.
 
+### A product shot
+
+The Menu API's `image` is a full URL or `null`. Link it, never copy it, so a
+new photo is live without an app release, and **always test for null** — a
+card with no photo simply has none, never a placeholder.
+
+```html
+<article class="card hero">
+  <figure class="shot"><img src="…" alt="" loading="lazy" decoding="async"></figure>
+  <p class="card-rank">Unser Favorit</p>
+  …
+</article>
+
+<article class="card alt">
+  <div class="card-lead">
+    <figure class="shot shot-sm"><img src="…" alt="" loading="lazy" decoding="async"></figure>
+    <div class="card-lead-body">
+      <p class="card-rank">Was länger Gereiftes</p>
+      <div class="card-top">…</div>
+    </div>
+  </div>
+  …
+</article>
+```
+
+The photos are square, 900 by 900, so they are **contained and never cropped**
+— a square crop of a bottle takes the neck off. `alt` is empty on purpose,
+because the name is already the heading next to it and a screen reader
+announcing the bottle twice is worse than not at all.
+
+The full frame is for the favourite and the thumbnail for a runner-up. Three
+full-size photos turn a short list of suggestions into a catalogue. Print hides
+them, because a product photo on paper is a smear of toner.
+
+A photo on a white ground fills the frame and hides the wash behind it, which
+is what a catalogue cutout will do and is fine. The padding keeps a thin mat
+around it so it still reads as a framed photo rather than a hole cut in the
+card. A transparent PNG looks better and costs nothing at export time.
+
 ### A notice
 
 For when the app had to bend one of its own rules to answer at all, such as

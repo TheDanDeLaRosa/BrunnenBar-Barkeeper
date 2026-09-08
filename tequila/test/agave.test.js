@@ -221,9 +221,24 @@ test('the leader marker and the photo come straight off the card', function () {
   var blanco = byName('Don Julio Blanco');
   assert.strictEqual(blanco.recommended, true);
   assert.match(blanco.image, /^https:\/\/brunnenbar\.com\//);
-  var repo = byName('Don Julio Reposado');
-  assert.strictEqual(repo.recommended, false);
-  assert.strictEqual(repo.image, null, 'no photo is null, never a placeholder');
+  var rosado = byName('Don Julio Rosado');
+  assert.strictEqual(rosado.recommended, false);
+  assert.strictEqual(rosado.image, null, 'no photo is null, never a placeholder');
+});
+
+test('the number on the bottle is read, and only shown', function () {
+  assert.strictEqual(byName('Don Julio Blanco').abv, 38);
+  assert.strictEqual(byName('Nuestra Soledad Mezcal').abv, 42);
+  assert.strictEqual(byName('Ocho Plata').abv, null);
+  assert.strictEqual(byName('Margarita').abv, null, 'a cocktail has no single number');
+  assert.strictEqual(A.abvOf({ abv: 0 }), null);
+  assert.strictEqual(A.abvOf({ abv: '38' }), null);
+
+  /* Shown, never scored. Two pours at 38 and 42 per cent taste the same as
+   * far as a recommendation goes, and the strength question runs on the
+   * card's own words. */
+  var E = require('../assets/engine.js');
+  assert.ok(JSON.stringify(E.WEIGHTS).indexOf('abv') === -1);
 });
 
 test('zero proof is a strength of its own rather than an unknown', function () {
