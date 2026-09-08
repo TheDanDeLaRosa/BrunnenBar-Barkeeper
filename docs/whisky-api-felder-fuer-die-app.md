@@ -202,8 +202,11 @@ die gedruckte Karte kurz bleibt.
 
 **Die Whisky App zeigt diese Flaschen also.** Sechs von fünfzehn hängen daran.
 Sie bekommen auf der Ergebniskarte den Hinweis, dass sie nicht auf der Karte
-stehen. Der gemeinsame Loader filtert nichts weg, bietet aber `cardItems` an,
-falls eine andere App die strengere Lesart braucht.
+stehen. Der gemeinsame Loader filtert nichts weg und bietet auch bewusst
+keinen Helfer dafür an. Die Tequila App hatte den Filter zuerst gebaut und
+dabei zwei ihrer eigenen Hausdrinks verloren, Mikki und Dama Elena. Im
+Datenblatt steht es weiterhin falsch herum und gehört an der Quelle
+korrigiert.
 
 **Fotos.** `image` wird auf der Ergebniskarte neben dem Namen gezeigt,
 quadratisch und vollständig sichtbar statt beschnitten. Rund die Hälfte der

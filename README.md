@@ -312,9 +312,10 @@ the Menu API today.
 
 **It shows the back bar.** `hidden_on_card` means off the printed card, not
 off limits, so those six bottles are recommended with a badge saying a guest
-will not find them on the paper. The seat's data sheet asks apps to hide them
-and Dan decided otherwise, which is why `menu-source.js` hides nothing by
-default and offers `cardItems` to any app that wants the other reading.
+will not find them on the paper. The seat's data sheet asks apps to hide them and Dan
+decided otherwise, and the payload agrees with him. Every flagged row is a
+real drink; the real till entries carry the flag as false. `menu-source.js`
+filters nothing and deliberately offers no helper that would.
 
 **The questionnaire builds itself from the data.** A question whose field
 carries fewer than two different values is dropped before a guest sees it,

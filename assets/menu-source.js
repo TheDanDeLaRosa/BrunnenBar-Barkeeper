@@ -183,19 +183,17 @@
     }, []);
   }
 
-  /* The seat's data doc asks apps to hide `hidden_on_card` rows as till-only
-   * articles. The Menu API brief and Dan both say the opposite, that the flag
-   * only means the row is off the printed card and that everything published
-   * is orderable. Dan decides, so nothing is hidden by default and an app
-   * that wants the stricter reading asks for it here.
+  /* Nothing is filtered above, and `hidden_on_card` in particular is not a
+   * reason to withhold a row. The seat's data doc reads it as a till article,
+   * the Menu API brief and Dan both read it as off the printed card, and the
+   * payload settles it. Every row carrying the flag is a real drink, six of
+   * the fifteen profiled whiskies and two of the tequila app's own house
+   * drinks among them, while the genuine till entries carry it as false.
    *
-   * This matters right now. Four of the twelve profiled whiskies sit behind
-   * the flag on purpose, so that the app can recommend the whole back bar
-   * while the printed card stays short. Filtering them by default would
-   * quietly delete a third of the shelf. */
-  function cardItems(menu) {
-    return allItems(menu).filter(function (i) { return i.hidden_on_card !== true; });
-  }
+   * A helper offering the stricter reading used to live here. It went,
+   * because nothing called it and because a function named for the card
+   * would have looked like the safe choice to whoever wrote the fourth app,
+   * right up until it dropped ten drinks without saying so. */
 
   /* Which items the recommender can actually score.
    *
@@ -215,7 +213,6 @@
     MENU_URL: MENU_URL, MAX_AGE_MS: MAX_AGE_MS, STORE_KEY: STORE_KEY,
     loadMenu: loadMenu, extract: extract, hasChanged: hasChanged,
     formatPrice: formatPrice, priceList: priceList, field: field, allItems: allItems,
-    cardItems: cardItems,
     isScoreable: isScoreable, scoreableItems: scoreableItems,
     _reset: function () { memo = null; inFlight = null; }
   };

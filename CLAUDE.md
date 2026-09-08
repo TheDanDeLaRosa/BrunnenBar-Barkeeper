@@ -65,8 +65,9 @@ negotiable:
 - Everything published is orderable. The app does not filter for availability.
 - `hidden_on_card` is **not** a reason to hide something. The seat's data sheet
   says it marks till-only articles, the Menu API brief and Dan both say it only
-  means off the printed card. Dan decides. `allItems` shows everything and
-  `cardItems` is there for an app that wants the stricter reading.
+  means off the printed card. The payload settles it. Every row carrying the
+  flag is a real drink, while the genuine till entries carry it as false. No
+  app filters on it and the loader offers no helper that would.
 - Freshness is `content_hash`, never `published_at`. Every build stamps a new
   timestamp whether anything changed or not.
 - At most one fetch an hour.
