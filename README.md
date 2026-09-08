@@ -261,20 +261,29 @@ it never overturns a clear winner.
 
 ---
 
-### Off the card, and off limits
+### The payload is the whole truth
 
-Two fields sound alike and mean different things.
+**Only ever recommend what is in the live payload.** A retired drink is absent
+from it, so nothing in the code has to decide about it, and nothing in the code
+can get it wrong. There is no filter that withholds something the API
+published, and adding one would be a bug rather than a safeguard.
 
-`on_printed_menu: false` is an off menu drink. It is recommended like any
+Two flags sound alike and neither is a reason to hide a drink.
+
+`on_printed_menu: false` marks an off menu drink. It is recommended like any
 other and carries a badge saying it is not on the printed card. 61 drinks on
-the August card are in that state, so this is the normal case rather than the
-exception.
+the August card are in that state, so it is the normal case.
 
-`hidden_on_card: true` is a till article and **never reaches a guest**.
-`allItems` drops it at the door so no caller has to remember. On the August
-card that withheld twelve entries that read like real cocktails, La Rosa and
-Mermaid's Melody among them. That was checked with Dan and confirmed as
-intended, so it is not a judgement call to revisit.
+`hidden_on_card: true` was read as "till article, never show it", from the
+brief's wording, and the app withheld those items for a while. **That was
+wrong.** In the data the flag sits on twelve real drinks, Talisker Campfire and
+Paper Plane among them, which are the back bar whiskies most worth suggesting.
+The genuine till entries, `Cuba Libre 6cl` and `Wodka & Orange 6cl` and the
+rest, do not carry the flag at all. Withholding on that flag removed precisely
+the drinks the recommender exists to surface.
+
+The brief still describes it the old way. Someone needs to reconcile that with
+the Website Seat before the whiskey and tequila apps inherit the same mistake.
 
 ## Things the bar should look at
 

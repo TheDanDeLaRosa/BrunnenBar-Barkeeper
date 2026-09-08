@@ -70,8 +70,10 @@ From the brief, and these are not negotiable:
 - Never hard-code a drink, a price, a section name or an allergen.
 - The order of sections and items is the display order, already sorted by
   `popularity_rank`. Do not resort it.
-- `hidden_on_card` items are till articles and must never reach a guest.
-  `allItems` drops them at the door so no caller has to remember.
+- **The payload is the whole truth. Only ever recommend what is in it.**
+  A retired drink is absent from the payload, so nothing in the code has to
+  decide about it, which is why nothing in the code can get it wrong. Never
+  add a filter that withholds something the API published.
 - Availability is not filtered. Everything else published is orderable.
 
 Two fields are for the bar and never for a guest. `menu_class` grades margin
@@ -115,10 +117,16 @@ any field that is missing and any value no question can offer.
 
 Both open data questions are now decided.
 
-`hidden_on_card` items are never shown to a guest, even where they look like
-real cocktails. That is settled, not a judgement call to revisit. It is a
-different field from `on_printed_menu`, which marks an off menu drink that is
-still recommended and still carries its badge.
+`hidden_on_card` does **not** withhold a drink. The brief describes it as
+marking till articles, and the app read it that way for a while, which was
+wrong. In the data the flag sits on twelve real off menu drinks, the back bar
+whiskies and the seasonal specials, while the genuine till entries like the 6cl
+pours do not carry it at all. Withholding them removed exactly the drinks worth
+suggesting. `on_printed_menu` is what marks a drink as off the printed card,
+and the result card says so with a badge.
+
+The brief still says the opposite. That needs reconciling with the Website Seat
+before the whiskey and tequila apps follow it.
 
 Rosato Spritz loses its alcohol free flag, because the recipe carries a real
 aperitivo at roughly 15 percent. That change belongs in the generator, since
