@@ -32,7 +32,7 @@ function read(rel) { return fs.readFileSync(path.join(ROOT, rel), 'utf8'); }
  * is called, so a second entry here is all the tequila app would need. */
 var APPS = {
   whiskey: {
-    title: 'BrunnenBar Whisky',
+    title: 'The Whiskey Expert',
     css: ['assets/brunnenbar-theme.css', 'whiskey/assets/styles.css'],
     /* The loader is in here for its field, price and section helpers, not to
      * fetch anything. A preview never calls loadMenu. */
