@@ -95,7 +95,14 @@
     { value: 'karamell', label: { de: 'Karamell', en: 'Caramel' }, hint: { de: 'Gebrannter Zucker', en: 'Burnt sugar' } },
     { value: 'schokolade', label: { de: 'Schokolade', en: 'Chocolate' }, hint: { de: 'Dunkel und rund', en: 'Dark and round' } },
     { value: 'eiche', label: { de: 'Eiche', en: 'Oak' }, hint: { de: 'Das Fass schmeckt deutlich durch', en: 'The barrel comes right through' } },
-    { value: 'holzig', label: { de: 'Holzig', en: 'Woody' }, hint: { de: 'Lange gelegen', en: 'A long time resting' } }
+    { value: 'holzig', label: { de: 'Holzig', en: 'Woody' }, hint: { de: 'Lange gelegen', en: 'A long time resting' } },
+    /* House vocabulary the cocktail card uses and an agave drink may pick up.
+     * They cost nothing while nothing carries them, because the question
+     * builds itself from what is actually on the card. `würzig` arrived with
+     * the bar's own flavour cleanup. */
+    { value: 'würzig', label: { de: 'Würzig', en: 'Spiced' }, hint: { de: 'Pfeffer, Zimt, warme Gewürze', en: 'Pepper, cinnamon, warm spice' } },
+    { value: 'kaffee', label: { de: 'Kaffee', en: 'Coffee' }, hint: { de: 'Espresso im Glas', en: 'Espresso in the glass' } },
+    { value: 'überraschend', label: { de: 'Überraschend', en: 'Surprising' }, hint: { de: 'Etwas, das du nicht erwartest', en: 'Something you would not expect' } }
   ];
 
   /* Clears every other pick, and is cleared by them. The value is
@@ -302,7 +309,8 @@
         'salzig': 'Salzigeres',
         'agave': 'mit mehr Agave', 'pfeffrig': 'Pfeffrigeres', 'vegetal': 'mit mehr Grün',
         'mineralisch': 'Mineralischeres', 'vanille': 'mit Vanille', 'karamell': 'mit Karamell',
-        'schokolade': 'mit Schokolade', 'eiche': 'aus dem Fass', 'holzig': 'Holzigeres'
+        'schokolade': 'mit Schokolade', 'eiche': 'aus dem Fass', 'holzig': 'Holzigeres',
+        'würzig': 'Würzigeres', 'kaffee': 'mit Kaffee', 'überraschend': 'Überraschenderes'
       },
 
       match: '{n}% Übereinstimmung',
@@ -362,7 +370,8 @@
         'salzig': 'salzig',
         'agave': 'nach Agave', 'pfeffrig': 'pfeffrig', 'vegetal': 'vegetal',
         'mineralisch': 'mineralisch', 'vanille': 'nach Vanille', 'karamell': 'nach Karamell',
-        'schokolade': 'nach Schokolade', 'eiche': 'nach Eiche', 'holzig': 'holzig'
+        'schokolade': 'nach Schokolade', 'eiche': 'nach Eiche', 'holzig': 'holzig',
+        'würzig': 'würzig', 'kaffee': 'nach Kaffee', 'überraschend': 'überraschend'
       },
       and: ' und '
     },
@@ -415,7 +424,8 @@
         'salzig': 'saltier',
         'agave': 'with more agave', 'pfeffrig': 'peppery', 'vegetal': 'greener',
         'mineralisch': 'more mineral', 'vanille': 'with vanilla', 'karamell': 'with caramel',
-        'schokolade': 'with chocolate', 'eiche': 'straight from the barrel', 'holzig': 'woodier'
+        'schokolade': 'with chocolate', 'eiche': 'straight from the barrel', 'holzig': 'woodier',
+        'würzig': 'more spiced', 'kaffee': 'with coffee', 'überraschend': 'more surprising'
       },
 
       match: '{n}% match',
@@ -469,7 +479,8 @@
         'salzig': 'salty',
         'agave': 'of agave', 'pfeffrig': 'peppery', 'vegetal': 'vegetal',
         'mineralisch': 'mineral', 'vanille': 'of vanilla', 'karamell': 'of caramel',
-        'schokolade': 'of chocolate', 'eiche': 'of oak', 'holzig': 'woody'
+        'schokolade': 'of chocolate', 'eiche': 'of oak', 'holzig': 'woody',
+        'würzig': 'spiced', 'kaffee': 'of coffee', 'überraschend': 'surprising'
       },
       and: ' and '
     }

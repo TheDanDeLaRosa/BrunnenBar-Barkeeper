@@ -156,7 +156,8 @@ Both apps now read the live source and neither carries a bundled copy.
 **Neither has been run against the live Menu API from this repository.** The
 build environment's network policy denies `brunnenbar.com`, so everything is
 written against the documented schema and tested against fixtures shaped like
-it. The cocktail app answers it on first load: open the console and it names
+it. As of 08.09.2026 page 217 serves `content_hash` `a8ef6bafc25a4f03`; the
+build to publish next is `f6dc12b06a72a63e`, 213 positions. The cocktail app answers it on first load: open the console and it names
 any field that is missing and any value no question can offer. The first run
 against the real payload is worth watching either way, and the payload only
 reaches page 217 once the Website Seat republishes.
@@ -164,6 +165,13 @@ reaches page 217 once the Website Seat republishes.
 `docs/menu-api-felder-fuer-die-app.md` and `docs/menu-api-felder-tequila.md`
 list what each app still wants from the source. Nothing in the second one
 blocks anything, the agave app runs today.
+
+**Whether cocktails carry `flavour_tags` in the API is contradicted.** The Head
+Barkeeper says only the neat pours do. `test/fixtures/menu-live.json` in this
+repo carries them on all 112 items. The cocktail app's flavour question depends
+on the field, so if it is missing live that question scores nothing and its own
+fixture will not notice. The agave app is unaffected, it prefers the field and
+reads the ingredient list otherwise, and both paths are tested.
 
 **Two flavour vocabularies meet in the agave app, and that is by design.**
 `flavour_tags` on a neat pour is deliberately granular and says `zitrus`.

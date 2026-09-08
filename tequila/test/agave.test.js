@@ -475,6 +475,54 @@ test('the Menu API flavour field wins over the derivation the day it lands', fun
   assert.deepStrictEqual(withField.tags, ['sauer/zitrus', 'überraschend']);
 });
 
+console.log('\nAgainst the real card shape');
+
+/* test/fixtures/menu-live.json is the cocktail suite's capture of the whole
+ * published card, all 26 sections of it. Running the agave derivation over it
+ * is worth more than any synthetic fixture, because it is the only thing in
+ * the repo with the real card's mess in it. This is what found the raw tag
+ * slug reaching a guest. */
+var LIVE = (function () {
+  var fs = require('fs');
+  var path = require('path');
+  var file = path.join(__dirname, '..', '..', 'test', 'fixtures', 'menu-live.json');
+  if (!fs.existsSync(file)) return null;
+  return SRC.extract(JSON.parse(fs.readFileSync(file, 'utf8')));
+})();
+
+test('the whole published card is readable and finds agave in it', function () {
+  assert.ok(LIVE, 'test/fixtures/menu-live.json is gone. Point this at whatever replaced it.');
+  var live = A.agaveItems(LIVE, SRC);
+  assert.ok(live.length > 5, 'only found ' + live.length + ' agave items on the whole card');
+  live.forEach(function (d) {
+    assert.ok(d.name, 'every item needs a name');
+    assert.ok(['tequila', 'mezcal', 'sotol', 'raicilla', 'bacanora', 'agave']
+      .indexOf(d.kind) !== -1, d.name + ' has kind ' + d.kind);
+    assert.strictEqual('menu_class' in d, false, d.name + ' leaked the margin bucket');
+  });
+});
+
+test('nothing on the real card would be read back as a raw slug', function () {
+  var Q = require('../data/questions.js');
+  var known = {};
+  Q.CHARACTER_CHOICES.forEach(function (o) { known[o.value] = true; });
+
+  var unknown = {};
+  A.agaveItems(LIVE, SRC).forEach(function (d) {
+    d.tags.forEach(function (t) { if (!known[t]) unknown[t] = true; });
+  });
+  Object.keys(unknown).forEach(function (t) {
+    assert.ok(KNOWN_BAD_TAGS.indexOf(t) !== -1,
+      'the card carries the flavour ' + JSON.stringify(t) + ' and the app has no word ' +
+      'for it. Add it to CHARACTER_CHOICES, alias it, or list it as known bad.');
+  });
+
+  // And the guard is actually exercised, rather than passing vacuously.
+  assert.ok(Object.keys(unknown).length > 0,
+    'the real card used to carry ad hoc tags. If it no longer does, drop ' +
+    'KNOWN_BAD_TAGS and this assertion with it.');
+});
+
 console.log('\nVocabulary hygiene');
 
 test('every vocabulary entry is already normalised, so it can actually match', function () {

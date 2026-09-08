@@ -23,6 +23,18 @@ verliert die Herkunft, die Fassreife, den Alkoholgehalt und den Geschmack der
 puren Flaschen, und kann Don Julio 1942 nicht als Añejo einordnen. Sie läuft.
 Beide Formen werden getestet.
 
+**Der Stand am 08.09.2026.**
+
+| | `content_hash` | |
+|---|---|---|
+| Live auf Seite 217 | `a8ef6bafc25a4f03` | enthält schon abv und die Whisky Felder |
+| Zu veröffentlichen | `f6dc12b06a72a63e` | 213 Positionen, löst `a8ef…` ab |
+
+Erst mit `f6dc12b06a72a63e` sind die zwei alkoholfreien Shots und die
+Geschmacksbereinigung drin. Die App prüft nichts davon selbst, sie vergleicht
+nur `content_hash` gegen ihre eigene letzte Antwort. Die Zahl steht hier, damit
+jemand nach dem Veröffentlichen einmal hinschaut.
+
 ---
 
 ## Geklärt am 08.09.2026
@@ -103,17 +115,35 @@ sagt Bescheid, dann liest die App die statt der Zutatenliste.
 
 ## Teil 2, was noch fehlt
 
-### 1. Flaschenfotos möglichst freigestellt
+### 1. Flaschenfotos freigestellt, entschieden
 
-Kein Feld, sondern ein Wunsch ans Bildmaterial. `image` wird verlinkt und auf
-`null` geprüft, das passt alles.
+Kein Feld, sondern das Bildmaterial. Entschieden am 08.09.2026, es werden
+freigestellte PNGs mit transparentem Hintergrund. Die Ergebniskarte ist fast
+schwarz, und ein Foto auf weissem Grund füllt den Rahmen und steht als helles
+Rechteck darin.
 
-Die Ergebniskarte ist fast schwarz. Ein Foto auf weissem Grund füllt den Rahmen
-und steht dann als helles Rechteck darin. Das sieht ordentlich aus, es ist
-gerahmt und hat einen Rand, aber ein freigestelltes PNG mit transparentem
-Hintergrund sieht deutlich besser aus und kostet beim Export nichts.
+Die Komponente in `assets/brunnenbar-theme.css` kann beides. Sie stellt das
+Bild frei stehend in einen Rahmen mit eigenem Grund und schneidet nie zu, weil
+ein quadratischer Ausschnitt einer Flasche den Hals abschneidet. Bei einem
+transparenten PNG scheint der goldene Schimmer dahinter durch, bei einem
+weissen Grund eben nicht. Zu tun ist auf App Seite nichts mehr, das ist eine
+Sache fürs Bildmaterial.
 
-Wenn die Fotos ohnehin freigestellt sind, ist hier nichts zu tun.
+### 2. Ein Widerspruch, den jemand auflösen sollte
+
+Nicht meine Baustelle, aber er fällt von hier aus auf.
+
+Laut Head Barkeeper sind `flavour_tags` bei den Cocktails **nicht** in der API,
+nur bei den puren Flaschen. In diesem Repo liegt aber
+`test/fixtures/menu-live.json`, die Testkarte der Cocktail App, und dort tragen
+**alle 112 Positionen** `flavour_tags`, Cocktails eingeschlossen.
+
+Eins von beidem stimmt nicht, und es ist wichtig, weil die Geschmacksfrage der
+Cocktail App genau an diesem Feld hängt. Wenn es live fehlt, bewertet sie nichts
+und ihre eigenen Tests merken es nicht, weil die Testkarte das Feld hat.
+
+Für die Agave App ist es egal. Sie nimmt `flavour_tags` wenn es da ist und
+liest sonst die Zutatenliste, und beide Wege sind getestet.
 
 ---
 
