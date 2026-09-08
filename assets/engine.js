@@ -1,8 +1,8 @@
 /*
  * BrunnenBar — recommendation engine
  * =========================================================================
- * Pure scoring against the bar's own export. No DOM, no interface code, so
- * it can be unit tested in node (see test/engine.test.js).
+ * Pure scoring. No DOM, no interface code, so it can be unit tested in node
+ * (see test/engine.test.js).
  *
  * Three tiers of rule:
  *   HARD  Allergens and "never pour me this spirit". Never relaxed. Ever.
@@ -10,8 +10,9 @@
  *         page then tells the guest that something was loosened.
  *   SOFT  Everything else, scored and summed.
  *
- * Drinks with available:false never reach this file - tools/build-menu.js
- * drops them at build time.
+ * The drinks handed in here have already been through menu-source.js and
+ * menu-adapt.js, so till articles and anything that is not a cocktail are
+ * gone before this file sees them.
  * =========================================================================
  */
 (function (root) {
@@ -155,7 +156,7 @@
   }
 
   /**
-   * @param {Array}  menu     from data/menu.js
+   * @param {Array}  menu     drinks from menu-adapt.js
    * @param {Object} answers  {moment, strength, spirit[], avoid[], flavours[],
    *                           serve, allergens[]}
    * @param {Object} [opts]   {seed, limit}

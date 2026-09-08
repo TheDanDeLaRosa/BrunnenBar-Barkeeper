@@ -1,7 +1,7 @@
 /*
  * BrunnenBar — Question flow + all interface copy
  * =========================================================================
- * Every answer value here is a literal value from data/cocktails.json, not
+ * Every answer value here is a literal value from the live Menu API, not
  * a translation of one. "Mittendrin" is the string in the export; the
  * strength numbers are the export's own 0 to 5 scale; the flavour values
  * are its flavour_tags verbatim. That means no mapping layer can drift.
