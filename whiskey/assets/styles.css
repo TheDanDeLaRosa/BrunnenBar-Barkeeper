@@ -1,0 +1,38 @@
+/* =========================================================================
+   BrunnenBar — Whisky recommender, app-specific styling
+   =========================================================================
+   Everything that gives the app its look lives in ../assets/brunnenbar-theme.css
+   and is shared with the cocktail recommender. This file holds only what is
+   true of the whisky app and nothing else.
+
+   Keep it this small. If a rule here would also be right for the cocktail or
+   tequila app, it belongs in the theme instead.
+   ========================================================================= */
+
+/* Peat has five stops where cocktail strength has six. The theme takes the
+   stop count as a variable, so this is the whole override. */
+.scale { --scale-cols: 5; --scale-cols-sm: 1; }
+
+/* One stop per row on a phone reads better than five cramped columns, and a
+   full width row wants the label first and the pips out to the side. */
+.scale-stop { flex-direction: row-reverse; justify-content: space-between; padding: 0.9rem 1.1rem; }
+@media (min-width: 34rem) {
+  .scale-stop { flex-direction: column; justify-content: center; padding: 0.85rem 0.4rem 0.7rem; }
+}
+
+/* The whisky card's badges, mapped onto the theme's three variants. The theme
+   deliberately does not know what a peated malt is. */
+.badge.rare,
+.badge.loved { color: var(--gold);      border-color: rgba(227, 200, 124, 0.5); }
+.badge.smoke,
+.badge.start { color: var(--green-lit); border-color: rgba(95, 157, 118, 0.5); }
+.badge.off   { color: var(--muted-dim); }
+
+/* The smoke row on a result card shows the same pips as the question, so a
+   guest can see at a glance how the answer and the bottle line up. */
+.meta-val .pips { display: inline-flex; vertical-align: middle; margin-right: 0.5rem; }
+.pip-label { vertical-align: middle; }
+
+/* Preview mode has to be impossible to mistake for the real card, so it is
+   the one notice that takes the accent rather than the quiet green rule. */
+.notice.demo { border-left-color: var(--gold); color: var(--gold); margin-bottom: 1.5rem; }

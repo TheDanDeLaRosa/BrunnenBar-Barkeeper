@@ -323,13 +323,21 @@ a.btn { text-decoration: none; display: inline-block; }
 .nav-right { display: flex; align-items: center; gap: 0.6rem; margin-left: auto; }
 
 /* ----------------------------------------------------------------- scale */
-/* A six stop intensity picker. Cocktails use it for strength, whiskey could
-   use it for peat, tequila for how much agave shows. Three across on a phone,
-   six across once there is room. */
+/* An intensity picker. Cocktails use it for strength on six stops, whiskey
+   uses it for peat on five, tequila will use it for how much agave shows.
+   Three across on a phone, six across once there is room, and an app with a
+   different number of stops sets the two variables on its own .scale rather
+   than restating the grid. */
 
-.scale { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.6rem; }
+.scale {
+  display: grid;
+  grid-template-columns: repeat(var(--scale-cols-sm, 3), 1fr);
+  gap: 0.6rem;
+}
 
-@media (min-width: 34rem) { .scale { grid-template-columns: repeat(6, 1fr); } }
+@media (min-width: 34rem) {
+  .scale { grid-template-columns: repeat(var(--scale-cols, 6), 1fr); }
+}
 
 .scale-stop {
   appearance: none;

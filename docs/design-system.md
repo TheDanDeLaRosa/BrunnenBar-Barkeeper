@@ -217,9 +217,14 @@ it, the way the cocktail app offers Barkeeper's Choice.
 
 ### The intensity scale
 
-Six stops, five pips each, filled to show intensity. Zero filled means the
-bottom of the range. Cocktails use it for strength. Whiskey would use it for
-peat, tequila for how much agave shows.
+Stops with pips, filled to show intensity. Zero filled means the bottom of the
+range. Cocktails use six stops for strength, whiskey uses five for peat,
+tequila will use it for how much agave shows.
+
+The stop count is a variable rather than a hard-coded grid. An app with a
+different number sets `--scale-cols` and `--scale-cols-sm` on its own `.scale`
+and touches nothing else. The whisky app puts one stop per row on a phone,
+because five labels across a 360px screen is unreadable.
 
 ```html
 <div class="scale">
@@ -350,36 +355,53 @@ The same shape every time, and it is deliberately plain.
 
 ---
 
-## 9. Starting the whiskey or the tequila app
+## 9. Starting the tequila app
+
+The whiskey app in `whiskey/` is now the worked example. Copy its shape.
 
 ```
-whiskey/
+tequila/
   index.html                    copy, change title, description and lang links
-  assets/brunnenbar-theme.css   copy verbatim, do not edit
   assets/styles.css             only what is new, keep it under 40 lines
   assets/engine.js              scoring, adapted to the new questions
   assets/app.js                 interface, largely the same shape
-  assets/menu-source.js         copy verbatim, it reads the same one source
   data/questions.js             the new questions and all interface copy
-  test/engine.test.js           node test/engine.test.js
+test/tequila-engine.test.js     node test/tequila-engine.test.js
 ```
+
+**Two files are linked, not copied.** The earlier version of this document
+said to copy the theme and the loader into each app. That was wrong for a
+single repository, because two copies drift and the one that drifts silently
+is the one nobody opens. `assets/brunnenbar-theme.css` and
+`assets/menu-source.js` stay where they are and every app points up at them.
+The loader in particular must never be duplicated, since the whole point of it
+is that exactly one file talks to the Menu API.
 
 `index.html` head, with the two stylesheets in this order:
 
 ```html
 <meta name="theme-color" content="#0d1712">
-<link rel="stylesheet" href="assets/brunnenbar-theme.css">
+<link rel="stylesheet" href="../assets/brunnenbar-theme.css">
 <link rel="stylesheet" href="assets/styles.css">
 ```
+
+And `<main class="stage" id="stage">`, because the entry animation hangs off
+the class and the id is only for script.
 
 Three things worth settling before writing any of it.
 
 **What the data can actually answer.** The cocktail app has seven questions
-because the export carries seven usable fields. A whiskey app can only ask
-about region, peat, age, cask and price if those are on each bottle. Ask the
-questions the data supports and no more, otherwise the app invents answers.
-For anything the source does not carry yet, write the field spec first, the way
-`docs/menu-api-felder-fuer-die-app.md` does for cocktails.
+because the export carries seven usable fields. Ask the questions the data
+supports and no more, otherwise the app invents answers. For anything the
+source does not carry yet, write the field spec first, the way
+`docs/whisky-api-felder-fuer-die-app.md` does.
+
+Better still, do what the whisky app does and let the flow read the data.
+`BBWhiskyEngine.tailor` drops any question whose field carries fewer than two
+different values across the shelf, and any answer nothing on the shelf
+carries. A field that arrives in the Menu API brings its question back on its
+own, and nobody is ever offered a region the bar does not stock. That is worth
+copying wholesale.
 
 **What the hard rules are.** Cocktails have allergens. Whiskey and tequila will
 have their own, budget being the obvious one. A hard rule is never scored and

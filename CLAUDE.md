@@ -3,9 +3,9 @@
 BrunnenBar is a cocktail bar at Am Brunnenlech 31, 86150 Augsburg. Dan is the
 owner and the decision maker on anything not written down here.
 
-This repo holds the **cocktail recommender**. Two more are planned alongside it
-on the same website, a **whiskey recommender** and a **tequila recommender**.
-All three share one look and one set of rules.
+This repo holds two apps. The **cocktail recommender** at the root and the
+**whisky recommender** in `whiskey/`. A **tequila recommender** is planned
+alongside them. All three share one look, one loader and one set of rules.
 
 ## Before changing anything visual
 
@@ -13,9 +13,12 @@ Read `docs/design-system.md`. It has the full palette with every hex value, the
 type scale, the component markup and the reasons behind the choices.
 
 The shared look lives in `assets/brunnenbar-theme.css` and knows nothing about
-cocktails. `assets/styles.css` holds only what is true of this app alone and
-should stay under about forty lines. **If a rule would also be right for the
-whiskey or tequila app, it belongs in the theme.**
+any one drink. Each app's own `assets/styles.css` holds only what is true of
+that app alone and should stay under about forty lines. **If a rule would also
+be right for a sibling app, it belongs in the theme.**
+
+The theme and `assets/menu-source.js` are **linked from each app, never
+copied**. Two copies drift, and the loader especially must stay a single file.
 
 Short version of the look: near-black grounds with a green bias, champagne gold
 as the only accent, forest green as a secondary mark, serif headings against a
@@ -62,11 +65,25 @@ negotiable:
 - Everything published is orderable. The app does not filter for availability.
 
 Whether an item can be recommended is decided by the data and never by a
-section name. A cocktail has an ingredient list, beer and wine do not.
+section name. A cocktail has an ingredient list, beer and wine do not. A whisky
+carries a `whisky` profile object, nothing else does. A tequila should get an
+`agave` block on the same principle.
+
+Each app also cuts its own question flow down to what the data can answer. A
+question whose field carries fewer than two values across the pool is dropped,
+and so is an answer nothing in the pool carries. See `BBWhiskyEngine.tailor`.
 
 ## Open work
 
-`docs/menu-api-felder-fuer-die-app.md` lists four fields the Menu API still
-needs before three of the seven questions can score anything. Until those land,
-the app runs on the bundled export, which the brief forbids, so this is the
-thing blocking a clean launch.
+Both apps are waiting on the same thing, fields in the Menu API.
+
+`docs/menu-api-felder-fuer-die-app.md` lists four fields the cocktail app
+needs before three of its seven questions can score anything. Until those
+land, that app runs on the bundled export, which the brief forbids, so this is
+the thing blocking a clean cocktail launch.
+
+`docs/whisky-api-felder-fuer-die-app.md` specifies the `whisky` profile. The
+whisky app already reads the live API properly and shows an honest empty state
+until the profiles exist. `whiskey/data/demo-menu.js` is a preview behind
+`?demo=1` and is not a fallback, not a data source, and deleted the day the
+real profiles land.
