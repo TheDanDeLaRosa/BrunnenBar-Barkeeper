@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>BrunnenBar – Welche Agave passt zu dir?</title>
+  <meta name="description" content="Ein paar kurze Fragen und drei passende Agavenbrände von unserer Karte. Von Blanco bis Añejo und einmal quer durch den Rauch. Die BrunnenBar in Augsburg.">
+  <meta name="theme-color" content="#0d1712">
+
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="BrunnenBar – Welche Agave passt zu dir?">
+  <meta property="og:description" content="Ein paar kurze Fragen und drei passende Agavenbrände von unserer Karte.">
+  <meta property="og:locale" content="de_DE">
+  <meta property="og:locale:alternate" content="en_GB">
+
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <!-- The shared look, referenced rather than copied, so the three apps
+       cannot drift apart. Theme first, app second. -->
+  <link rel="stylesheet" href="../assets/brunnenbar-theme.css">
+  <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+  <div class="shell">
+    <header class="top">
+      <nav class="lang" id="lang-toggle" aria-label="Sprache / Language"></nav>
+    </header>
+
+    <main id="stage" aria-live="polite"></main>
+
+    <p id="live" class="sr-only" role="status" aria-live="polite"></p>
+
+    <noscript>
+      <h1>BrunnenBar</h1>
+      <p>Für die Agavenempfehlung wird JavaScript benötigt.
+         Unsere vollständige Karte findest du hier:
+         <a href="https://brunnenbar.com/cocktailkarte/">zur Karte</a>.</p>
+      <p><em>The agave recommender needs JavaScript. You can always find our full
+         list <a href="https://brunnenbar.com/cocktailkarte/">here</a>.</em></p>
+    </noscript>
+  </div>
+
+  <!-- menu-source is shared with the cocktail app and is the only file that
+       talks to the Menu API. agave before engine, the engine reads its
+       vocabulary. -->
+  <script src="../assets/menu-source.js"></script>
+  <script src="data/questions.js"></script>
+  <script src="assets/agave.js"></script>
+  <script src="assets/engine.js"></script>
+  <script src="assets/app.js"></script>
+</body>
+</html>

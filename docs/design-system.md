@@ -1,13 +1,17 @@
 # BrunnenBar house style
 
-Everything needed to build a second and third recommender that looks and
-behaves like the cocktail one. Written so it can be pasted whole into a fresh
-chat with no other context.
+Everything needed to build another recommender that looks and behaves like the
+two that exist. Written so it can be pasted whole into a fresh chat with no
+other context.
 
-The cocktail app is the reference implementation. The shared look lives in one
-file, `assets/brunnenbar-theme.css`, which knows nothing about cocktails. Copy
-that file into the new app, link it first, and put only genuinely new rules in
-a second stylesheet after it.
+The cocktail app at the root is the reference for the look. The agave app under
+`tequila/` is the reference for how one is built, because it reads the live
+Menu API the way the brief asks. Section 9 says what to take from which.
+
+The shared look lives in one file, `assets/brunnenbar-theme.css`, which knows
+nothing about cocktails or tequila. Link it first and put only genuinely new
+rules in a second stylesheet after it. Inside this repository, link it with
+`../` rather than copying it.
 
 ---
 
@@ -350,27 +354,65 @@ The same shape every time, and it is deliberately plain.
 
 ---
 
-## 9. Starting the whiskey or the tequila app
+## 9. Starting the whiskey app
+
+The agave app under `tequila/` is the second implementation and the closer
+model to copy, because it reads the live source the way the brief asks. Its
+README explains every decision below in full.
 
 ```
 whiskey/
   index.html                    copy, change title, description and lang links
-  assets/brunnenbar-theme.css   copy verbatim, do not edit
   assets/styles.css             only what is new, keep it under 40 lines
+  assets/whisky.js              derivation from the raw data, pure and testable
   assets/engine.js              scoring, adapted to the new questions
   assets/app.js                 interface, largely the same shape
-  assets/menu-source.js         copy verbatim, it reads the same one source
   data/questions.js             the new questions and all interface copy
-  test/engine.test.js           node test/engine.test.js
+  test/fixture.js               a Menu API payload, test data, not the card
+  test/engine.test.js           node whiskey/test/engine.test.js
 ```
+
+**Within this repository, reference the theme and the loader rather than
+copying them**, with `../assets/brunnenbar-theme.css` and
+`../assets/menu-source.js`, the way `tequila/index.html` does. Two copies in
+one repository will not stay in step. Copy them only if the app is ever
+deployed on its own.
 
 `index.html` head, with the two stylesheets in this order:
 
 ```html
 <meta name="theme-color" content="#0d1712">
-<link rel="stylesheet" href="assets/brunnenbar-theme.css">
+<link rel="stylesheet" href="../assets/brunnenbar-theme.css">
 <link rel="stylesheet" href="assets/styles.css">
 ```
+
+### What a second derivation file buys
+
+The cocktail app decides what it can score by asking whether an item has an
+ingredient list, because a cocktail has one and a beer does not. That test
+does not survive contact with a spirits app, where a neat pour has no
+ingredients either and is the whole point. The agave app keeps the same field
+but uses it as a **classification** rather than a filter, and decides
+membership from a vocabulary of spirit and brand words instead.
+
+Put that vocabulary in its own pure file. Two things follow from it that are
+worth having. It can be tested, and a test can assert that renaming every
+section changes nothing, which is the data rule made enforceable rather than
+merely written down.
+
+### Let the card build the questions
+
+Two of the agave app's six questions build themselves from the data.
+
+The expression question offers only what is behind the bar today, so it can
+never invite a guest to ask for a bottle the bar does not have, and a new
+bottle brings its own option with it. The budget question derives its stops
+from what the card actually costs, so no number in the app is a price and none
+goes stale. Both disappear entirely if the card does not spread far enough to
+be worth asking about.
+
+Prefer this wherever it is possible. A hand-written option list is a claim
+about the card that nobody will re-check.
 
 Three things worth settling before writing any of it.
 
@@ -381,9 +423,16 @@ questions the data supports and no more, otherwise the app invents answers.
 For anything the source does not carry yet, write the field spec first, the way
 `docs/menu-api-felder-fuer-die-app.md` does for cocktails.
 
-**What the hard rules are.** Cocktails have allergens. Whiskey and tequila will
-have their own, budget being the obvious one. A hard rule is never scored and
-never relaxed.
+**What the hard rules are.** Cocktails have allergens. A spirits app has its
+own, budget being the obvious one. A hard rule is never scored and never
+relaxed, and where the data cannot show that an item passes it, the item does
+not pass. An item whose price the card does not carry is not offered against a
+budget. Silence is not a yes.
+
+Where the data is silent on something *scored*, the opposite applies. Score it
+neutral and claim nothing, rather than guessing a value or punishing the item.
+A Margarita that says tequila and stops there is not a worse drink for the
+card being brief.
 
 **How runner-ups differ.** Never label a second suggestion "also a good fit",
 which tells a guest nothing. Label it by the one thing that separates it from

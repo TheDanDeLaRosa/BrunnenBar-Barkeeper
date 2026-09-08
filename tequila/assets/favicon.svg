@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <rect width="32" height="32" rx="7" fill="#1b3527"/>
+  <!-- Same arched frame as the cocktail mark, agave blades inside it -->
+  <rect x="8.5" y="5" width="15" height="22" rx="7.5" fill="none" stroke="#e3c87c" stroke-width="1.4"/>
+  <g stroke="#e3c87c" stroke-width="1.4" stroke-linecap="round">
+    <path d="M16 23V11"/>
+    <path d="M16 22c-2.6-1.3-4-3.6-4.2-6.9"/>
+    <path d="M16 22c2.6-1.3 4-3.6 4.2-6.9"/>
+    <path d="M16 21.4c-1.6-2.4-2-4.9-1.3-7.6"/>
+    <path d="M16 21.4c1.6-2.4 2-4.9 1.3-7.6"/>
+  </g>
+</svg>

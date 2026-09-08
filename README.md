@@ -1,5 +1,10 @@
 # BrunnenBar — Cocktail recommender
 
+> There is a second app in this repository. The **agave recommender** for
+> tequila and mezcal lives under [`tequila/`](tequila/README.md) and reads the
+> live Menu API, which is the pattern this app still has to move to. The
+> shared look and the shared loader are referenced from there, not copied.
+
 A cocktail recommender for [brunnenbar.com](https://brunnenbar.com). It asks a
 guest the questions we'd ask across the bar, then recommends drinks **from our
 actual card**, with a plain-language reason for each.
