@@ -187,21 +187,40 @@ dabei repariert und jede einzelne wird beim Lauf gemeldet.
 `holzig` bleibt drin, weil es sinnvoll ist. Wenn Gäste danach fragen können
 sollen, sagt Bescheid, dann bekommt es eine eigene Antwortmöglichkeit.
 
-### Beim Zusammenführen aufpassen
+### Zusammenführen, mit menu.json als Wahrheit
 
-Zugeordnet wird über den Namen, und drei Namen sehen im Export nach Tippfehlern
-aus. Wenn sie im Menu API schon richtig geschrieben stehen, findet der Abgleich
-sie nicht und die Getränke bleiben ohne die neuen Felder.
+`menu.json` ist die genaue Quelle. Namen, Preise, Sektionen, Reihenfolge und
+was überhaupt auf der Karte steht, kommt von dort und wird nicht angefasst. Der
+alte Export dient nur zum Nachschlagen der vier Werte.
 
-| Im Export | Vermutlich richtig |
+```bash
+node tools/merge-fields.js pfad/zu/menu.json menu.merged.json
+```
+
+Die Eingabedatei wird nie verändert, das Ergebnis landet in einer neuen Datei,
+damit vor dem Veröffentlichen jemand drübersehen kann.
+
+Was das Werkzeug tut und was nicht.
+
+- Es füllt ein Feld nur, wenn es leer ist. Steht im `menu.json` schon ein Wert,
+  gilt der und wird gemeldet.
+- Es fasst nur Getränke mit Zutatenliste an. Bier und Wein brauchen die Felder
+  nicht und tauchen deshalb auch nicht als Lücke auf.
+- Es rät nie. Weicht ein Name ab, schlägt es den nächstliegenden vor und lässt
+  das Feld leer, bis jemand entschieden hat.
+
+Genau das passiert bei drei Namen, die im alten Export nach Tippfehlern
+aussehen. Stehen sie im `menu.json` richtig, findet der Abgleich sie nicht von
+allein und meldet sie als Vorschlag.
+
+| Im Export | Auf der Karte vermutlich |
 |---|---|
 | `Boulvadier` | Boulevardier |
 | `Don Julio Reposado Margerita` | Margarita |
 | `Gin Tonic - Hendriks` | Hendrick's |
 
-Der Export hat 148 Einträge, das Menu API zeigt nur das, was aktuell auf der
-Karte steht. Einträge, die es im API nicht mehr gibt, werden beim Zusammenführen
-einfach übersprungen.
+Getränke, die es im Export nicht gab, werden als offen gemeldet. Für die müssen
+die vier Werte einmal vergeben werden, alles andere ist ein Durchreichen.
 
 ---
 
