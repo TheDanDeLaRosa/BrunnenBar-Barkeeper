@@ -3,10 +3,10 @@
 Stand 08.09.2026. Gegenstück zu `menu-api-felder-fuer-die-app.md`, für die
 Whisky Empfehlung in `whiskey/`.
 
-**Fast alles ist da.** Fünfzehn Flaschen tragen `peat`, `region`,
-`flavour_tags`, `cask` und `whisky_level`. Damit stellt die App sechs ihrer
-sieben Fragen. Es fehlt nur noch `whisky_serve`, der Rest der Wunschliste ist
-Feinschliff für die Ergebniskarte.
+**Alles ist da.** Fünfzehn Flaschen tragen `peat`, `region`, `flavour_tags`,
+`cask`, `whisky_level` und `whisky_serve`. Damit stellt die App alle sieben
+Fragen und braucht kein weiteres Feld. Was unter Wunschliste steht, ist nur
+noch Feinschliff für die Ergebniskarte.
 
 Dieses Dokument ist damit vor allem eine Beschreibung dessen, was gilt, und
 nicht mehr eine Bitte.
@@ -122,6 +122,21 @@ sieht er nur `einstieg` und `klassiker`. Ein Anfänger mit einem Lagavulin 16
 im Glas kommt nicht wieder. Haben wir nichts Passendes, öffnet die App die
 Auswahl und sagt es dazu.
 
+### `whisky_serve` und `whisky_serve_en`
+
+Typ `string[]`. Wie ihr die Flasche am liebsten ausschenkt.
+
+| de | en |
+|---|---|
+| `pur` | `neat` |
+| `mit Wasser` | `with water` |
+| `auf Eis` | `on ice` |
+| `Highball` | `highball` |
+
+Das ist eine Empfehlung und kein Verbot. Ein Gast, der einen Lagavulin auf Eis
+will, bekommt ihn auf Eis. Die App nutzt das Feld nur, um zu erkennen, welche
+Flasche in ein langes Glas gehört, und ein Lagavulin gehört da nicht hinein.
+
 ---
 
 ## Wunschliste, was noch fehlt
@@ -134,7 +149,6 @@ können, also `whisky_kind` neben `agave_kind`.
 
 | Feld | Typ | Was es bringt |
 |---|---|---|
-| `whisky_serve`, `_en` | `string[]` | `pur`, `mit Wasser`, `auf Eis`, `Highball`. Wie ihr die Flasche am liebsten ausschenkt. Die einzige Frage, die jetzt noch fehlt |
 | `whisky_age_years` | `number` oder `null` | `null` heisst ohne Altersangabe und die Karte schreibt das dann auch so hin. Bitte nicht 0 |
 | `abv` | `number` | Etwa `45.8`, reine Anzeige |
 | `whisky_kind` | `string` | Single Malt, Blended Scotch, Bourbon, Rye, Irish Blend, Tennessee Whiskey |
@@ -207,9 +221,13 @@ Bildschirm heben sich gegenseitig auf.
 ## Zum Nachprüfen
 
 Sobald republished ist, reicht ein Blick auf die App. Fehlt ein Feld
-vollständig, fehlt die dazugehörige Frage. Mit dem, was jetzt drin ist, sind es sechs
-Fragen, nämlich Anlass, Rauch, Geschmack, Herkunft, Fass und Preis. Mit
-`whisky_serve` kommt die siebte dazu.
+vollständig, fehlt die dazugehörige Frage. Mit dem, was jetzt drin ist, sind es alle
+sieben, nämlich Anlass, Rauch, Geschmack, Herkunft, Fass, Trinkweise und
+Preis.
+
+`tools/menu-check.html` sagt das in einem Blick. Mit dem erwarteten Hash
+hinten dran, also `tools/menu-check.html?hash=8681fe2d4963d005`, sagt die
+Seite ausserdem, ob live wirklich diese Version steht oder noch die davor.
 
 `whiskey/data/demo-menu.js` bildet die fünfzehn Flaschen mit den echten
 Rauchstufen und Herkünften nach, erfindet aber Preise und Noten. Sie läuft nur

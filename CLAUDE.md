@@ -98,10 +98,9 @@ needs before three of its seven questions can score anything. Until those
 land, that app runs on the bundled export, which the brief forbids, so this is
 the thing blocking a clean cocktail launch.
 
-`docs/whisky-api-felder-fuer-die-app.md` is now mostly a description rather
-than a request. Fifteen whiskies carry `peat`, `region`, `flavour_tags`,
-`cask` and `whisky_level`, which is six of the app's seven questions.
-`whisky_serve` is the only one still missing.
+`docs/whisky-api-felder-fuer-die-app.md` is now a description rather than a
+request. Fifteen whiskies carry every field the app asked for, which is all
+seven questions. Nothing on that side is outstanding.
 
 The whisky app is blocked on one thing only, and it is not a field. The
 website seat has to republish menu.json to page 217, otherwise none of it is

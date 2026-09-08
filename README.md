@@ -325,8 +325,8 @@ button, and nobody is offered Campbeltown when there is no Campbeltown behind
 the bar. The written options are a table of labels and hints, nothing more. As
 the Menu API grows fields, questions appear on their own with no release.
 
-That gives six questions today, occasion and smoke and taste and region and
-cask and price. `whisky_serve` would make it seven.
+All seven questions are live on the card's own fields, occasion and smoke and
+taste and region and cask and how you drink it and price.
 
 ## What it will and won't do
 
@@ -356,8 +356,14 @@ publish**, which is not whether the payload is live but whether the app finds
 anything in it. Open it in a browser and it reads the live source through the
 same loader the apps use, then prints which field spellings arrived, which
 values the card carries, which of those the app has no wording for, how many
-questions the flow will produce and a sample recommendation. There is a block
-at the bottom to copy and paste back into a conversation.
+questions the flow will produce and a sample recommendation. There is a button
+at the bottom that copies the report to the clipboard.
+
+Append the hash the builder produced, as in
+`tools/menu-check.html?hash=8681fe2d4963d005`, and it also says whether the
+version that is live is the version that was built. That is the check to run
+after a publish, because a publish that did not run looks exactly like one
+that did until someone compares.
 
 To see the app itself before a publish lands:
 

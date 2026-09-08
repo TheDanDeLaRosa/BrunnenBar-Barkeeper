@@ -29,6 +29,14 @@
     .copy-head { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; margin-bottom: 0.7rem; }
     .copy-head h2 { margin: 0; }
     .copy-hint { color: var(--muted); font-size: 0.9rem; margin: 0 0 1rem; }
+    .hash-form { display: flex; gap: 0.6rem; flex-wrap: wrap; align-items: center; margin: 0.9rem 0 0; }
+    .hash-form input {
+      font: inherit; font-size: 0.9rem; font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      background: var(--ink-2); color: var(--cream);
+      border: 1px solid var(--line); border-radius: 999px;
+      padding: 0.6rem 1.1rem; min-width: 15rem; flex: 1 1 15rem;
+    }
+    .hash-form input:focus-visible { border-color: var(--gold); }
   </style>
 </head>
 <body>
@@ -38,6 +46,11 @@
         <h1>Menu API Check</h1>
         <hr class="rule">
         <p class="lede" id="lede">Wir holen gerade die Karte.</p>
+        <form class="hash-form" id="hash-form" hidden>
+          <input id="hash-input" type="text" spellcheck="false" autocomplete="off"
+                 placeholder="Erwarteter content_hash" aria-label="Erwarteter content_hash">
+          <button class="btn btn-ghost" type="submit">Hash prüfen</button>
+        </form>
       </section>
       <div class="report" id="report"></div>
     </main>
@@ -78,7 +91,21 @@
     var Q = window.BBWhiskyQuestions;
     var report = document.getElementById('report');
     var lede = document.getElementById('lede');
+    var form = document.getElementById('hash-form');
+    var input = document.getElementById('hash-input');
     var lines = [];
+
+    var hashMatch = window.location.search.match(/[?&]hash=([A-Za-z0-9]+)/);
+    var expected = hashMatch ? hashMatch[1] : '';
+
+    form.hidden = false;
+    input.value = expected;
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var v = input.value.trim();
+      // Re-runs the whole report against the new expectation, from cache.
+      window.location.search = v ? '?hash=' + encodeURIComponent(v) : '';
+    });
 
     function block(title) {
       var h = document.createElement('div');
@@ -135,6 +162,24 @@
       var b1 = block('Die Quelle');
       row(b1, 'Adresse', SRC.MENU_URL);
       row(b1, 'content_hash', menu.content_hash || 'FEHLT', menu.content_hash ? 'ok' : 'gap');
+
+      /* After a publish the only question is whether the bytes that went out
+       * are the bytes that arrived. The builder knows the hash it produced,
+       * so it can be handed to this page and compared, either in the address
+       * as ?hash=... or typed into the box at the top. */
+      if (expected) {
+        var same = expected === menu.content_hash;
+        row(b1, 'Erwarteter Hash', expected);
+        row(b1, 'Veröffentlicht',
+          same ? 'JA, live ist genau diese Version'
+               : 'NEIN, live steht noch eine andere Version',
+          same ? 'ok' : 'gap');
+        lede.textContent = same
+          ? lede.textContent + ' Der Hash stimmt, das ist die erwartete Version.'
+          : 'Live steht noch nicht die erwartete Version. Der Publish fehlt oder ist nicht durchgelaufen.';
+      } else {
+        row(b1, 'Erwarteter Hash', 'nicht angegeben, oben eintragen oder ?hash=... anhängen');
+      }
       row(b1, 'published_at', menu.published_at || '');
       row(b1, 'generated', menu.generated || '');
       row(b1, 'Abschnitte', String((menu.sections || []).length));
