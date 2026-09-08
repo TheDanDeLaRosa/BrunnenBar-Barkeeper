@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>BrunnenBar – Menu API Check</title>
+  <meta name="theme-color" content="#0d1712">
+  <link rel="stylesheet" href="../assets/brunnenbar-theme.css">
+  <style>
+    /* An internal tool, so it borrows the house look and adds only what a
+       report needs. Nothing here belongs in the theme. */
+    .report { margin-top: 2rem; }
+    .block { margin-bottom: 1.75rem; }
+    .block h2 {
+      font-size: 0.72rem; letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--muted-dim); font-family: var(--sans); margin-bottom: 0.7rem;
+    }
+    .line { display: flex; gap: 0.8rem; font-size: 0.9rem; padding: 0.35rem 0; border-bottom: 1px solid var(--line-soft); }
+    .line b { flex: 0 0 11rem; color: var(--muted-dim); font-weight: 600; }
+    .line span { color: var(--cream); word-break: break-word; }
+    .ok    { color: var(--green-lit); }
+    .gap   { color: var(--gold); }
+    pre.copy {
+      background: var(--ink-2); border: 1px solid var(--line-soft);
+      border-radius: var(--radius); padding: 1rem; overflow-x: auto;
+      font-size: 0.78rem; line-height: 1.5; color: var(--muted); white-space: pre;
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <main class="stage" id="stage">
+      <section class="intro">
+        <h1>Menu API Check</h1>
+        <hr class="rule">
+        <p class="lede" id="lede">Wir holen gerade die Karte.</p>
+      </section>
+      <div class="report" id="report"></div>
+    </main>
+  </div>
+
+  <script src="../assets/menu-source.js"></script>
+  <script src="../whiskey/assets/engine.js"></script>
+  <script src="../whiskey/data/questions.js"></script>
+  <script>
+  /*
+   * BrunnenBar — Menu API check
+   * =======================================================================
+   * Answers one question. What will the apps actually see in the live
+   * payload, right now, from this browser.
+   *
+   * It exists because the people who build these apps cannot always reach
+   * brunnenbar.com, and because "it is published" and "the app finds it" are
+   * two different claims. This page settles the second one in about a second,
+   * and prints a report that can be pasted straight back into a chat.
+   *
+   * It reads through the same loader the apps read through, so anything that
+   * breaks here breaks there. It writes nothing.
+   *
+   * Open it from the site or from a local server. Opened straight off disk
+   * it still works while the Menu API keeps CORS open, but a browser that
+   * tightens up on file:// origins would block the fetch and that would look
+   * like a publishing problem when it is not.
+   *
+   * The whisky half at the bottom is the template for the sibling apps. A
+   * tequila check is the same page with agave_kind in place of peat.
+   * =======================================================================
+   */
+  (function () {
+    'use strict';
+
+    var SRC = window.BBMenuSource;
+    var ENG = window.BBWhiskyEngine;
+    var Q = window.BBWhiskyQuestions;
+    var report = document.getElementById('report');
+    var lede = document.getElementById('lede');
+    var lines = [];
+
+    function block(title) {
+      var h = document.createElement('div');
+      h.className = 'block';
+      h.innerHTML = '<h2></h2>';
+      h.firstChild.textContent = title;
+      report.appendChild(h);
+      lines.push('', '== ' + title + ' ==');
+      return h;
+    }
+
+    function row(host, key, value, cls) {
+      var d = document.createElement('div');
+      d.className = 'line';
+      var b = document.createElement('b');
+      b.textContent = key;
+      var s = document.createElement('span');
+      if (cls) s.className = cls;
+      s.textContent = value;
+      d.appendChild(b); d.appendChild(s);
+      host.appendChild(d);
+      lines.push(key + ': ' + value);
+    }
+
+    /* Which of the names the reader accepts is the one this payload uses.
+     * The whole point of accepting several is that nobody has to remember
+     * which, but a check that does not say which is not much of a check. */
+    function spellingUsed(items, names) {
+      var found = [];
+      names.forEach(function (n) {
+        var hits = items.filter(function (i) {
+          var v = i[n];
+          return v != null && v !== '' && (!Array.isArray(v) || v.length);
+        }).length;
+        if (hits) found.push(n + ' auf ' + hits);
+      });
+      return found.length ? found.join(', ') : 'auf keiner Zeile';
+    }
+
+    function distinct(pool, field) {
+      return ENG.valuesOf(pool, field);
+    }
+
+    function run(out) {
+      var menu = out.menu;
+      var items = SRC.allItems(menu);
+      var shelf = ENG.bottles(items);
+
+      lede.textContent = shelf.length
+        ? 'Die Karte ist da und die App findet ' + shelf.length + ' Whiskys.'
+        : 'Die Karte ist da, aber die App findet keinen einzigen Whisky.';
+
+      // ---------------------------------------------------------- source --
+      var b1 = block('Die Quelle');
+      row(b1, 'Adresse', SRC.MENU_URL);
+      row(b1, 'content_hash', menu.content_hash || 'FEHLT', menu.content_hash ? 'ok' : 'gap');
+      row(b1, 'published_at', menu.published_at || '');
+      row(b1, 'generated', menu.generated || '');
+      row(b1, 'Abschnitte', String((menu.sections || []).length));
+      row(b1, 'Positionen', String(items.length));
+      row(b1, 'Aus dem Cache', out.fromCache ? 'JA, Netz war nicht erreichbar' : 'nein, frisch geholt',
+          out.fromCache ? 'gap' : 'ok');
+      row(b1, 'Mit Bild', items.filter(function (i) { return i.image; }).length + ' von ' + items.length);
+      row(b1, 'hidden_on_card', String(items.filter(function (i) { return i.hidden_on_card === true; }).length));
+
+      var b2 = block('Abschnitte, in der Reihenfolge der Karte');
+      (menu.sections || []).forEach(function (s) {
+        var whiskies = (s.items || []).filter(ENG.isWhisky).length;
+        row(b2, s.title, (s.items || []).length + ' Positionen'
+          + (whiskies ? ', davon ' + whiskies + ' mit Whiskyprofil' : ''),
+          whiskies ? 'ok' : '');
+      });
+
+      // ---------------------------------------------------------- whisky --
+      var b3 = block('Whisky, was die App findet');
+      row(b3, 'Flaschen', String(shelf.length), shelf.length ? 'ok' : 'gap');
+      row(b3, 'Namen', shelf.map(function (x) { return x.name; }).join(', ') || 'keine');
+      row(b3, 'Davon Backbar', String(shelf.filter(function (x) { return x.hidden_on_card === true; }).length));
+      row(b3, 'Ausserhalb Whisky', shelf.filter(function (x) { return !/whisk/i.test(x.section || ''); })
+        .map(function (x) { return x.name + ' in ' + x.section; }).join(', ') || 'keine');
+
+      var b4 = block('Feldnamen, welche Schreibweise ankommt');
+      row(b4, 'peat', spellingUsed(shelf, ['peat']));
+      row(b4, 'Herkunft', spellingUsed(shelf, ['region', 'origin']));
+      row(b4, 'Geschmack', spellingUsed(shelf, ['flavour_tags', 'notes']));
+      row(b4, 'cask', spellingUsed(shelf, ['cask']));
+      row(b4, 'level', spellingUsed(shelf, ['whisky_level']));
+      row(b4, 'Trinkweise', spellingUsed(shelf, ['whisky_serve', 'serve_style']));
+      row(b4, 'Alter', spellingUsed(shelf, ['whisky_age_years', 'age_years']));
+      row(b4, 'abv', spellingUsed(shelf, ['abv']));
+      row(b4, 'brand', spellingUsed(shelf, ['brand']));
+
+      var b5 = block('Werte, die auf der Karte stehen');
+      ['origin', 'notes', 'cask', 'level', 'serve'].forEach(function (f) {
+        row(b5, f, distinct(shelf, f).join(' · ') || 'keine');
+      });
+      row(b5, 'peat', distinct(shelf, 'peat').sort().join(' · ') || 'keine');
+
+      /* The reason this page exists. A value the card carries and the app has
+       * no wording for still works, it just reads badly, and nobody notices
+       * from the outside. */
+      var b6 = block('Wo der App die Worte fehlen');
+      var noteGap = distinct(shelf, 'notes').filter(function (n) {
+        return !Q.UI.de.noteCompare[n] || !Q.UI.en.noteCompare[n];
+      });
+      var originOpts = {};
+      Q.QUESTIONS.filter(function (q) { return q.id === 'origin'; })[0]
+        .options.forEach(function (o) { originOpts[o.value] = true; });
+      var originGap = distinct(shelf, 'origin').filter(function (o) { return !originOpts[o]; });
+      var caskOpts = {};
+      Q.QUESTIONS.filter(function (q) { return q.id === 'cask'; })[0]
+        .options.forEach(function (o) { caskOpts[o.value] = true; });
+      var caskGap = distinct(shelf, 'cask').filter(function (c) { return !caskOpts[c]; });
+
+      row(b6, 'Geschmacksnoten', noteGap.join(' · ') || 'keine, alles übersetzt',
+          noteGap.length ? 'gap' : 'ok');
+      row(b6, 'Herkünfte', originGap.join(' · ') || 'keine, alles benannt',
+          originGap.length ? 'gap' : 'ok');
+      row(b6, 'Fässer', caskGap.join(' · ') || 'keine, alles benannt',
+          caskGap.length ? 'gap' : 'ok');
+
+      // ------------------------------------------------------------ flow --
+      var b7 = block('Der Fragebogen, den die Karte hergibt');
+      var cuts = ENG.tailor(shelf, Q.QUESTIONS);
+      row(b7, 'Fragen', String(cuts.length), cuts.length >= 4 ? 'ok' : 'gap');
+      cuts.forEach(function (c) {
+        var opts = c.bands
+          ? c.bands.map(function (x) { return x.max == null ? 'egal' : SRC.formatPrice(x.max); })
+          : (c.options || c.q.options).map(function (o) { return o.value; });
+        row(b7, c.q.id, opts.join(' · '));
+      });
+      var dropped = Q.QUESTIONS.filter(function (q) {
+        return !cuts.some(function (c) { return c.q.id === q.id; });
+      });
+      row(b7, 'Fällt weg', dropped.map(function (q) { return q.id + ' (' + q.needs + ')'; }).join(', ') || 'nichts',
+          dropped.length ? 'gap' : 'ok');
+
+      // ---------------------------------------------------------- sample --
+      var b8 = block('Eine Probeempfehlung');
+      var demo = ENG.recommend(shelf, { peat: '2' }, { seed: 7 });
+      demo.items.forEach(function (it, i) {
+        row(b8, i === 0 ? 'Favorit' : 'Alternative',
+          it.bottle.name + '  ' + it.match + '%'
+          + (it.contrast ? '  weil ' + it.contrast.kind + (it.contrast.value ? ' ' + it.contrast.value : '') : ''));
+      });
+      if (!demo.items.length) row(b8, 'Ergebnis', 'nichts, das ist ein Problem', 'gap');
+
+      // ------------------------------------------------------------ copy --
+      var pre = document.createElement('pre');
+      pre.className = 'copy';
+      pre.textContent = lines.join('\n').trim();
+      report.appendChild(document.createElement('hr')).className = 'rule';
+      var h = document.createElement('div');
+      h.className = 'block';
+      h.innerHTML = '<h2>Zum Kopieren</h2>';
+      report.appendChild(h);
+      report.appendChild(pre);
+    }
+
+    SRC.loadMenu({ force: true }).then(run, function (err) {
+      lede.textContent = 'Die Karte ist nicht erreichbar.';
+      var b = block('Fehler');
+      row(b, 'Meldung', String(err && err.message || err), 'gap');
+      row(b, 'Wahrscheinlich', 'entweder ist noch nicht republished, oder diese Seite '
+        + 'liegt auf file:// und der Browser blockt den Abruf. Von der Website aus '
+        + 'oder über einen lokalen Server probieren.');
+    });
+  })();
+  </script>
+</body>
+</html>

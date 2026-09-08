@@ -256,18 +256,26 @@
       // An offer to build something is a fallback, never a recommendation.
       if (d.serve === CATCH_ALL) score += W.catchAll;
 
+      if (asArray(a.allergens).length || asArray(a.avoid).length) {
+        reasons.push({ key: 'safe', weight: 1 });
+      }
+
+      /* Everything above is how well this drink answers what was asked, and
+       * that is the only thing the percentage on the card may describe. What
+       * follows breaks ties and stays out of it. A guest who skipped most of
+       * the questions leaves a short scale behind, and on a short scale a
+       * jitter of up to 14 was enough to put unrelated drinks on the same
+       * figure. */
+      var merit = score;
+
       /* Among otherwise equal drinks, let the proven one edge ahead. This is
        * the only place sales figures touch the ranking, and it is deliberately
        * small: it breaks ties, it does not decide matches. */
       score += 3 * (d.sold / maxSold);
 
-      if (asArray(a.allergens).length || asArray(a.avoid).length) {
-        reasons.push({ key: 'safe', weight: 1 });
-      }
-
       score += jitter(d.id, seed) * (freeRein ? 14 : 2);
 
-      var pct = maxScore > 0 ? Math.round((100 * score) / maxScore) : 50;
+      var pct = maxScore > 0 ? Math.round((100 * merit) / maxScore) : 50;
       reasons.sort(function (x, y) { return y.weight - x.weight; });
 
       return {

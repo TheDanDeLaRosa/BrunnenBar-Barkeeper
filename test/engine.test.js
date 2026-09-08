@@ -611,4 +611,23 @@ test('every combination still returns something with all allergens excluded', fu
   console.log('       (' + combos + ' allergen-restricted combinations checked)');
 });
 
+/* The percentage says how close a drink came to what was asked. The jitter
+ * and the sales tiebreak order the drinks that came equally close, and they
+ * have no business in the figure. A guest who skips most of the questions
+ * leaves a short scale behind, and on a short scale the free rein jitter was
+ * enough to put unrelated drinks on the same number. */
+test('the match figure does not move when the seed does', function () {
+  var answers = { moment: 'Mittendrin', strength: '3', flavours: ['barkeeper'] };
+  var seen = {};
+  engine.recommend(MENU, answers, { seed: 1, limit: 8 }).items
+    .forEach(function (i) { seen[i.drink.id] = i.match; });
+  for (var s = 2; s < 12; s++) {
+    engine.recommend(MENU, answers, { seed: s, limit: 8 }).items.forEach(function (i) {
+      if (seen[i.drink.id] === undefined) return;
+      assert.strictEqual(i.match, seen[i.drink.id],
+        i.drink.id + ' changed its match from ' + seen[i.drink.id] + ' to ' + i.match);
+    });
+  }
+});
+
 console.log('\n' + passed + ' passed' + (process.exitCode ? ', SOME FAILED' : '') + '\n');

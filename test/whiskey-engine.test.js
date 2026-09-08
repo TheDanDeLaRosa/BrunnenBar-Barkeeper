@@ -373,6 +373,46 @@ test('the level one rung away still counts, three rungs away does not', function
   assert.ok(!far.items[0].reasons.some(function (r) { return r.key === 'level'; }));
 });
 
+/* The percentage says how close we got to what was asked. The jitter and the
+ * sales tiebreak decide the order among bottles that got equally close, and
+ * they have no business in the figure. With one question answered the whole
+ * scale is 26 points and a jitter of up to 14 once put three different
+ * bottles on the same 99 per cent. */
+test('the match figure does not move when the seed does', function () {
+  var answers = { peat: '2' };
+  var first = E.recommend(SHELF, answers, { seed: 1, limit: 8 });
+  var byName = {};
+  first.items.forEach(function (i) { byName[i.bottle.name] = i.match; });
+  for (var s = 2; s < 12; s++) {
+    E.recommend(SHELF, answers, { seed: s, limit: 8 }).items.forEach(function (i) {
+      if (byName[i.bottle.name] === undefined) return;
+      assert.strictEqual(i.match, byName[i.bottle.name],
+        i.bottle.name + ' changed its match from ' + byName[i.bottle.name] + ' to ' + i.match);
+    });
+  }
+});
+
+test('a near miss never reads as well as an exact match', function () {
+  var shelf = [
+    row('Genau', prof({ peat: 2 })),
+    row('Daneben', prof({ peat: 1 })),
+    row('Weit weg', prof({ peat: 0 }))
+  ];
+  var res = E.recommend(shelf, { peat: '2' }, { limit: 3 });
+  var by = {};
+  res.items.forEach(function (i) { by[i.bottle.name] = i.match; });
+  assert.ok(by['Genau'] > by['Daneben'], 'exact ' + by['Genau'] + ' vs near ' + by['Daneben']);
+  assert.ok(by['Daneben'] > by['Weit weg'], 'near ' + by['Daneben'] + ' vs far ' + by['Weit weg']);
+});
+
+test('the till never lifts a match figure', function () {
+  var loved = row('Beliebt', prof({ peat: 2 }), { rank: 1 });
+  var unloved = row('Unbekannt', prof({ peat: 2 }), { rank: 9999 });
+  var res = E.recommend([loved, unloved], { peat: '2' });
+  assert.strictEqual(res.items[0].match, res.items[1].match,
+    'two bottles that answered the question equally well must read the same');
+});
+
 test('a match never claims more than 99 or less than 35 per cent', function () {
   [{}, { peat: '4', notes: ['blumig'], origin: ['Islay'], cask: ['Rumfass'], serve: 'Highball', level: 'einstieg' },
    { peat: '0' }, { notes: ['würzig'] }].forEach(function (answers) {

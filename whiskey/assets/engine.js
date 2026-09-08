@@ -528,6 +528,19 @@
         }
       }
 
+      if (ceiling != null) reasons.push({ key: 'budget', weight: 1 });
+
+      /* Everything above is how well this bottle answers what was asked, and
+       * that is the only thing the percentage on the card is allowed to
+       * describe. What follows breaks ties and must stay out of it.
+       *
+       * This is worth being strict about. With one question answered the
+       * whole scale is 26 points, and a jitter of up to 14 on top of it once
+       * put three different bottles on the same 99 per cent. A guest reading
+       * a match figure is being told how close we got, not how a random
+       * number landed. */
+      var merit = score;
+
       /* Among otherwise equal bottles, let the one people actually order edge
        * ahead. This is the only place the till touches the ranking, and it is
        * deliberately small. It breaks ties, it does not decide matches. */
@@ -536,11 +549,9 @@
         score += W.popularity * (1 - Math.min(rank, 200) / 200);
       }
 
-      if (ceiling != null) reasons.push({ key: 'budget', weight: 1 });
-
       score += jitter(keyOf(item), seed) * (freeRein ? 14 : 2);
 
-      var pct = maxScore > 0 ? Math.round((100 * score) / maxScore) : 50;
+      var pct = maxScore > 0 ? Math.round((100 * merit) / maxScore) : 50;
       reasons.sort(function (x, y) { return y.weight - x.weight; });
 
       return {
