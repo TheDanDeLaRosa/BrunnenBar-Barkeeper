@@ -298,6 +298,12 @@ Four rules, and they are not negotiable.
 bottle standing in the middle. `cover` takes the neck off a tall bottle and
 the label off a squat one.
 
+**Ask the asset side for cutouts on transparency, not on white.** A white
+ground becomes a bright rectangle on a near-black card and is the first thing
+the eye lands on, ahead of the name. Transparent PNG costs nothing at export.
+The frame keeps its own quiet `--ink-3` ground either way, so a cutout reads
+as a product tile rather than as a floating object.
+
 **Badges stay outside `.card-head`.** Squeezed into the space next to a bottle
 they wrap one to a line and the card reads as a list of warnings.
 

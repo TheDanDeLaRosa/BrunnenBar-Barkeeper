@@ -360,7 +360,7 @@ questions the flow will produce and a sample recommendation. There is a button
 at the bottom that copies the report to the clipboard.
 
 Append the hash the builder produced, as in
-`tools/menu-check.html?hash=8681fe2d4963d005`, and it also says whether the
+`tools/menu-check.html?hash=f6dc12b06a72a63e`, and it also says whether the
 version that is live is the version that was built. That is the check to run
 after a publish, because a publish that did not run looks exactly like one
 that did until someone compares.

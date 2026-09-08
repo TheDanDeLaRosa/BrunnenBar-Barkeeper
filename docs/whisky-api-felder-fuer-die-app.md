@@ -3,10 +3,19 @@
 Stand 08.09.2026. Gegenstück zu `menu-api-felder-fuer-die-app.md`, für die
 Whisky Empfehlung in `whiskey/`.
 
-**Alles ist da.** Fünfzehn Flaschen tragen `peat`, `region`, `flavour_tags`,
-`cask`, `whisky_level` und `whisky_serve`. Damit stellt die App alle sieben
-Fragen und braucht kein weiteres Feld. Was unter Wunschliste steht, ist nur
-noch Feinschliff für die Ergebniskarte.
+**Alles ist gebaut, das meiste ist live.** Fünfzehn Flaschen tragen `peat`,
+`region`, `flavour_tags`, `cask`, `whisky_level` und `whisky_serve`. Damit
+stellt die App alle sieben Fragen und braucht kein weiteres Feld.
+
+Der Stand am 08.09.2026 ist zweigeteilt. Live steht der Bau
+`a8ef6bafc25a4f03`, und der trägt bereits `peat`, `region`, `cask`,
+`whisky_level` und `abv`. **Die App läuft also heute schon gegen die echte
+Karte, mit sechs von sieben Fragen.** Es fehlt nur `whisky_serve`, und damit
+die Frage, wie jemand seinen Whisky trinkt.
+
+Der fertige Bau ist `f6dc12b06a72a63e` mit 213 Positionen. Sobald der Seat
+den veröffentlicht, ist die siebte Frage da. Der frühere Hash `8681…` ist
+überholt und darf nicht mehr geprüft werden.
 
 Dieses Dokument ist damit vor allem eine Beschreibung dessen, was gilt, und
 nicht mehr eine Bitte.
@@ -180,9 +189,13 @@ Sie bekommen auf der Ergebniskarte den Hinweis, dass sie nicht auf der Karte
 stehen. Der gemeinsame Loader filtert nichts weg, bietet aber `cardItems` an,
 falls eine andere App die strengere Lesart braucht.
 
-**Fotos.** `image` wird auf der Ergebniskarte neben dem Namen gezeigt, quadratisch
-und vollständig sichtbar statt beschnitten. Rund die Hälfte der Karte hat kein
-Bild, das ist der Normalfall und hinterlässt keine Lücke.
+**Fotos.** `image` wird auf der Ergebniskarte neben dem Namen gezeigt,
+quadratisch und vollständig sichtbar statt beschnitten. Rund die Hälfte der
+Karte hat kein Bild, das ist der Normalfall und hinterlässt keine Lücke.
+
+**Bitte freigestellte PNG mit durchsichtigem Hintergrund.** Ein Freisteller auf
+Weiss wird auf unserem fast schwarzen Grund zu einem hellen Rechteck, und das
+sieht man von der anderen Seite des Raums. Beim Export kostet es nichts.
 
 **Abfragerhythmus.** Das Datenblatt sagt höchstens stündlich, das Brief sagt
 höchstens ein paar Minuten. Der Loader macht jetzt stündlich, weil der Text
@@ -226,7 +239,7 @@ sieben, nämlich Anlass, Rauch, Geschmack, Herkunft, Fass, Trinkweise und
 Preis.
 
 `tools/menu-check.html` sagt das in einem Blick. Mit dem erwarteten Hash
-hinten dran, also `tools/menu-check.html?hash=8681fe2d4963d005`, sagt die
+hinten dran, also `tools/menu-check.html?hash=f6dc12b06a72a63e`, sagt die
 Seite ausserdem, ob live wirklich diese Version steht oder noch die davor.
 
 `whiskey/data/demo-menu.js` bildet die fünfzehn Flaschen mit den echten

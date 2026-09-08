@@ -11,6 +11,19 @@ Alle vier Felder gab es im vorherigen BarPatrol Export schon. Die Werte unten
 sind exakt die, die dort standen. Es geht also nicht darum, etwas Neues zu
 erfinden, sondern darum, Vorhandenes wieder mitzuliefern.
 
+**Nachtrag 08.09.2026.** Die Schreibweisen sind an der Quelle bereinigt, also
+`kraeftig` und `bitter-suess` sind weg und `Don Julio Anejo Manhattan` steht
+jetzt auf `würzig, holzig, bitter, süß`. Das gilt aber nur für die Quelle und
+den Druck. **Im Menu API sind Cocktail `flavour_tags` weiterhin gar nicht
+enthalten**, weil `cocktail_item` das Feld nicht mitgibt. Solange das so ist,
+hilft die Bereinigung der App nicht, und die Cocktail App bleibt auf dem
+mitgelieferten Export, was das Brief verbietet.
+
+Es ist damit keine Datenpflege mehr, sondern eine Schemaänderung beim Website
+Seat. Für Whisky und Agave wurde genau dieselbe Änderung schon gemacht, die
+Felder liegen dort flach am Item. `holzig` ist inzwischen fest im Vokabular,
+die Whisky App kennt es mit Namen und Steigerung in beiden Sprachen.
+
 ---
 
 ## 1. `flavour_tags` und `flavour_tags_en`
