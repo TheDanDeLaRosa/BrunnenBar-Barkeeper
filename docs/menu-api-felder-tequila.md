@@ -23,23 +23,20 @@ beide Formen werden getestet.
 
 ---
 
-## Teil 0, die eine offene Frage
+## Geklärt am 08.09.2026
 
-`agave_kind` und `agave_expression` sind zweimal unterschiedlich beschrieben.
+`agave_kind` ist die Gattung, `agave_expression` ist die Reifung. Also
+`agave_kind: "Tequila"` und `agave_expression: "Añejo"`. Das Beispiel stimmte,
+die Feldtabelle in der Datenspezifikation stand andersherum und wird
+korrigiert.
 
-| Quelle | `agave_kind` | `agave_expression` |
-|---|---|---|
-| Deine Nachricht, mit Beispiel | `Tequila` | `Añejo` |
-| Datenspezifikation, Feldtabelle | Blanco, Reposado, Añejo | genaue Bezeichnung |
+Der Notbehelf in `agave.js`, der beide Werte danach gelesen hat, was sie sagen,
+ist raus. Die App liest die zwei Enums jetzt direkt, und ein Test hält die
+Richtung fest.
 
-Das ist genau andersherum. Die App liest deshalb beide Werte danach, **was sie
-sagen**, und nicht danach, unter welchem Schlüssel sie ankommen. Ein Wert, der
-eine Spirituose nennt, ist die Gattung. Ein Wert, der eine Reifung nennt, ist
-die Auspraegung. So stimmt es in beiden Fällen.
-
-Das ist ein Notbehelf und kein Entwurf. **Sag kurz Bescheid, welche der beiden
-Lesarten der Generator tatsächlich schreibt**, dann fällt der Notbehelf raus
-und die Feldtabelle wird korrigiert.
+`Joven` ist als eigener Wert in der Auspraegung angekommen und bekommt auch
+eine eigene Antwort in der App. Es wird nicht stillschweigend zu Blanco
+zusammengefasst, weil ein Gast das Wort sehen soll, das auf der Karte steht.
 
 ---
 
@@ -54,50 +51,60 @@ und die Feldtabelle wird korrigiert.
 | `agave_expression` | da, damit ist Don Julio 1942 als Añejo erkennbar |
 | `agave_region` | da |
 | `additive_free` | da, `false` bei Don Julio, `true` bei Nuestra Soledad |
+| `flavour_tags` bei den puren Flaschen | da, Blanco und Añejo schmecken jetzt verschieden |
+| `aged_months` | da, Añejo 18 und 1942 30 |
 
 Was die App daraus macht. Die Frage nach der Agave zeigt nur noch die
-Auspraegungen, die heute hinter der Bar stehen, also Blanco, Reposado, Rosado,
-Añejo und Mezcal. Rosado ist eine eigene Antwort und wird nicht in Reposado
-eingerechnet. Die Herkunft steht auf der Ergebniskarte und unterscheidet zwei
-Vorschläge, die sich sonst durch nichts unterscheiden. `additive_free` ist eine
-eigene Antwort in der Frage "Soll etwas draussen bleiben", als harte Regel.
-Unbekannt zählt dort nicht als ja, und die Frage sagt das auch.
+Auspraegungen, die heute hinter der Bar stehen, also Blanco, Joven, Reposado,
+Rosado, Añejo und Mezcal. Rosado ist eine eigene Antwort und wird nicht in
+Reposado eingerechnet. Die Herkunft steht auf der Ergebniskarte und
+unterscheidet zwei Vorschläge, die sich sonst durch nichts unterscheiden.
+`additive_free` ist eine eigene Antwort in der Frage "Soll etwas draussen
+bleiben", als harte Regel. Unbekannt zählt dort nicht als ja, und die Frage
+sagt das auch.
+
+Die Geschmacksfrage baut sich jetzt genauso aus der Karte. Sie zeigt nur
+Geschmäcker, die heute wirklich vorkommen, und sie zeigt nach der ersten Frage
+nur noch die, die zur Antwort passen. Wer pur sagt, sieht Agave, Pfeffrig,
+Vanille, Karamell, Schokolade und Eiche. Wer gemixt sagt, sieht Süß, Bitter,
+Prickelnd, Cremig und Salzig. Das sind zwölf statt achtzehn Knöpfe.
+
+`aged_months` macht genau das, wofür es gedacht war. Don Julio Añejo und Don
+Julio 1942 sind sonst in jedem Feld gleich. Auf der Karte steht jetzt "Was
+länger Gereiftes" statt "Passt ebenfalls", und "Im Fass 30 Monate".
 
 ---
 
 ## Teil 2, was noch fehlt
 
-### 1. `flavour_tags` und `flavour_tags_en` bei den puren Flaschen
+### 1. Eine Schreibweise für den Geschmack, nicht zwei
 
-Typ `string[]`. Das wichtigste offene Feld, und dasselbe, das die Cocktail App
-schon angefragt hat.
+Kein neues Feld, sondern ein Aufräumen. Die zwei Hälften der Karte schreiben
+denselben Geschmack unterschiedlich.
 
-Bei Cocktails liest die App den Geschmack notfalls aus der Zutatenliste,
-`Limette` als sauer, `Campari` als bitter, und nennt auf der Karte immer die
-Zutat mit, aus der sie das gelesen hat. **Bei einer puren Flasche gibt es keine
-Zutatenliste.** Ein Blanco und ein Añejo schmecken für die App deshalb heute
-gleich, obwohl genau das der Unterschied ist.
+| Cocktails | Pure Flaschen |
+|---|---|
+| `sauer/zitrus` | `zitrus` |
+| `kräuterig/frisch` | `frisch` |
 
-Vokabular wie bei den Cocktails, deutsch mit Umlauten:
-`süß`, `prickelnd`, `fruchtig`, `sauer/zitrus`, `bitter`, `kräuterig/frisch`,
-`cremig`, `rauchig`, `salzig`, `scharf`, `überraschend`.
+Die App gleicht das intern ab, sonst würde ein Gast, der nach Zitrus fragt, die
+Margarita treffen und den Blanco nicht. Das ist ein Pflaster. Sauberer wäre
+eine Liste, und dann fällt die Abgleichtabelle weg.
 
-Für Agave zusätzlich sinnvoll: `pfeffrig`, `vegetal`, `mineralisch`, `holzig`,
-`vanille`, `karamell`.
+Mein Vorschlag ist, die längere Schreibweise zu nehmen, weil sie schon in der
+Cocktailkarte steht. Also `sauer/zitrus` und `kräuterig/frisch` auch bei den
+puren Flaschen. Wenn ihr lieber die kurze wollt, geht das auch, dann bitte
+überall.
 
-### 2. `aged_months`
+Die Wörter, die nur bei den puren Flaschen vorkommen, sind unstrittig und
+bleiben wie sie sind. `agave`, `pfeffrig`, `vanille`, `karamell`,
+`schokolade`, `eiche`, `vegetal`, `mineralisch`, `holzig`.
 
-Typ `number`. Der Nutzen ist leicht zu zeigen. Don Julio Añejo und Don Julio
-1942 sind beide Añejo, beide Don Julio, beide Hochland, beide stark. Die App
-kann heute buchstäblich nichts sagen, was die zwei unterscheidet, ausser dem
-Preis, und schreibt deshalb ehrlich "Passt ebenfalls". Mit `aged_months` würde
-daraus "Was länger Gereiftes".
-
-### 3. `abv`
+### 2. `abv`
 
 Typ `number`, zum Beispiel `38`. Drei Stärkeworte beschreiben einen Cocktail.
 Bei einer puren Flasche will ein Gast eine Zahl, und die steht ohnehin auf der
-Flasche.
+Flasche. Das einzige Feld aus der ursprünglichen Liste, das noch offen ist.
 
 ---
 
@@ -140,16 +147,15 @@ Stichwort verliert, zum Beispiel wenn aus "Tequila Cocktails" einmal
 Beim ersten Lauf gegen die echten Daten sind das die Dinge, die auffallen
 würden.
 
-1. **Welche Lesart schreibt der Generator bei `agave_kind`.** Siehe Teil 0.
-2. **Steht auf Seite 217 schon die neue Fassung.** Solange der Website Seat
+1. **Steht auf Seite 217 schon die neue Fassung.** Solange der Website Seat
    nicht neu veröffentlicht hat, sieht die App die alte Form. Sie läuft, sie
    kann nur Don Julio 1942 nicht einordnen.
-3. **Schreibt die Karte `Añejo` oder `Anejo`.** Beides wird erkannt, die App
+2. **Schreibt die Karte `Añejo` oder `Anejo`.** Beides wird erkannt, die App
    normalisiert Tilde und Umlaut. Einheitlich wäre trotzdem besser.
-4. **Steht bei Don Julio Rosado `Rosado` oder `Reposado` im
+3. **Steht bei Don Julio Rosado `Rosado` oder `Reposado` im
    `agave_expression`.** Beides funktioniert. Bei `Rosado` bekommt es eine
    eigene Antwort in der Frage, bei `Reposado` läuft es mit den Reposados mit.
-5. **Taucht `&amp;` irgendwo auf.** Dann ist die Publishing Pipeline kaputt.
+4. **Taucht `&amp;` irgendwo auf.** Dann ist die Publishing Pipeline kaputt.
    Der Loader meldet das und repariert bewusst nichts.
 
 So sähe eine vollständige pure Flasche aus.
@@ -172,11 +178,11 @@ So sähe eine vollständige pure Flasche aus.
   "agave_expression": "Reposado",
   "agave_region": "Highland",
   "additive_free": false,
+  "aged_months": 8,
+  "flavour_tags": ["vanille", "agave", "eiche"],
+  "flavour_tags_en": ["vanilla", "agave", "oak"],
 
   "abv": 38,
-  "aged_months": 8,
-  "flavour_tags": ["süß", "holzig", "vanille"],
-  "flavour_tags_en": ["sweet", "woody", "vanilla"],
 
   "allergens": [], "allergens_en": [], "allergen_codes": [],
   "alcohol_free": false,

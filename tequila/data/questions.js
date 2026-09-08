@@ -35,6 +35,11 @@
       hint: { de: 'Ungereift und pfeffrig, die Agave ganz vorn', en: 'Unaged and peppery, the agave right up front' }
     },
     {
+      value: 'joven',
+      label: { de: 'Joven', en: 'Joven' },
+      hint: { de: 'Ungereift, meist beim Mezcal so genannt', en: 'Unaged, the usual word for a mezcal' }
+    },
+    {
       value: 'reposado',
       label: { de: 'Reposado', en: 'Reposado' },
       hint: { de: 'Ein paar Monate im Fass, weicher und warm', en: 'A few months in oak, softer and warm' }
@@ -65,6 +70,51 @@
       hint: { de: 'Agave über Feuer geröstet, deutlich rauchig', en: 'Agave roasted over fire, properly smoky' }
     }
   ];
+
+  /* Every flavour the app has a word for, in the order a guest reads them.
+   * The first block is the cocktail card's own vocabulary, the second is what
+   * the neat pours carry. One list, because a guest asking for citrus should
+   * match the Margarita and the Blanco alike. */
+  var CHARACTER_CHOICES = [
+    { value: 'sauer/zitrus', label: { de: 'Sauer & Zitrus', en: 'Sour & citrus' }, hint: { de: 'Limette, Grapefruit, wach', en: 'Lime, grapefruit, wide awake' } },
+    { value: 'rauchig', label: { de: 'Rauchig', en: 'Smoky' }, hint: { de: 'Mezcal und Lagerfeuer', en: 'Mezcal and campfire' } },
+    { value: 'süß', label: { de: 'Süß', en: 'Sweet' }, hint: { de: 'Agavendicksaft, Cointreau, rund', en: 'Agave syrup, Cointreau, round' } },
+    { value: 'bitter', label: { de: 'Bitter', en: 'Bitter' }, hint: { de: 'Campari, Wermut, Bitters', en: 'Campari, vermouth, bitters' } },
+    { value: 'prickelnd', label: { de: 'Prickelnd', en: 'Sparkling' }, hint: { de: 'Soda, Tonic, Grapefruit', en: 'Soda, tonic, grapefruit' } },
+    { value: 'fruchtig', label: { de: 'Fruchtig', en: 'Fruity' }, hint: { de: 'Kirsche, Ananas, Beere', en: 'Cherry, pineapple, berry' } },
+    { value: 'scharf', label: { de: 'Scharf', en: 'Spicy' }, hint: { de: 'Chili und Tajín am Rand', en: 'Chili and Tajín on the rim' } },
+    { value: 'kräuterig/frisch', label: { de: 'Kräuterig & frisch', en: 'Herbal & fresh' }, hint: { de: 'Koriander, Minze, Gurke', en: 'Coriander, mint, cucumber' } },
+    { value: 'cremig', label: { de: 'Cremig', en: 'Creamy' }, hint: { de: 'Mit Schaumkrone', en: 'With a head of foam' } },
+    { value: 'salzig', label: { de: 'Salzig', en: 'Salty' }, hint: { de: 'Salz am Rand', en: 'Salt on the rim' } },
+
+    { value: 'agave', label: { de: 'Agave', en: 'Agave' }, hint: { de: 'Die Pflanze selbst, grün und süsslich', en: 'The plant itself, green and faintly sweet' } },
+    { value: 'pfeffrig', label: { de: 'Pfeffrig', en: 'Peppery' }, hint: { de: 'Weisser Pfeffer und ein bisschen Biss', en: 'White pepper and a bit of bite' } },
+    { value: 'vegetal', label: { de: 'Vegetal', en: 'Vegetal' }, hint: { de: 'Grün und pflanzlich', en: 'Green and planty' } },
+    { value: 'mineralisch', label: { de: 'Mineralisch', en: 'Mineral' }, hint: { de: 'Stein und Salz', en: 'Stone and salt' } },
+    { value: 'vanille', label: { de: 'Vanille', en: 'Vanilla' }, hint: { de: 'Weich und süsslich aus dem Fass', en: 'Soft and sweet from the barrel' } },
+    { value: 'karamell', label: { de: 'Karamell', en: 'Caramel' }, hint: { de: 'Gebrannter Zucker', en: 'Burnt sugar' } },
+    { value: 'schokolade', label: { de: 'Schokolade', en: 'Chocolate' }, hint: { de: 'Dunkel und rund', en: 'Dark and round' } },
+    { value: 'eiche', label: { de: 'Eiche', en: 'Oak' }, hint: { de: 'Das Fass schmeckt deutlich durch', en: 'The barrel comes right through' } },
+    { value: 'holzig', label: { de: 'Holzig', en: 'Woody' }, hint: { de: 'Lange gelegen', en: 'A long time resting' } }
+  ];
+
+  /* Clears every other pick, and is cleared by them. The value is
+   * BBTequilaEngine.NO_PREFERENCE, which the engine reads as free rein rather
+   * than as a character to match. Always offered, so a guest can always hand
+   * the choice back however short the card is. */
+  var FREE_REIN = {
+    value: 'barkeeper', exclusive: true, wide: true,
+    label: { de: 'Barkeeper’s Choice', en: 'Bartender’s choice' },
+    hint: { de: 'Überrasch mich, ihr kennt die Flaschen besser', en: 'Surprise me, you know the bottles better' }
+  };
+
+  function characterOptions(items) {
+    var present = {};
+    items.forEach(function (d) {
+      d.tags.forEach(function (t) { present[t] = true; });
+    });
+    return CHARACTER_CHOICES.filter(function (o) { return present[o.value]; }).concat([FREE_REIN]);
+  }
 
   function agaveOptions(items) {
     return AGAVE_CHOICES.filter(function (opt) {
@@ -138,25 +188,12 @@
         de: 'Zwei oder drei reichen völlig. Oder du überlässt es uns.',
         en: 'Two or three is plenty. Or you leave it to us.'
       },
-      options: [
-        { value: 'sauer/zitrus', label: { de: 'Sauer & Zitrus', en: 'Sour & citrus' }, hint: { de: 'Limette, Grapefruit, wach', en: 'Lime, grapefruit, wide awake' } },
-        { value: 'rauchig', label: { de: 'Rauchig', en: 'Smoky' }, hint: { de: 'Mezcal und Lagerfeuer', en: 'Mezcal and campfire' } },
-        { value: 'süß', label: { de: 'Süß', en: 'Sweet' }, hint: { de: 'Agave, Cointreau, rund', en: 'Agave, Cointreau, round' } },
-        { value: 'bitter', label: { de: 'Bitter', en: 'Bitter' }, hint: { de: 'Campari, Wermut, Bitters', en: 'Campari, vermouth, bitters' } },
-        { value: 'prickelnd', label: { de: 'Prickelnd', en: 'Sparkling' }, hint: { de: 'Soda, Tonic, Grapefruit', en: 'Soda, tonic, grapefruit' } },
-        { value: 'fruchtig', label: { de: 'Fruchtig', en: 'Fruity' }, hint: { de: 'Kirsche, Ananas, Beere', en: 'Cherry, pineapple, berry' } },
-        { value: 'scharf', label: { de: 'Scharf', en: 'Spicy' }, hint: { de: 'Chili und Tajín am Rand', en: 'Chili and Tajín on the rim' } },
-        { value: 'kräuterig/frisch', label: { de: 'Kräuterig & frisch', en: 'Herbal & fresh' }, hint: { de: 'Koriander, Minze, Gurke', en: 'Coriander, mint, cucumber' } },
-        { value: 'cremig', label: { de: 'Cremig', en: 'Creamy' }, hint: { de: 'Mit Schaumkrone', en: 'With a head of foam' } },
-        /* Clears every other pick, and is cleared by them. The value is
-         * BBTequilaEngine.NO_PREFERENCE, which the engine reads as free rein
-         * rather than as a character to match. */
-        {
-          value: 'barkeeper', exclusive: true, wide: true,
-          label: { de: 'Barkeeper’s Choice', en: 'Bartender’s choice' },
-          hint: { de: 'Überrasch mich, ihr kennt die Flaschen besser', en: 'Surprise me, you know the bottles better' }
-        }
-      ]
+      /* Only what is on the card today. See CHARACTER_CHOICES above. A pour
+       * carries the bar's own flavour_tags, a cocktail has its ingredients
+       * read, and either way the guest is never offered a taste nothing on
+       * the card has. */
+      optionsFrom: function (items) { return characterOptions(items); },
+      skipIf: function (a, items) { return !items || characterOptions(items).length < 2; }
     },
     {
       id: 'budget',
@@ -244,6 +281,8 @@
         smoky: 'Was Rauchiges',
         unsmoked: 'Was ohne Rauch',
         expression: 'Ein {x}',
+        older: 'Was länger Gereiftes',
+        younger: 'Was Jüngeres',
         region: 'Was aus {x}',
         neat: 'Das Gleiche pur',
         mixed: 'Was Gemixtes',
@@ -254,11 +293,16 @@
         character: 'Was {x}'
       },
       // Written out by hand so every comparative is correct German.
+      /* Every value here has to be distinct, or two runner ups can differ in
+       * the data and read identically on screen. There is a test. */
       characterCompare: {
         'sauer/zitrus': 'mit mehr Säure', 'rauchig': 'Rauchigeres', 'süß': 'Süßeres',
         'bitter': 'Bittereres', 'prickelnd': 'mit Perlage', 'fruchtig': 'Fruchtigeres',
         'scharf': 'Schärferes', 'kräuterig/frisch': 'Frischeres', 'cremig': 'Cremigeres',
-        'salzig': 'Salzigeres'
+        'salzig': 'Salzigeres',
+        'agave': 'mit mehr Agave', 'pfeffrig': 'Pfeffrigeres', 'vegetal': 'mit mehr Grün',
+        'mineralisch': 'Mineralischeres', 'vanille': 'mit Vanille', 'karamell': 'mit Karamell',
+        'schokolade': 'mit Schokolade', 'eiche': 'aus dem Fass', 'holzig': 'Holzigeres'
       },
 
       match: '{n}% Übereinstimmung',
@@ -297,9 +341,12 @@
         raicilla: 'Raicilla', bacanora: 'Bacanora', agave: 'Agavenbrand'
       },
       expressionNames: {
-        blanco: 'Blanco', reposado: 'Reposado', rosado: 'Rosado', anejo: 'Añejo',
-        'extra-anejo': 'Extra Añejo', cristalino: 'Cristalino'
+        blanco: 'Blanco', joven: 'Joven', reposado: 'Reposado', rosado: 'Rosado',
+        anejo: 'Añejo', 'extra-anejo': 'Extra Añejo', cristalino: 'Cristalino'
       },
+      agedLabel: 'Im Fass',
+      agedMonths: '{n} Monate',
+      agedYears: '{n} Jahre',
       /* The card writes the region freely, so only the two everyday cases get
        * a German word. Anything else is shown exactly as the card writes it.
        * regionContrast carries the whole phrase rather than a preposition and
@@ -311,7 +358,10 @@
         'sauer/zitrus': 'sauer und frisch', 'rauchig': 'rauchig', 'süß': 'süß',
         'bitter': 'bitter', 'prickelnd': 'prickelnd', 'fruchtig': 'fruchtig',
         'scharf': 'scharf', 'kräuterig/frisch': 'kräuterig', 'cremig': 'cremig',
-        'salzig': 'salzig'
+        'salzig': 'salzig',
+        'agave': 'nach Agave', 'pfeffrig': 'pfeffrig', 'vegetal': 'vegetal',
+        'mineralisch': 'mineralisch', 'vanille': 'nach Vanille', 'karamell': 'nach Karamell',
+        'schokolade': 'nach Schokolade', 'eiche': 'nach Eiche', 'holzig': 'holzig'
       },
       and: ' und '
     },
@@ -346,6 +396,8 @@
         smoky: 'Something smoky',
         unsmoked: 'Something without smoke',
         expression: '{x} instead',
+        older: 'Something aged longer',
+        younger: 'Something younger',
         region: 'Something from {x}',
         neat: 'The same thing neat',
         mixed: 'Something mixed',
@@ -359,7 +411,10 @@
         'sauer/zitrus': 'with more acidity', 'rauchig': 'smokier', 'süß': 'sweeter',
         'bitter': 'more bitter', 'prickelnd': 'with bubbles', 'fruchtig': 'fruitier',
         'scharf': 'spicier', 'kräuterig/frisch': 'fresher', 'cremig': 'creamier',
-        'salzig': 'saltier'
+        'salzig': 'saltier',
+        'agave': 'with more agave', 'pfeffrig': 'peppery', 'vegetal': 'greener',
+        'mineralisch': 'more mineral', 'vanille': 'with vanilla', 'karamell': 'with caramel',
+        'schokolade': 'with chocolate', 'eiche': 'straight from the barrel', 'holzig': 'woodier'
       },
 
       match: '{n}% match',
@@ -397,22 +452,33 @@
         raicilla: 'raicilla', bacanora: 'bacanora', agave: 'agave spirit'
       },
       expressionNames: {
-        blanco: 'Blanco', reposado: 'Reposado', rosado: 'Rosado', anejo: 'Añejo',
-        'extra-anejo': 'Extra Añejo', cristalino: 'Cristalino'
+        blanco: 'Blanco', joven: 'Joven', reposado: 'Reposado', rosado: 'Rosado',
+        anejo: 'Añejo', 'extra-anejo': 'Extra Añejo', cristalino: 'Cristalino'
       },
+      agedLabel: 'In oak',
+      agedMonths: '{n} months',
+      agedYears: '{n} years',
       regionNames: { highland: 'Highlands', lowland: 'Lowlands' },
       regionContrast: { highland: 'Something from the highlands', lowland: 'Something from the lowlands' },
       characterNames: {
         'sauer/zitrus': 'sour and fresh', 'rauchig': 'smoky', 'süß': 'sweet',
         'bitter': 'bitter', 'prickelnd': 'sparkling', 'fruchtig': 'fruity',
         'scharf': 'spicy', 'kräuterig/frisch': 'herbal', 'cremig': 'creamy',
-        'salzig': 'salty'
+        'salzig': 'salty',
+        'agave': 'of agave', 'pfeffrig': 'peppery', 'vegetal': 'vegetal',
+        'mineralisch': 'mineral', 'vanille': 'of vanilla', 'karamell': 'of caramel',
+        'schokolade': 'of chocolate', 'eiche': 'of oak', 'holzig': 'woody'
       },
       and: ' and '
     }
   };
 
-  var api = { QUESTIONS: QUESTIONS, UI: UI, AGAVE_CHOICES: AGAVE_CHOICES, agaveOptions: agaveOptions };
+  var api = {
+    QUESTIONS: QUESTIONS, UI: UI,
+    AGAVE_CHOICES: AGAVE_CHOICES, agaveOptions: agaveOptions,
+    CHARACTER_CHOICES: CHARACTER_CHOICES, characterOptions: characterOptions,
+    FREE_REIN: FREE_REIN
+  };
   if (typeof module !== 'undefined' && module.exports) module.exports = api;
   root.BBTequilaQuestions = api;
 })(typeof globalThis !== 'undefined' ? globalThis : this);

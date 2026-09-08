@@ -182,16 +182,29 @@ test('a region the lookup does not know is shown as the card writes it', functio
   assert.strictEqual(r.key, '');
 });
 
-test('the two spirit fields are read whichever way round they arrive', function () {
-  /* Dan's example has agave_kind "Tequila" and agave_expression "Añejo". The
-   * data spec's field table glosses them the other way round. Both are read
-   * by what they say rather than by which key they came under, so the app is
-   * right either way. Remove this once the generator and the doc agree. */
-  var right = { agave_kind: 'Tequila', agave_expression: 'Añejo' };
-  var round = { agave_kind: 'Añejo', agave_expression: 'Tequila' };
-  assert.deepStrictEqual(A.spiritFields(right), A.spiritFields(round));
-  assert.strictEqual(A.kindOf(round), 'tequila');
-  assert.strictEqual(A.expressionOf(round), 'anejo');
+test('the two spirit fields are read as the enums they are', function () {
+  /* Settled 08.09.2026. agave_kind is the spirit category, agave_expression
+   * is the maturation. The shim that read them whichever way round they
+   * arrived is gone, so this pins the direction rather than tolerating both. */
+  assert.strictEqual(A.kindOf({ agave_kind: 'Tequila', agave_expression: 'Añejo' }), 'tequila');
+  assert.strictEqual(A.expressionOf({ agave_kind: 'Tequila', agave_expression: 'Añejo' }), 'anejo');
+  assert.strictEqual(A.kindOf({ agave_kind: 'Mezcal', agave_expression: 'Joven' }), 'mezcal');
+  assert.strictEqual(A.expressionOf({ agave_kind: 'Mezcal', agave_expression: 'Joven' }), 'joven');
+});
+
+test('joven is its own answer rather than quietly relabelled blanco', function () {
+  // It is a value in the card's enum, so a guest is offered the word the
+  // card in front of them uses.
+  assert.strictEqual(byName('Nuestra Soledad Mezcal').expression, 'joven');
+  assert.strictEqual(A.expressionOf({ agave_expression: 'Blanco' }), 'blanco');
+});
+
+test('how long it sat in oak is read where the card records it', function () {
+  assert.strictEqual(byName('Don Julio Añejo').agedMonths, 18);
+  assert.strictEqual(byName('Don Julio 1942').agedMonths, 30);
+  assert.strictEqual(byName('Don Julio Blanco').agedMonths, 0, 'zero is a number, not a blank');
+  assert.strictEqual(byName('Ocho Plata').agedMonths, null);
+  assert.strictEqual(A.agedMonthsOf({ aged_months: 'acht' }), null);
 });
 
 test('the margin bucket is never handed to the interface', function () {
@@ -228,12 +241,25 @@ test('every bottle still lands, and only 1942 loses anything', function () {
   assert.deepStrictEqual(Object.keys(before), Object.keys(after),
     'the same items must be found either way');
 
+  /* The two bottles whose names do not spell out what the field says. 1942
+   * never says anejo, and the mezcal never says joven. Everything else reads
+   * the same either way. */
   var lost = Object.keys(after).filter(function (n) {
     return before[n].expression !== after[n].expression || before[n].kind !== after[n].kind;
   });
-  assert.deepStrictEqual(lost, ['Don Julio 1942'],
-    'only the bottle whose name does not say what it is should degrade');
+  assert.deepStrictEqual(lost.sort(), ['Don Julio 1942', 'Nuestra Soledad Mezcal']);
   assert.strictEqual(before['Don Julio 1942'].expression, '');
+  assert.strictEqual(before['Nuestra Soledad Mezcal'].kind, 'mezcal', 'the kind survives');
+});
+
+test('the flavours degrade with the fields, and nothing is invented', function () {
+  var before = {};
+  A.agaveItems(F.beforePublish(), SRC).forEach(function (d) { before[d.name] = d; });
+  // A pour has no ingredients to read, so without flavour_tags it says nothing.
+  assert.deepStrictEqual(before['Don Julio Blanco'].tags, []);
+  assert.strictEqual(before['Don Julio Anejo'] || before['Don Julio Añejo'].agedMonths, null);
+  // The cocktails are unaffected, they were always read from ingredients.
+  assert.ok(before['Margarita'].tags.indexOf('sauer/zitrus') !== -1);
 });
 
 test('the fields it cannot see are absent rather than guessed', function () {
@@ -255,10 +281,12 @@ test('extra anejo beats anejo, which contains it', function () {
   assert.strictEqual(A.expressionOf({ name: 'Don Julio Extra Añejo' }), 'extra-anejo');
 });
 
-test('plata, silver and joven are all blanco', function () {
-  ['Ocho Plata', 'Herradura Silver', 'Union Joven'].forEach(function (n) {
+test('plata and silver are blanco under another name', function () {
+  ['Ocho Plata', 'Herradura Silver'].forEach(function (n) {
     assert.strictEqual(A.expressionOf({ name: n }), 'blanco', n);
   });
+  // Joven is not, because the card's enum has it as its own value.
+  assert.strictEqual(A.expressionOf({ name: 'Union Joven' }), 'joven');
 });
 
 test('an expression the card does not name stays unknown', function () {
@@ -335,8 +363,62 @@ test('a neat mezcal is smoky with no ingredient list to read', function () {
   assert.ok(mz.tags.indexOf('rauchig') !== -1);
 });
 
-test('a neat tequila claims no character it cannot show', function () {
-  assert.deepStrictEqual(byName('Don Julio Blanco').tags, []);
+test('every flavour on the card is one the app has a word for', function () {
+  /* If the bar adds a tag nobody has written copy for, this is what says so,
+   * rather than the option quietly never appearing. */
+  var Q = require('../data/questions.js');
+  var known = {};
+  Q.CHARACTER_CHOICES.forEach(function (o) { known[o.value] = true; });
+  ITEMS.forEach(function (d) {
+    d.tags.forEach(function (t) {
+      assert.ok(known[t], 'no copy for the flavour ' + JSON.stringify(t) +
+        ' on ' + d.name + '. Add it to CHARACTER_CHOICES or alias it.');
+    });
+  });
+});
+
+test('a pour the card has not described claims nothing', function () {
+  assert.deepStrictEqual(byName('Ocho Plata').tags, []);
+});
+
+test('a neat pour finally tastes of something', function () {
+  /* The whole point of flavour_tags on the pours. Before it, a blanco and an
+   * añejo were identical to this app, which is the one difference that
+   * matters most. */
+  var blanco = byName('Don Julio Blanco').tags;
+  var anejo = byName('Don Julio Añejo').tags;
+  assert.ok(blanco.length && anejo.length);
+  assert.strictEqual(blanco.filter(function (t) { return anejo.indexOf(t) !== -1; }).length, 0,
+    'they should now have nothing in common');
+});
+
+test('the card writes citrus two ways and the app reads one', function () {
+  /* The cocktail half says sauer/zitrus, the neat pours say zitrus. Without
+   * the alias a guest asking for citrus matches the Margarita and not the
+   * Blanco, which is the kind of gap nobody notices. */
+  assert.strictEqual(A.canonicalTag('zitrus'), 'sauer/zitrus');
+  assert.strictEqual(A.canonicalTag('frisch'), 'kräuterig/frisch');
+  assert.strictEqual(A.canonicalTag('vanille'), 'vanille', 'anything else is left alone');
+
+  var blanco = byName('Don Julio Blanco');
+  assert.ok(blanco.item.flavour_tags.indexOf('zitrus') !== -1, 'the fixture must use the raw word');
+  assert.ok(blanco.tags.indexOf('sauer/zitrus') !== -1);
+  assert.strictEqual(blanco.tags.indexOf('zitrus'), -1, 'and only the one spelling survives');
+
+  // The same tag reaches both halves of the card, which is the point.
+  assert.ok(byName('Margarita').tags.indexOf('sauer/zitrus') !== -1);
+});
+
+test('a mezcal the bar described is not argued with', function () {
+  /* Smoke is added only where the card gave no flavour_tags at all. If the
+   * bar tags a mezcal and leaves smoke off, the bar is right. */
+  var withTags = A.derive({ name: 'Leiser Mezcal', agave_kind: 'Mezcal',
+    flavour_tags: ['zitrus'], prices: [], allergens: [], ingredients: [] });
+  assert.deepStrictEqual(withTags.tags, ['sauer/zitrus']);
+
+  var silent = A.derive({ name: 'Namenloser Mezcal', agave_kind: 'Mezcal',
+    prices: [], allergens: [], ingredients: [] });
+  assert.ok(silent.tags.indexOf('rauchig') !== -1);
 });
 
 test('the Menu API flavour field wins over the derivation the day it lands', function () {

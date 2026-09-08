@@ -104,6 +104,9 @@ var SECTIONS = [
       pour({
         name: 'Don Julio Blanco', name_en: 'Don Julio Blanco',
         agave_expression: 'Blanco', recommended: true, menu_class: 'star',
+        aged_months: 0,
+        flavour_tags: ['frisch', 'zitrus', 'agave', 'pfeffrig'],
+        flavour_tags_en: ['fresh', 'citrus', 'agave', 'peppery'],
         image: 'https://brunnenbar.com/wp-content/uploads/don-julio-blanco.jpg',
         price: 9.5, prices: [{ size: '2 cl', price: 9.5 }, { size: '4 cl', price: 17 }],
         description: 'Pfeffrig und klar.', description_en: 'Peppery and clear.',
@@ -112,31 +115,39 @@ var SECTIONS = [
       }),
       pour({
         name: 'Don Julio Reposado', name_en: 'Don Julio Reposado',
-        agave_expression: 'Reposado',
+        agave_expression: 'Reposado', aged_months: 8,
+        flavour_tags: ['vanille', 'agave', 'eiche'],
         price: 11, prices: priced(11), popularity_rank: 20, pos_sku: 'T2'
       }),
       pour({
         name: 'Don Julio Añejo', name_en: 'Don Julio Anejo',
-        agave_expression: 'Añejo',
+        agave_expression: 'Añejo', aged_months: 18,
+        flavour_tags: ['vanille', 'karamell', 'schokolade', 'eiche'],
         price: 14, prices: priced(14), popularity_rank: 30, pos_sku: 'T3'
       }),
       pour({
         // Rosado is a reposado finished in port casks, and its own answer.
         name: 'Don Julio Rosado', name_en: 'Don Julio Rosado',
-        agave_expression: 'Rosado',
+        agave_expression: 'Rosado', aged_months: 8,
+        flavour_tags: ['fruchtig', 'vanille', 'agave'],
         price: 15, prices: priced(15), pos_sku: 'T4'
       }),
       pour({
         /* The whole reason agave_expression exists. Nothing in this name says
          * anejo, so before the field landed the app could not place it. */
         name: 'Don Julio 1942', name_en: 'Don Julio 1942',
-        agave_expression: 'Añejo',
+        /* Same house, same expression, same region, same strength and the
+         * same tags as the Añejo above. aged_months is the only thing that
+         * separates them, which is exactly why the field was asked for. */
+        agave_expression: 'Añejo', aged_months: 30,
+        flavour_tags: ['vanille', 'karamell', 'schokolade', 'eiche'],
         price: 29, prices: priced(29), on_printed_menu: false, pos_sku: 'T5'
       }),
       pour({
         name: 'Nuestra Soledad Mezcal', name_en: 'Nuestra Soledad Mezcal',
-        brand: 'Nuestra Soledad', agave_kind: 'Mezcal', agave_expression: '',
+        brand: 'Nuestra Soledad', agave_kind: 'Mezcal', agave_expression: 'Joven',
         agave_region: 'Oaxaca / Valles', additive_free: true,
+        flavour_tags: ['rauchig', 'zitrus', 'mineralisch'],
         price: 13, prices: priced(13), popularity_rank: 40, pos_sku: 'T6'
       }),
       item({
@@ -249,7 +260,8 @@ var MENU = {
 };
 
 /* The same card as page 217 serves it until the website seat republishes. */
-var NEW_FIELDS = ['agave_kind', 'agave_expression', 'brand', 'agave_region', 'additive_free'];
+var NEW_FIELDS = ['agave_kind', 'agave_expression', 'brand', 'agave_region',
+                  'additive_free', 'aged_months', 'flavour_tags', 'flavour_tags_en'];
 
 function beforePublish() {
   var copy = JSON.parse(JSON.stringify(MENU));

@@ -59,6 +59,10 @@
    * Forty cents is not a reason to pick a different drink. */
   var PRICE_GAP = 1.5;
 
+  /* How much longer in oak is worth calling out. Two months apart is two
+   * bottles the same age as far as a guest is concerned. */
+  var AGE_GAP_MONTHS = 6;
+
   function list(v) { return Array.isArray(v) ? v : (v == null || v === '' ? [] : [v]); }
 
   /* Deterministic 0..1 jitter, so two guests at one table are not always
@@ -281,22 +285,32 @@
       options.push({ kind: 'expression', value: alt.expression });
     }
 
-    // 3. a different place the agave grew, where the card names both.
+    /* 3. longer or shorter in oak, where the card records both. Only reached
+     *    when the expression is the same or unnamed, since a different
+     *    expression is the better thing to say. This is what separates a Don
+     *    Julio Añejo from a Don Julio 1942, which the card otherwise
+     *    describes identically. */
+    if (alt.agedMonths != null && hero.agedMonths != null) {
+      if (alt.agedMonths - hero.agedMonths >= AGE_GAP_MONTHS) options.push({ kind: 'older' });
+      else if (hero.agedMonths - alt.agedMonths >= AGE_GAP_MONTHS) options.push({ kind: 'younger' });
+    }
+
+    // 4. a different place the agave grew, where the card names both.
     //    Highland against lowland is the first difference a guest tastes.
     if (alt.region && hero.region && alt.region.text !== hero.region.text) {
       options.push({ kind: 'region', value: alt.region.key || alt.region.text });
     }
 
-    // 4. a pour against something built, or the other way round
+    // 5. a pour against something built, or the other way round
     if (alt.pour !== hero.pour) options.push({ kind: alt.pour ? 'neat' : 'mixed' });
 
-    // 5. noticeably stronger or lighter, where both are recorded
+    // 6. noticeably stronger or lighter, where both are recorded
     if (alt.strength != null && hero.strength != null) {
       if (alt.strength - hero.strength >= 1) options.push({ kind: 'stronger' });
       else if (hero.strength - alt.strength >= 1) options.push({ kind: 'lighter' });
     }
 
-    // 6. an ingredient the favourite does not have, rarest across the card
+    // 7. an ingredient the favourite does not have, rarest across the card
     //    first, since that carries the most character
     var unique = alt.ing.filter(function (i) {
       return hero.ing.indexOf(i) === -1 && !isGeneric(i);
@@ -306,12 +320,12 @@
     });
     unique.forEach(function (i) { options.push({ kind: 'ingredient', value: i }); });
 
-    // 7. money, but only when it is enough to matter
+    // 8. money, but only when it is enough to matter
     if (alt.price != null && hero.price != null && hero.price - alt.price >= PRICE_GAP) {
       options.push({ kind: 'cheaper' });
     }
 
-    // 8. a character the favourite does not have
+    // 9. a character the favourite does not have
     alt.tags.filter(function (t) { return hero.tags.indexOf(t) === -1; })
       .forEach(function (t) { options.push({ kind: 'character', value: t }); });
 
@@ -340,7 +354,7 @@
     passesHard: passesHard, passesServeGate: passesServeGate,
     NO_PREFERENCE: NO_PREFERENCE, NO_SMOKE: NO_SMOKE,
     ONLY_ADDITIVE_FREE: ONLY_ADDITIVE_FREE, NOT_ALLERGENS: NOT_ALLERGENS,
-    PRICE_GAP: PRICE_GAP,
+    PRICE_GAP: PRICE_GAP, AGE_GAP_MONTHS: AGE_GAP_MONTHS,
     WEIGHTS: W
   };
   if (typeof module !== 'undefined' && module.exports) module.exports = api;

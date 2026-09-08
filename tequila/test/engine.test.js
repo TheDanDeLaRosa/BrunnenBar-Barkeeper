@@ -29,6 +29,16 @@ function byName(n) {
 }
 function names(res) { return res.items.map(function (r) { return r.drink.name; }); }
 
+/* Two questions build their options from the card, so a test that wants to
+ * walk every possible option has to ask for the full list rather than read a
+ * static `options` array that is not there. */
+function allOptionsFor(q) {
+  if (q.options) return q.options;
+  if (q.id === 'agave') return Q.AGAVE_CHOICES;
+  if (q.id === 'character') return Q.CHARACTER_CHOICES.concat([Q.FREE_REIN]);
+  return [];
+}
+
 console.log('\nHard rules, never relaxed');
 
 test('an excluded allergen never reaches a guest, at any answer', function () {
@@ -222,6 +232,14 @@ test('every contrast claim is true of that pair', function () {
         assert.strictEqual(alt.expression, c.value, where);
         assert.notStrictEqual(hero.expression, c.value, where);
       }
+      if (c.kind === 'older') {
+        assert.ok(alt.agedMonths != null && hero.agedMonths != null, where);
+        assert.ok(alt.agedMonths - hero.agedMonths >= E.AGE_GAP_MONTHS, where);
+      }
+      if (c.kind === 'younger') {
+        assert.ok(alt.agedMonths != null && hero.agedMonths != null, where);
+        assert.ok(hero.agedMonths - alt.agedMonths >= E.AGE_GAP_MONTHS, where);
+      }
       if (c.kind === 'region') {
         assert.ok(alt.region && hero.region, where);
         assert.notStrictEqual(alt.region.text, hero.region.text, where);
@@ -383,21 +401,27 @@ test('every static answer value is something the card can actually answer', func
     d.tags.forEach(function (t) { tags[t] = true; });
     d.allergens.forEach(function (a) { allergens[a] = true; });
   });
-  // The agave question builds itself from the card, so check what it would
-  // actually offer rather than the vocabulary it draws from.
+  /* Both self-building questions offer only what the card carries, so check
+   * what they would actually put on screen rather than the vocabulary they
+   * draw from. */
   Q.agaveOptions(ITEMS).forEach(function (opt) {
     assert.ok(exprs[opt.value] || kinds[opt.value], 'no item is a ' + opt.value);
   });
   assert.ok(Q.AGAVE_CHOICES.length > Q.agaveOptions(ITEMS).length,
     'this fixture should not carry every expression, or the filter proves nothing');
 
+  Q.characterOptions(ITEMS).forEach(function (opt) {
+    if (opt.exclusive) return;
+    assert.ok(tags[opt.value], 'nothing on the card tastes of ' + opt.value);
+  });
+  assert.ok(Q.CHARACTER_CHOICES.length + 1 > Q.characterOptions(ITEMS).length,
+    'this fixture should not carry every flavour, or the filter proves nothing');
+
   Q.QUESTIONS.forEach(function (q) {
     (q.options || []).forEach(function (opt) {
       var v = opt.value;
       if (opt.exclusive) return;                       // the sentinel, not a value
-      if (q.id === 'character') {
-        assert.ok(A.CHARACTER[v], v + ' is not a character the derivation can produce');
-      } else if (q.id === 'exclude' && E.NOT_ALLERGENS.indexOf(v) === -1) {
+      if (q.id === 'exclude' && E.NOT_ALLERGENS.indexOf(v) === -1) {
         // Allergen values are the card's own strings, so they only have to
         // be strings the card could carry, not ones this fixture does.
         assert.strictEqual(typeof v, 'string', v);
@@ -414,7 +438,7 @@ test('every option and question carries both languages', function () {
       assert.ok(q.title[lang], q.id + ' title ' + lang);
       assert.ok(!q.sub || q.sub[lang], q.id + ' sub ' + lang);
     });
-    (q.options || Q.AGAVE_CHOICES).forEach(function (opt) {
+    allOptionsFor(q).forEach(function (opt) {
       ['de', 'en'].forEach(function (lang) {
         assert.ok(opt.label[lang], q.id + '/' + opt.value + ' label ' + lang);
         assert.ok(!opt.hint || opt.hint[lang], q.id + '/' + opt.value + ' hint ' + lang);
@@ -425,6 +449,10 @@ test('every option and question carries both languages', function () {
 
 test('every character and expression the engine can name reads back in both languages', function () {
   ['de', 'en'].forEach(function (lang) {
+    Q.CHARACTER_CHOICES.forEach(function (opt) {
+      assert.ok(Q.UI[lang].characterNames[opt.value], lang + ' has no name for ' + opt.value);
+      assert.ok(Q.UI[lang].characterCompare[opt.value], lang + ' has no comparative for ' + opt.value);
+    });
     Object.keys(A.CHARACTER).forEach(function (tag) {
       assert.ok(Q.UI[lang].characterNames[tag], lang + ' has no name for ' + tag);
       assert.ok(Q.UI[lang].characterCompare[tag], lang + ' has no comparative for ' + tag);
@@ -439,6 +467,21 @@ test('every character and expression the engine can name reads back in both lang
       var key = A.REGIONS[word];
       assert.ok(Q.UI[lang].regionNames[key], lang + ' has no name for region ' + key);
       assert.ok(Q.UI[lang].regionContrast[key], lang + ' has no contrast for region ' + key);
+    });
+  });
+});
+
+test('no two flavours read the same on a runner up', function () {
+  /* Runner ups are deduplicated on the contrast key, not on the rendered
+   * string, so two different flavours sharing a comparative would put the
+   * same words on two cards again. */
+  ['de', 'en'].forEach(function (lang) {
+    var seen = {};
+    var compare = Q.UI[lang].characterCompare;
+    Object.keys(compare).forEach(function (tag) {
+      assert.ok(!seen[compare[tag]],
+        lang + ': ' + tag + ' and ' + seen[compare[tag]] + ' both read "' + compare[tag] + '"');
+      seen[compare[tag]] = tag;
     });
   });
 });
@@ -459,7 +502,7 @@ test('the guest copy keeps the house voice', function () {
   Q.QUESTIONS.forEach(function (q) {
     walkCopy(q.title, q.id + '.title');
     walkCopy(q.sub, q.id + '.sub');
-    (q.options || Q.AGAVE_CHOICES).forEach(function (o) {
+    allOptionsFor(q).forEach(function (o) {
       walkCopy(o.label, q.id + '.' + o.value + '.label');
       walkCopy(o.hint, q.id + '.' + o.value + '.hint');
     });
@@ -479,7 +522,8 @@ function walk(fixed, fn) {
   var strengths = ['', '1', '2', '3'];
   var characters = [[], ['barkeeper'], ['sauer/zitrus'], ['rauchig'], ['süß'], ['bitter'],
                     ['prickelnd'], ['fruchtig'], ['scharf'], ['kräuterig/frisch'],
-                    ['cremig'], ['sauer/zitrus', 'süß']];
+                    ['cremig'], ['agave'], ['vanille'], ['eiche'],
+                    ['sauer/zitrus', 'süß'], ['vanille', 'eiche']];
   var budgets = [''].concat(STOPS.map(String));
   var excludes = [[], ['rauch'], ['zusaetze'], ['Ei'], ['Nüsse'],
                   ['rauch', 'zusaetze', 'Ei', 'Nüsse', 'Milch']];

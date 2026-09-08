@@ -26,10 +26,14 @@
  *
  * FIELDS FIRST, NAMES SECOND
  * --------------------------
- * As of the 08.09.2026 card the Menu API carries `agave_kind`,
- * `agave_expression`, `brand`, `agave_region` and `additive_free`. Every one
+ * The Menu API carries `agave_kind`, `agave_expression`, `brand`,
+ * `agave_region`, `additive_free`, `aged_months` and `flavour_tags`. Every one
  * of those is read straight off the item and the vocabularies below are only
  * consulted where a field is missing.
+ *
+ * `agave_kind` is the spirit category, `agave_expression` is the maturation.
+ * That was ambiguous for a day and is settled; there is no longer any code
+ * guessing which is which.
  *
  * The fallback is not dead code and should not be deleted. The fields live in
  * menu.json, and menu.json reaches page 217 only when the website seat
@@ -125,7 +129,11 @@
     ['blanco', 'blanco'],
     ['plata', 'blanco'],
     ['silver', 'blanco'],
-    ['joven', 'blanco']
+    /* Joven is its own value in the card's enum, so it stays its own answer.
+     * It means the same thing as blanco for a tequila and is the usual word
+     * for an unaged mezcal, and folding the two together would offer a guest
+     * a word the card in front of them does not use. */
+    ['joven', 'joven']
   ];
 
   /* The agave spirits `agave_kind` can name. Anything else the field says is
@@ -164,6 +172,29 @@
    * The tag values are the cocktail card's own flavour vocabulary, so the
    * day `flavour_tags` lands, it drops straight in and this dictionary
    * stops being consulted. `tagsOf` already prefers the real field. */
+  /* The card writes the same flavour two ways. The cocktail half uses
+   * `sauer/zitrus` and `kräuterig/frisch`, the neat pours use `zitrus` and
+   * `frisch`. Aliasing them onto one key here is what stops a guest asking
+   * for citrus and matching the Margarita but not the Blanco.
+   *
+   * This is a patch over a split vocabulary, not a place to invent meanings.
+   * Only spellings of the same thing belong in it, and it should shrink to
+   * nothing once the two halves of the card agree at source. */
+  var TAG_ALIASES = {
+    'zitrus': 'sauer/zitrus',
+    'sauer': 'sauer/zitrus',
+    'frisch': 'kräuterig/frisch',
+    'kräuterig': 'kräuterig/frisch',
+    'suess': 'süß',
+    'rauch': 'rauchig',
+    'holz': 'holzig'
+  };
+
+  function canonicalTag(tag) {
+    var key = String(tag == null ? '' : tag).trim();
+    return Object.prototype.hasOwnProperty.call(TAG_ALIASES, key) ? TAG_ALIASES[key] : key;
+  }
+
   var CHARACTER = {
     'sauer/zitrus': ['limette', 'lime', 'zitrone', 'lemon', 'grapefruit', 'yuzu', 'pampelmuse'],
     'bitter': ['campari', 'wermut', 'vermouth', 'bitters', 'angostura', 'aperol', 'amaro', 'cynar'],
@@ -296,7 +327,7 @@
    * precisely. Mezcal wins where both appear in the same glass, because the
    * smoke is the thing a guest will notice. */
   function kindOf(item) {
-    var given = matchKind(spiritFields(item).kind);
+    var given = matchKind(norm(item.agave_kind).trim());
     if (given) return given;
 
     var hay = bottle(item);
@@ -326,7 +357,7 @@
    * table does not know is kept as its own key rather than thrown away, so a
    * new expression groups correctly and simply shows as written. */
   function expressionOf(item) {
-    var given = spiritFields(item).expression;
+    var given = norm(item.agave_expression).trim();
     if (given) return matchExpression(given) || given.replace(/\s+/g, '-');
     return matchExpression(bottle(item)) || '';
     // Unknown stays unknown. "Margarita" says tequila and no more.
@@ -346,25 +377,6 @@
     return '';
   }
 
-  /* `agave_kind` and `agave_expression`, read whichever way round they arrive.
-   *
-   * Dan's own example has agave_kind "Tequila" and agave_expression "Añejo".
-   * The data spec's field table glosses them the other way round. Rather than
-   * pick one and be wrong half the time, the two values are recognised by
-   * what they SAY. A value naming a spirit is the kind, a value naming a
-   * maturation is the expression, whichever key it arrived under.
-   *
-   * This is a compatibility shim, not a design. It should come out once the
-   * generator and the doc agree. */
-  function spiritFields(item) {
-    var a = norm(item.agave_kind).trim();
-    var b = norm(item.agave_expression).trim();
-    if (!matchKind(a) && matchExpression(a) && matchKind(b)) {
-      return { kind: b, expression: a };
-    }
-    return { kind: a, expression: b };
-  }
-
   /* Where the agave grew, as the card writes it, plus a key for the two
    * everyday cases so the interface can say Hochland rather than Highland. */
   function regionOf(item) {
@@ -376,6 +388,13 @@
       if (!key && has(n, word)) key = REGIONS[word];
     });
     return { text: raw, key: key };
+  }
+
+  /* How long it sat in oak. A finer version of the expression axis, and the
+   * only thing that separates two bottles the card describes identically. */
+  function agedMonthsOf(item) {
+    return typeof item.aged_months === 'number' && isFinite(item.aged_months)
+      ? item.aged_months : null;
   }
 
   /* Additive free, unknown, or additives. Three states and not two, because
@@ -409,9 +428,15 @@
   function tagsOf(item) {
     var given = list(item.flavour_tags);
     if (given.length) {
-      var from = {};
-      given.forEach(function (t) { from[t] = ''; });
-      return { tags: given.slice(), from: from };
+      /* The card said so, so that is the answer. No ingredient reading, and
+       * no smoke added to a mezcal the bar did not call smoky. The `from` is
+       * empty because there is no ingredient to point a guest at. */
+      var tags = [], from = {};
+      given.forEach(function (t) {
+        var c = canonicalTag(t);
+        if (c && tags.indexOf(c) === -1) { tags.push(c); from[c] = ''; }
+      });
+      return { tags: tags, from: from };
     }
 
     var ings = list(item.ingredients).concat(list(item.ingredients_en));
@@ -429,8 +454,9 @@
       }
     });
 
-    // Mezcal is smoky whether or not it is spelled out in an ingredient
-    // list, which a neat pour has none of.
+    /* Mezcal is smoky whether or not an ingredient list spells it out. Only
+     * reached when the card gave no flavour_tags at all, so it never argues
+     * with a bottle the bar has actually described. */
     if (kindOf(item) === 'mezcal' && tags.indexOf('rauchig') === -1) {
       tags.push('rauchig');
       source['rauchig'] = item.name;
@@ -514,6 +540,7 @@
       portfolio: PORTFOLIO[brand] || '',
       region: regionOf(item),
       additiveFree: additiveFreeOf(item),
+      agedMonths: agedMonthsOf(item),
       pour: isPour(item),
       strength: strengthOf(item),
       tags: character.tags,
@@ -534,10 +561,11 @@
 
   var api = {
     derive: derive, agaveItems: agaveItems,
-    isAgave: isAgave, isRelevant: isRelevant, spiritFields: spiritFields,
+    isAgave: isAgave, isRelevant: isRelevant,
     matchKind: matchKind, matchExpression: matchExpression, kindOf: kindOf, expressionOf: expressionOf, brandOf: brandOf,
     isPour: isPour, strengthOf: strengthOf, tagsOf: tagsOf, priceOf: priceOf, norm: norm,
     isAgaveWord: isAgaveWord, regionOf: regionOf, additiveFreeOf: additiveFreeOf,
+    agedMonthsOf: agedMonthsOf, canonicalTag: canonicalTag, TAG_ALIASES: TAG_ALIASES,
     bottle: bottle, shelf: shelf,
     budgetStops: budgetStops,
     SPIRIT_WORDS: SPIRIT_WORDS, BRANDS: BRANDS, PORTFOLIO: PORTFOLIO,

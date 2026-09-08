@@ -427,8 +427,20 @@ from what the card actually costs, so no number in the app is a price and none
 goes stale. Both disappear entirely if the card does not spread far enough to
 be worth asking about.
 
+Have them narrow on the answers already given, too. The agave app asks neat or
+mixed first, which halves the card, so the flavour question that follows drops
+from eighteen options to twelve. Filter the pool with the engine's own gate
+rather than reimplementing what the answer means, or the question and the
+result will eventually disagree.
+
 Prefer this wherever it is possible. A hand-written option list is a claim
 about the card that nobody will re-check.
+
+One caution. Runner-up labels are deduplicated on the contrast key, not on the
+rendered string, so two different values that share a comparative will put the
+same words on two cards. Assert that the comparatives are distinct within each
+language; it is two lines and it catches a class of bug that only shows up on
+screen.
 
 Three things worth settling before writing any of it.
 

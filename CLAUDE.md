@@ -128,8 +128,13 @@ The build environment's network policy denies `brunnenbar.com`, so everything
 is written against the documented schema and tested against synthetic fixtures
 shaped like it. The first run against the real payload is worth watching.
 
-**`agave_kind` and `agave_expression` are documented two ways.** Dan's example
-has `agave_kind: "Tequila"` and `agave_expression: "Añejo"`. The data spec's
-field table glosses them the other way round. `agave.js` reads both values by
-what they SAY rather than by which key they arrived under, so it is right
-either way. That shim comes out once the generator and the doc agree.
+**The card writes one flavour two ways.** The cocktail half uses
+`sauer/zitrus` and `kräuterig/frisch`, the neat pours use `zitrus` and
+`frisch`. `TAG_ALIASES` in `tequila/assets/agave.js` folds them onto one key,
+because otherwise a guest asking for citrus matches the Margarita and not the
+Blanco. Only spellings of the same thing belong in that table, never a new
+meaning, and it should shrink to nothing once the two halves agree at source.
+
+**`agave_kind` is the spirit category and `agave_expression` is the
+maturation.** That was ambiguous for a day and is settled. No code guesses
+which is which any more, and a test pins the direction.

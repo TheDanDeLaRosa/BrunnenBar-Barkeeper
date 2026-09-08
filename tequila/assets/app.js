@@ -80,16 +80,34 @@
 
   function announce(msg) { if (liveRegion) liveRegion.textContent = msg; }
 
-  /* Recomputed rather than cached, because the budget question exists only
-   * when the card spreads far enough to be worth asking about. */
+  /* What is still reachable given the answers so far.
+   *
+   * Only the neat-or-mixed answer comes before the questions that build
+   * themselves, and it halves the card. A guest who said "pur" should not be
+   * offered a flavour only a cocktail has, or a budget stop only a cocktail
+   * sits under. The engine's own gate decides, so there is one implementation
+   * of what "pur" means rather than two that drift.
+   *
+   * The engine may still relax that gate when nothing neat survives the hard
+   * rules. That is a different job. This decides what to ask, not what to
+   * offer in the end. */
+  function reachableItems() {
+    return state.items.filter(function (d) {
+      return ENGINE.passesServeGate(d, state.answers);
+    });
+  }
+
+  /* Recomputed rather than cached, because the questions that build
+   * themselves appear and disappear with the answers before them. */
   function activeQuestions() {
+    var pool = reachableItems();
     return QUESTIONS.filter(function (q) {
-      return !(q.skipIf && q.skipIf(state.answers, state.items));
+      return !(q.skipIf && q.skipIf(state.answers, pool));
     });
   }
 
   function optionsOf(q) {
-    return q.optionsFrom ? q.optionsFrom(state.items, state.lang) : q.options;
+    return q.optionsFrom ? q.optionsFrom(reachableItems(), state.lang) : q.options;
   }
 
   /* Static copy is a {de, en} pair, generated copy is already a string. */
@@ -387,6 +405,15 @@
     return fill(copy, { x: x });
   }
 
+  /* Years only where they divide exactly, months otherwise. Thirty months is
+   * thirty months, and rounding it to "three years" would be a small lie
+   * about the one number a guest asked for. */
+  function agedText(months) {
+    return (months >= 24 && months % 12 === 0)
+      ? fill(t().agedYears, { n: months / 12 })
+      : fill(t().agedMonths, { n: months });
+  }
+
   function styleText(d) {
     var parts = [];
     if (d.expression) parts.push(t().expressionNames[d.expression] || d.expression);
@@ -447,6 +474,7 @@
     metaRow(t().styleLabel, styleText(d));
     // Shown as the card writes it, unless we have a word of our own for it.
     if (d.region) metaRow(t().regionLabel, t().regionNames[d.region.key] || d.region.text);
+    if (d.agedMonths != null && d.agedMonths > 0) metaRow(t().agedLabel, agedText(d.agedMonths));
     if (!d.pour) {
       var ings = f(item, 'ingredients') || [];
       if (ings.length) metaRow(t().ingredients, ings.join(' · '));

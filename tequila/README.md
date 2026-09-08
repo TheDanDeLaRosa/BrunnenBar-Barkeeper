@@ -71,27 +71,43 @@ on its own, that is the moment to copy them and not before.
 
 ## Fields first, names second
 
-As of the 08.09.2026 card the Menu API carries `agave_kind`,
-`agave_expression`, `brand`, `agave_region` and `additive_free`. Every one is
-read straight off the item, and `assets/agave.js` consults its own
-vocabularies only where a field is missing.
+The Menu API carries the spirit fields, so `assets/agave.js` consults its own
+vocabularies only where one is missing.
 
 | Field on the card | What the app does with it |
 |---|---|
 | `agave_kind` | tequila, mezcal, sotol, raicilla, bacanora |
-| `agave_expression` | blanco, reposado, rosado, añejo, extra añejo, cristalino |
+| `agave_expression` | blanco, joven, reposado, rosado, añejo, extra añejo, cristalino |
 | `brand` | shown as a badge, and mapped to a house |
 | `agave_region` | shown on the card, and separates two otherwise identical suggestions |
 | `additive_free` | a hard rule the guest can ask for |
+| `aged_months` | shown on the card, and the "aged longer" contrast |
+| `flavour_tags` | the character question, in place of reading ingredients |
 | `recommended` | the card's own leader for its section, shown as a marker |
 | `image` | the bottle shot on the favourite, linked and never copied |
 | `menu_class` | **nothing.** It is not copied into the record at all, see below |
 
-**`agave_kind` and `agave_expression` are documented two ways.** Dan's example
-has kind `Tequila` and expression `Añejo`. The data spec's field table glosses
-them the other way round. Both values are read by *what they say* rather than
-by which key they arrived under, so the app is right either way. That shim
-comes out once the generator and the doc agree.
+`agave_kind` is the spirit category and `agave_expression` is the maturation.
+That was ambiguous for a day and is settled, so there is no longer any code
+guessing which is which. **Joven is its own answer** rather than quietly
+relabelled Blanco, because it is a value in the card's enum and a guest should
+see the word the card in front of them uses.
+
+`aged_months` is what makes Don Julio Añejo and Don Julio 1942 tellable apart.
+Same house, same expression, same region, same strength, same flavours. The
+card used to say "Passt ebenfalls" about the second, and now says "Was länger
+Gereiftes".
+
+### One flavour, two spellings
+
+The cocktail half of the card writes `sauer/zitrus` and `kräuterig/frisch`.
+The neat pours write `zitrus` and `frisch`. `TAG_ALIASES` in `agave.js` folds
+them onto one key, because otherwise a guest asking for citrus matches the
+Margarita and not the Blanco, which is the kind of gap nobody notices.
+
+It is a patch over a split vocabulary and only spellings of the same thing
+belong in it. `docs/menu-api-felder-tequila.md` asks for the two halves to be
+aligned at source, and the table shrinks to nothing when they are.
 
 ### The fallback is not dead code
 
@@ -255,12 +271,20 @@ slower route to the top seller. Hard rules still apply in full.
 | Wo soll der Preis landen | `prices`, and the stops are derived from them | hard |
 | Soll etwas draussen bleiben | `allergens`, plus smoke and additives | hard |
 
-**Two questions build themselves from the card.** The agave question offers
-only expressions the bar carries today, so it can never invite a guest to ask
-for a Cristalino that is not behind the bar, and a new bottle brings its own
-option with it. The budget question derives its stops from what the card
-actually costs, so no number in this app is a price and none goes stale. Both
-disappear entirely if the card does not spread far enough to be worth asking.
+**Three questions build themselves from the card, and narrow as they go.** The
+agave question offers only expressions the bar carries, so it can never invite
+a guest to ask for a Cristalino that is not behind the bar. The character
+question offers only flavours something on the card actually has. The budget
+question derives its stops from what the card actually costs, so no number in
+this app is a price and none goes stale. Any of them disappears entirely if
+the card does not spread far enough to be worth asking.
+
+They also narrow on the answers already given, because neat or mixed halves the
+card. Say *pur* and the flavour list is Agave, Pfeffrig, Vanille, Karamell,
+Schokolade and Eiche; say *gemixt* and it is Süß, Bitter, Prickelnd, Cremig and
+Salzig. Twelve buttons instead of eighteen, and never one that cannot match.
+The engine's own gate decides what "pur" means, so there is one implementation
+rather than two that drift.
 
 The strength question has three stops because the Menu API carries three
 strength words. Six would be inventing two of them.
@@ -274,11 +298,6 @@ network policy denies `brunnenbar.com`, so everything here is written against
 the documented Menu API schema and tested against a synthetic fixture shaped
 exactly like it. The first run against the real payload is worth watching,
 and `docs/menu-api-felder-tequila.md` lists what to look for.
-
-**Neat pours carry `strength` now but still no `flavour_tags`.** A pour has no
-ingredient list to read a character off, so a blanco and an añejo taste the
-same to this app, which is exactly the difference. It is the one field left
-that would change what the app can do.
 
 **The loader asks hourly at most and compares `content_hash`.** Both come from
 the data spec. `published_at` moves on every build whether or not anything
