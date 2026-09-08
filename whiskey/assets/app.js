@@ -418,7 +418,7 @@
    * The alt text is the bottle's name. A screen reader that has just read
    * the name in the heading does not need it twice, so the image is marked
    * decorative there instead, which is what an empty alt means. */
-  function shotOf(item) {
+  function shotOf(item, small) {
     var url = item && item.image;
     if (typeof url !== 'string' || !url) return null;
     // A plain path, an http address, or an inlined image. Anything else has
@@ -426,10 +426,12 @@
     if (/^[a-z][a-z0-9+.\-]*:/i.test(url)
         && !/^https?:/i.test(url)
         && !/^data:image\//i.test(url)) return null;
-    return el('img', {
-      class: 'shot', src: url, alt: '', loading: 'lazy', decoding: 'async',
-      width: '900', height: '900'
-    });
+    return el('figure', { class: 'shot' + (small ? ' shot-sm' : '') }, [
+      el('img', {
+        src: url, alt: '', loading: 'lazy', decoding: 'async',
+        width: '900', height: '900'
+      })
+    ]);
   }
 
   function renderCard(item, rank) {
@@ -470,23 +472,32 @@
      * app leaves it alone rather than putting two golden claims on one
      * screen. */
 
-    /* The badges stay below the photo row rather than beside it. Squeezed
-     * into the space left over next to a bottle they wrap one to a line and
-     * the card starts to look like a list of warnings. */
-    var head = el('div', { class: 'card-head-body' }, [
-      el('div', { class: 'card-top' }, [
-        el('h3', { text: F(d, 'name') }),
-        el('span', { class: 'match', text: fill(t().match, { n: item.match }) })
-      ])
+    /* Two shapes, both from the theme. The favourite gets the photo across
+     * the full width above its name, a runner up gets a thumbnail beside it.
+     * A card with no photo simply has neither, and never a placeholder.
+     *
+     * The badges sit below either arrangement. Squeezed into the space left
+     * over next to a bottle they wrap one to a line and the card starts to
+     * look like a list of warnings. */
+    var photo = shotOf(d, !hero);
+    var titleRow = el('div', { class: 'card-top' }, [
+      el('h3', { text: F(d, 'name') }),
+      el('span', { class: 'match', text: fill(t().match, { n: item.match }) })
     ]);
 
-    var photo = shotOf(d);
+    var lead;
+    if (!photo) lead = [titleRow];
+    else if (hero) lead = [photo, titleRow];
+    else lead = [el('div', { class: 'card-lead' }, [
+      photo, el('div', { class: 'card-lead-body' }, [titleRow])
+    ])];
+
     var children = [
-      el('p', { class: 'card-rank', text: hero ? t().topPick : contrastLabel(item) }),
-      photo ? el('div', { class: 'card-head' }, [photo, head]) : head,
+      el('p', { class: 'card-rank', text: hero ? t().topPick : contrastLabel(item) })
+    ].concat(lead, [
       badges.childNodes.length ? badges : null,
       F(d, 'description') && el('p', { class: 'note', text: F(d, 'description') })
-    ];
+    ]);
 
     if (hero && F(d, 'bartender_note')) {
       children.push(el('p', { class: 'house-note', text: F(d, 'bartender_note') }));

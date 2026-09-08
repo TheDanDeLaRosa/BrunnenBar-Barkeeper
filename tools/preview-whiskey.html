@@ -437,35 +437,54 @@ a.btn { text-decoration: none; display: inline-block; }
   flex-wrap: wrap;
 }
 
-/* A photo of the thing being recommended, where the card has one.
-   `.card-head` puts it beside the title block rather than above it, because
-   a bottle shot across the full width of a phone pushes the name and the
-   match below the fold, and the name is what a guest came for.
-   The source images are square with the bottle standing in the middle, so
-   the frame is square and the fit is `contain`. `cover` would take the neck
-   off a tall bottle and the label off a squat one. */
-.card-head { display: flex; align-items: flex-start; gap: 1rem; }
-.card-head-body { flex: 1 1 auto; min-width: 0; }
+/* A product shot on a result card.
+   ---------------------------------------------------------------------------
+   The Menu API's images are square, 900 by 900, and often sit on a light or
+   transparent ground. So they are CONTAINED and never cropped, because a
+   square crop of a bottle takes the neck off, and they are given a ground of
+   their own rather than punching a hole in the card. The gold radial behind
+   them is the same wash as the page, which makes a product photo read as lit
+   on a shelf rather than pasted on.
 
+   Two sizes. `.shot` alone is the full width frame for the favourite.
+   `.shot-sm` inside a `.card-lead` row is the thumbnail for a runner up, big
+   enough to recognise a bottle by and small enough not to turn a short list
+   of suggestions into a catalogue.
+
+   `image` is a URL or null, so the markup is omitted entirely when there is
+   no photo. Never a placeholder, and a card with no photo simply has none.
+
+   A photo on a white ground fills the frame and hides the wash, which is
+   fine and is what a catalogue cutout will do. The padding keeps a thin mat
+   around it so it reads as a framed photo rather than a hole in the card. A
+   transparent PNG looks better here, and costs nothing at export time. */
 .shot {
-  flex: 0 0 auto;
-  width: 4rem;
-  height: 4rem;
-  border-radius: var(--radius);
+  margin: 0;
+  overflow: hidden;
   border: 1px solid var(--line-soft);
-  background: var(--ink-3);
+  border-radius: var(--radius);
+  background:
+    radial-gradient(62% 62% at 50% 40%, rgba(227, 200, 124, 0.1), transparent 70%),
+    var(--ink-3);
+}
+
+.shot img {
+  display: block;
+  width: 100%;
+  height: 10rem;
   object-fit: contain;
-  padding: 0.3rem;
+  padding: 0.75rem;
+  box-sizing: border-box;
 }
 
-/* On a phone the hero photo stays close to the runner-up size, because a
-   larger one eats a third of the row and pushes the name sideways. It grows
-   once there is room, at the one breakpoint this theme has. */
-.card.hero .shot { width: 4.25rem; height: 4.25rem; }
+.card > .shot { margin-bottom: 1.15rem; }
 
-@media (min-width: 34rem) {
-  .card.hero .shot { width: 5.5rem; height: 5.5rem; }
-}
+.card-lead { display: flex; gap: 0.9rem; align-items: flex-start; }
+.card-lead-body { flex: 1; min-width: 0; }
+
+.shot-sm { flex: 0 0 4.6rem; }
+.shot-sm img { height: 4.6rem; padding: 0.4rem; }
+
 
 .card h3 { font-size: clamp(1.5rem, 5vw, 1.95rem); }
 .card.alt h3 { font-size: 1.3rem; }
@@ -624,6 +643,8 @@ a.btn { text-decoration: none; display: inline-block; }
 @media print {
   body { background: #fff; color: #000; }
   .top, .results-actions, .nav, .foot { display: none; }
+  /* A product photo on a sheet of paper is a smear of toner. */
+  .shot { display: none; }
   .card { border: 1px solid #ccc; background: #fff; page-break-inside: avoid; }
   .card h3, .note, .meta-val, .why li { color: #000; }
 }
@@ -2683,7 +2704,7 @@ a.btn { text-decoration: none; display: inline-block; }
    * The alt text is the bottle's name. A screen reader that has just read
    * the name in the heading does not need it twice, so the image is marked
    * decorative there instead, which is what an empty alt means. */
-  function shotOf(item) {
+  function shotOf(item, small) {
     var url = item && item.image;
     if (typeof url !== 'string' || !url) return null;
     // A plain path, an http address, or an inlined image. Anything else has
@@ -2691,10 +2712,12 @@ a.btn { text-decoration: none; display: inline-block; }
     if (/^[a-z][a-z0-9+.\-]*:/i.test(url)
         && !/^https?:/i.test(url)
         && !/^data:image\//i.test(url)) return null;
-    return el('img', {
-      class: 'shot', src: url, alt: '', loading: 'lazy', decoding: 'async',
-      width: '900', height: '900'
-    });
+    return el('figure', { class: 'shot' + (small ? ' shot-sm' : '') }, [
+      el('img', {
+        src: url, alt: '', loading: 'lazy', decoding: 'async',
+        width: '900', height: '900'
+      })
+    ]);
   }
 
   function renderCard(item, rank) {
@@ -2735,23 +2758,32 @@ a.btn { text-decoration: none; display: inline-block; }
      * app leaves it alone rather than putting two golden claims on one
      * screen. */
 
-    /* The badges stay below the photo row rather than beside it. Squeezed
-     * into the space left over next to a bottle they wrap one to a line and
-     * the card starts to look like a list of warnings. */
-    var head = el('div', { class: 'card-head-body' }, [
-      el('div', { class: 'card-top' }, [
-        el('h3', { text: F(d, 'name') }),
-        el('span', { class: 'match', text: fill(t().match, { n: item.match }) })
-      ])
+    /* Two shapes, both from the theme. The favourite gets the photo across
+     * the full width above its name, a runner up gets a thumbnail beside it.
+     * A card with no photo simply has neither, and never a placeholder.
+     *
+     * The badges sit below either arrangement. Squeezed into the space left
+     * over next to a bottle they wrap one to a line and the card starts to
+     * look like a list of warnings. */
+    var photo = shotOf(d, !hero);
+    var titleRow = el('div', { class: 'card-top' }, [
+      el('h3', { text: F(d, 'name') }),
+      el('span', { class: 'match', text: fill(t().match, { n: item.match }) })
     ]);
 
-    var photo = shotOf(d);
+    var lead;
+    if (!photo) lead = [titleRow];
+    else if (hero) lead = [photo, titleRow];
+    else lead = [el('div', { class: 'card-lead' }, [
+      photo, el('div', { class: 'card-lead-body' }, [titleRow])
+    ])];
+
     var children = [
-      el('p', { class: 'card-rank', text: hero ? t().topPick : contrastLabel(item) }),
-      photo ? el('div', { class: 'card-head' }, [photo, head]) : head,
+      el('p', { class: 'card-rank', text: hero ? t().topPick : contrastLabel(item) })
+    ].concat(lead, [
       badges.childNodes.length ? badges : null,
       F(d, 'description') && el('p', { class: 'note', text: F(d, 'description') })
-    ];
+    ]);
 
     if (hero && F(d, 'bartender_note')) {
       children.push(el('p', { class: 'house-note', text: F(d, 'bartender_note') }));

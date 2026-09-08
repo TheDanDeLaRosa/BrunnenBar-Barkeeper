@@ -276,20 +276,23 @@ marks a caveat. Anything the app needs to call these locally gets an alias in
 its own stylesheet, the way the cocktail app maps `.badge.house` onto
 `.accent`.
 
-### A bottle photo
+### A product shot
 
-Where the card carries an `image`, the result card shows it beside the title
-rather than above it. A square shot across the full width of a phone pushes
-the name and the match below the fold, and the name is what a guest came for.
+Where the card carries an `image`, the result card shows it. Two shapes, and
+the theme owns both.
 
 ```html
-<div class="card-head">
-  <img class="shot" src="…" alt="" loading="lazy" decoding="async" width="900" height="900">
-  <div class="card-head-body">
-    <div class="card-top"><h3>Talisker 10</h3><span class="match">99 % Match</span></div>
+<!-- the favourite, photo across the full width above the name -->
+<figure class="shot"><img src="…" alt="" loading="lazy" decoding="async"></figure>
+<div class="card-top"><h3>Talisker 10</h3><span class="match">99 % Match</span></div>
+
+<!-- a runner up, thumbnail beside the name -->
+<div class="card-lead">
+  <figure class="shot shot-sm"><img src="…" alt="" loading="lazy" decoding="async"></figure>
+  <div class="card-lead-body">
+    <div class="card-top"><h3>Oban 14</h3><span class="match">81 % Match</span></div>
   </div>
 </div>
-<div class="badges">…</div>
 ```
 
 Four rules, and they are not negotiable.
@@ -298,22 +301,24 @@ Four rules, and they are not negotiable.
 bottle standing in the middle. `cover` takes the neck off a tall bottle and
 the label off a squat one.
 
-**Ask the asset side for cutouts on transparency, not on white.** A white
-ground becomes a bright rectangle on a near-black card and is the first thing
-the eye lands on, ahead of the name. Transparent PNG costs nothing at export.
-The frame keeps its own quiet `--ink-3` ground either way, so a cutout reads
-as a product tile rather than as a floating object.
-
-**Badges stay outside `.card-head`.** Squeezed into the space next to a bottle
-they wrap one to a line and the card reads as a list of warnings.
+**The frame keeps its own ground.** A gold radial behind the photo, the same
+wash as the page, so a product shot reads as lit on a shelf rather than pasted
+on. The padding leaves a thin mat so it reads as a framed photo rather than a
+hole in the card. Ask the asset side for cutouts on transparency rather than
+on white, which fills the frame and hides the wash. Transparent PNG costs
+nothing at export.
 
 **A missing photo is the normal case**, not a gap. Roughly half the card has
-no image. When there is none, drop `.card-head` entirely and render the title
+no image. When there is none, omit the markup entirely and render the title
 block on its own. Never a placeholder, never an empty frame.
 
-**Only http, https or a plain path.** The URL comes from the card, and a
-scheme nobody expected has no business being handed to the browser even where
-it would be inert.
+**Only http, https or a plain path**, plus a `data:image/` URI for a single
+file build. The URL comes from the card, and a scheme nobody expected has no
+business being handed to the browser even where it would be inert.
+
+Badges sit below either arrangement rather than beside the photo. Squeezed
+into the space next to a bottle they wrap one to a line and the card reads as
+a list of warnings.
 
 ### A notice
 
