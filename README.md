@@ -105,6 +105,53 @@ suggestions rather than both being handed the current top seller. Hard rules
 still apply in full: free rein never overrides an allergen or a rejected
 spirit.
 
+### Questions only offer answers the card can honour
+
+Every option a guest can tap is derived from the menu at the moment it is
+shown, never from a fixed list. If nothing in reach matches an option, it is
+not offered.
+
+On the current card that removes seven dead taps:
+
+| Path | No longer offered |
+|---|---|
+| Zero proof | Coffee and Smoky, and *Short & stirred* |
+| A round of shots | Bitter, Sparkling, Coffee and Smoky |
+
+The ordinary paths are untouched, all eleven spirits, all ten flavours and all
+four shapes still appear, because the card really does carry all of them.
+
+Two questions are deliberately never filtered. **Strength** is a scale, and a
+scale with holes in it reads as broken rather than helpful. **Allergens** is
+reassurance as much as it is a filter, and a guest with a nut allergy should
+see nuts acknowledged whether or not anything currently contains them.
+
+Three details that stop this being annoying rather than helpful:
+
+- A question is never filtered by its own answer. Without that, picking
+  *no gin* would remove every gin drink and then take the *no gin* option away
+  underneath the guest's finger.
+- Barkeeper's Choice is always offered. It is not a property of any drink, it
+  is the guest handing the choice back.
+- If filtering would leave nothing, everything is shown instead. An empty
+  question is a dead end, a slightly wrong one is merely untidy.
+
+There is also a safety net: a question whose remaining options all lead to the
+same place is dropped entirely. **It does not fire on the current card**, and
+it exists so that a shrunken card degrades into fewer questions rather than
+into a question with one answer.
+
+### Answers do not linger behind a question you can no longer see
+
+Going back and choosing zero proof takes the spirit question away. Going back
+and choosing a round of shots takes four flavours away. Any answer that is no
+longer on offer is dropped when that happens.
+
+This matters more than it sounds. A stale answer keeps scoring from behind a
+question the guest cannot see, so the results are shaped by something with
+nothing on screen to explain it. Picking Sweet and Coffee, then going back to
+zero proof, now keeps Sweet and quietly drops Coffee.
+
 ### The shots path asks less
 
 Picking *Eine Runde Shots* at the first question drops the questionnaire from

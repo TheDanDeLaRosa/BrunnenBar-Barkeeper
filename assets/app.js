@@ -11,6 +11,7 @@
   var MENU = window.BBMenu.MENU;
   var ING_EN = window.BBMenu.ING_EN;
   var QUESTIONS = window.BBQuestions.QUESTIONS;
+  var BBEngine = window.BBEngine;
   var UI = window.BBQuestions.UI;
   var CARD_URL = 'https://brunnenbar.com/cocktailkarte/';
 
@@ -73,12 +74,63 @@
     return node;
   }
 
-  /* Recomputed rather than cached: answering the strength question changes
-   * how many questions there are. */
+  /* The options a question can still offer, given what has been answered.
+   * Derived from the menu, so nothing here needs updating when the card
+   * changes. */
+  function liveOptions(q) {
+    var values = BBEngine.liveOptions(
+      MENU, state.answers, q.id, q.options.map(function (o) { return o.value; }));
+    return q.options.filter(function (o) { return values.indexOf(o.value) !== -1; });
+  }
+
+  /* Recomputed rather than cached, because answering one question changes how
+   * many are left. Two reasons a question drops out. Some are ruled out
+   * outright, the way a round of shots is not asked how it should turn up.
+   * The rest fall away when the card can no longer tell the answers apart, so
+   * nobody is asked to choose between options that all lead to the same
+   * drinks. */
   function activeQuestions() {
     return QUESTIONS.filter(function (q) {
-      return !(q.skipIf && q.skipIf(state.answers));
+      if (q.skipIf && q.skipIf(state.answers)) return false;
+      return BBEngine.canDiscriminate(
+        MENU, state.answers, q.id, q.options.map(function (o) { return o.value; }));
     });
+  }
+
+  /* Answers can go stale when an earlier one is changed. Going back and
+   * choosing zero proof takes away the spirit question, and going back and
+   * choosing a round of shots takes away four of the flavours. Left alone,
+   * the old pick keeps scoring from behind a question the guest can no longer
+   * see, which is the worst kind of wrong because there is nothing on screen
+   * to explain the result.
+   *
+   * So anything that is no longer on offer is dropped. Repeated because
+   * dropping one answer can take another out of reach, and capped because a
+   * fixed point is not worth an unbounded loop. */
+  function pruneAnswers() {
+    for (var pass = 0; pass < 3; pass++) {
+      var changed = false;
+      QUESTIONS.forEach(function (q) {
+        var v = state.answers[q.id];
+        if (v == null || v === '' || (Array.isArray(v) && !v.length)) return;
+
+        if (q.skipIf && q.skipIf(state.answers)) {
+          state.answers[q.id] = Array.isArray(v) ? [] : '';
+          changed = true;
+          return;
+        }
+
+        var live = liveOptions(q).map(function (o) { return o.value; });
+        if (Array.isArray(v)) {
+          var kept = v.filter(function (x) { return live.indexOf(x) !== -1; });
+          if (kept.length !== v.length) { state.answers[q.id] = kept; changed = true; }
+        } else if (live.indexOf(v) === -1) {
+          state.answers[q.id] = '';
+          changed = true;
+        }
+      });
+      if (!changed) return;
+    }
   }
 
   function isAnswered(q) {
@@ -89,6 +141,7 @@
   function announce(msg) { if (liveRegion) liveRegion.textContent = msg; }
 
   function render() {
+    pruneAnswers();
     stage.innerHTML = '';
     if (state.screen === 'intro') stage.appendChild(renderIntro());
     else if (state.screen === 'quiz') stage.appendChild(renderQuiz());
@@ -177,12 +230,13 @@
   function renderOptions(q) {
     var multi = q.type === 'multi';
     var current = state.answers[q.id];
+    var options = liveOptions(q);
     var wrap = el('div', {
-      class: 'options' + (q.options.length > 4 ? ' cols-2' : ''),
+      class: 'options' + (options.length > 4 ? ' cols-2' : ''),
       role: multi ? 'group' : 'radiogroup',
       'aria-label': L(q.title)
     });
-    q.options.forEach(function (opt) {
+    options.forEach(function (opt) {
       var selected = multi
         ? Array.isArray(current) && current.indexOf(opt.value) !== -1
         : current === opt.value;
@@ -348,7 +402,7 @@
   }
 
   function renderResults() {
-    var res = window.BBEngine.recommend(MENU, state.answers, {
+    var res = BBEngine.recommend(MENU, state.answers, {
       seed: state.seed,
       limit: state.showAll ? 8 : 3
     });

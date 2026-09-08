@@ -294,10 +294,90 @@
     return { items: items, relaxed: relaxed, total: scored.length };
   }
 
+  /* ------------------------------------------------------ live options ---
+   *
+   * An option nobody can be given is worse than no option. On the zero proof
+   * path the card has nothing smoky and nothing coffee flavoured, and on a
+   * round of shots it has nothing bitter and nothing sparkling, so offering
+   * those taps spends a guest's attention on an answer that cannot change the
+   * outcome.
+   *
+   * These are derived from the menu rather than listed, so they stay right
+   * when the card changes and need no upkeep. */
+
+  /* What is still reachable given the answers so far. Deliberately the strict
+   * pool with no gate relaxing, since the question is what a guest can be
+   * given, not what we would fall back to. */
+  function poolFor(menu, answers) {
+    var a = answers || {};
+    return menu.filter(function (d) {
+      return passesHard(d, a) && passesZeroProofGate(d, a) && passesShotGate(d, a);
+    });
+  }
+
+  /* Which drink property each question scores against. Questions absent from
+   * this map are never filtered.
+   *
+   * Two absences are deliberate. Strength is a scale, and a scale with holes
+   * in it reads as broken rather than as helpful. Allergens is reassurance as
+   * much as it is a filter, and a guest with a nut allergy should see nuts
+   * acknowledged whether or not anything on the card contains them. */
+  var OPTION_MATCH = {
+    spirit:   function (d, v) { return (d.spirits || []).indexOf(v) !== -1; },
+    avoid:    function (d, v) { return (d.spirits || []).indexOf(v) !== -1; },
+    flavours: function (d, v) { return (d.flavours || []).indexOf(v) !== -1; },
+    serve:    function (d, v) { return serveGroupOf(d.serve) === v; }
+  };
+
+  /**
+   * The subset of a question's option values that something in the pool can
+   * actually match.
+   *
+   * The question's own answer is cleared before the pool is worked out.
+   * Without that, picking "no gin" would remove every gin drink and then take
+   * the "no gin" option away underneath the guest's finger.
+   *
+   * Returns every value unchanged when the question is not filtered, or when
+   * filtering would leave nothing, since showing all of them is a better
+   * failure than showing none.
+   */
+  function liveOptions(menu, answers, questionId, values) {
+    var match = OPTION_MATCH[questionId];
+    if (!match) return values.slice();
+
+    var probe = Object.assign({}, answers || {});
+    delete probe[questionId];
+
+    var pool = poolFor(menu, probe);
+    if (!pool.length) return values.slice();
+
+    var live = values.filter(function (v) {
+      // The sentinel is not a property of any drink, it is the guest handing
+      // the choice back, so it is always on offer.
+      if (v === NO_PREFERENCE) return true;
+      return pool.some(function (d) { return match(d, v); });
+    });
+
+    var real = live.filter(function (v) { return v !== NO_PREFERENCE; });
+    return real.length ? live : values.slice();
+  }
+
+  /* A question worth asking has at least two answers that lead somewhere
+   * different. One does not, and none is a dead end. */
+  function canDiscriminate(menu, answers, questionId, values) {
+    if (!OPTION_MATCH[questionId]) return true;
+    var live = liveOptions(menu, answers, questionId, values)
+      .filter(function (v) { return v !== NO_PREFERENCE; });
+    return live.length >= 2;
+  }
+
   var api = {
     recommend: recommend,
     passesHard: passesHard,
     serveGroupOf: serveGroupOf,
+    poolFor: poolFor,
+    liveOptions: liveOptions,
+    canDiscriminate: canDiscriminate,
     NO_PREFERENCE: NO_PREFERENCE,
     contrastOf: contrastOf,
     SERVE_GROUPS: SERVE_GROUPS,

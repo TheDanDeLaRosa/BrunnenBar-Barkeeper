@@ -679,4 +679,103 @@ test('skipping the two questions costs a shot no match percentage', function () 
     'top shot should score near perfect, got ' + res.items[0].match);
 });
 
+console.log('\nNo question offers an answer the card cannot honour');
+
+function values(id) { return opt(id); }
+
+/* Every path a guest can actually reach through the first two questions. */
+var PATHS = [];
+opt('moment').forEach(function (m) {
+  opt('strength').forEach(function (st) {
+    PATHS.push({ moment: m, strength: st });
+  });
+});
+
+function sansOwn(id) { var o = {}; o[id] = undefined; return o; }
+var MATCH = {
+  spirit:   function (d, v) { return (d.spirits || []).indexOf(v) !== -1; },
+  avoid:    function (d, v) { return (d.spirits || []).indexOf(v) !== -1; },
+  flavours: function (d, v) { return (d.flavours || []).indexOf(v) !== -1; },
+  serve:    function (d, v) { return engine.serveGroupOf(d.serve) === v; }
+};
+
+test('no path offers an option that nothing in reach can match', function () {
+  var dead = [];
+  PATHS.forEach(function (a) {
+    questions.QUESTIONS.forEach(function (q) {
+      if (q.skipIf && q.skipIf(a)) return;
+      if (!engine.canDiscriminate(MENU, a, q.id, values(q.id))) return;
+      var live = engine.liveOptions(MENU, a, q.id, values(q.id));
+      var pool = engine.poolFor(MENU, Object.assign({}, a, sansOwn(q.id)));
+      if (!pool.length) return;
+      live.forEach(function (v) {
+        if (v === engine.NO_PREFERENCE) return;
+        var matcher = MATCH[q.id];
+        if (!matcher) return;
+        if (!pool.some(function (d) { return matcher(d, v); })) {
+          dead.push(a.moment + '/' + a.strength + '  ' + q.id + '=' + v);
+        }
+      });
+    });
+  });
+  assert.deepStrictEqual(dead, [], 'dead options offered');
+  console.log('       (' + PATHS.length + ' paths checked)');
+});
+
+test('the ordinary path still offers every option it always did', function () {
+  var a = { moment: 'Mittendrin', strength: '3' };
+  assert.strictEqual(engine.liveOptions(MENU, a, 'spirit', values('spirit')).length, values('spirit').length);
+  assert.strictEqual(engine.liveOptions(MENU, a, 'avoid', values('avoid')).length, values('avoid').length);
+  assert.strictEqual(engine.liveOptions(MENU, a, 'flavours', values('flavours')).length, values('flavours').length);
+  assert.strictEqual(engine.liveOptions(MENU, a, 'serve', values('serve')).length, values('serve').length);
+});
+
+test('zero proof stops offering smoky, coffee and short & stirred', function () {
+  var a = { moment: 'Mittendrin', strength: '0' };
+  var f = engine.liveOptions(MENU, a, 'flavours', values('flavours'));
+  assert.ok(f.indexOf('rauchig') === -1 && f.indexOf('kaffee') === -1);
+  assert.ok(f.indexOf('sauer/zitrus') !== -1, 'the ones that do exist stay');
+  assert.ok(engine.liveOptions(MENU, a, 'serve', values('serve')).indexOf('kurz') === -1);
+});
+
+test('a round of shots stops offering bitter and sparkling', function () {
+  var a = { moment: 'shots', strength: '2' };
+  var f = engine.liveOptions(MENU, a, 'flavours', values('flavours'));
+  ['bitter', 'prickelnd', 'kaffee', 'rauchig'].forEach(function (v) {
+    assert.ok(f.indexOf(v) === -1, v + ' should not be offered for shots');
+  });
+  assert.ok(f.indexOf('süß') !== -1);
+});
+
+test('handing the choice back is always on offer', function () {
+  PATHS.forEach(function (a) {
+    var f = engine.liveOptions(MENU, a, 'flavours', values('flavours'));
+    assert.ok(f.indexOf(engine.NO_PREFERENCE) !== -1,
+      'Barkeeper\'s Choice missing on ' + a.moment + '/' + a.strength);
+  });
+});
+
+test('a question is never filtered by its own answer', function () {
+  // Picking "no gin" must not remove the "no gin" option underneath the guest.
+  var a = { moment: 'Mittendrin', strength: '3', avoid: ['gin'] };
+  assert.ok(engine.liveOptions(MENU, a, 'avoid', values('avoid')).indexOf('gin') !== -1);
+});
+
+test('strength and allergens are never filtered', function () {
+  // A scale with holes reads as broken, and an allergy should be acknowledged
+  // whether or not the card currently carries it.
+  PATHS.forEach(function (a) {
+    assert.strictEqual(
+      engine.liveOptions(MENU, a, 'strength', values('strength')).length, values('strength').length);
+    assert.strictEqual(
+      engine.liveOptions(MENU, a, 'allergens', values('allergens')).length, values('allergens').length);
+  });
+});
+
+test('filtering shows everything rather than nothing when it would empty out', function () {
+  var impossible = { moment: 'shots', strength: '0', allergens: ['Ei', 'Milch', 'Nüsse'] };
+  var f = engine.liveOptions(MENU, impossible, 'flavours', values('flavours'));
+  assert.ok(f.length, 'an empty question is a dead end, show them all instead');
+});
+
 console.log('\n' + passed + ' passed' + (process.exitCode ? ', SOME FAILED' : '') + '\n');
