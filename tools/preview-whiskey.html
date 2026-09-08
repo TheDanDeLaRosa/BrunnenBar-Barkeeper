@@ -1,0 +1,2911 @@
+<title>BrunnenBar Whisky</title>
+<style>
+/* =========================================================================
+   BrunnenBar — house theme
+   =========================================================================
+   The shared look for every BrunnenBar recommender. Nothing in this file
+   knows about cocktails, whiskey or tequila. Copy it verbatim into a new app,
+   link it first, then put whatever that app needs on its own in a second
+   stylesheet after it.
+
+   Mobile-first throughout. Most guests open these on a phone, at a table, in
+   low light. Large tap targets, high contrast, no hover-only affordances.
+
+   Full explanation and copy-paste recipes: docs/design-system.md
+   ========================================================================= */
+
+:root {
+  /* Grounds. BrunnenBar's forest green driven right down to a near-black, so
+     the page stays dark while still reading as the brand. Every neutral
+     carries the same green bias, which is what keeps it from looking like a
+     generic dark theme with a gold accent bolted on. Do not swap these for
+     grey, that is the single change that would break the whole look. */
+  --ink:        #0d1712;   /* page ground */
+  --ink-2:      #131f18;   /* cards, options, anything raised off the page */
+  --ink-3:      #1a2a20;   /* hover state of a raised surface */
+  --line:       #274235;   /* visible border */
+  --line-soft:  #1e3327;   /* resting border, dividers */
+
+  /* Champagne gold, straight off the logo and the printed card. The only
+     accent. Selection, progress, focus and the primary action are all gold,
+     nothing else is. */
+  --gold:       #e3c87c;
+  --gold-lit:   #f1dda6;   /* hover on a gold fill */
+  --gold-deep:  #c9a95c;   /* reserved for gold on light, print, small type */
+
+  /* The card's own green, kept at full strength for secondary marks. Second
+     accent only, never competes with gold. */
+  --green:      #35664a;
+  --green-lit:  #5f9d76;
+
+  --cream:      #f2ece0;   /* body text */
+  --muted:      #9aa89b;   /* secondary text */
+  --muted-dim:  #6d7c70;   /* labels, disabled, the quietest thing readable */
+
+  --on-gold:    #10201a;   /* text sitting on a gold fill */
+
+  --radius:     14px;      /* options, notices, small cards */
+  --radius-lg:  20px;      /* result cards */
+  --maxw:       46rem;     /* one column, never wider, on any screen */
+
+  --serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, "Times New Roman", serif;
+  --sans:  ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+
+  --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--ink);
+  /* Two soft washes, gold from above and green from the lower left. They are
+     what stop a flat near-black from looking cheap. Fixed, so scrolling does
+     not drag them. */
+  background-image:
+    radial-gradient(90rem 40rem at 50% -18rem, rgba(227, 200, 124, 0.11), transparent 65%),
+    radial-gradient(60rem 40rem at 12% 108%, rgba(53, 102, 74, 0.22), transparent 60%);
+  background-attachment: fixed;
+  color: var(--cream);
+  font-family: var(--sans);
+  font-size: 17px;
+  line-height: 1.55;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Serif for every heading, sans for everything else. That one split does most
+   of the work of making it feel like a bar and not a form. */
+h1, h2, h3 { font-family: var(--serif); font-weight: 600; line-height: 1.15; margin: 0; }
+
+.shell {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 1.5rem 1.15rem 4rem;
+}
+
+/* ---------------------------------------------------------------- header */
+
+.top {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 1rem;
+  padding-bottom: 1.75rem;
+}
+
+.lang {
+  display: inline-flex;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  overflow: hidden;
+  background: var(--ink-2);
+}
+
+.lang button {
+  appearance: none;
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  font: inherit;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  padding: 0.42rem 0.8rem;
+  cursor: pointer;
+  transition: color 0.18s var(--ease), background 0.18s var(--ease);
+}
+
+.lang button[aria-pressed="true"] { background: var(--gold); color: var(--on-gold); }
+.lang button:not([aria-pressed="true"]):hover { color: var(--cream); }
+
+/* ------------------------------------------------------------ transitions */
+
+.stage > * { animation: rise 0.42s var(--ease) both; }
+
+@keyframes rise {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .stage > *, * { animation: none !important; transition-duration: 0.01ms !important; }
+}
+
+/* ----------------------------------------------------------------- intro */
+
+.intro { text-align: center; padding: 1.5rem 0 0; }
+
+.intro h1 { font-size: clamp(2.3rem, 9vw, 3.4rem); }
+
+.rule {
+  width: 3.5rem;
+  height: 1px;
+  background: var(--gold);
+  border: 0;
+  margin: 1.5rem auto;
+  opacity: 0.6;
+}
+
+.lede {
+  font-family: var(--serif);
+  font-style: italic;
+  color: var(--muted);
+  max-width: 32rem;
+  margin: 0 auto 2.25rem;
+  font-size: 1.02rem;
+}
+
+/* --------------------------------------------------------------- buttons */
+
+.btn {
+  appearance: none;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  border-radius: 999px;
+  padding: 0.85rem 2rem;
+  border: 1px solid transparent;
+  transition: transform 0.15s var(--ease), background 0.18s var(--ease),
+              border-color 0.18s var(--ease), color 0.18s var(--ease);
+}
+
+.btn:active { transform: translateY(1px); }
+
+/* A link styled as a button still needs the link chrome stripped. */
+a.btn { text-decoration: none; display: inline-block; }
+
+.btn-primary { background: var(--gold); color: var(--on-gold); }
+.btn-primary:hover { background: var(--gold-lit); }
+.btn-primary[disabled] {
+  background: var(--ink-3);
+  color: var(--muted-dim);
+  cursor: not-allowed;
+  border-color: var(--line);
+}
+
+.btn-ghost { background: transparent; color: var(--muted); border-color: var(--line); }
+.btn-ghost:hover { color: var(--cream); border-color: var(--gold); }
+
+.btn-quiet {
+  background: none;
+  border: 0;
+  color: var(--muted-dim);
+  font: inherit;
+  font-size: 0.9rem;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  cursor: pointer;
+  padding: 0.5rem;
+}
+.btn-quiet:hover { color: var(--cream); }
+
+.link-card {
+  display: inline-block;
+  margin-top: 1.5rem;
+  color: var(--muted);
+  font-size: 0.92rem;
+  text-decoration: none;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 2px;
+}
+.link-card:hover { color: var(--gold); border-color: var(--gold); }
+
+/* --------------------------------------------------------------- progress */
+
+.progress { margin-bottom: 2rem; }
+
+.progress-track {
+  height: 2px;
+  background: var(--line-soft);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: var(--gold);
+  width: 0;
+  transition: width 0.45s var(--ease);
+}
+
+.progress-label {
+  margin-top: 0.7rem;
+  font-size: 0.74rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted-dim);
+}
+
+/* -------------------------------------------------------------- questions */
+
+.q-title { font-size: clamp(1.6rem, 5.5vw, 2.15rem); margin-bottom: 0.6rem; }
+.q-sub { color: var(--muted); margin: 0 0 1.75rem; font-size: 0.96rem; }
+
+.options { display: grid; gap: 0.7rem; grid-template-columns: 1fr; }
+
+/* One column on a phone, two from roughly a large phone in landscape up.
+   34rem is the only layout breakpoint in the whole theme. */
+@media (min-width: 34rem) {
+  .options.cols-2 { grid-template-columns: 1fr 1fr; }
+  .options.cols-2 .option-wide { grid-column: 1 / -1; }
+}
+
+/* An answer of a different kind to the ones above it, such as handing the
+   choice back to the bar. Dashed until chosen, so it reads as an aside. */
+.option-wide { margin-top: 0.5rem; border-style: dashed; }
+.option-wide[aria-pressed="true"] { border-style: solid; }
+
+.option {
+  appearance: none;
+  text-align: left;
+  font: inherit;
+  color: var(--cream);
+  background: var(--ink-2);
+  border: 1px solid var(--line-soft);
+  border-radius: var(--radius);
+  padding: 1rem 1.15rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  min-height: 3.6rem;   /* thumb-sized, do not shrink */
+  transition: border-color 0.18s var(--ease), background 0.18s var(--ease),
+              transform 0.12s var(--ease);
+}
+
+.option:hover { border-color: var(--gold); background: var(--ink-3); }
+.option:active { transform: translateY(1px); }
+
+.option[aria-pressed="true"] {
+  border-color: var(--gold);
+  background: linear-gradient(180deg, rgba(227, 200, 124, 0.15), rgba(227, 200, 124, 0.06));
+}
+
+.option-mark {
+  flex: 0 0 auto;
+  width: 1.15rem;
+  height: 1.15rem;
+  border-radius: 50%;
+  border: 1.5px solid var(--muted-dim);
+  display: grid;
+  place-items: center;
+  transition: border-color 0.18s var(--ease);
+}
+
+.option[aria-pressed="true"] .option-mark { border-color: var(--gold); }
+
+.option-mark::after {
+  content: "";
+  width: 0.55rem;
+  height: 0.55rem;
+  border-radius: 50%;
+  background: var(--gold);
+  transform: scale(0);
+  transition: transform 0.2s var(--ease);
+}
+
+.option[aria-pressed="true"] .option-mark::after { transform: scale(1); }
+
+.option-body { min-width: 0; }
+.option-label { font-weight: 600; display: block; }
+.option-hint { display: block; color: var(--muted); font-size: 0.85rem; margin-top: 0.12rem; }
+
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 1.9rem;
+  flex-wrap: wrap;
+}
+
+.nav-right { display: flex; align-items: center; gap: 0.6rem; margin-left: auto; }
+
+/* ----------------------------------------------------------------- scale */
+/* An intensity picker. Cocktails use it for strength on six stops, whiskey
+   uses it for peat on five, tequila will use it for how much agave shows.
+   Three across on a phone, six across once there is room, and an app with a
+   different number of stops sets the two variables on its own .scale rather
+   than restating the grid. */
+
+.scale {
+  display: grid;
+  grid-template-columns: repeat(var(--scale-cols-sm, 3), 1fr);
+  gap: 0.6rem;
+}
+
+@media (min-width: 34rem) {
+  .scale { grid-template-columns: repeat(var(--scale-cols, 6), 1fr); }
+}
+
+.scale-stop {
+  appearance: none;
+  font: inherit;
+  color: var(--muted);
+  background: var(--ink-2);
+  border: 1px solid var(--line-soft);
+  border-radius: var(--radius);
+  padding: 0.85rem 0.4rem 0.7rem;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+  min-height: 4.4rem;
+  transition: border-color 0.18s var(--ease), background 0.18s var(--ease),
+              color 0.18s var(--ease);
+}
+
+.scale-stop:hover { border-color: var(--gold); background: var(--ink-3); }
+
+.scale-stop[aria-pressed="true"] {
+  border-color: var(--gold);
+  color: var(--cream);
+  background: linear-gradient(180deg, rgba(227, 200, 124, 0.15), rgba(227, 200, 124, 0.06));
+}
+
+/* Five pips per stop, filled to show intensity. A rising bar was tried first
+   and became unreadable the moment the labels wrapped. */
+.pips { display: flex; gap: 3px; height: 0.9rem; align-items: center; }
+
+.pip {
+  width: 0.34rem;
+  height: 0.34rem;
+  border-radius: 50%;
+  background: var(--line);
+  transition: background 0.18s var(--ease), transform 0.18s var(--ease);
+}
+
+.pip.on { background: var(--muted-dim); }
+
+.scale-stop[aria-pressed="true"] .pip.on { background: var(--gold); transform: scale(1.25); }
+
+.scale-label { font-size: 0.82rem; font-weight: 600; text-align: center; line-height: 1.2; }
+
+/* --------------------------------------------------------------- results */
+
+.results-head { text-align: center; margin-bottom: 2.25rem; }
+.results-head h2 { font-size: clamp(1.9rem, 6.5vw, 2.6rem); }
+.results-head p { color: var(--muted); margin: 0.7rem 0 0; font-size: 0.95rem; }
+
+/* Said out loud when the app had to bend a rule to answer at all. Green rule
+   on the left, never red, because it is information and not a failure. */
+.notice {
+  border: 1px solid var(--line);
+  border-left: 2px solid var(--green-lit);
+  background: var(--ink-2);
+  border-radius: var(--radius);
+  padding: 0.85rem 1.1rem;
+  color: var(--muted);
+  font-size: 0.9rem;
+  margin-bottom: 1.5rem;
+}
+
+.card {
+  background: var(--ink-2);
+  border: 1px solid var(--line-soft);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem 1.35rem;
+  margin-bottom: 1rem;
+}
+
+/* The top recommendation. Gold edge and a gold wash off the top, so the eye
+   lands on it before it reads a word. Exactly one card per screen gets this. */
+.card.hero {
+  border-color: rgba(227, 200, 124, 0.45);
+  background:
+    linear-gradient(180deg, rgba(227, 200, 124, 0.07), transparent 45%),
+    var(--ink-2);
+}
+
+.card-rank {
+  font-size: 0.68rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 0.85rem;
+}
+
+.card-top {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+/* A photo of the thing being recommended, where the card has one.
+   `.card-head` puts it beside the title block rather than above it, because
+   a bottle shot across the full width of a phone pushes the name and the
+   match below the fold, and the name is what a guest came for.
+   The source images are square with the bottle standing in the middle, so
+   the frame is square and the fit is `contain`. `cover` would take the neck
+   off a tall bottle and the label off a squat one. */
+.card-head { display: flex; align-items: flex-start; gap: 1rem; }
+.card-head-body { flex: 1 1 auto; min-width: 0; }
+
+.shot {
+  flex: 0 0 auto;
+  width: 4rem;
+  height: 4rem;
+  border-radius: var(--radius);
+  border: 1px solid var(--line-soft);
+  background: var(--ink-3);
+  object-fit: contain;
+  padding: 0.3rem;
+}
+
+/* On a phone the hero photo stays close to the runner-up size, because a
+   larger one eats a third of the row and pushes the name sideways. It grows
+   once there is room, at the one breakpoint this theme has. */
+.card.hero .shot { width: 4.25rem; height: 4.25rem; }
+
+@media (min-width: 34rem) {
+  .card.hero .shot { width: 5.5rem; height: 5.5rem; }
+}
+
+.card h3 { font-size: clamp(1.5rem, 5vw, 1.95rem); }
+.card.alt h3 { font-size: 1.3rem; }
+
+.match {
+  font-size: 0.76rem;
+  letter-spacing: 0.1em;
+  color: var(--muted-dim);
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+.badges { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.75rem; }
+
+.badge {
+  font-size: 0.68rem;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+  font-weight: 600;
+  padding: 0.28rem 0.6rem;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  color: var(--muted);
+}
+
+/* Three variants and no more. Gold says the house stands behind it, green
+   says it is a property worth knowing, quiet says it is a caveat. */
+.badge.accent { color: var(--gold);      border-color: rgba(227, 200, 124, 0.5); }
+.badge.good   { color: var(--green-lit); border-color: rgba(95, 157, 118, 0.5); }
+.badge.quiet  { color: var(--muted-dim); }
+
+/* The one line of persuasion on a card. Serif italic, because it is a person
+   talking, not a data field. */
+.note {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 1.06rem;
+  line-height: 1.5;
+  color: var(--cream);
+  margin: 1.1rem 0 0;
+}
+
+.card.alt .note { font-size: 0.98rem; color: var(--muted); }
+
+/* An aside from behind the bar. Quieter than .note and set off by a rule. */
+.house-note {
+  margin: 0.9rem 0 0;
+  padding-left: 0.9rem;
+  border-left: 2px solid var(--line);
+  color: var(--muted);
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.meta { margin-top: 1.25rem; padding-top: 1.15rem; border-top: 1px solid var(--line-soft); }
+
+.meta-row { display: flex; gap: 0.6rem; font-size: 0.88rem; margin-top: 0.5rem; }
+.meta-row:first-child { margin-top: 0; }
+
+.meta-key {
+  flex: 0 0 auto;
+  color: var(--muted-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-size: 0.66rem;
+  padding-top: 0.28rem;
+  width: 5.5rem;
+}
+
+.meta-val { color: var(--muted); }
+.meta-val.price { font-variant-numeric: tabular-nums; color: var(--cream); }
+
+/* Why this was picked. A list, but never rendered with list bullets, the
+   gold dot is the mark. */
+.why { margin: 1.15rem 0 0; padding: 0; list-style: none; }
+
+.why li {
+  position: relative;
+  padding-left: 1.3rem;
+  color: var(--muted);
+  font-size: 0.9rem;
+  margin-top: 0.35rem;
+}
+
+.why li::before {
+  content: "";
+  position: absolute;
+  left: 0.15rem;
+  top: 0.62rem;
+  width: 0.42rem;
+  height: 0.42rem;
+  border-radius: 50%;
+  background: var(--gold);
+  opacity: 0.75;
+}
+
+.section-label {
+  font-size: 0.7rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--muted-dim);
+  margin: 2.5rem 0 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+}
+
+.section-label::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--line-soft);
+}
+
+.results-actions {
+  display: flex;
+  gap: 0.8rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 2.25rem;
+}
+
+/* ---------------------------------------------------------------- footer */
+
+.foot {
+  margin-top: 3.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--line-soft);
+  color: var(--muted-dim);
+  font-size: 0.8rem;
+  text-align: center;
+}
+
+/* ----------------------------------------------------------------- a11y */
+
+:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ---------------------------------------------------------------- print */
+/* Guests do print these, and a phone screenshot goes to the printer as often
+   as the page does. Ink on white, chrome gone. */
+
+@media print {
+  body { background: #fff; color: #000; }
+  .top, .results-actions, .nav, .foot { display: none; }
+  .card { border: 1px solid #ccc; background: #fff; page-break-inside: avoid; }
+  .card h3, .note, .meta-val, .why li { color: #000; }
+}
+
+
+/* =========================================================================
+   BrunnenBar — Whisky recommender, app-specific styling
+   =========================================================================
+   Everything that gives the app its look lives in ../assets/brunnenbar-theme.css
+   and is shared with the cocktail recommender. This file holds only what is
+   true of the whisky app and nothing else.
+
+   Keep it this small. If a rule here would also be right for the cocktail or
+   tequila app, it belongs in the theme instead.
+   ========================================================================= */
+
+/* Peat has five stops where cocktail strength has six. The theme takes the
+   stop count as a variable, so this is the whole override. */
+.scale { --scale-cols: 5; --scale-cols-sm: 1; }
+
+/* One stop per row on a phone reads better than five cramped columns, and a
+   full width row wants the label first and the pips out to the side. */
+.scale-stop { flex-direction: row-reverse; justify-content: space-between; padding: 0.9rem 1.1rem; }
+@media (min-width: 34rem) {
+  .scale-stop { flex-direction: column; justify-content: center; padding: 0.85rem 0.4rem 0.7rem; }
+}
+
+/* The whisky card's badges, mapped onto the theme's three variants. The theme
+   deliberately does not know what a peated malt is. */
+.badge.rare,
+.badge.loved { color: var(--gold);      border-color: rgba(227, 200, 124, 0.5); }
+.badge.smoke,
+.badge.start { color: var(--green-lit); border-color: rgba(95, 157, 118, 0.5); }
+.badge.off   { color: var(--muted-dim); }
+
+/* The smoke row on a result card shows the same pips as the question, so a
+   guest can see at a glance how the answer and the bottle line up. */
+.meta-val .pips { display: inline-flex; vertical-align: middle; margin-right: 0.5rem; }
+.pip-label { vertical-align: middle; }
+
+/* Preview mode has to be impossible to mistake for the real card, so it is
+   the one notice that takes the accent rather than the quiet green rule. */
+.notice.demo { border-left-color: var(--gold); color: var(--gold); margin-bottom: 1.5rem; }
+
+</style>
+
+<div class="shell">
+  <header class="top">
+    <nav class="lang" id="lang-toggle" aria-label="Sprache / Language"></nav>
+  </header>
+  <main class="stage" id="stage" aria-live="polite"></main>
+  <p id="live" class="sr-only" role="status" aria-live="polite"></p>
+</div>
+
+<script>
+/*
+ * BrunnenBar — the one source
+ * =========================================================================
+ * Implements the Menu API brief. There is exactly one place drinks, prices,
+ * descriptions and allergens come from, and this is the only file that talks
+ * to it.
+ *
+ * Rules from the brief, encoded here rather than left to good intentions:
+ *
+ *   - Read only. Nothing is ever written back.
+ *   - Never ship a bundled copy of the menu as a fallback. A stale copy that
+ *     shipped with the app is wrong the moment a price changes, and wrong
+ *     silently. The only fallback is the last response this browser actually
+ *     received, shown with its age.
+ *   - Do not repair encoding. If "&amp;" turns up in the payload the pipeline
+ *     is broken upstream, and quietly fixing it here would hide that.
+ *   - Never render content.rendered as HTML. Only the <pre> block is read.
+ *
+ * Exposed as window.BBMenuSource; also loadable in node for the tests.
+ * =========================================================================
+ */
+(function (root) {
+  'use strict';
+
+  var MENU_URL = 'https://brunnenbar.com/wp-json/wp/v2/pages/217?_fields=content';
+
+  /* How long a fetched menu is reused before going back to the network.
+   * The Menu API doc asks for at most one request an hour, on the grounds
+   * that the card changes a few times a week and not a few times a minute.
+   * A guest who opens the app twice in an evening therefore fetches once. */
+  var MAX_AGE_MS = 60 * 60 * 1000;
+
+  var STORE_KEY = 'bb-menu-last-good';
+
+  var BLOCK = /<pre id="bb-menu">([\s\S]*?)<\/pre>/;
+
+  /* The payload escapes & < > as unicode escapes so WordPress cannot alter
+   * them on render. Seeing an HTML entity instead means the publishing
+   * pipeline changed and the data can no longer be trusted verbatim. */
+  var ENTITY_CANARY = /&(amp|lt|gt|quot|#0?39);/;
+
+  function extract(pageJson) {
+    var rendered = pageJson && pageJson.content && pageJson.content.rendered;
+    if (typeof rendered !== 'string') throw new Error('Menu: no content.rendered');
+    var hit = rendered.match(BLOCK);
+    if (!hit) throw new Error('Menu Block nicht gefunden');
+    var raw = hit[1];
+    if (ENTITY_CANARY.test(raw)) {
+      throw new Error(
+        'Menu: HTML entities in the payload. The publishing pipeline is broken. ' +
+        'Reporting rather than repairing, per the brief.');
+    }
+    return JSON.parse(raw);
+  }
+
+  // ---------------------------------------------------------- local store --
+  // Wrapped because storage throws outright in some privacy modes.
+
+  function readLastGood() {
+    try {
+      var raw = root.localStorage && root.localStorage.getItem(STORE_KEY);
+      if (!raw) return null;
+      var saved = JSON.parse(raw);
+      if (!saved || !saved.menu || !saved.fetchedAt) return null;
+      return saved;
+    } catch (e) { return null; }
+  }
+
+  function writeLastGood(menu) {
+    try {
+      root.localStorage.setItem(STORE_KEY, JSON.stringify({
+        menu: menu, fetchedAt: new Date().toISOString()
+      }));
+    } catch (e) { /* full, or storage disabled. Not worth failing the load. */ }
+  }
+
+  // --------------------------------------------------------------- loading --
+
+  var inFlight = null;
+  var memo = null;          // { menu, fetchedAt }
+
+  function fresh(now) {
+    return memo && (now - Date.parse(memo.fetchedAt)) < MAX_AGE_MS;
+  }
+
+  /**
+   * @param {Object} [opts] {force:boolean, fetchImpl:Function, now:number}
+   * @returns {Promise<{menu:Object, fetchedAt:string, fromCache:boolean, ageMs:number}>}
+   *   fromCache true means the network failed and this is the last response
+   *   this browser received. The interface must say so, and say how old it is.
+   */
+  function loadMenu(opts) {
+    opts = opts || {};
+    var now = opts.now == null ? Date.now() : opts.now;
+    var doFetch = opts.fetchImpl || (root.fetch && root.fetch.bind(root));
+
+    if (!opts.force && fresh(now)) {
+      return Promise.resolve({
+        menu: memo.menu, fetchedAt: memo.fetchedAt, fromCache: false,
+        ageMs: now - Date.parse(memo.fetchedAt)
+      });
+    }
+    if (inFlight) return inFlight;
+
+    inFlight = Promise.resolve()
+      .then(function () {
+        if (!doFetch) throw new Error('Menu: no fetch available');
+        return doFetch(MENU_URL, { cache: 'no-store' });
+      })
+      .then(function (res) {
+        if (!res.ok) throw new Error('Menu HTTP ' + res.status);
+        return res.json();
+      })
+      .then(function (page) {
+        var menu = extract(page);
+        memo = { menu: menu, fetchedAt: new Date(now).toISOString() };
+        writeLastGood(menu);
+        return { menu: menu, fetchedAt: memo.fetchedAt, fromCache: false, ageMs: 0 };
+      })
+      .catch(function (err) {
+        // Last resort is the last response THIS browser received, never a
+        // copy that shipped with the app.
+        var saved = readLastGood();
+        if (!saved) throw err;
+        return {
+          menu: saved.menu, fetchedAt: saved.fetchedAt, fromCache: true,
+          ageMs: now - Date.parse(saved.fetchedAt), error: err
+        };
+      })
+      .then(function (out) { inFlight = null; return out; },
+            function (err) { inFlight = null; throw err; });
+
+    return inFlight;
+  }
+
+  /* True when the published menu differs from the one in hand.
+   *
+   * `content_hash` is the field to read, because it only moves when the
+   * content moves. Every build stamps a fresh `published_at` whether anything
+   * changed or not, so comparing timestamps would repaint the screen under a
+   * guest for nothing. Older payloads without a hash fall back to the
+   * timestamp rather than claiming nothing ever changes. */
+  function hasChanged(current, incoming) {
+    if (!current || !incoming) return true;
+    if (current.content_hash || incoming.content_hash) {
+      return current.content_hash !== incoming.content_hash;
+    }
+    return current.published_at !== incoming.published_at;
+  }
+
+  // ------------------------------------------------------------- rendering --
+
+  /* German price formatting, from `prices` only. Never a hard-coded number,
+   * and every size is shown. */
+  function formatPrice(n) {
+    return typeof n === 'number' ? n.toFixed(2).replace('.', ',') + ' €' : '';
+  }
+
+  function priceList(item) {
+    var rows = (item && item.prices) || [];
+    return rows.map(function (p) {
+      return p.size ? p.size + '  ' + formatPrice(p.price) : formatPrice(p.price);
+    });
+  }
+
+  /* English where the export has it, German where it does not, decided per
+   * field so a half-translated item does not revert wholesale. */
+  function field(item, key, lang) {
+    if (lang === 'en') {
+      var en = item[key + '_en'];
+      if (typeof en === 'string' ? en : (en && en.length)) return en;
+    }
+    return item[key];
+  }
+
+  function allItems(menu) {
+    return ((menu && menu.sections) || []).reduce(function (acc, s) {
+      return acc.concat((s.items || []).map(function (i) {
+        // Carry the section down, since scoring and display both want it,
+        // without disturbing the order the brief says not to touch.
+        return Object.assign({ section: s.title, section_en: s.title_en }, i);
+      }));
+    }, []);
+  }
+
+  /* The seat's data doc asks apps to hide `hidden_on_card` rows as till-only
+   * articles. The Menu API brief and Dan both say the opposite, that the flag
+   * only means the row is off the printed card and that everything published
+   * is orderable. Dan decides, so nothing is hidden by default and an app
+   * that wants the stricter reading asks for it here.
+   *
+   * This matters right now. Four of the twelve profiled whiskies sit behind
+   * the flag on purpose, so that the app can recommend the whole back bar
+   * while the printed card stays short. Filtering them by default would
+   * quietly delete a third of the shelf. */
+  function cardItems(menu) {
+    return allItems(menu).filter(function (i) { return i.hidden_on_card !== true; });
+  }
+
+  /* Which items the recommender can actually score.
+   *
+   * Deliberately not a list of section names. The brief forbids hard-coding
+   * those, and a list would rot the first time a section is renamed or added.
+   * The test is the data itself: a cocktail has an ingredient list, beer and
+   * wine do not. That stays true however the card is reorganised. */
+  function isScoreable(item) {
+    return !!(item && item.ingredients && item.ingredients.length);
+  }
+
+  function scoreableItems(menu) {
+    return allItems(menu).filter(isScoreable);
+  }
+
+  var api = {
+    MENU_URL: MENU_URL, MAX_AGE_MS: MAX_AGE_MS, STORE_KEY: STORE_KEY,
+    loadMenu: loadMenu, extract: extract, hasChanged: hasChanged,
+    formatPrice: formatPrice, priceList: priceList, field: field, allItems: allItems,
+    cardItems: cardItems,
+    isScoreable: isScoreable, scoreableItems: scoreableItems,
+    _reset: function () { memo = null; inFlight = null; }
+  };
+  if (typeof module !== 'undefined' && module.exports) module.exports = api;
+  root.BBMenuSource = api;
+})(typeof globalThis !== 'undefined' ? globalThis : this);
+
+/*
+ * BrunnenBar — Whisky recommendation engine
+ * =========================================================================
+ * Pure scoring against the live Menu API payload. No DOM, no interface code,
+ * so it can be unit tested in node (see test/whiskey-engine.test.js).
+ *
+ * Three tiers of rule, the same shape the cocktail app uses:
+ *   HARD  Budget, an outright no to smoke, and anything the guest ruled out.
+ *         Never relaxed. Ever.
+ *   GATE  Region, and protecting a first whisky from the heavy end of the
+ *         shelf. Relaxed only if nothing survives, and the page then says so.
+ *   SOFT  Everything else, scored and summed.
+ *
+ * What counts as a bottle this app may recommend is decided by the data and
+ * never by a section name. A whisky carries a peat rating and no ingredient
+ * list, so it is poured rather than built.
+ *
+ * That is not a stylistic preference. Jack Daniel's is profiled in the
+ * Spirituosen section rather than in Whisk(e)y, and six more bottles sit
+ * behind `hidden_on_card` so the printed card can stay short, so anything
+ * filtering on the section title would quietly lose almost half the shelf.
+ * =========================================================================
+ */
+(function (root) {
+  'use strict';
+
+  /* The profile, flat on the item the way the card carries it, next to
+   * `brand` and alongside the agave fields.
+   *
+   * Each entry is the list of names the card might use for one thing, first
+   * match wins. Two of them genuinely carry two names.
+   *
+   * The region arrived as `origin` and was later normalised into `region`,
+   * and a payload may carry either or both. The tasting notes are
+   * `flavour_tags`, the same name the cocktail export uses, and were `notes`
+   * in the first draft. Accepting both spellings costs one array each and
+   * means neither a republish nor a rename can empty the shelf. */
+  var FIELDS = {
+    peat: ['peat'],
+    origin: ['region', 'origin'],
+    notes: ['flavour_tags', 'notes'],
+    cask: ['cask'],
+    level: ['whisky_level'],
+    serve: ['whisky_serve', 'serve_style'],
+    kind: ['whisky_kind'],
+    expression: ['whisky_expression'],
+    age_years: ['whisky_age_years', 'age_years'],
+    abv: ['abv'],
+    brand: ['brand']
+  };
+
+  /* What makes a row a whisky.
+   *
+   * `peat` and nothing else. This was wrong once and the way it was wrong is
+   * worth keeping written down. The tasting tags looked like good evidence,
+   * until a capture of the published card showed `flavour_tags` on all one
+   * hundred and twenty five cocktails, because it is the same field the
+   * cocktail app scores on. Read against that payload the app called an
+   * Aperol Spritz a whisky.
+   *
+   * The region is no safer. A wine carries a region too, and a wine has no
+   * ingredient list either, so region plus pour would sweep the wine list in
+   * the day someone adds it.
+   *
+   * Peat is a number nothing else on a bar card has any reason to carry, and
+   * the field doc makes it required. The second half of the test is that a
+   * whisky is poured rather than built, so it has no ingredient list. That
+   * keeps a smoky cocktail out even if someone gives it a peat value one
+   * day, which is a thing a person might reasonably do. */
+  var PROFILE_FIELDS = ['peat'];
+
+  /* A tasting tag that duplicates an axis the app already scores on its own.
+   * Smoke has the whole peat scale behind it, so counting it a second time as
+   * a flavour would let every peated malt win twice for one property. */
+  var DOUBLE_COUNTED = ['rauchig', 'smoky'];
+
+  var W = {
+    peatExact: 26,
+    peatNear: 10,
+    peatOff2: -16,
+    peatFar: -34,
+    notes: 34,
+    origin: 20,
+    cask: 16,
+    serve: 14,
+    level: 18,
+    popularity: 3
+  };
+
+  /* The guest handing the choice back to us. Not a tasting note. */
+  var NO_PREFERENCE = 'barkeeper';
+
+  /* The shelf read as a ladder, so an answer one rung away still counts for
+   * something and an answer three rungs away does not. */
+  var LEVELS = ['einstieg', 'klassiker', 'kenner', 'rarität'];
+
+  /* Where a first whisky is allowed to come from. A beginner handed a cask
+   * strength Islay does not come back, so this is a gate rather than a
+   * score. It is relaxed only when the alternative is showing nothing. */
+  var BEGINNER_OK = ['einstieg', 'klassiker'];
+
+  /* Peat at or above this is smoke a guest will notice across the room. A
+   * guest who said no smoke never sees one of these. */
+  var SMOKE_VISIBLE = 2;
+
+  /* How far apart two ages have to be before it is worth telling a guest
+   * that one bottle is older, and how far apart two prices have to be
+   * before "cheaper" is an honest word for it. */
+  var AGE_GAP = 3;
+  var PRICE_GAP = 1.25;
+
+  function asArray(v) { return Array.isArray(v) ? v : (v == null || v === '' ? [] : [v]); }
+
+  function num(v) { return typeof v === 'number' && isFinite(v) ? v : null; }
+
+  // ------------------------------------------------------------- the data --
+
+  function has(v) {
+    if (v == null || v === '') return false;
+    return Array.isArray(v) ? v.length > 0 : true;
+  }
+
+  /* The first spelling of `key` that this row actually carries. */
+  function raw(item, key, suffix) {
+    var names = FIELDS[key] || [key];
+    for (var i = 0; i < names.length; i++) {
+      var v = item[names[i] + (suffix || '')];
+      if (has(v)) return v;
+    }
+    return undefined;
+  }
+
+  /* One view over the flat fields, so the rest of the file reads a profile
+   * and does not care how the card spells it. Returns null for anything that
+   * is not a whisky, which is what keeps beer, wine and cocktails out. */
+  function profileOf(item) {
+    if (!item) return null;
+
+    // Built rather than poured, so it is a drink and not a bottle.
+    if (item.ingredients && item.ingredients.length) return null;
+
+    var carries = false;
+    for (var i = 0; i < PROFILE_FIELDS.length; i++) {
+      if (raw(item, PROFILE_FIELDS[i]) !== undefined) { carries = true; break; }
+    }
+    if (!carries) return null;
+
+    var p = {};
+    Object.keys(FIELDS).forEach(function (key) {
+      p[key] = raw(item, key);
+      var en = raw(item, key, '_en');
+      if (en !== undefined) p[key + '_en'] = en;
+    });
+
+    // Smoke is scored on its own scale, so it never counts twice as a note.
+    if (Array.isArray(p.notes)) p.notes = p.notes.filter(notDoubleCounted);
+    if (Array.isArray(p.notes_en)) p.notes_en = p.notes_en.filter(notDoubleCounted);
+    return p;
+  }
+
+  function notDoubleCounted(tag) {
+    return DOUBLE_COUNTED.indexOf(String(tag).toLowerCase()) === -1;
+  }
+
+  function isWhisky(item) { return !!profileOf(item); }
+
+  function bottles(items) { return (items || []).filter(isWhisky); }
+
+  /* The cheapest pour on the row. A guest who set a ceiling can always order
+   * the small glass, so that is the price the ceiling is measured against.
+   * Read from `prices` only, never from a number written into the app. */
+  function priceOf(item) {
+    var rows = (item && item.prices) || [];
+    var low = null;
+    for (var i = 0; i < rows.length; i++) {
+      var p = num(rows[i] && rows[i].price);
+      if (p != null && (low == null || p < low)) low = p;
+    }
+    if (low == null) low = num(item && item.price);
+    return low;
+  }
+
+  function peatOf(item) {
+    var p = profileOf(item);
+    return p ? num(p.peat) : null;
+  }
+
+  function ageOf(item) {
+    var p = profileOf(item);
+    return p ? num(p.age_years) : null;
+  }
+
+  /* Distinct values a field actually carries across the shelf. A question
+   * whose field has fewer than two of them cannot tell two bottles apart, so
+   * the app drops it rather than asking something it cannot use. This is
+   * what lets the app grow as the Menu API grows, without a release. */
+  function coverage(pool) {
+    var fields = ['peat', 'origin', 'cask', 'notes', 'serve', 'level'];
+    var seen = {};
+    fields.forEach(function (f) { seen[f] = {}; });
+    var prices = {};
+
+    (pool || []).forEach(function (item) {
+      var p = profileOf(item) || {};
+      fields.forEach(function (f) {
+        var v = p[f];
+        if (Array.isArray(v)) {
+          v.forEach(function (one) { if (one !== '' && one != null) seen[f][String(one)] = true; });
+        } else if (v !== '' && v != null) {
+          seen[f][String(v)] = true;
+        }
+      });
+      var price = priceOf(item);
+      if (price != null) prices[String(price)] = true;
+    });
+
+    var out = {};
+    fields.forEach(function (f) { out[f] = Object.keys(seen[f]).length; });
+    out.price = Object.keys(prices).length;
+    return out;
+  }
+
+  function answerable(pool, question) {
+    if (!question || !question.needs) return true;
+    var cov = coverage(pool);
+    return (cov[question.needs] || 0) >= 2;
+  }
+
+  /* The distinct values a field carries, in the order the card lists them,
+   * because the order of the card is the display order and this app does not
+   * resort it either. */
+  function valuesOf(pool, field) {
+    var seen = {}, out = [];
+    (pool || []).forEach(function (item) {
+      var v = (profileOf(item) || {})[field];
+      (Array.isArray(v) ? v : [v]).forEach(function (one) {
+        if (one === '' || one == null) return;
+        if (!seen[one]) { seen[one] = true; out.push(one); }
+      });
+    });
+    return out;
+  }
+
+  /* The question flow the shelf can actually answer.
+   *
+   * Two cuts. A question whose field carries fewer than two values is
+   * dropped, and an answer nothing on the shelf carries is dropped with it.
+   * Offering Campbeltown when there is no Campbeltown behind the bar sends a
+   * guest down a corridor that ends in an apology, and an apology we could
+   * have avoided by not asking.
+   *
+   * The intensity scale is exempt on purpose. It asks how much smoke someone
+   * wants, not which bottles exist, and "no smoke at all" has to stay
+   * sayable even on a shelf where nothing is unpeated.
+   *
+   * The price question comes back with the bands attached, since only the
+   * page knows how to write a price in the guest's language. */
+  function tailor(pool, questions) {
+    var bands = priceBands(pool);
+    var cov = coverage(pool);
+
+    return (questions || []).map(function (q) {
+      if (q.needs === 'price') return bands.length >= 2 ? { q: q, bands: bands } : null;
+      if ((cov[q.needs] || 0) < 2) return null;
+      if (q.type === 'scale') return { q: q };
+
+      /* Options come from the card, not from a list in this repository.
+       *
+       * The written options are a table of labels and hints for the values we
+       * expected, nothing more. Whatever the card actually carries is what
+       * gets offered, so a region spelled Highland rather than Highlands, or
+       * a Kentucky nobody wrote down here, still reaches a guest with its own
+       * name on the button instead of vanishing. Known values keep the order
+       * they were written in, because their hints were written to read that
+       * way, and anything new follows in card order. */
+      var live = valuesOf(pool, q.needs);
+      var known = {}, exclusive = [];
+      (q.options || []).forEach(function (o) {
+        if (o.exclusive) exclusive.push(o); else known[o.value] = o;
+      });
+
+      var options = (q.options || []).filter(function (o) {
+        return !o.exclusive && live.indexOf(o.value) !== -1;
+      });
+      live.forEach(function (v) {
+        if (!known[v]) options.push({ value: v, label: { de: v, en: v } });
+      });
+      if (options.length < 2) return null;
+      return { q: q, options: options.concat(exclusive) };
+    }).filter(Boolean);
+  }
+
+  /* Three price bands cut at the thirds of what is actually on the shelf.
+   * Every ceiling is a real price from the card, so the label a guest reads
+   * is a number they will also see on a bottle. Returns the two ceilings and
+   * an open top band, or fewer when the shelf does not spread that far. */
+  function priceBands(pool) {
+    var prices = (pool || []).map(priceOf).filter(function (p) { return p != null; })
+      .sort(function (a, b) { return a - b; });
+    if (prices.length < 3) return [];
+    var lower = prices[Math.floor(prices.length / 3)];
+    var upper = prices[Math.floor((2 * prices.length) / 3)];
+    var bands = [{ value: '1', max: lower }];
+    if (upper > lower) bands.push({ value: '2', max: upper });
+    if (prices[prices.length - 1] > upper) bands.push({ value: '3', max: null });
+    return bands.length >= 2 ? bands : [];
+  }
+
+  function ceilingFor(pool, answer) {
+    if (!answer) return null;
+    var bands = priceBands(pool);
+    for (var i = 0; i < bands.length; i++) {
+      if (bands[i].value === answer) return bands[i].max;
+    }
+    return null;
+  }
+
+  // -------------------------------------------------------------- the rules --
+
+  /* HARD. A bottle failing any of these is never shown, at any cost.
+   *
+   * Both unknowns below take the cautious reading on purpose. A guest who
+   * said no smoke and is handed a bottle whose smoke nobody recorded has a
+   * ruined pour in front of them, and a guest who set a ceiling and is handed
+   * a bottle with no price has a surprise on the bill. Missing data is not a
+   * reason to gamble with either. */
+  function passesHard(item, a, ceiling) {
+    var p = profileOf(item);
+    if (!p) return false;
+
+    var ruledOut = asArray(a.allergens);
+    for (var i = 0; i < ruledOut.length; i++) {
+      if ((item.allergens || []).indexOf(ruledOut[i]) !== -1) return false;
+    }
+
+    if (a.peat === '0') {
+      var peat = num(p.peat);
+      if (peat == null || peat >= SMOKE_VISIBLE) return false;
+    }
+
+    if (ceiling != null) {
+      var price = priceOf(item);
+      if (price == null || price > ceiling) return false;
+    }
+
+    return true;
+  }
+
+  function passesOriginGate(item, a) {
+    var want = asArray(a.origin);
+    if (!want.length) return true;
+    var p = profileOf(item) || {};
+    return want.indexOf(p.origin) !== -1;
+  }
+
+  function passesBeginnerGate(item, a) {
+    if (a.level !== 'einstieg') return true;
+    var p = profileOf(item) || {};
+    return BEGINNER_OK.indexOf(p.level) !== -1;
+  }
+
+  // ------------------------------------------------------------- contrast --
+
+  /* Why take this one INSTEAD of the top pick. A runner up is only useful if
+   * it says how it differs, so each is labelled by its single most
+   * perceptible difference, most perceptible first:
+   *   1. more or less smoke, which is what a guest notices first
+   *   2. a different corner of the world
+   *   3. a cask the top pick did not see
+   *   4. noticeably older or younger
+   *   5. noticeably cheaper or dearer
+   *   6. a tasting note the top pick does not have
+   * Returns null when nothing separates them, and the page then says they
+   * both fit rather than inventing a difference. */
+  function contrastOf(hero, alt) {
+    if (!hero || !alt) return null;
+    var h = profileOf(hero) || {};
+    var b = profileOf(alt) || {};
+
+    var hPeat = num(h.peat), bPeat = num(b.peat);
+    if (hPeat != null && bPeat != null) {
+      if (bPeat - hPeat >= 1) return { kind: 'smokier' };
+      if (hPeat - bPeat >= 1) return { kind: 'gentler' };
+    }
+
+    if (b.origin && h.origin && b.origin !== h.origin) {
+      return { kind: 'origin', value: b.origin };
+    }
+
+    var hCask = asArray(h.cask);
+    var newCask = asArray(b.cask).filter(function (c) { return hCask.indexOf(c) === -1; });
+    if (newCask.length) return { kind: 'cask', value: newCask[0] };
+
+    var hAge = num(h.age_years), bAge = num(b.age_years);
+    if (hAge != null && bAge != null) {
+      if (bAge - hAge >= AGE_GAP) return { kind: 'older' };
+      if (hAge - bAge >= AGE_GAP) return { kind: 'younger' };
+    }
+
+    var hPrice = priceOf(hero), bPrice = priceOf(alt);
+    if (hPrice != null && bPrice != null && hPrice > 0 && bPrice > 0) {
+      if (bPrice / hPrice >= PRICE_GAP) return { kind: 'dearer' };
+      if (hPrice / bPrice >= PRICE_GAP) return { kind: 'cheaper' };
+    }
+
+    var hNotes = asArray(h.notes);
+    var newNotes = asArray(b.notes).filter(function (n) { return hNotes.indexOf(n) === -1; });
+    if (newNotes.length) return { kind: 'note', value: newNotes[0] };
+
+    return null;
+  }
+
+  /* Deterministic 0..1 jitter. Keeps ties from always resolving the same way,
+   * so two guests at one table get different bottles, while a single guest
+   * paging back and forth sees a stable list. */
+  function jitter(key, seed) {
+    var h = 2166136261;
+    var s = String(key) + '|' + String(seed);
+    for (var i = 0; i < s.length; i++) {
+      h ^= s.charCodeAt(i);
+      h = (h * 16777619) >>> 0;
+    }
+    return (h % 1000) / 1000;
+  }
+
+  function keyOf(item) {
+    return (item.pos_sku || '') + '|' + (item.name || '');
+  }
+
+  // ------------------------------------------------------------ the ranking --
+
+  /**
+   * @param {Array}  pool     bottles, ie. rows carrying a `whisky` profile
+   * @param {Object} answers  {level, peat, notes[], origin[], cask[], serve,
+   *                           budget, allergens[]}
+   * @param {Object} [opts]   {seed, limit}
+   * @returns {{items:Array, relaxed:string|null, total:number}}
+   */
+  function recommend(pool, answers, opts) {
+    opts = opts || {};
+    var a = answers || {};
+    var seed = opts.seed == null ? 0 : opts.seed;
+    var limit = opts.limit == null ? 3 : opts.limit;
+    var shelf = bottles(pool);
+
+    var ceiling = ceilingFor(shelf, a.budget);
+    var hardPool = shelf.filter(function (d) { return passesHard(d, a, ceiling); });
+
+    // Loosen the gates only as far as we must to have something to say, and
+    // give back which one gave way so the page can admit it.
+    var relaxed = null;
+    var ranked = hardPool.filter(function (d) {
+      return passesOriginGate(d, a) && passesBeginnerGate(d, a);
+    });
+    if (!ranked.length) {
+      ranked = hardPool.filter(function (d) { return passesBeginnerGate(d, a); });
+      if (ranked.length) relaxed = 'origin';
+    }
+    if (!ranked.length) {
+      ranked = hardPool.slice();
+      if (ranked.length) relaxed = 'level';
+    }
+
+    var wantNotes = asArray(a.notes).filter(function (n) { return n !== NO_PREFERENCE; });
+    var wantCask = asArray(a.cask);
+    var wantOrigin = asArray(a.origin);
+    /* No note asked for means the guest left it to the bar, so let the house
+     * actually choose. The jitter widens and two people at one table get
+     * different bottles instead of both being handed the same one. */
+    var freeRein = wantNotes.length === 0;
+
+    var scored = ranked.map(function (item) {
+      var p = profileOf(item) || {};
+      var score = 0, maxScore = 0, reasons = [];
+
+      // — smoke, the axis people actually argue about —
+      if (a.peat != null && a.peat !== '') {
+        var peat = num(p.peat);
+        maxScore += W.peatExact;
+        if (peat != null) {
+          var delta = Math.abs(peat - Number(a.peat));
+          if (delta === 0) {
+            score += W.peatExact;
+            reasons.push({ key: peat === 0 ? 'peat_none' : 'peat_exact', weight: W.peatExact });
+          } else if (delta === 1) {
+            score += W.peatNear;
+            reasons.push({ key: 'peat_near', weight: W.peatNear });
+          } else if (delta === 2) {
+            score += W.peatOff2;
+          } else {
+            score += W.peatFar;
+          }
+        }
+      }
+
+      // — tasting notes, share of what the guest asked for that this has —
+      if (wantNotes.length) {
+        maxScore += W.notes;
+        var have = asArray(p.notes);
+        var hits = wantNotes.filter(function (n) { return have.indexOf(n) !== -1; });
+        if (hits.length) {
+          score += W.notes * (hits.length / wantNotes.length);
+          reasons.push({ key: 'notes', weight: W.notes * hits.length, x: hits.join(', ') });
+        }
+      }
+
+      // — where it is from — a gate as well, so this mostly writes the reason
+      if (wantOrigin.length) {
+        maxScore += W.origin;
+        if (wantOrigin.indexOf(p.origin) !== -1) {
+          score += W.origin;
+          reasons.push({ key: 'origin', weight: W.origin, x: p.origin });
+        }
+      }
+
+      // — the cask, which does more than the age statement —
+      if (wantCask.length) {
+        maxScore += W.cask;
+        var casks = asArray(p.cask);
+        var caskHits = wantCask.filter(function (c) { return casks.indexOf(c) !== -1; });
+        if (caskHits.length) {
+          score += W.cask * (caskHits.length / wantCask.length);
+          reasons.push({ key: 'cask', weight: W.cask * caskHits.length, x: caskHits[0] });
+        }
+      }
+
+      // — how they drink it —
+      if (a.serve) {
+        maxScore += W.serve;
+        if (asArray(p.serve).indexOf(a.serve) !== -1) {
+          score += W.serve;
+          reasons.push({ key: 'serve', weight: W.serve });
+        }
+      }
+
+      // — what the glass is for tonight, one rung away still counts —
+      if (a.level) {
+        maxScore += W.level;
+        var want = LEVELS.indexOf(a.level);
+        var has = LEVELS.indexOf(p.level);
+        if (want !== -1 && has !== -1) {
+          var rungs = Math.abs(want - has);
+          if (rungs === 0) {
+            score += W.level;
+            reasons.push({ key: 'level', weight: W.level });
+          } else if (rungs === 1) {
+            score += W.level / 2;
+            reasons.push({ key: 'level', weight: W.level / 2 });
+          }
+        }
+      }
+
+      if (ceiling != null) reasons.push({ key: 'budget', weight: 1 });
+
+      /* Everything above is how well this bottle answers what was asked, and
+       * that is the only thing the percentage on the card is allowed to
+       * describe. What follows breaks ties and must stay out of it.
+       *
+       * This is worth being strict about. With one question answered the
+       * whole scale is 26 points, and a jitter of up to 14 on top of it once
+       * put three different bottles on the same 99 per cent. A guest reading
+       * a match figure is being told how close we got, not how a random
+       * number landed. */
+      var merit = score;
+
+      /* Among otherwise equal bottles, let the one people actually order edge
+       * ahead. This is the only place the till touches the ranking, and it is
+       * deliberately small. It breaks ties, it does not decide matches. */
+      var rank = num(item.popularity_rank);
+      if (rank != null && rank < 9999) {
+        score += W.popularity * (1 - Math.min(rank, 200) / 200);
+      }
+
+      score += jitter(keyOf(item), seed) * (freeRein ? 14 : 2);
+
+      var pct = maxScore > 0 ? Math.round((100 * merit) / maxScore) : 50;
+      reasons.sort(function (x, y) { return y.weight - x.weight; });
+
+      return {
+        bottle: item,
+        score: score,
+        match: Math.max(35, Math.min(99, pct)),
+        reasons: reasons.slice(0, 3)
+      };
+    });
+
+    scored.sort(function (x, y) { return y.score - x.score; });
+    var items = scored.slice(0, limit);
+    items.forEach(function (item, i) {
+      item.contrast = i === 0 ? null : contrastOf(items[0].bottle, item.bottle);
+    });
+
+    /* The other half of the smoke rule. Smoke nobody wants is thrown out by
+     * a hard rule, and smoke somebody wanted and we cannot supply is said out
+     * loud instead of quietly handed over as if it were what they asked for. */
+    var smokeGap = false;
+    if (a.peat != null && a.peat !== '' && items.length) {
+      var top = num((profileOf(items[0].bottle) || {}).peat);
+      smokeGap = top != null && Math.abs(top - Number(a.peat)) >= 2;
+    }
+
+    return { items: items, relaxed: relaxed, smokeGap: smokeGap, total: scored.length };
+  }
+
+  var api = {
+    PROFILE_FIELDS: PROFILE_FIELDS,
+    FIELDS: FIELDS,
+    DOUBLE_COUNTED: DOUBLE_COUNTED,
+    NO_PREFERENCE: NO_PREFERENCE,
+    LEVELS: LEVELS,
+    SMOKE_VISIBLE: SMOKE_VISIBLE,
+    WEIGHTS: W,
+    profileOf: profileOf,
+    isWhisky: isWhisky,
+    bottles: bottles,
+    priceOf: priceOf,
+    peatOf: peatOf,
+    ageOf: ageOf,
+    coverage: coverage,
+    answerable: answerable,
+    valuesOf: valuesOf,
+    tailor: tailor,
+    priceBands: priceBands,
+    ceilingFor: ceilingFor,
+    passesHard: passesHard,
+    contrastOf: contrastOf,
+    recommend: recommend
+  };
+  if (typeof module !== 'undefined' && module.exports) module.exports = api;
+  root.BBWhiskyEngine = api;
+})(typeof globalThis !== 'undefined' ? globalThis : this);
+
+/*
+ * BrunnenBar — Whisky recommender, question flow and all interface copy
+ * =========================================================================
+ * Every answer value here is a literal value from the Menu API, never a
+ * translation of one. `Islay` is the string the card carries, the peat
+ * numbers are the card's own 0 to 4 scale, the tasting notes are its
+ * `whisky.notes` verbatim. No mapping layer means nothing can drift.
+ *
+ * `needs` names the field on `item.whisky` that a question scores against.
+ * A question whose field carries fewer than two different values across the
+ * whole shelf is dropped before the guest ever sees it, because it could not
+ * tell two bottles apart. That is how this app stays honest while the Menu
+ * API is still growing the fields in docs/whisky-api-felder-fuer-die-app.md.
+ *
+ * Bottle copy is the bar's own German and is never machine translated. The
+ * chrome around it is bilingual and falls back to German per field.
+ * =========================================================================
+ */
+(function (root) {
+  'use strict';
+
+  var QUESTIONS = [
+    {
+      id: 'level',
+      type: 'single',
+      needs: 'level',
+      optional: true,
+      /* Asking how much someone knows about whisky makes them defensive, and
+       * a guest who feels tested orders a beer. So the question asks what the
+       * glass is for instead. Same four values, framed as an occasion. */
+      title: { de: 'Was soll heute im Glas stehen?', en: 'What are we pouring tonight?' },
+      sub: {
+        de: 'Bei uns steht von der ersten Flasche bis zur guten hinten alles offen.',
+        en: 'Everything from the first bottle to the good stuff at the back is open to you.'
+      },
+      options: [
+        { value: 'einstieg', label: { de: 'Mein erster Whisky', en: 'My first whisky' },
+          hint: { de: 'Weich und freundlich, kein Sprung ins kalte Wasser', en: 'Soft and friendly, no deep end' } },
+        { value: 'klassiker', label: { de: 'Was Vertrautes', en: 'Something familiar' },
+          hint: { de: 'Ein Klassiker, den man kennt', en: 'A classic everyone knows' } },
+        { value: 'kenner', label: { de: 'Was Neues', en: 'Something new' },
+          hint: { de: 'Ich trinke öfter Whisky und will mal woanders hin', en: 'I drink whisky often and want to go somewhere else' } },
+        { value: 'rarität', label: { de: 'Was Besonderes', en: 'Something special' },
+          hint: { de: 'Heute darf es die gute Flasche sein', en: 'Tonight it can be the good bottle' } }
+      ]
+    },
+    {
+      id: 'peat',
+      type: 'scale',
+      needs: 'peat',
+      /* The one axis that genuinely divides people, so it gets the scale and
+       * it gets a hard rule behind it. See assets/engine.js. */
+      title: { de: 'Wie viel Rauch darf es sein?', en: 'How much smoke do you want?' },
+      sub: {
+        de: 'Rauch ist die eine Sache, bei der Whisky die Leute auseinander treibt. Sag ehrlich, wo du stehst.',
+        en: 'Smoke is the one thing that splits whisky drinkers. Be honest about where you stand.'
+      },
+      // Values and labels are the card's own peat scale.
+      options: [
+        { value: '0', label: { de: 'Kein Rauch', en: 'No smoke' } },
+        { value: '1', label: { de: 'Ein Hauch', en: 'A hint' } },
+        { value: '2', label: { de: 'Spürbar', en: 'Noticeable' } },
+        { value: '3', label: { de: 'Kräftig', en: 'Bold' } },
+        { value: '4', label: { de: 'Lagerfeuer', en: 'Campfire' } }
+      ]
+    },
+    {
+      id: 'notes',
+      type: 'multi',
+      needs: 'notes',
+      title: { de: 'Wonach soll er schmecken?', en: 'What should it taste like?' },
+      sub: {
+        de: 'Such dir aus, worauf du Lust hast. Zwei oder drei reichen völlig. Oder du überlässt es uns.',
+        en: 'Pick whatever appeals. Two or three is plenty. Or leave it to us.'
+      },
+      // Values are whisky.notes from the card, unchanged.
+      options: [
+        { value: 'fruchtig', label: { de: 'Fruchtig', en: 'Fruity' }, hint: { de: 'Apfel, Birne, Orange', en: 'Apple, pear, orange' } },
+        { value: 'zitrus', label: { de: 'Zitrus', en: 'Citrus' }, hint: { de: 'Zitrone, hell und wach', en: 'Lemon, bright and awake' } },
+        { value: 'honig/vanille', label: { de: 'Honig und Vanille', en: 'Honey and vanilla' }, hint: { de: 'Rund und weich', en: 'Round and soft' } },
+        { value: 'malzig', label: { de: 'Malzig', en: 'Malty' }, hint: { de: 'Getreide, Keks, warmes Brot', en: 'Grain, biscuit, warm bread' } },
+        { value: 'würzig', label: { de: 'Würzig', en: 'Spicy' }, hint: { de: 'Pfeffer, Zimt, Eichenholz', en: 'Pepper, cinnamon, oak' } },
+        { value: 'dunkle früchte', label: { de: 'Dunkle Früchte', en: 'Dark fruit' }, hint: { de: 'Rosine, Dörrobst, Sherry', en: 'Raisin, dried fruit, sherry' } },
+        { value: 'schokolade', label: { de: 'Schokolade', en: 'Chocolate' }, hint: { de: 'Dunkel und cremig', en: 'Dark and creamy' } },
+        { value: 'maritim/salzig', label: { de: 'Maritim und salzig', en: 'Maritime and salty' }, hint: { de: 'Meer, Salz, nasser Stein', en: 'Sea, salt, wet stone' } },
+        { value: 'blumig', label: { de: 'Blumig', en: 'Floral' }, hint: { de: 'Heide und Honigblüte, ganz leicht', en: 'Heather and honeysuckle, very light' } },
+        { value: 'nussig', label: { de: 'Nussig', en: 'Nutty' }, hint: { de: 'Mandel, Walnuss, trocken', en: 'Almond, walnut, dry' } },
+        { value: 'cremig', label: { de: 'Cremig', en: 'Creamy' }, hint: { de: 'Weich und rund im Mund', en: 'Soft and round in the mouth' } },
+        /* The card writes tasting tags into `flavour_tags`, the same field
+         * and the same vocabulary the cocktail export uses, so the values
+         * below can turn up on a bottle as easily as on a drink. Only the
+         * ones a bottle actually carries are ever offered, so listing them
+         * here costs nothing and buys each one a hint. */
+        { value: 'süß', label: { de: 'Süß', en: 'Sweet' }, hint: { de: 'Rund und weich', en: 'Round and soft' } },
+        { value: 'bitter', label: { de: 'Bitter', en: 'Bitter' }, hint: { de: 'Trocken, mit Kante', en: 'Dry, with an edge' } },
+        { value: 'sauer/zitrus', label: { de: 'Sauer und Zitrus', en: 'Sour and citrus' }, hint: { de: 'Zitrone, hell und wach', en: 'Lemon, bright and awake' } },
+        { value: 'kräuterig/frisch', label: { de: 'Kräuterig und frisch', en: 'Herbal and fresh' }, hint: { de: 'Gras, Heu, Minze', en: 'Grass, hay, mint' } },
+        { value: 'holzig', label: { de: 'Holzig', en: 'Woody' }, hint: { de: 'Eiche, trocken, alt', en: 'Oak, dry, old' } },
+        { value: 'salzig', label: { de: 'Salzig', en: 'Salty' }, hint: { de: 'Meer und nasser Stein', en: 'Sea and wet stone' } },
+        { value: 'scharf', label: { de: 'Scharf', en: 'Fiery' }, hint: { de: 'Pfeffer und Wärme', en: 'Pepper and heat' } },
+        { value: 'kaffee', label: { de: 'Kaffee', en: 'Coffee' }, hint: { de: 'Röstig und dunkel', en: 'Roasted and dark' } },
+        /* `exclusive` clears every other pick and vice versa. The value is
+         * BBWhiskyEngine.NO_PREFERENCE, which the engine reads as free rein
+         * rather than as a note to match. */
+        {
+          value: 'barkeeper', exclusive: true, wide: true,
+          label: { de: 'Barkeeper’s Choice', en: 'Bartender’s choice' },
+          hint: { de: 'Überrasch mich, ihr kennt die Flaschen besser', en: 'Surprise me, you know the bottles better' }
+        }
+      ]
+    },
+    {
+      id: 'origin',
+      type: 'multi',
+      needs: 'origin',
+      optional: true,
+      title: { de: 'Gibt es eine Ecke, die dich reizt?', en: 'Any corner of the world you fancy?' },
+      sub: {
+        de: 'Mehrfachauswahl möglich. Wenn dir die Herkunft egal ist, geh einfach weiter.',
+        en: 'Pick as many as you like. If you do not care where it comes from, just carry on.'
+      },
+      // Values are whisky.origin from the card.
+      options: [
+        { value: 'Speyside', label: { de: 'Speyside', en: 'Speyside' }, hint: { de: 'Weich und fruchtig', en: 'Soft and fruity' } },
+        { value: 'Islay', label: { de: 'Islay', en: 'Islay' }, hint: { de: 'Torf und Meer', en: 'Peat and sea' } },
+        { value: 'Highlands', label: { de: 'Highlands', en: 'Highlands' }, hint: { de: 'Kräftig und weit', en: 'Bold and wide open' } },
+        { value: 'Lowlands', label: { de: 'Lowlands', en: 'Lowlands' }, hint: { de: 'Leicht und sanft', en: 'Light and gentle' } },
+        { value: 'Campbeltown', label: { de: 'Campbeltown', en: 'Campbeltown' }, hint: { de: 'Salzig und ölig', en: 'Salty and oily' } },
+        { value: 'Inseln', label: { de: 'Die Inseln', en: 'The islands' }, hint: { de: 'Wind, Salz, oft etwas Rauch', en: 'Wind, salt, often a little smoke' } },
+        { value: 'Irland', label: { de: 'Irland', en: 'Ireland' }, hint: { de: 'Weich und rund', en: 'Soft and round' } },
+        { value: 'USA', label: { de: 'USA', en: 'USA' }, hint: { de: 'Bourbon und Rye, süß vom neuen Fass', en: 'Bourbon and rye, sweet from new oak' } },
+        { value: 'Japan', label: { de: 'Japan', en: 'Japan' }, hint: { de: 'Fein und genau gebaut', en: 'Fine and precisely built' } },
+        { value: 'Andere', label: { de: 'Woanders her', en: 'Somewhere else' }, hint: { de: 'Der Rest der Welt brennt auch', en: 'The rest of the world distils too' } },
+
+        /* The card spells several of these its own way, Highland rather than
+         * Highlands and Kentucky rather than USA. Both spellings live here
+         * because only the ones the card actually carries are ever offered,
+         * so a duplicate costs nothing and a missing one costs a hint. */
+        { value: 'Highland', label: { de: 'Highland', en: 'Highland' }, hint: { de: 'Kräftig und weit', en: 'Bold and wide open' } },
+        { value: 'Lowland', label: { de: 'Lowland', en: 'Lowland' }, hint: { de: 'Leicht und sanft', en: 'Light and gentle' } },
+        { value: 'Skye', label: { de: 'Skye', en: 'Skye' }, hint: { de: 'Wind, Salz und meistens Rauch', en: 'Wind, salt and usually smoke' } },
+        { value: 'Scotland', label: { de: 'Schottland', en: 'Scotland' }, hint: { de: 'Ein Blend aus mehreren Gegenden', en: 'A blend from several regions' } },
+        { value: 'Ireland', label: { de: 'Irland', en: 'Ireland' }, hint: { de: 'Weich und rund', en: 'Soft and round' } },
+        { value: 'Kentucky', label: { de: 'Kentucky', en: 'Kentucky' }, hint: { de: 'Bourbon und Rye, süß vom neuen Fass', en: 'Bourbon and rye, sweet from new oak' } },
+        { value: 'Tennessee', label: { de: 'Tennessee', en: 'Tennessee' }, hint: { de: 'Durch Holzkohle gefiltert, weich', en: 'Charcoal filtered, soft' } },
+        { value: 'Island', label: { de: 'Die Inseln', en: 'The islands' }, hint: { de: 'Wind, Salz, oft etwas Rauch', en: 'Wind, salt, often a little smoke' } },
+        /* Not a region but a way of building, and it earns a button anyway
+         * because a guest who wants a blend knows the word and looks for it. */
+        { value: 'Blended', label: { de: 'Ein Blend', en: 'A blend' }, hint: { de: 'Aus mehreren Brennereien zusammengesetzt', en: 'Put together from several distilleries' } }
+      ]
+    },
+    {
+      id: 'cask',
+      type: 'multi',
+      needs: 'cask',
+      optional: true,
+      title: { de: 'Und aus welchem Fass?', en: 'And out of which cask?' },
+      sub: {
+        de: 'Das Fass macht am Ende oft mehr aus als die Jahreszahl auf der Flasche.',
+        en: 'The cask usually matters more than the number of years on the label.'
+      },
+      // Values are whisky.cask from the card.
+      options: [
+        { value: 'Bourbonfass', label: { de: 'Bourbonfass', en: 'Bourbon cask' }, hint: { de: 'Vanille, Honig, hell', en: 'Vanilla, honey, bright' } },
+        { value: 'Sherryfass', label: { de: 'Sherryfass', en: 'Sherry cask' }, hint: { de: 'Rosine, Nuss, dunkel', en: 'Raisin, nut, dark' } },
+        { value: 'Portfass', label: { de: 'Portfass', en: 'Port cask' }, hint: { de: 'Beere und Süße', en: 'Berry and sweetness' } },
+        { value: 'Weinfass', label: { de: 'Weinfass', en: 'Wine cask' }, hint: { de: 'Fruchtig und würzig', en: 'Fruity and spiced' } },
+        { value: 'Rumfass', label: { de: 'Rumfass', en: 'Rum cask' }, hint: { de: 'Tropisch und süß', en: 'Tropical and sweet' } },
+        { value: 'Neue Eiche', label: { de: 'Neue Eiche', en: 'New oak' }, hint: { de: 'Vanille und Holz, kräftig', en: 'Vanilla and wood, bold' } }
+      ]
+    },
+    {
+      id: 'serve',
+      type: 'single',
+      needs: 'serve',
+      optional: true,
+      title: { de: 'Wie trinkst du ihn?', en: 'How do you drink it?' },
+      sub: {
+        de: 'Manche Flaschen wollen einen Schluck Wasser, andere kommen erst im langen Glas in Fahrt.',
+        en: 'Some bottles want a splash of water, others only get going in a tall glass.'
+      },
+      // Values are whisky.serve from the card.
+      options: [
+        { value: 'pur', label: { de: 'Pur', en: 'Neat' }, hint: { de: 'Nur das Glas und du', en: 'Just the glass and you' } },
+        { value: 'mit Wasser', label: { de: 'Mit einem Schluck Wasser', en: 'With a splash of water' }, hint: { de: 'Öffnet den Duft', en: 'Opens up the nose' } },
+        { value: 'auf Eis', label: { de: 'Auf Eis', en: 'On ice' }, hint: { de: 'Kühl und langsam', en: 'Cold and slow' } },
+        { value: 'Highball', label: { de: 'Als Highball', en: 'As a highball' }, hint: { de: 'Lang, kalt, mit Soda', en: 'Long, cold, with soda' } }
+      ]
+    },
+    {
+      id: 'budget',
+      type: 'bands',
+      needs: 'price',
+      optional: true,
+      /* The three labels are filled in from the real pour prices on the card
+       * at run time. Nothing about money is written into the app. */
+      title: { de: 'Was darf das Glas kosten?', en: 'What should the glass cost?' },
+      sub: {
+        de: 'Wir zeigen dir den Preis sowieso, egal was du hier antippst.',
+        en: 'We show you the price either way, whatever you tap here.'
+      },
+      options: [
+        { value: '1', label: { de: 'Bis {x}', en: 'Up to {x}' }, hint: { de: 'Gut und geradeaus', en: 'Good and straightforward' } },
+        { value: '2', label: { de: 'Bis {x}', en: 'Up to {x}' }, hint: { de: 'Etwas mehr Spielraum', en: 'A bit more room' } },
+        { value: '3', label: { de: 'Preis egal', en: 'Price is no object' }, hint: { de: 'Zeig mir das Beste, was ihr da stehen habt', en: 'Show me the best thing you have' } }
+      ]
+    }
+  ];
+
+  // ---------------------------------------------------------------- copy ---
+  var UI = {
+    de: {
+      title: 'BrunnenBar',
+      lede: 'Wir haben eine Wand voller Whisky und keine Lust, dich damit allein zu lassen. Ein paar Fragen und wir haben deine Flasche.',
+      start: 'Los geht’s',
+      fullCard: 'Zur ganzen Karte',
+      back: 'Zurück',
+      next: 'Weiter',
+      skip: 'Egal, weiter',
+      step: 'Frage {n} von {total}',
+      loading: 'Wir holen gerade die Karte.',
+      results: 'Das würden wir dir einschenken',
+      resultsSub: '',
+      topPick: 'Unsere Empfehlung',
+      alsoGood: 'Passt ebenfalls',
+      // Each runner up is labelled by the one thing that separates it.
+      contrast: {
+        smokier: 'Was Rauchigeres',
+        gentler: 'Was Sanfteres',
+        origin: 'Was aus {x}',
+        cask: 'Was aus dem {x}',
+        older: 'Was Älteres',
+        younger: 'Was Jüngeres',
+        cheaper: 'Was Günstigeres',
+        dearer: 'Was aus dem oberen Regal',
+        note: 'Was {x}'
+      },
+      // Written out by hand so every comparative is correct German.
+      noteCompare: {
+        'fruchtig': 'Fruchtigeres', 'zitrus': 'mit mehr Zitrus', 'honig/vanille': 'Süßeres',
+        'malzig': 'Malzigeres', 'würzig': 'Würzigeres', 'dunkle früchte': 'mit dunklen Früchten',
+        'schokolade': 'mit Schokolade', 'maritim/salzig': 'Salzigeres', 'blumig': 'Blumigeres',
+        'nussig': 'Nussigeres', 'cremig': 'Cremigeres',
+        'süß': 'Süßeres', 'bitter': 'Bittereres', 'sauer/zitrus': 'mit mehr Säure',
+        'kräuterig/frisch': 'Frischeres', 'holzig': 'Holzigeres', 'salzig': 'Salzigeres',
+        'scharf': 'Schärferes', 'kaffee': 'mit Kaffee', 'prickelnd': 'mit Perlage',
+        'überraschend': 'Überraschenderes'
+      },
+      match: '{n}% Übereinstimmung',
+      badgeSmoke: 'Rauchig',
+      badgeStart: 'Guter Einstieg',
+      badgeRare: 'Rarität',
+      badgeLoved: 'Wird oft bestellt',
+      notOnCard: 'Nicht auf der Karte',
+      restart: 'Nochmal von vorn',
+      moreOptions: 'Mehr Vorschläge',
+      keyOrigin: 'Von',
+      keyKind: 'Art',
+      keyCask: 'Fass',
+      keyAge: 'Alter',
+      keyAbv: 'Alkohol',
+      keySmoke: 'Rauch',
+      keyServe: 'Am liebsten',
+      keyPrice: 'Preis',
+      ageYears: '{n} Jahre',
+      ageNas: 'ohne Altersangabe',
+      empty: 'Bei dieser Kombination wird es eng.',
+      emptySub: 'Kein Problem. Komm an den Tresen, dann stellen wir dir zwei Gläser hin und du entscheidest.',
+      loosenedOrigin: 'Aus deiner Wunschgegend haben wir gerade nichts Passendes, deshalb stehen hier Flaschen von woanders.',
+      loosenedLevel: 'Wir haben die Auswahl etwas geöffnet, um dir überhaupt etwas anbieten zu können.',
+      smokeGap: 'So genau haben wir deinen Rauch gerade nicht getroffen, das hier kommt am nächsten dran.',
+      footer: 'Alle Preise gelten pro Glas. Sag am Tresen Bescheid, wenn du vorher probieren willst.',
+      noData: 'Unsere Whiskyauswahl steht noch nicht in der Karte.',
+      noDataSub: 'Sobald jede Flasche ihr Profil hat, läuft das hier. Bis dahin fragst du am besten einfach uns.',
+      offline: 'Die Karte war gerade nicht erreichbar. Das hier ist der Stand von vor {x}.',
+      offlineFail: 'Wir kommen gerade nicht an die Karte. Probier es gleich noch einmal oder frag uns direkt.',
+      demo: 'Vorschaumodus mit erfundenen Beispielflaschen. Nichts davon ist unsere echte Karte.',
+      ageMinutes: '{n} Minuten', ageHours: '{n} Stunden', ageDays: '{n} Tagen',
+      reasons: {
+        peat_exact: 'genau so viel Rauch, wie du wolltest',
+        peat_near: 'liegt nah an deinem Wunsch beim Rauch',
+        peat_none: 'kommt ganz ohne Rauch aus',
+        notes: 'schmeckt {x}',
+        origin: 'kommt aus {x}',
+        cask: 'lag im {x}',
+        serve: 'trinkt sich genau so, wie du es magst',
+        level: 'passt zu dem, was du heute suchst',
+        budget: 'liegt in deinem Rahmen'
+      },
+      levelNames: {
+        'einstieg': 'einem guten Einstieg', 'klassiker': 'einem Klassiker',
+        'kenner': 'etwas Neuem', 'rarität': 'etwas Besonderem'
+      },
+      // Read back as "schmeckt ...", so these have to work as adverbs.
+      noteNames: {
+        'fruchtig': 'fruchtig', 'zitrus': 'nach Zitrus', 'honig/vanille': 'nach Honig und Vanille',
+        'malzig': 'malzig', 'würzig': 'würzig', 'dunkle früchte': 'nach dunklen Früchten',
+        'schokolade': 'nach Schokolade', 'maritim/salzig': 'salzig und maritim',
+        'blumig': 'blumig', 'nussig': 'nussig', 'cremig': 'cremig',
+        'süß': 'süß', 'bitter': 'bitter', 'sauer/zitrus': 'sauer und frisch',
+        'kräuterig/frisch': 'kräuterig', 'holzig': 'holzig', 'salzig': 'salzig',
+        'scharf': 'scharf', 'kaffee': 'nach Kaffee', 'prickelnd': 'prickelnd',
+        'überraschend': 'überraschend'
+      },
+      peatNames: ['ohne Rauch', 'mit einem Hauch Rauch', 'spürbar rauchig', 'kräftig rauchig', 'wie ein Lagerfeuer']
+    },
+    en: {
+      title: 'BrunnenBar',
+      lede: 'We have a wall full of whisky and no intention of leaving you alone with it. A few questions and we will find your bottle.',
+      start: 'Start',
+      fullCard: 'See the full list',
+      back: 'Back',
+      next: 'Next',
+      skip: 'No preference',
+      step: 'Question {n} of {total}',
+      loading: 'Fetching the list.',
+      results: 'This is what we would pour you',
+      resultsSub: 'Bottle descriptions are in German, as they are on our card.',
+      topPick: 'Our pick',
+      alsoGood: 'Also a good fit',
+      contrast: {
+        smokier: 'Something smokier',
+        gentler: 'Something gentler',
+        origin: 'Something from {x}',
+        cask: 'Something from a {x}',
+        older: 'Something older',
+        younger: 'Something younger',
+        cheaper: 'Something cheaper',
+        dearer: 'Something from the top shelf',
+        note: 'Something {x}'
+      },
+      noteCompare: {
+        'fruchtig': 'fruitier', 'zitrus': 'with more citrus', 'honig/vanille': 'sweeter',
+        'malzig': 'maltier', 'würzig': 'spicier', 'dunkle früchte': 'with dark fruit',
+        'schokolade': 'with chocolate', 'maritim/salzig': 'saltier', 'blumig': 'more floral',
+        'nussig': 'nuttier', 'cremig': 'creamier',
+        'süß': 'sweeter', 'bitter': 'more bitter', 'sauer/zitrus': 'with more acidity',
+        'kräuterig/frisch': 'fresher', 'holzig': 'woodier', 'salzig': 'saltier',
+        'scharf': 'fierier', 'kaffee': 'with coffee', 'prickelnd': 'with bubbles',
+        'überraschend': 'more surprising'
+      },
+      match: '{n}% match',
+      badgeSmoke: 'Smoky',
+      badgeStart: 'Good first whisky',
+      badgeRare: 'Rare',
+      badgeLoved: 'Ordered a lot',
+      notOnCard: 'Off-menu',
+      restart: 'Start over',
+      moreOptions: 'More suggestions',
+      keyOrigin: 'From',
+      keyKind: 'Style',
+      keyCask: 'Cask',
+      keyAge: 'Age',
+      keyAbv: 'Alcohol',
+      keySmoke: 'Smoke',
+      keyServe: 'Best served',
+      keyPrice: 'Price',
+      ageYears: '{n} years',
+      ageNas: 'no age statement',
+      empty: 'That combination gets tight.',
+      emptySub: 'Not a problem. Come to the bar, we will put two glasses in front of you and let you decide.',
+      loosenedOrigin: 'Nothing from the region you asked for fits right now, so these come from elsewhere.',
+      loosenedLevel: 'We opened the selection up a little so we could offer you something at all.',
+      smokeGap: 'We could not match the smoke you asked for exactly, so this is the closest we have.',
+      footer: 'All prices are per glass. Tell us at the bar if you would like a taste first.',
+      noData: 'Our whisky shelf is not in the card yet.',
+      noDataSub: 'As soon as every bottle carries its profile this will work. Until then just ask us.',
+      offline: 'We could not reach the card. This is how it looked {x} ago.',
+      offlineFail: 'We cannot reach the card right now. Try again in a moment or just ask us.',
+      demo: 'Preview mode with invented example bottles. None of this is our real card.',
+      ageMinutes: '{n} minutes', ageHours: '{n} hours', ageDays: '{n} days',
+      reasons: {
+        peat_exact: 'exactly the smoke you asked for',
+        peat_near: 'close to the smoke you asked for',
+        peat_none: 'no smoke at all',
+        notes: 'tastes {x}',
+        origin: 'comes from {x}',
+        cask: 'matured in a {x}',
+        serve: 'drinks exactly the way you like it',
+        level: 'fits what you are after tonight',
+        budget: 'sits inside your range'
+      },
+      levelNames: {
+        'einstieg': 'a good place to start', 'klassiker': 'a classic',
+        'kenner': 'something new', 'rarität': 'something special'
+      },
+      noteNames: {
+        'fruchtig': 'fruity', 'zitrus': 'of citrus', 'honig/vanille': 'of honey and vanilla',
+        'malzig': 'malty', 'würzig': 'spicy', 'dunkle früchte': 'of dark fruit',
+        'schokolade': 'of chocolate', 'maritim/salzig': 'salty and maritime',
+        'blumig': 'floral', 'nussig': 'nutty', 'cremig': 'creamy',
+        'süß': 'sweet', 'bitter': 'bitter', 'sauer/zitrus': 'sour and fresh',
+        'kräuterig/frisch': 'herbal', 'holzig': 'woody', 'salzig': 'salty',
+        'scharf': 'fiery', 'kaffee': 'of coffee', 'prickelnd': 'sparkling',
+        'überraschend': 'surprising'
+      },
+      peatNames: ['no smoke', 'a hint of smoke', 'noticeably smoky', 'boldly smoky', 'like a campfire']
+    }
+  };
+
+  /* The English side of a card value, for the values that are proper strings
+   * rather than translated copy. Origins and casks are shown as they come
+   * from the card, and only these need an English form. */
+  var VALUE_EN = {
+    'Inseln': 'The islands',
+    'Irland': 'Ireland',
+    'Andere': 'Elsewhere',
+    'Bourbonfass': 'Bourbon cask',
+    'Sherryfass': 'Sherry cask',
+    'Portfass': 'Port cask',
+    'Weinfass': 'Wine cask',
+    'Rumfass': 'Rum cask',
+    'Neue Eiche': 'New oak',
+    'pur': 'neat',
+    'mit Wasser': 'with a splash of water',
+    'auf Eis': 'on ice',
+    'Highball': 'as a highball'
+  };
+
+  var api = { QUESTIONS: QUESTIONS, UI: UI, VALUE_EN: VALUE_EN };
+  if (typeof module !== 'undefined' && module.exports) module.exports = api;
+  root.BBWhiskyQuestions = api;
+})(typeof globalThis !== 'undefined' ? globalThis : this);
+
+/*
+ * PREVIEW DATA. NOT THE CARD. NOT A FALLBACK.
+ * =========================================================================
+ * The Menu API now carries fifteen profiled whiskies. Until the website seat
+ * republishes menu.json to page 217 they are not reachable from a browser,
+ * and this file is the only way to see the app work in the meantime. The day
+ * that publish lands, delete it.
+ *
+ * What is real here and what is not:
+ *
+ *   real     which bottles are on the shelf, which of them sit behind
+ *            hidden_on_card, and that Jack Daniel's is profiled in the
+ *            Spirituosen section rather than in Whisk(e)y
+ *   real     the peat and region values, as Dan described them
+ *   INVENTED every price, every tasting tag, every description, every photo
+ *
+ * The invented half is why the page shouts in gold on every screen while
+ * this file is loaded, and why it is loaded only when the address bar says
+ * ?demo=1 and never when a fetch fails.
+ *
+ * The field names and the region tokens are the card's own. `region` rather
+ * than origin, `flavour_tags` rather than notes, Island rather than Skye and
+ * Blended for a blend. The app builds its answers from whatever the card
+ * carries, so this file is also the test that it does.
+ *
+ * The photos are one placeholder drawing, and seven bottles deliberately have
+ * none, because roughly half the real card has no image either and a missing
+ * one has to look like nothing rather than like a hole.
+ * =========================================================================
+ */
+(function (root) {
+  'use strict';
+
+  /* Fills in the fields every Menu API row carries, so the table below can
+   * stay readable and show only what makes one bottle different. */
+  function bottle(o) {
+    var small = o.price;
+    var large = Math.round((small * 2 - 0.4) * 10) / 10;
+    return {
+      name: o.name, name_en: o.name,
+      group: o.group || '', group_en: o.group_en || o.group || '',
+      price: small,
+      prices: [{ size: '2 cl', price: small }, { size: '4 cl', price: large }],
+      description: o.de, description_en: o.en,
+      bartender_note: o.noteDe || '', bartender_note_en: o.noteEn || '',
+      ingredients: [], ingredients_en: [],
+      strength: 'stark',
+      allergens: [], allergens_en: [], allergen_codes: [],
+      alcohol_free: false,
+      image: o.shot === false ? null : 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA5MCA5MCIgcm9sZT0iaW1nIiBhcmlhLWxhYmVsPSJQbGF0emhhbHRlciI+CiAgPCEtLSBQcmV2aWV3IHBsYWNlaG9sZGVyIG9ubHkuIFRoZSByZWFsIGNhcmQgc2VydmVzIHNxdWFyZSBwaG90b3MgZnJvbQogICAgICAgYnJ1bm5lbmJhci5jb20sIHRoaXMgc3RhbmRzIGluIGZvciBvbmUgc28gdGhlIGxheW91dCBjYW4gYmUganVkZ2VkLiAtLT4KICA8ZyBmaWxsPSJub25lIiBzdHJva2U9IiNjOWE5NWMiIHN0cm9rZS13aWR0aD0iMi4yIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj4KICAgIDxwYXRoIGQ9Ik0zOSAxNGgxMnYxMGw3IDExYTEwIDEwIDAgMCAxIDIgNnYyOWE0IDQgMCAwIDEtNCA0SDM0YTQgNCAwIDAgMS00LTRWNDFhMTAgMTAgMCAwIDEgMi02bDctMTF6Ii8+CiAgICA8cGF0aCBkPSJNMzggMTJoMTQiLz4KICA8L2c+CiAgPHJlY3QgeD0iMzMiIHk9IjQ3IiB3aWR0aD0iMjQiIGhlaWdodD0iMTYiIHJ4PSIyIiBmaWxsPSIjYzlhOTVjIiBvcGFjaXR5PSIwLjI4Ii8+Cjwvc3ZnPgo=',
+      pos_sku: o.sku || '',
+      hidden_on_card: o.backBar === true,
+      on_printed_menu: o.backBar !== true,
+      popularity_rank: o.rank == null ? 9999 : o.rank,
+      menu_class: o.cls || 'plowhorse',
+      recommended: o.leader === true,
+
+      // The whisky profile, flat on the item the way the card carries it.
+      peat: o.peat,
+      region: o.origin,
+      flavour_tags: o.notes,
+      flavour_tags_en: o.notesEn,
+      brand: o.brand,
+      whisky_kind: o.kind,
+      whisky_expression: o.expression || '',
+      whisky_age_years: o.age == null ? null : o.age,
+      abv: o.abv,
+      cask: o.cask, cask_en: o.caskEn,
+      whisky_serve: o.serve, whisky_serve_en: o.serveEn,
+      whisky_level: o.level
+    };
+  }
+
+  var NEAT = ['pur', 'mit Wasser'];
+  var NEAT_EN = ['neat', 'with water'];
+  var ICE = ['pur', 'mit Wasser', 'auf Eis'];
+  var ICE_EN = ['neat', 'with water', 'on ice'];
+  var LONG = ['pur', 'auf Eis', 'Highball'];
+  var LONG_EN = ['neat', 'on ice', 'highball'];
+  var TALL = ['pur', 'mit Wasser', 'Highball'];
+  var TALL_EN = ['neat', 'with water', 'highball'];
+
+  var BOURBON = ['Bourbonfass'], BOURBON_EN = ['Bourbon cask'];
+  var SHERRY = ['Sherryfass'], SHERRY_EN = ['Sherry cask'];
+  var BOTH = ['Bourbonfass', 'Sherryfass'], BOTH_EN = ['Bourbon cask', 'Sherry cask'];
+  var OAK = ['Neue Eiche'], OAK_EN = ['New oak'];
+
+  // ------------------------------------------------- on the guest neat card --
+
+  var NEAT_CARD = [
+    bottle({
+      name: 'Oban 14', brand: 'Oban', kind: 'Single Malt', expression: '14 Jahre',
+      origin: 'Highland', peat: 1, age: 14, abv: 43, price: 7.5, rank: 3, cls: 'star',
+      cask: BOTH, caskEn: BOTH_EN, level: 'klassiker', serve: NEAT, serveEn: NEAT_EN,
+      notes: ['maritim/salzig', 'fruchtig', 'würzig'], notesEn: ['maritime/salty', 'fruity', 'spicy'],
+      de: 'Genau zwischen den sanften Speysiders und dem Rauch der Inseln. Ein guter erster Schritt Richtung Westküste.',
+      en: 'Right between the gentle Speysiders and the smoke of the islands. A good first step towards the west coast.'
+    }),
+    bottle({
+      name: 'Bulleit Bourbon', brand: 'Bulleit', kind: 'Bourbon',
+      origin: 'Kentucky', peat: 0, age: null, abv: 45, price: 5.5, rank: 2, cls: 'star',
+      cask: OAK, caskEn: OAK_EN, level: 'klassiker', serve: LONG, serveEn: LONG_EN,
+      notes: ['würzig', 'honig/vanille', 'fruchtig'], notesEn: ['spicy', 'honey/vanilla', 'fruity'],
+      de: 'Hoher Roggenanteil, deshalb pfeffriger als die meisten Bourbons. Der Whiskey in unserem Mint Julep.',
+      en: 'A high rye share, which makes it peppier than most bourbons. The whiskey in our Mint Julep.'
+    }),
+    bottle({
+      name: 'Talisker 10', brand: 'Talisker', kind: 'Single Malt', expression: '10 Jahre',
+      origin: 'Island', peat: 2, age: 10, abv: 45.8, price: 6.9, rank: 1, cls: 'star', leader: true,
+      cask: BOURBON, caskEn: BOURBON_EN, level: 'klassiker', serve: TALL, serveEn: TALL_EN,
+      notes: ['maritim/salzig', 'würzig', 'fruchtig'], notesEn: ['maritime/salty', 'spicy', 'fruity'],
+      de: 'Pfeffer, Salz und ein Feuer am Strand. Von Skye und schmeckt auch danach.',
+      en: 'Pepper, salt and a fire on the beach. From Skye and it tastes like it.',
+      noteDe: 'Wir bauen daraus auch den Talisker Campfire mit warmer Schokolade, frag einfach danach.',
+      noteEn: 'We also build the Talisker Campfire from it with warm chocolate, just ask.'
+    }),
+    bottle({
+      name: 'Singleton of Dufftown 12', brand: 'Singleton', kind: 'Single Malt', expression: '12 Jahre',
+      origin: 'Speyside', peat: 0, age: 12, abv: 40, price: 5.5, rank: 5, cls: 'plowhorse',
+      cask: BOTH, caskEn: BOTH_EN, level: 'einstieg', serve: ICE, serveEn: ICE_EN,
+      notes: ['fruchtig', 'honig/vanille', 'malzig'], notesEn: ['fruity', 'honey/vanilla', 'malty'],
+      de: 'Weich, süß und ohne jede Kante. Der Whisky, mit dem hier die meisten anfangen.',
+      en: 'Soft, sweet and without an edge anywhere. The whisky most people here start with.'
+    }),
+    bottle({
+      name: 'Lagavulin 16', brand: 'Lagavulin', kind: 'Single Malt', expression: '16 Jahre',
+      origin: 'Islay', peat: 4, age: 16, abv: 43, price: 9.5, rank: 7, cls: 'puzzle',
+      cask: BOTH, caskEn: BOTH_EN, level: 'rarität', serve: NEAT, serveEn: NEAT_EN,
+      notes: ['dunkle früchte', 'schokolade', 'maritim/salzig'], notesEn: ['dark fruit', 'chocolate', 'maritime/salty'],
+      de: 'Der lauteste Whisky im Regal und gleichzeitig der eleganteste. Torf, Teer und dunkle Frucht.',
+      en: 'The loudest whisky on the shelf and somehow also the most elegant. Peat, tar and dark fruit.'
+    }),
+    bottle({
+      name: 'Dalwhinnie 15', shot: false, brand: 'Dalwhinnie', kind: 'Single Malt', expression: '15 Jahre',
+      origin: 'Highland', peat: 1, age: 15, abv: 43, price: 6.9, rank: 8, cls: 'puzzle',
+      cask: BOURBON, caskEn: BOURBON_EN, level: 'kenner', serve: NEAT, serveEn: NEAT_EN,
+      notes: ['honig/vanille', 'blumig', 'malzig'], notesEn: ['honey/vanilla', 'floral', 'malty'],
+      de: 'Aus der kältesten Destillerie Schottlands und trotzdem der wärmste Honig.',
+      en: "From Scotland's coldest distillery and still the warmest honey.",
+      noteDe: 'Probier ihn mal ganz leicht gekühlt, das machen sie in Dalwhinnie selbst so.',
+      noteEn: 'Try it very lightly chilled, that is how they drink it at Dalwhinnie.'
+    }),
+    bottle({
+      name: 'Glenkinchie 12', shot: false, brand: 'Glenkinchie', kind: 'Single Malt', expression: '12 Jahre',
+      origin: 'Lowland', peat: 0, age: 12, abv: 43, price: 5.9, rank: 9, cls: 'dog',
+      cask: BOURBON, caskEn: BOURBON_EN, level: 'einstieg', serve: ICE, serveEn: ICE_EN,
+      notes: ['blumig', 'zitrus', 'malzig'], notesEn: ['floral', 'citrus', 'malty'],
+      de: 'Der Garten von Edinburgh im Glas, grasig und hell und sehr freundlich.',
+      en: 'The garden of Edinburgh in a glass, grassy and bright and very friendly.'
+    }),
+    bottle({
+      name: 'Buffalo Trace', brand: 'Buffalo Trace', kind: 'Bourbon',
+      origin: 'Kentucky', peat: 0, age: null, abv: 45, price: 5.9, rank: 6, cls: 'star',
+      cask: OAK, caskEn: OAK_EN, level: 'klassiker', serve: LONG, serveEn: LONG_EN,
+      notes: ['honig/vanille', 'schokolade', 'würzig'], notesEn: ['honey/vanilla', 'chocolate', 'spicy'],
+      de: 'Vanille, Karamell und ein bisschen Minze. Der Bourbon, den Bourbontrinker bestellen.',
+      en: 'Vanilla, caramel and a little mint. The bourbon that bourbon drinkers order.'
+    })
+  ];
+
+  // ------------------------- back bar, in the app but not on the printed card --
+
+  var BACK_BAR = [
+    bottle({
+      name: 'Jameson', shot: false, brand: 'Jameson', kind: 'Irish Blend', backBar: true,
+      origin: 'Ireland', peat: 0, age: null, abv: 40, price: 4.5, rank: 4, cls: 'plowhorse',
+      cask: BOTH, caskEn: BOTH_EN, level: 'einstieg', serve: LONG, serveEn: LONG_EN,
+      notes: ['fruchtig', 'nussig', 'honig/vanille'], notesEn: ['fruity', 'nutty', 'honey/vanilla'],
+      de: 'Dreifach gebrannt und deshalb so weich. Der freundlichste Weg in den Whiskey.',
+      en: 'Triple distilled and that is why it is so soft. The friendliest way into whiskey.'
+    }),
+    bottle({
+      name: 'Johnnie Walker Black Label 12', brand: 'Johnnie Walker', kind: 'Blended Scotch',
+      expression: 'Black Label 12', backBar: true,
+      origin: 'Blended', peat: 1, age: 12, abv: 40, price: 5.5, rank: 10, cls: 'plowhorse',
+      cask: BOTH, caskEn: BOTH_EN, level: 'klassiker', serve: LONG, serveEn: LONG_EN,
+      notes: ['fruchtig', 'würzig', 'honig/vanille'], notesEn: ['fruity', 'spicy', 'honey/vanilla'],
+      de: 'Vierzig Whiskys in einer Flasche und trotzdem immer gleich gut. Der Klassiker hinter jeder Bar.',
+      en: 'Forty whiskies in one bottle and reliably good every time. The classic behind every bar.'
+    }),
+    bottle({
+      name: 'Johnnie Walker Black Ruby', shot: false, brand: 'Johnnie Walker', kind: 'Blended Scotch',
+      expression: 'Black Ruby', backBar: true,
+      origin: 'Blended', peat: 1, age: null, abv: 40, price: 5.9, cls: 'puzzle',
+      cask: ['Portfass', 'Sherryfass'], caskEn: ['Port cask', 'Sherry cask'],
+      level: 'kenner', serve: LONG, serveEn: LONG_EN,
+      notes: ['dunkle früchte', 'schokolade', 'fruchtig'], notesEn: ['dark fruit', 'chocolate', 'fruity'],
+      de: 'Der Black Label mit einer dunklen roten Frucht darüber. Süßer, runder, abends.',
+      en: 'Black Label with a dark red fruit laid over it. Sweeter, rounder, an evening pour.'
+    }),
+    bottle({
+      name: 'Bulleit Rye', shot: false, brand: 'Bulleit', kind: 'Rye', backBar: true,
+      origin: 'Kentucky', peat: 0, age: null, abv: 45, price: 5.9, cls: 'puzzle',
+      cask: OAK, caskEn: OAK_EN, level: 'kenner', serve: LONG, serveEn: LONG_EN,
+      notes: ['würzig', 'zitrus', 'schokolade'], notesEn: ['spicy', 'citrus', 'chocolate'],
+      de: 'Fast nur Roggen. Trocken, scharf und genau richtig für einen Manhattan.',
+      en: 'Almost all rye. Dry, sharp and exactly right for a Manhattan.'
+    }),
+    bottle({
+      name: 'Talisker Skye', shot: false, brand: 'Talisker', kind: 'Single Malt', expression: 'Skye', backBar: true,
+      origin: 'Island', peat: 2, age: null, abv: 45.8, price: 6.5, cls: 'puzzle',
+      cask: BOTH, caskEn: BOTH_EN, level: 'kenner', serve: TALL, serveEn: TALL_EN,
+      notes: ['maritim/salzig', 'honig/vanille', 'würzig'],
+      notesEn: ['maritime/salty', 'honey/vanilla', 'spicy'],
+      de: 'Der weichere Talisker. Gleicher Wind, weniger Kante, mehr Süße.',
+      en: 'The softer Talisker. Same wind, less edge, more sweetness.'
+    }),
+    bottle({
+      name: 'Singleton of Dufftown 15', shot: false, brand: 'Singleton', kind: 'Single Malt',
+      expression: '15 Jahre', backBar: true,
+      origin: 'Speyside', peat: 0, age: 15, abv: 40, price: 7.9, cls: 'puzzle',
+      cask: SHERRY, caskEn: SHERRY_EN, level: 'kenner', serve: NEAT, serveEn: NEAT_EN,
+      notes: ['dunkle früchte', 'nussig', 'malzig'], notesEn: ['dark fruit', 'nutty', 'malty'],
+      de: 'Der grosse Bruder vom Zwölfer. Drei Jahre länger im Sherryfass und man schmeckt jedes davon.',
+      en: 'The big brother of the twelve. Three more years in sherry and you taste every one of them.'
+    })
+  ];
+
+  /* Profiled where it lives, which is the Spirituosen section and not the
+   * whisky one. The app finds it anyway, which is the entire argument for
+   * reading the data instead of the section title. */
+  var ELSEWHERE = [
+    bottle({
+      name: "Jack Daniel's Old No. 7", brand: "Jack Daniel's", kind: 'Tennessee Whiskey',
+      expression: 'Old No. 7',
+      origin: 'Tennessee', peat: 0, age: null, abv: 40, price: 4.5, rank: 11, cls: 'plowhorse',
+      cask: OAK, caskEn: OAK_EN, level: 'einstieg', serve: LONG, serveEn: LONG_EN,
+      notes: ['honig/vanille', 'schokolade', 'malzig'], notesEn: ['honey/vanilla', 'chocolate', 'malty'],
+      de: 'Durch Holzkohle gefiltert, deshalb so weich und süß. Der meistbestellte Whiskey der Welt.',
+      en: 'Filtered through charcoal, which is why it is so soft and sweet. The most ordered whiskey in the world.'
+    })
+  ];
+
+  /* Rows that are not whisky, so the app has to prove it tells them apart by
+   * the data and not by the section they sit in. The two flavoured bottles
+   * are the real case, they are whiskey in the bar and unprofiled on the
+   * card, and until someone profiles them the app must leave them alone. */
+  var OTHER = [
+    {
+      name: 'Augustiner Helles 0,5l', name_en: 'Augustiner Helles 0,5l',
+      group: 'Helles', group_en: 'Lager', price: 4.4, prices: [{ size: '', price: 4.4 }],
+      description: 'Münchens Kult-Helles, schlank, malzig, unaufgeregt gut.',
+      description_en: "Munich's cult lager, lean, malty, effortlessly good.",
+      bartender_note: '', bartender_note_en: '',
+      ingredients: [], ingredients_en: [], strength: '',
+      allergens: ['Gluten'], allergens_en: ['Gluten'], allergen_codes: [1],
+      alcohol_free: false, image: null, pos_sku: '', hidden_on_card: false,
+      on_printed_menu: true, popularity_rank: 9999, menu_class: 'plowhorse', recommended: false
+    },
+    {
+      name: 'Old Fashioned', name_en: 'Old Fashioned',
+      group: '', group_en: '', price: 9.7, prices: [{ size: '', price: 9.7 }],
+      description: 'Whiskey, Zucker, Bitter, Eis. Der älteste Cocktail der Welt.',
+      description_en: 'Whiskey, sugar, bitters, ice. The oldest cocktail in the world.',
+      bartender_note: '', bartender_note_en: '',
+      ingredients: ['Four Roses', 'Zucker', 'Angostura'],
+      ingredients_en: ['Four Roses', 'Sugar', 'Angostura'],
+      strength: 'stark', allergens: [], allergens_en: [], allergen_codes: [],
+      alcohol_free: false, image: null, pos_sku: '149', hidden_on_card: false,
+      on_printed_menu: false, popularity_rank: 58, menu_class: 'star', recommended: false
+    },
+    {
+      name: 'Fireball', name_en: 'Fireball',
+      group: '', group_en: '', price: 3.5, prices: [{ size: '2 cl', price: 3.5 }],
+      description: 'Zimtlikör auf Whiskeybasis, süß und heiß.',
+      description_en: 'Cinnamon liqueur on a whiskey base, sweet and hot.',
+      bartender_note: '', bartender_note_en: '',
+      ingredients: [], ingredients_en: [], strength: 'mittel',
+      allergens: [], allergens_en: [], allergen_codes: [],
+      alcohol_free: false, image: null, pos_sku: '', hidden_on_card: true,
+      on_printed_menu: false, popularity_rank: 9999, menu_class: 'plowhorse',
+      recommended: false, brand: 'Fireball'
+    }
+  ];
+
+  var MENU = {
+    name: 'BrunnenBar VORSCHAU',
+    generated: '2026-09-08',
+    published_at: '2026-09-08T00:00:00+02:00',
+    content_hash: 'vorschau-nicht-echt',
+    url: 'preview only, not the Menu API',
+    languages: ['de', 'en'],
+    allergens: { de: {}, en: {}, intro_de: '', intro_en: '', outro_de: '', outro_en: '' },
+    sections: [
+      { title: 'Whisk(e)y Neat', title_en: 'Whisk(e)y Neat', items: NEAT_CARD.concat(BACK_BAR) },
+      { title: 'Spirituosen', title_en: 'Spirits', items: ELSEWHERE.concat([OTHER[2]]) },
+      { title: 'Bier', title_en: 'Beer', items: [OTHER[0]] },
+      { title: 'Whisk(e)y Cocktails', title_en: 'Whisk(e)y Cocktails', items: [OTHER[1]] }
+    ]
+  };
+
+  var WHISKY = NEAT_CARD.concat(BACK_BAR, ELSEWHERE);
+
+  var api = { menu: MENU, WHISKY: WHISKY, OTHER: OTHER };
+  if (typeof module !== 'undefined' && module.exports) module.exports = api;
+  root.BBWhiskyDemo = api;
+})(typeof globalThis !== 'undefined' ? globalThis : this);
+
+</script>
+<script>
+/*
+ * BrunnenBar — Whisky recommender, interface
+ * =========================================================================
+ * Vanilla JS, no build step, no dependencies. Loads as plain script tags so
+ * the page also works opened straight off disk or on an iPad behind the bar.
+ *
+ * The bottles come from the live Menu API through the shared loader in
+ * ../assets/menu-source.js, which is the only file in the project allowed to
+ * talk to it. Nothing about the shelf is written into this app. If the card
+ * cannot be reached, the page says so and shows the last answer this browser
+ * itself received, with its age, and never a copy that shipped with the app.
+ * =========================================================================
+ */
+(function () {
+  'use strict';
+
+  var SOURCE = window.BBMenuSource;
+  var ENGINE = window.BBWhiskyEngine;
+  var QUESTIONS = window.BBWhiskyQuestions.QUESTIONS;
+  var UI = window.BBWhiskyQuestions.UI;
+  var VALUE_EN = window.BBWhiskyQuestions.VALUE_EN;
+  var CARD_URL = 'https://brunnenbar.com/cocktailkarte/';
+
+  // Rank at or under which a bottle is called a favourite on its card.
+  var LOVED_RANK = 10;
+
+  /* Preview mode. Explicitly asked for with ?demo=1, loud on every screen,
+   * and never reached by a failed fetch. It exists so the app can be looked
+   * at before the shelf carries its profiles, and for nothing else. */
+  var DEMO = true;   // built as a preview, so this is not a question
+
+  var state = {
+    lang: 'de',
+    screen: 'loading',
+    step: 0,
+    answers: {},
+    seed: Math.floor(Math.random() * 100000),
+    showAll: false,
+    pool: [],
+    questions: [],
+    stale: null,       // {ageMs} when this is the last response, not a fresh one
+    failed: false
+  };
+
+  var stage = document.getElementById('stage');
+  var liveRegion = document.getElementById('live');
+
+  // ------------------------------------------------------------- helpers --
+
+  function t() { return UI[state.lang]; }
+  function L(obj) { return obj ? obj[state.lang] : ''; }
+  function fill(str, vars) {
+    return String(str).replace(/\{(\w+)\}/g, function (m, k) {
+      return vars && vars[k] != null ? vars[k] : m;
+    });
+  }
+
+  /* A field off the row itself, English where the card has it and German
+   * where it does not, decided per field so a half translated bottle shows
+   * English where it can instead of reverting wholesale. */
+  function F(item, key) { return SOURCE.field(item, key, state.lang) || ''; }
+
+  /* The same idea one level down, inside the whisky profile. */
+  function P(item, key) {
+    var p = ENGINE.profileOf(item) || {};
+    if (state.lang === 'en') {
+      var en = p[key + '_en'];
+      if (typeof en === 'string' ? en : (en && en.length)) return en;
+    }
+    return p[key];
+  }
+
+  /* A single card value such as an origin or a cask, for the places where
+   * one value is quoted on its own and there is no parallel English array to
+   * read it out of. */
+  function V(value) {
+    if (state.lang !== 'en' || value == null) return value;
+    return VALUE_EN[value] || value;
+  }
+
+  /* A profile value ready to show. English from the card where the card has
+   * it, otherwise the German value put through the small translation table,
+   * so a bottle nobody translated still reads as English where it can. */
+  function LV(item, key) {
+    var v = P(item, key);
+    if (Array.isArray(v)) return v.map(V).join(' · ');
+    return V(v) || '';
+  }
+
+  function el(tag, attrs, children) {
+    var node = document.createElement(tag);
+    if (attrs) {
+      Object.keys(attrs).forEach(function (k) {
+        var v = attrs[k];
+        if (v == null || v === false) return;
+        if (k === 'class') node.className = v;
+        else if (k === 'text') node.textContent = v;
+        else if (k.slice(0, 2) === 'on') node.addEventListener(k.slice(2).toLowerCase(), v);
+        else node.setAttribute(k, v === true ? '' : v);
+      });
+    }
+    (children || []).forEach(function (c) {
+      if (c == null || c === false) return;
+      node.appendChild(typeof c === 'string' ? document.createTextNode(c) : c);
+    });
+    return node;
+  }
+
+  function announce(msg) { if (liveRegion) liveRegion.textContent = msg; }
+
+  function humanAge(ms) {
+    var mins = Math.round(ms / 60000);
+    if (mins < 90) return fill(t().ageMinutes, { n: Math.max(1, mins) });
+    var hours = Math.round(mins / 60);
+    if (hours < 36) return fill(t().ageHours, { n: hours });
+    return fill(t().ageDays, { n: Math.round(hours / 24) });
+  }
+
+  // ------------------------------------------------------------ questions --
+
+  /* The flow the shelf can actually answer. The engine decides which
+   * questions and which answers survive, this only turns the price bands it
+   * hands back into something a guest can read. */
+  function buildQuestions(pool) {
+    return ENGINE.tailor(pool, QUESTIONS).map(function (cut) {
+      var q = cut.q;
+      if (!cut.bands) {
+        return cut.options ? shallow(q, { options: cut.options }) : q;
+      }
+      var byValue = {};
+      q.options.forEach(function (o) { byValue[o.value] = o; });
+      return shallow(q, {
+        type: 'single',
+        options: cut.bands.map(function (b) {
+          var tpl = byValue[b.value] || byValue['3'];
+          return {
+            value: b.value,
+            label: {
+              de: fill(tpl.label.de, { x: SOURCE.formatPrice(b.max) }),
+              en: fill(tpl.label.en, { x: SOURCE.formatPrice(b.max) })
+            },
+            hint: tpl.hint
+          };
+        })
+      });
+    });
+  }
+
+  function shallow(base, over) {
+    var out = {};
+    Object.keys(base).forEach(function (k) { out[k] = base[k]; });
+    Object.keys(over).forEach(function (k) { out[k] = over[k]; });
+    return out;
+  }
+
+  function isAnswered(q) {
+    var v = state.answers[q.id];
+    return q.type === 'multi' ? Array.isArray(v) && v.length > 0 : v != null && v !== '';
+  }
+
+  function render() {
+    stage.innerHTML = '';
+    if (DEMO) stage.appendChild(el('p', { class: 'notice demo', text: t().demo }));
+    if (state.screen === 'loading') stage.appendChild(renderLoading());
+    else if (state.screen === 'error') stage.appendChild(renderError());
+    else if (state.screen === 'intro') stage.appendChild(renderIntro());
+    else if (state.screen === 'quiz') stage.appendChild(renderQuiz());
+    else stage.appendChild(renderResults());
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  // -------------------------------------------------------- plain screens --
+
+  function renderLoading() {
+    return el('section', { class: 'intro' }, [
+      el('h1', { text: t().title }),
+      el('hr', { class: 'rule' }),
+      el('p', { class: 'lede', text: t().loading })
+    ]);
+  }
+
+  function renderError() {
+    var noShelf = !state.failed;
+    return el('section', { class: 'intro' }, [
+      el('h1', { text: t().title }),
+      el('hr', { class: 'rule' }),
+      el('p', { class: 'lede', text: noShelf ? t().noData : t().offlineFail }),
+      el('p', { class: 'q-sub', text: noShelf ? t().noDataSub : '' }),
+      el('div', {}, [
+        el('a', { class: 'link-card', href: CARD_URL, target: '_blank', rel: 'noopener', text: t().fullCard })
+      ])
+    ]);
+  }
+
+  // --------------------------------------------------------------- intro --
+
+  function renderIntro() {
+    var frag = document.createDocumentFragment();
+    if (state.stale) {
+      frag.appendChild(el('p', {
+        class: 'notice', text: fill(t().offline, { x: humanAge(state.stale.ageMs) })
+      }));
+    }
+    frag.appendChild(el('section', { class: 'intro' }, [
+      el('h1', { text: t().title }),
+      el('hr', { class: 'rule' }),
+      el('p', { class: 'lede', text: t().lede }),
+      el('button', {
+        class: 'btn btn-primary', text: t().start,
+        onClick: function () {
+          // A shelf too small to ask anything about still deserves an answer.
+          state.screen = state.questions.length ? 'quiz' : 'results';
+          state.step = 0;
+          state.answers = {};
+          state.showAll = false;
+          state.seed = Math.floor(Math.random() * 100000);
+          render();
+        }
+      }),
+      el('div', {}, [
+        el('a', { class: 'link-card', href: CARD_URL, target: '_blank', rel: 'noopener', text: t().fullCard })
+      ])
+    ]));
+    return frag;
+  }
+
+  // ---------------------------------------------------------------- quiz --
+
+  function renderQuiz() {
+    var qs = state.questions;
+    var q = qs[state.step];
+    if (!q) { state.step = Math.max(0, qs.length - 1); q = qs[state.step]; }
+    if (!q) return renderResults();
+
+    var frag = document.createDocumentFragment();
+
+    var pct = ((state.step + 1) / qs.length) * 100;
+    frag.appendChild(el('div', { class: 'progress' }, [
+      el('div', { class: 'progress-track' }, [
+        el('div', { class: 'progress-fill', style: 'width:' + pct + '%' })
+      ]),
+      el('p', { class: 'progress-label', text: fill(t().step, { n: state.step + 1, total: qs.length }) })
+    ]));
+
+    frag.appendChild(el('h2', { class: 'q-title', text: L(q.title) }));
+    if (q.sub) frag.appendChild(el('p', { class: 'q-sub', text: L(q.sub) }));
+
+    frag.appendChild(q.type === 'scale' ? renderScale(q) : renderOptions(q));
+
+    var nav = el('div', { class: 'nav' });
+    if (state.step > 0) {
+      nav.appendChild(el('button', {
+        class: 'btn btn-ghost', type: 'button', text: t().back,
+        onClick: function () { state.step--; render(); }
+      }));
+    }
+    var right = el('div', { class: 'nav-right' });
+    if (q.optional) {
+      right.appendChild(el('button', {
+        class: 'btn-quiet', type: 'button', text: t().skip,
+        onClick: function () {
+          state.answers[q.id] = q.type === 'multi' ? [] : '';
+          advance();
+        }
+      }));
+    }
+    if (q.type === 'multi') {
+      right.appendChild(el('button', {
+        class: 'btn btn-primary', type: 'button', text: t().next,
+        disabled: !q.optional && !isAnswered(q),
+        onClick: advance
+      }));
+    }
+    nav.appendChild(right);
+    frag.appendChild(nav);
+
+    return frag;
+  }
+
+  function renderOptions(q) {
+    var multi = q.type === 'multi';
+    var current = state.answers[q.id];
+    var wrap = el('div', {
+      class: 'options' + (q.options.length > 4 ? ' cols-2' : ''),
+      role: multi ? 'group' : 'radiogroup',
+      'aria-label': L(q.title)
+    });
+    q.options.forEach(function (opt) {
+      var selected = multi
+        ? Array.isArray(current) && current.indexOf(opt.value) !== -1
+        : current === opt.value;
+      wrap.appendChild(el('button', {
+        class: 'option' + (opt.wide ? ' option-wide' : ''), type: 'button',
+        'aria-pressed': selected ? 'true' : 'false',
+        onClick: function () { choose(q, opt.value); }
+      }, [
+        el('span', { class: 'option-mark', 'aria-hidden': 'true' }),
+        el('span', { class: 'option-body' }, [
+          el('span', { class: 'option-label', text: L(opt.label) }),
+          opt.hint && el('span', { class: 'option-hint', text: L(opt.hint) })
+        ])
+      ]));
+    });
+    return wrap;
+  }
+
+  /* Five stops for peat, where the cocktail app has six for strength. The
+   * theme takes the stop count as a variable, so this is a two line override
+   * in styles.css rather than a second copy of the grid. */
+  function renderScale(q) {
+    var current = state.answers[q.id];
+    var wrap = el('div', { class: 'scale', role: 'radiogroup', 'aria-label': L(q.title) });
+    q.options.forEach(function (opt, i) {
+      wrap.appendChild(el('button', {
+        class: 'scale-stop', type: 'button',
+        'aria-pressed': current === opt.value ? 'true' : 'false',
+        onClick: function () { choose(q, opt.value); }
+      }, [
+        pipRow(i, q.options.length - 1),
+        el('span', { class: 'scale-label', text: L(opt.label) })
+      ]));
+    });
+    return wrap;
+  }
+
+  /* Filled pips read as intensity no matter how the grid wraps, which a
+   * single rising bar does not once it breaks onto a second row. */
+  function pipRow(on, total) {
+    var pips = el('span', { class: 'pips', 'aria-hidden': 'true' });
+    for (var n = 1; n <= total; n++) {
+      pips.appendChild(el('i', { class: n <= on ? 'pip on' : 'pip' }));
+    }
+    return pips;
+  }
+
+  function choose(q, value) {
+    if (q.type === 'multi') {
+      var list2 = Array.isArray(state.answers[q.id]) ? state.answers[q.id].slice() : [];
+      var picked = q.options.filter(function (o) { return o.value === value; })[0];
+      var exclusive = q.options.filter(function (o) { return o.exclusive; })
+        .map(function (o) { return o.value; });
+
+      if (picked && picked.exclusive) {
+        // "Leave it to us" replaces every other pick, and toggles off again.
+        list2 = list2.indexOf(value) === -1 ? [value] : [];
+      } else {
+        var at = list2.indexOf(value);
+        if (at === -1) list2.push(value); else list2.splice(at, 1);
+        list2 = list2.filter(function (v) { return exclusive.indexOf(v) === -1; });
+      }
+      state.answers[q.id] = list2;
+      render();
+      return;
+    }
+    state.answers[q.id] = value;
+    advance();
+  }
+
+  function advance() {
+    if (state.step >= state.questions.length - 1) {
+      state.screen = 'results';
+      state.showAll = false;
+      render();
+      announce(t().results);
+    } else {
+      state.step++;
+      render();
+    }
+  }
+
+  // ------------------------------------------------------------- results --
+
+  function reasonText(r) {
+    var copy = t().reasons[r.key];
+    if (!copy) return null;
+    var x = r.x;
+    if (r.key === 'notes') {
+      x = String(r.x).split(', ').map(function (n) { return t().noteNames[n] || n; })
+        .join(state.lang === 'de' ? ' und ' : ' and ');
+    }
+    if (r.key === 'origin' || r.key === 'cask') x = V(r.x);
+    return fill(copy, { x: x });
+  }
+
+  /* A runner up earns its place by being different, so label it with the
+   * difference rather than with "also a good fit". */
+  function contrastLabel(item) {
+    var c = item.contrast;
+    if (!c) return t().alsoGood;
+    var copy = t().contrast[c.kind];
+    if (!copy) return t().alsoGood;
+    var x = c.value;
+    if (c.kind === 'note') x = t().noteCompare[c.value] || c.value;
+    else x = V(c.value);
+    return fill(copy, { x: x });
+  }
+
+  function metaRow(key, value, cls) {
+    if (!value) return null;
+    return el('div', { class: 'meta-row' }, [
+      el('span', { class: 'meta-key', text: key }),
+      typeof value === 'string'
+        ? el('span', { class: 'meta-val' + (cls ? ' ' + cls : ''), text: value })
+        : value
+    ]);
+  }
+
+  /* The bottle photo, where the card has one. Roughly half the rows do not,
+   * so a missing image is the normal case and never a gap in the layout.
+   *
+   * A plain path, an http address, or an image inlined as a data URI is
+   * followed. Anything carrying some other scheme is not. The value comes
+   * from the card rather than from this app, and a scheme nobody expected has
+   * no business being handed to the browser even where it would be inert.
+   * An inlined image is allowed because the single file preview build has no
+   * second file to point at, and an image is inert either way.
+   *
+   * The alt text is the bottle's name. A screen reader that has just read
+   * the name in the heading does not need it twice, so the image is marked
+   * decorative there instead, which is what an empty alt means. */
+  function shotOf(item) {
+    var url = item && item.image;
+    if (typeof url !== 'string' || !url) return null;
+    // A plain path, an http address, or an inlined image. Anything else has
+    // brought its own scheme along and is refused.
+    if (/^[a-z][a-z0-9+.\-]*:/i.test(url)
+        && !/^https?:/i.test(url)
+        && !/^data:image\//i.test(url)) return null;
+    return el('img', {
+      class: 'shot', src: url, alt: '', loading: 'lazy', decoding: 'async',
+      width: '900', height: '900'
+    });
+  }
+
+  function renderCard(item, rank) {
+    var d = item.bottle;
+    var p = ENGINE.profileOf(d) || {};
+    var hero = rank === 0;
+    var peat = ENGINE.peatOf(d);
+
+    var badges = el('div', { class: 'badges' });
+    if (peat != null && peat >= ENGINE.SMOKE_VISIBLE) {
+      badges.appendChild(el('span', { class: 'badge smoke', text: t().badgeSmoke }));
+    }
+    if (p.level === 'einstieg') {
+      badges.appendChild(el('span', { class: 'badge start', text: t().badgeStart }));
+    }
+    if (p.level === 'rarität') {
+      badges.appendChild(el('span', { class: 'badge rare', text: t().badgeRare }));
+    }
+    if (typeof d.popularity_rank === 'number' && d.popularity_rank <= LOVED_RANK) {
+      badges.appendChild(el('span', { class: 'badge loved', text: t().badgeLoved }));
+    }
+    /* Six of the fifteen bottles sit behind hidden_on_card so the printed
+     * card can stay short while the app still recommends the whole back bar.
+     * Either flag means the same thing to a guest, that they will not find it
+     * on the paper in front of them, so either one earns the badge. */
+    if (d.on_printed_menu === false || d.hidden_on_card === true) {
+      badges.appendChild(el('span', { class: 'badge off', text: t().notOnCard }));
+    }
+
+    /* Two fields on the row are deliberately not shown.
+     *
+     * `menu_class` is the bar's own star and dog grading by margin. It is an
+     * internal number and a guest must never see it, in any form, including
+     * as an ordering they could reverse engineer.
+     *
+     * `recommended` marks the leader of a section on the website. Here it
+     * would sit next to our actual recommendation and argue with it, so the
+     * app leaves it alone rather than putting two golden claims on one
+     * screen. */
+
+    /* The badges stay below the photo row rather than beside it. Squeezed
+     * into the space left over next to a bottle they wrap one to a line and
+     * the card starts to look like a list of warnings. */
+    var head = el('div', { class: 'card-head-body' }, [
+      el('div', { class: 'card-top' }, [
+        el('h3', { text: F(d, 'name') }),
+        el('span', { class: 'match', text: fill(t().match, { n: item.match }) })
+      ])
+    ]);
+
+    var photo = shotOf(d);
+    var children = [
+      el('p', { class: 'card-rank', text: hero ? t().topPick : contrastLabel(item) }),
+      photo ? el('div', { class: 'card-head' }, [photo, head]) : head,
+      badges.childNodes.length ? badges : null,
+      F(d, 'description') && el('p', { class: 'note', text: F(d, 'description') })
+    ];
+
+    if (hero && F(d, 'bartender_note')) {
+      children.push(el('p', { class: 'house-note', text: F(d, 'bartender_note') }));
+    }
+
+    var meta = el('div', { class: 'meta' }, [
+      metaRow(t().keyOrigin, LV(d, 'origin'))
+    ].filter(Boolean));
+
+    if (hero) {
+      var age = ENGINE.ageOf(d);
+      [
+        metaRow(t().keyKind, LV(d, 'kind')),
+        metaRow(t().keyCask, LV(d, 'cask')),
+        metaRow(t().keyAge, age != null ? fill(t().ageYears, { n: age })
+          : (p.age_years === null ? t().ageNas : '')),
+        metaRow(t().keyAbv, typeof p.abv === 'number'
+          ? String(p.abv).replace('.', ',') + ' %' : ''),
+        peat != null ? el('div', { class: 'meta-row' }, [
+          el('span', { class: 'meta-key', text: t().keySmoke }),
+          el('span', { class: 'meta-val' }, [
+            pipRow(peat, 4),
+            el('span', { class: 'pip-label', text: t().peatNames[peat] || '' })
+          ])
+        ]) : null,
+        metaRow(t().keyServe, LV(d, 'serve'))
+      ].forEach(function (row) { if (row) meta.appendChild(row); });
+    }
+
+    var prices = SOURCE.priceList(d);
+    if (prices.length) {
+      meta.appendChild(el('div', { class: 'meta-row' }, [
+        el('span', { class: 'meta-key', text: t().keyPrice }),
+        el('span', { class: 'meta-val price', text: prices.join(' · ') })
+      ]));
+    }
+    if (meta.childNodes.length) children.push(meta);
+
+    if (hero) {
+      var why = el('ul', { class: 'why' });
+      item.reasons.forEach(function (r) {
+        var txt = reasonText(r);
+        if (txt) why.appendChild(el('li', { text: txt }));
+      });
+      if (why.childNodes.length) children.push(why);
+    }
+
+    return el('article', { class: 'card' + (hero ? ' hero' : ' alt') }, children.filter(Boolean));
+  }
+
+  function renderResults() {
+    var res = ENGINE.recommend(state.pool, state.answers, {
+      seed: state.seed,
+      limit: state.showAll ? 8 : 3
+    });
+
+    var frag = document.createDocumentFragment();
+    if (state.stale) {
+      // Prices move. A guest reading an old one has to know it is old.
+      frag.appendChild(el('p', {
+        class: 'notice', text: fill(t().offline, { x: humanAge(state.stale.ageMs) })
+      }));
+    }
+    frag.appendChild(el('div', { class: 'results-head' }, [
+      el('h2', { text: res.items.length ? t().results : t().empty }),
+      (res.items.length ? t().resultsSub : t().emptySub)
+        ? el('p', { text: res.items.length ? t().resultsSub : t().emptySub })
+        : null
+    ].filter(Boolean)));
+
+    if (res.relaxed === 'origin') frag.appendChild(el('p', { class: 'notice', text: t().loosenedOrigin }));
+    if (res.relaxed === 'level') frag.appendChild(el('p', { class: 'notice', text: t().loosenedLevel }));
+    if (res.smokeGap) frag.appendChild(el('p', { class: 'notice', text: t().smokeGap }));
+
+    res.items.forEach(function (item, i) { frag.appendChild(renderCard(item, i)); });
+
+    var actions = el('div', { class: 'results-actions' });
+    if (!state.showAll && res.total > res.items.length) {
+      actions.appendChild(el('button', {
+        class: 'btn btn-ghost', type: 'button', text: t().moreOptions,
+        onClick: function () { state.showAll = true; render(); }
+      }));
+    }
+    actions.appendChild(el('button', {
+      class: 'btn btn-primary', type: 'button', text: t().restart,
+      onClick: function () { state.screen = 'intro'; render(); }
+    }));
+    actions.appendChild(el('a', {
+      class: 'btn btn-ghost', href: CARD_URL, target: '_blank', rel: 'noopener', text: t().fullCard
+    }));
+    frag.appendChild(actions);
+    frag.appendChild(el('p', { class: 'foot', text: t().footer }));
+
+    return frag;
+  }
+
+  // ------------------------------------------------------------- chrome ---
+
+  function renderChrome() {
+    var host = document.getElementById('lang-toggle');
+    host.innerHTML = '';
+    ['de', 'en'].forEach(function (code) {
+      host.appendChild(el('button', {
+        type: 'button', text: code.toUpperCase(),
+        'aria-pressed': state.lang === code ? 'true' : 'false',
+        'aria-label': code === 'de' ? 'Deutsch' : 'English',
+        onClick: function () {
+          state.lang = code;
+          document.documentElement.lang = code;
+          try { localStorage.setItem('bb-lang', code); } catch (e) { /* private mode */ }
+          state.questions = buildQuestions(state.pool);
+          renderChrome();
+          render();
+        }
+      }));
+    });
+  }
+
+  // ---------------------------------------------------------------- load --
+
+  function adopt(menu) {
+    state.pool = ENGINE.bottles(SOURCE.allItems(menu));
+    state.questions = buildQuestions(state.pool);
+    state.screen = state.pool.length ? 'intro' : 'error';
+    render();
+  }
+
+  /* Preview only, and only when the address bar asked for it. The file is
+   * fetched on demand rather than shipped in the page, so there is no copy
+   * of a menu sitting in the app waiting to be used as a fallback. */
+  function loadDemo() {
+    adopt(window.BBWhiskyDemo.menu);   // bundled in, nothing to fetch
+  }
+
+  function loadLive() {
+    SOURCE.loadMenu().then(function (out) {
+      if (out.fromCache) state.stale = { ageMs: out.ageMs };
+      adopt(out.menu);
+    }, function () {
+      state.failed = true;
+      state.screen = 'error';
+      render();
+    });
+  }
+
+  // ---------------------------------------------------------------- init --
+
+  try {
+    var saved = localStorage.getItem('bb-lang');
+    if (saved === 'de' || saved === 'en') state.lang = saved;
+    else if ((navigator.language || '').slice(0, 2).toLowerCase() !== 'de') state.lang = 'en';
+  } catch (e) { /* private mode, stay on the German default */ }
+
+  document.documentElement.lang = state.lang;
+  renderChrome();
+  render();
+  loadDemo();   // a preview never reaches for the Menu API
+})();
+
+</script>

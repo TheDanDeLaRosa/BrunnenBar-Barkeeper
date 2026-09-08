@@ -408,10 +408,12 @@
   /* The bottle photo, where the card has one. Roughly half the rows do not,
    * so a missing image is the normal case and never a gap in the layout.
    *
-   * A plain path or an http address is followed, anything carrying some other
-   * scheme is not. The value comes from the card rather than from this app,
-   * and a scheme nobody expected has no business being handed to the browser,
-   * even where it would be inert.
+   * A plain path, an http address, or an image inlined as a data URI is
+   * followed. Anything carrying some other scheme is not. The value comes
+   * from the card rather than from this app, and a scheme nobody expected has
+   * no business being handed to the browser even where it would be inert.
+   * An inlined image is allowed because the single file preview build has no
+   * second file to point at, and an image is inert either way.
    *
    * The alt text is the bottle's name. A screen reader that has just read
    * the name in the heading does not need it twice, so the image is marked
@@ -419,7 +421,11 @@
   function shotOf(item) {
     var url = item && item.image;
     if (typeof url !== 'string' || !url) return null;
-    if (/^[a-z][a-z0-9+.\-]*:/i.test(url) && !/^https?:/i.test(url)) return null;
+    // A plain path, an http address, or an inlined image. Anything else has
+    // brought its own scheme along and is refused.
+    if (/^[a-z][a-z0-9+.\-]*:/i.test(url)
+        && !/^https?:/i.test(url)
+        && !/^data:image\//i.test(url)) return null;
     return el('img', {
       class: 'shot', src: url, alt: '', loading: 'lazy', decoding: 'async',
       width: '900', height: '900'
