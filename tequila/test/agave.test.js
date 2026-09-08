@@ -30,6 +30,11 @@ function raw(n) {
 
 console.log('\nMembership');
 
+test('the whisky shelf next door is never pulled in', function () {
+  assert.strictEqual(A.derive(raw('Talisker 10')), null);
+  assert.strictEqual(A.derive(raw('Four Roses')), null);
+});
+
 test('beer and wine carry no agave and are never derived', function () {
   assert.strictEqual(A.derive(raw('Helles 0,5l')), null);
   assert.strictEqual(A.derive(raw('Riesling')), null);
@@ -66,6 +71,102 @@ test('card order is preserved, never resorted', function () {
   assert.deepStrictEqual(ITEMS.map(function (d) { return d.name; }), order);
 });
 
+console.log('\nThe card\'s own fields beat the bottle name');
+
+test('agave_expression places a bottle whose name never says what it is', function () {
+  // The whole reason the field was asked for.
+  assert.strictEqual(byName('Don Julio 1942').expression, 'anejo');
+  assert.strictEqual(A.expressionOf({ name: 'Don Julio 1942' }), '',
+    'and the name alone still cannot place it, which is the point');
+});
+
+test('a field written for a person comes back as a key', function () {
+  assert.strictEqual(A.expressionOf({ agave_expression: 'Añejo' }), 'anejo');
+  assert.strictEqual(A.expressionOf({ agave_expression: 'Extra Añejo' }), 'extra-anejo');
+  assert.strictEqual(A.kindOf({ agave_kind: 'Tequila' }), 'tequila');
+  assert.strictEqual(A.kindOf({ agave_kind: 'Mezcal' }), 'mezcal');
+});
+
+test('an expression nobody has thought of yet is kept, not dropped', function () {
+  assert.strictEqual(A.expressionOf({ agave_expression: 'Doble Reposado' }), 'reposado');
+  assert.strictEqual(A.expressionOf({ agave_expression: 'Ancestral' }), 'ancestral');
+});
+
+test('brand comes off the field, so a house nobody listed still lands', function () {
+  var mz = byName('Nuestra Soledad Mezcal');
+  assert.strictEqual(mz.brand, 'Nuestra Soledad');
+  assert.strictEqual(A.brandOf({ name: 'Nuestra Soledad Mezcal' }), '',
+    'and the brand list alone does not know it, which is the point');
+  assert.strictEqual(mz.portfolio, '', 'not a Diageo house');
+});
+
+test('the shelf never decides which spirit is in the glass', function () {
+  /* The real section is called "Tequila & Mezcal Neat". Reading that as the
+   * bottle would make every Don Julio on it a mezcal, tag it smoky and drop
+   * it the moment a guest says no smoke. */
+  var stripped = A.agaveItems(F.beforePublish(), SRC);
+  stripped.filter(function (d) { return d.brand === 'Don Julio'; })
+    .forEach(function (d) {
+      assert.strictEqual(d.kind, 'tequila', d.name);
+      assert.strictEqual(d.tags.indexOf('rauchig'), -1, d.name + ' is not smoky');
+    });
+});
+
+test('a shelf holding one kind may say so, a shelf holding two may not', function () {
+  assert.strictEqual(A.kindOf({ name: 'Ocho Plata', group: 'Tequila' }), 'tequila');
+  assert.strictEqual(A.kindOf({ name: 'Bruxo', group: 'Mezcal' }), 'mezcal');
+  assert.strictEqual(A.kindOf({ name: 'Ocho Plata', group: 'Tequila & Mezcal Neat' }), 'agave');
+});
+
+test('region and additive policy are read where the card carries them', function () {
+  var blanco = byName('Don Julio Blanco');
+  assert.deepStrictEqual(blanco.region, { text: 'Highland', key: 'highland' });
+  assert.strictEqual(blanco.additiveFree, false);
+
+  var mz = byName('Nuestra Soledad Mezcal');
+  assert.strictEqual(mz.region.text, 'Oaxaca / Valles');
+  assert.strictEqual(mz.region.key, 'lowland');
+  assert.strictEqual(mz.additiveFree, true);
+});
+
+test('a card that does not say is not a card that says no', function () {
+  assert.strictEqual(byName('Margarita').additiveFree, null);
+  assert.strictEqual(byName('Margarita').region, null);
+  assert.strictEqual(A.additiveFreeOf({}), null);
+  assert.strictEqual(A.additiveFreeOf({ additive_free: false }), false);
+});
+
+test('a region the lookup does not know is shown as the card writes it', function () {
+  var r = A.regionOf({ agave_region: 'Jalisco, irgendwo' });
+  assert.strictEqual(r.text, 'Jalisco, irgendwo');
+  assert.strictEqual(r.key, '');
+});
+
+console.log('\nBefore the seat republishes');
+
+test('every bottle still lands, and only 1942 loses anything', function () {
+  var after = {}, before = {};
+  A.agaveItems(F.MENU, SRC).forEach(function (d) { after[d.name] = d; });
+  A.agaveItems(F.beforePublish(), SRC).forEach(function (d) { before[d.name] = d; });
+
+  assert.deepStrictEqual(Object.keys(before), Object.keys(after),
+    'the same items must be found either way');
+
+  var lost = Object.keys(after).filter(function (n) {
+    return before[n].expression !== after[n].expression || before[n].kind !== after[n].kind;
+  });
+  assert.deepStrictEqual(lost, ['Don Julio 1942'],
+    'only the bottle whose name does not say what it is should degrade');
+  assert.strictEqual(before['Don Julio 1942'].expression, '');
+});
+
+test('the fields it cannot see are absent rather than guessed', function () {
+  A.agaveItems(F.beforePublish(), SRC).forEach(function (d) {
+    assert.strictEqual(d.region, null, d.name);
+    assert.strictEqual(d.additiveFree, null, d.name);
+  });
+});
+
 console.log('\nExpression and kind');
 
 test('anejo is found whether or not the card spells the tilde', function () {
@@ -94,9 +195,13 @@ test('mezcal wins the kind even when tequila is in the same glass', function () 
   assert.strictEqual(byName('Don Julio Blanco').kind, 'tequila');
 });
 
+test('rosado is its own answer and not folded into reposado', function () {
+  assert.strictEqual(byName('Don Julio Rosado').expression, 'rosado');
+  assert.strictEqual(A.expressionOf({ name: 'Don Julio Reposado' }), 'reposado');
+});
+
 test('the Diageo houses are recorded and every other house is blank', function () {
   assert.strictEqual(byName('Don Julio Blanco').portfolio, 'Diageo');
-  assert.strictEqual(byName('Casamigos Mezcal').portfolio, 'Diageo');
   assert.strictEqual(byName('Paloma').portfolio, '');
   assert.strictEqual(byName('Ocho Plata').brand, '');
 });
@@ -149,7 +254,7 @@ test('every character tag names the ingredient it was read off', function () {
 });
 
 test('a neat mezcal is smoky with no ingredient list to read', function () {
-  var mz = byName('Casamigos Mezcal');
+  var mz = byName('Nuestra Soledad Mezcal');
   assert.deepStrictEqual(mz.ing, []);
   assert.ok(mz.tags.indexOf('rauchig') !== -1);
 });

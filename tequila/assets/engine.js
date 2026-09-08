@@ -34,10 +34,13 @@
    * reads it as "nothing asked for" rather than trying to match it. */
   var NO_PREFERENCE = 'barkeeper';
 
-  /* The one non-allergen value the "leave it out" question carries. Smoke is
-   * not an allergy but it is the same guest intent, so it rides in the same
-   * answer and is split back out here rather than in the interface. */
+  /* The two non-allergen values the "leave it out" question carries. Neither
+   * is an allergy but both are the same guest intent, so they ride in the
+   * same answer and are split back out here rather than in the interface. */
   var NO_SMOKE = 'rauch';
+  var ONLY_ADDITIVE_FREE = 'zusaetze';
+
+  var NOT_ALLERGENS = [NO_SMOKE, ONLY_ADDITIVE_FREE];
 
   /* How much cheaper a runner-up has to be before "cheaper" is worth saying.
    * Forty cents is not a reason to pick a different drink. */
@@ -59,7 +62,7 @@
   }
 
   function allergensFrom(exclude) {
-    return list(exclude).filter(function (v) { return v !== NO_SMOKE; });
+    return list(exclude).filter(function (v) { return NOT_ALLERGENS.indexOf(v) === -1; });
   }
 
   /* HARD. An item failing any of these is never shown, at any price, at any
@@ -71,6 +74,14 @@
     }
     if (list(a.exclude).indexOf(NO_SMOKE) !== -1) {
       if (d.kind === 'mezcal' || d.tags.indexOf('rauchig') !== -1) return false;
+    }
+    if (list(a.exclude).indexOf(ONLY_ADDITIVE_FREE) !== -1) {
+      /* Three states, and only one of them passes. A card that does not say
+       * is not a card that says no, and claiming otherwise about additives
+       * is exactly the claim this app must not make. Cocktails carry no such
+       * field at all, so this answer narrows a guest to the bottles the bar
+       * has actually checked, which the question says out loud. */
+      if (d.additiveFree !== true) return false;
     }
     var cap = Number(a.budget);
     if (a.budget != null && a.budget !== '' && !isNaN(cap)) {
@@ -122,18 +133,18 @@
     var worstRank = knownRanks.length ? Math.max.apply(null, knownRanks) : 1;
 
     var scored = pool.map(function (d) {
-      var score = 0, maxScore = 0, reasons = [];
+      var score = 0, maxScore = 0, reasons = [], dims = 0;
 
       // — which agave spirit —
       if (wantKinds.length) {
-        maxScore += W.kind;
+        maxScore += W.kind; dims++;
         if (wantKinds.indexOf(d.kind) !== -1) {
           score += W.kind;
           reasons.push({ key: 'kind', weight: W.kind, x: d.kind });
         }
       }
       if (wantExpr.length) {
-        maxScore += W.expression;
+        maxScore += W.expression; dims++;
         if (d.expression && wantExpr.indexOf(d.expression) !== -1) {
           score += W.expression;
           reasons.push({ key: 'expression', weight: W.expression, x: d.expression });
@@ -145,7 +156,7 @@
 
       // — character — the share of what was asked for that this one has —
       if (wantChar.length) {
-        maxScore += W.character;
+        maxScore += W.character; dims++;
         var hits = wantChar.filter(function (t) { return d.tags.indexOf(t) !== -1; });
         if (hits.length) {
           score += W.character * (hits.length / wantChar.length);
@@ -158,7 +169,7 @@
 
       // — strength — neutral, and silent, where the card records none —
       if (a.strength != null && a.strength !== '' && d.strength != null) {
-        maxScore += W.strengthExact;
+        maxScore += W.strengthExact; dims++;
         var delta = Math.abs(d.strength - Number(a.strength));
         if (delta === 0) {
           score += W.strengthExact;
@@ -171,7 +182,7 @@
         }
       }
 
-      if (allergensFrom(a.exclude).length || list(a.exclude).indexOf(NO_SMOKE) !== -1) {
+      if (list(a.exclude).length) {
         reasons.push({ key: 'safe', weight: 1 });
       }
       if (a.budget != null && a.budget !== '') {
@@ -192,6 +203,12 @@
       return {
         drink: d, score: score,
         match: Math.max(35, Math.min(99, pct)),
+        /* How many scored dimensions the guest actually asked about. A guest
+         * who named one thing and got everything that matches it is not
+         * looking at a 99 per cent match, they are looking at a card with one
+         * question answered, and the interface hides the number rather than
+         * printing the same 99 three times. */
+        dimensions: dims,
         reasons: reasons.slice(0, 3)
       };
     });
@@ -203,8 +220,10 @@
     items.forEach(function (d) {
       d.ing.forEach(function (i) { ingFreq[i] = (ingFreq[i] || 0) + 1; });
     });
+    var used = {};
     out.forEach(function (row, i) {
-      row.contrast = i === 0 ? null : contrastOf(out[0].drink, row.drink, ingFreq);
+      row.contrast = i === 0 ? null : contrastOf(out[0].drink, row.drink, ingFreq, used);
+      if (row.contrast) used[labelKey(row.contrast)] = true;
     });
 
     return { items: out, relaxed: relaxed, total: scored.length };
@@ -212,68 +231,80 @@
 
   /* Why take THIS one instead of the favourite.
    *
-   * "Passt ebenfalls" tells a guest nothing, so every runner-up is labelled
+   * "Passt ebenfalls" tells a guest nothing, so every runner up is labelled
    * by the single thing that separates it from the top pick. Most telling
    * first, and every branch is a claim a test can check against the pair,
    * which test/engine.test.js does for every pair on the card.
    *
+   * `used` carries the labels the runner ups above this one already took. Two
+   * cards both saying "Was ohne Rauch" is barely better than two both saying
+   * "Passt ebenfalls", so a claim that is already on screen is skipped and
+   * the next true one is used instead.
+   *
    * Returns null when genuinely nothing separates them. The page then says
    * they both fit rather than inventing a difference.
    */
-  function contrastOf(hero, alt, ingFreq) {
+  function contrastOf(hero, alt, ingFreq, used) {
     if (!hero || !alt) return null;
+    var options = [];
 
     // 1. a different agave spirit. Smoke is the biggest jump on the card.
     if (alt.kind !== hero.kind) {
-      if (alt.kind === 'mezcal') return { kind: 'smoky' };
-      if (hero.kind === 'mezcal') return { kind: 'unsmoked' };
+      if (alt.kind === 'mezcal') options.push({ kind: 'smoky' });
+      else if (hero.kind === 'mezcal') options.push({ kind: 'unsmoked' });
     }
 
     // 2. a different expression, where both are actually named
     if (alt.expression && hero.expression && alt.expression !== hero.expression) {
-      return { kind: 'expression', value: alt.expression };
+      options.push({ kind: 'expression', value: alt.expression });
     }
 
-    // 3. a pour against something built, or the other way round
-    if (alt.pour !== hero.pour) return { kind: alt.pour ? 'neat' : 'mixed' };
+    // 3. a different place the agave grew, where the card names both.
+    //    Highland against lowland is the first difference a guest tastes.
+    if (alt.region && hero.region && alt.region.text !== hero.region.text) {
+      options.push({ kind: 'region', value: alt.region.key || alt.region.text });
+    }
 
-    // 4. noticeably stronger or lighter, where both are recorded
+    // 4. a pour against something built, or the other way round
+    if (alt.pour !== hero.pour) options.push({ kind: alt.pour ? 'neat' : 'mixed' });
+
+    // 5. noticeably stronger or lighter, where both are recorded
     if (alt.strength != null && hero.strength != null) {
-      if (alt.strength - hero.strength >= 1) return { kind: 'stronger' };
-      if (hero.strength - alt.strength >= 1) return { kind: 'lighter' };
+      if (alt.strength - hero.strength >= 1) options.push({ kind: 'stronger' });
+      else if (hero.strength - alt.strength >= 1) options.push({ kind: 'lighter' });
     }
 
-    // 5. an ingredient the favourite does not have, rarest one across the
-    //    card, since that carries the most character
-    var heroIng = hero.ing;
+    // 6. an ingredient the favourite does not have, rarest across the card
+    //    first, since that carries the most character
     var unique = alt.ing.filter(function (i) {
-      return heroIng.indexOf(i) === -1 && !isGeneric(i);
+      return hero.ing.indexOf(i) === -1 && !isGeneric(i);
     });
-    if (unique.length) {
-      unique.sort(function (x, y) {
-        return (ingFreq[x] || 0) - (ingFreq[y] || 0) || (x < y ? -1 : 1);
-      });
-      return { kind: 'ingredient', value: unique[0] };
+    unique.sort(function (x, y) {
+      return ((ingFreq && ingFreq[x]) || 0) - ((ingFreq && ingFreq[y]) || 0) || (x < y ? -1 : 1);
+    });
+    unique.forEach(function (i) { options.push({ kind: 'ingredient', value: i }); });
+
+    // 7. money, but only when it is enough to matter
+    if (alt.price != null && hero.price != null && hero.price - alt.price >= PRICE_GAP) {
+      options.push({ kind: 'cheaper' });
     }
 
-    // 6. money, but only when it is enough to matter
-    if (alt.price != null && hero.price != null) {
-      if (hero.price - alt.price >= PRICE_GAP) return { kind: 'cheaper' };
+    // 8. a character the favourite does not have
+    alt.tags.filter(function (t) { return hero.tags.indexOf(t) === -1; })
+      .forEach(function (t) { options.push({ kind: 'character', value: t }); });
+
+    for (var i = 0; i < options.length; i++) {
+      if (!taken(used, options[i])) return options[i];
     }
-
-    // 7. a character the favourite does not have
-    var newTags = alt.tags.filter(function (t) { return hero.tags.indexOf(t) === -1; });
-    if (newTags.length) return { kind: 'character', value: newTags[0] };
-
     return null;
   }
 
-  /* An ingredient worth naming as the difference between two suggestions.
-   * Rules out the things every drink has, and rules out the agave spirit
-   * itself, which every drink here has by definition.
-   *
-   * The vocabulary is read from BBAgave at call time, so the load order in
-   * index.html matters. test/engine.test.js is what notices if it changes. */
+  function labelKey(c) { return c.kind + '|' + (c.value == null ? '' : c.value); }
+
+  function taken(used, c) {
+    return !!(used && used[labelKey(c)]);
+  }
+
   function isGeneric(ing) {
     var A = root.BBAgave;
     if (!A) return false;
@@ -283,9 +314,11 @@
   }
 
   var api = {
-    recommend: recommend, contrastOf: contrastOf,
+    recommend: recommend, contrastOf: contrastOf, labelKey: labelKey,
     passesHard: passesHard, passesServeGate: passesServeGate,
-    NO_PREFERENCE: NO_PREFERENCE, NO_SMOKE: NO_SMOKE, PRICE_GAP: PRICE_GAP,
+    NO_PREFERENCE: NO_PREFERENCE, NO_SMOKE: NO_SMOKE,
+    ONLY_ADDITIVE_FREE: ONLY_ADDITIVE_FREE, NOT_ALLERGENS: NOT_ALLERGENS,
+    PRICE_GAP: PRICE_GAP,
     WEIGHTS: W
   };
   if (typeof module !== 'undefined' && module.exports) module.exports = api;

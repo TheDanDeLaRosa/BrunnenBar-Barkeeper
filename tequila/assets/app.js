@@ -26,6 +26,11 @@
   // Rank at or under which the card calls something a bestseller.
   var BESTSELLER_RANK = 10;
 
+  /* How many things a guest has to have asked about before a match
+   * percentage says anything. Answer one question and everything that
+   * matches it scores the same, which is three cards reading 99 per cent. */
+  var MATCH_MIN_DIMENSIONS = 2;
+
   var state = {
     lang: 'de',
     screen: 'loading',       // loading | error | intro | quiz | results
@@ -372,6 +377,12 @@
     var x = c.value;
     if (c.kind === 'expression') x = t().expressionNames[c.value] || c.value;
     if (c.kind === 'character') x = t().characterCompare[c.value] || c.value;
+    /* The region phrase is looked up whole where we have a word for it,
+     * because German will not take a preposition and a free text slot. */
+    if (c.kind === 'region') {
+      var whole = t().regionContrast[c.value];
+      if (whole) return whole;
+    }
     if (c.kind === 'ingredient') x = ingIn(row.drink, c.value);
     return fill(copy, { x: x });
   }
@@ -392,6 +403,9 @@
     if (d.brand) badges.appendChild(el('span', { class: 'badge accent', text: d.brand }));
     if (d.rank <= BESTSELLER_RANK) badges.appendChild(el('span', { class: 'badge accent', text: t().bestseller }));
     if (d.kind === 'mezcal') badges.appendChild(el('span', { class: 'badge good', text: t().smokyBadge }));
+    /* Only a card that says so outright earns this. Unknown is not a yes,
+     * and it is the first thing an agave drinker looks for. */
+    if (d.additiveFree === true) badges.appendChild(el('span', { class: 'badge good', text: t().cleanBadge }));
     if (d.pour) badges.appendChild(el('span', { class: 'badge good', text: t().neatBadge }));
     if (item.on_printed_menu === false) badges.appendChild(el('span', { class: 'badge quiet', text: t().notOnCard }));
 
@@ -399,7 +413,11 @@
       el('p', { class: 'card-rank', text: hero ? t().topPick : contrastLabel(row) }),
       el('div', { class: 'card-top' }, [
         el('h3', { text: f(item, 'name') }),
-        el('span', { class: 'match', text: fill(t().match, { n: row.match }) })
+        // Only shown once the guest has said enough for it to separate one
+        // suggestion from another. See `dimensions` in the engine.
+        row.dimensions >= MATCH_MIN_DIMENSIONS
+          ? el('span', { class: 'match', text: fill(t().match, { n: row.match }) })
+          : null
       ]),
       badges.childNodes.length ? badges : null,
       f(item, 'description') && el('p', { class: 'note', text: f(item, 'description') })
@@ -417,6 +435,8 @@
       ]));
     }
     metaRow(t().styleLabel, styleText(d));
+    // Shown as the card writes it, unless we have a word of our own for it.
+    if (d.region) metaRow(t().regionLabel, t().regionNames[d.region.key] || d.region.text);
     if (!d.pour) {
       var ings = f(item, 'ingredients') || [];
       if (ings.length) metaRow(t().ingredients, ings.join(' · '));

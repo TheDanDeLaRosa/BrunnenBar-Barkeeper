@@ -51,6 +51,18 @@ test('no smoke means no mezcal and nothing tagged smoky, at any answer', functio
   });
 });
 
+test('additive free only shows nothing the card has not vouched for', function () {
+  walk({ exclude: ['zusaetze'] }, function (res) {
+    res.items.forEach(function (r) {
+      assert.strictEqual(r.drink.additiveFree, true,
+        r.drink.name + ' is ' + r.drink.additiveFree + ', which is not a yes');
+    });
+  });
+  // And it is a real filter on this card, not a no-op that passes vacuously.
+  var vouched = ITEMS.filter(function (d) { return d.additiveFree === true; });
+  assert.ok(vouched.length > 0 && vouched.length < ITEMS.length);
+});
+
 test('a budget holds even when it empties the results', function () {
   STOPS.forEach(function (stop) {
     walk({ budget: String(stop) }, function (res) {
@@ -190,6 +202,11 @@ test('every contrast claim is true of that pair', function () {
         assert.strictEqual(alt.expression, c.value, where);
         assert.notStrictEqual(hero.expression, c.value, where);
       }
+      if (c.kind === 'region') {
+        assert.ok(alt.region && hero.region, where);
+        assert.notStrictEqual(alt.region.text, hero.region.text, where);
+        assert.strictEqual(c.value, alt.region.key || alt.region.text, where);
+      }
       if (c.kind === 'neat') { assert.ok(alt.pour, where); assert.ok(!hero.pour, where); }
       if (c.kind === 'mixed') { assert.ok(!alt.pour, where); assert.ok(hero.pour, where); }
       if (c.kind === 'stronger') assert.ok(alt.strength > hero.strength, where);
@@ -258,6 +275,36 @@ test('every combination returns something unless a hard rule emptied the card', 
   console.log('       (' + walked + ' answer combinations checked)');
 });
 
+test('a match percentage is only reported once it can separate anything', function () {
+  // One question answered means every survivor scores the same, and three
+  // cards reading 99 per cent is worse than no number at all.
+  var one = E.recommend(ITEMS, { strength: '3' }, { seed: 7 });
+  one.items.forEach(function (r) { assert.strictEqual(r.dimensions, 1, r.drink.name); });
+
+  var several = E.recommend(ITEMS, { strength: '3', agave: ['reposado'], character: ['süß'] }, { seed: 7 });
+  several.items.forEach(function (r) { assert.ok(r.dimensions >= 2, r.drink.name); });
+
+  // And every result carries the count, so the interface never has to guess.
+  walk({}, function (res) {
+    res.items.forEach(function (r) { assert.strictEqual(typeof r.dimensions, 'number'); });
+  });
+});
+
+test('no two runner ups ever carry the same label', function () {
+  // Two cards both saying "Was ohne Rauch" is barely better than two both
+  // saying "Passt ebenfalls".
+  walk({}, function (res, answers) {
+    var seen = {};
+    res.items.slice(1).forEach(function (row) {
+      if (!row.contrast) return;
+      var key = E.labelKey(row.contrast);
+      assert.ok(!seen[key],
+        'two runner ups both claim ' + key + ' for ' + JSON.stringify(answers));
+      seen[key] = true;
+    });
+  });
+});
+
 test('results come back ranked, and never more than asked for', function () {
   walk({}, function (res) {
     for (var i = 1; i < res.items.length; i++) {
@@ -290,6 +337,24 @@ test('a stated preference is not drowned out by that jitter', function () {
   }
 });
 
+console.log('\nBefore the seat republishes');
+
+test('the app still answers on the card page 217 serves today', function () {
+  var older = A.agaveItems(F.beforePublish(), SRC);
+  assert.strictEqual(older.length, ITEMS.length);
+  var res = E.recommend(older, { serve: 'pur', agave: ['reposado'] }, { seed: 7 });
+  assert.ok(res.items.length > 0);
+  assert.strictEqual(res.items[0].drink.expression, 'reposado');
+});
+
+test('an answer the older card cannot support simply offers nothing false', function () {
+  var older = A.agaveItems(F.beforePublish(), SRC);
+  // additive_free is one of the fields that has not arrived yet, so nothing
+  // can be vouched for and the honest answer is an empty result.
+  var res = E.recommend(older, { exclude: ['zusaetze'] }, {});
+  assert.strictEqual(res.items.length, 0);
+});
+
 console.log('\nQuestions and data agree');
 
 test('every static answer value is something the card can actually answer', function () {
@@ -314,7 +379,7 @@ test('every static answer value is something the card can actually answer', func
       if (opt.exclusive) return;                       // the sentinel, not a value
       if (q.id === 'character') {
         assert.ok(A.CHARACTER[v], v + ' is not a character the derivation can produce');
-      } else if (q.id === 'exclude' && v !== E.NO_SMOKE) {
+      } else if (q.id === 'exclude' && E.NOT_ALLERGENS.indexOf(v) === -1) {
         // Allergen values are the card's own strings, so they only have to
         // be strings the card could carry, not ones this fixture does.
         assert.strictEqual(typeof v, 'string', v);
@@ -349,8 +414,13 @@ test('every character and expression the engine can name reads back in both lang
     A.EXPRESSIONS.forEach(function (e) {
       assert.ok(Q.UI[lang].expressionNames[e[1]], lang + ' has no name for ' + e[1]);
     });
-    ['tequila', 'mezcal', 'agave'].forEach(function (k) {
+    A.KINDS.concat(['agave']).forEach(function (k) {
       assert.ok(Q.UI[lang].kindNames[k], lang + ' has no name for ' + k);
+    });
+    Object.keys(A.REGIONS).forEach(function (word) {
+      var key = A.REGIONS[word];
+      assert.ok(Q.UI[lang].regionNames[key], lang + ' has no name for region ' + key);
+      assert.ok(Q.UI[lang].regionContrast[key], lang + ' has no contrast for region ' + key);
     });
   });
 });
@@ -393,7 +463,8 @@ function walk(fixed, fn) {
                     ['prickelnd'], ['fruchtig'], ['scharf'], ['kräuterig/frisch'],
                     ['cremig'], ['sauer/zitrus', 'süß']];
   var budgets = [''].concat(STOPS.map(String));
-  var excludes = [[], ['rauch'], ['Ei'], ['Nüsse'], ['rauch', 'Ei', 'Nüsse', 'Milch']];
+  var excludes = [[], ['rauch'], ['zusaetze'], ['Ei'], ['Nüsse'],
+                  ['rauch', 'zusaetze', 'Ei', 'Nüsse', 'Milch']];
 
   serves.forEach(function (serve) {
     agaves.forEach(function (agave) {

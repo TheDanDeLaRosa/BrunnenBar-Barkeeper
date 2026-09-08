@@ -24,6 +24,19 @@
  * Tequila statt Gin" would make any keyword search lie. So prose is not
  * read here at all.
  *
+ * FIELDS FIRST, NAMES SECOND
+ * --------------------------
+ * As of the 08.09.2026 card the Menu API carries `agave_kind`,
+ * `agave_expression`, `brand`, `agave_region` and `additive_free`. Every one
+ * of those is read straight off the item and the vocabularies below are only
+ * consulted where a field is missing.
+ *
+ * The fallback is not dead code and should not be deleted. The fields live in
+ * menu.json, and menu.json reaches page 217 only when the website seat
+ * republishes, so a browser can and will see the older shape in between. It
+ * degrades per field rather than wholesale, the same way the German and
+ * English strings do.
+ *
  * WHAT IT IS ALLOWED TO KNOW
  * --------------------------
  * The vocabularies below are words for SPIRITS and BRANDS, never drinks,
@@ -105,12 +118,28 @@
     ['extra-anejo', 'extra-anejo'],
     ['cristalino', 'cristalino'],
     ['reposado', 'reposado'],
+    // Rosado is a reposado finished in wine casks and drinks like its own
+    // thing, so it stays its own answer rather than being folded in.
+    ['rosado', 'rosado'],
     ['anejo', 'anejo'],
     ['blanco', 'blanco'],
     ['plata', 'blanco'],
     ['silver', 'blanco'],
     ['joven', 'blanco']
   ];
+
+  /* The agave spirits `agave_kind` can name. Anything else the field says is
+   * carried as the catch-all rather than dropped, so a category nobody has
+   * thought of yet still reaches a guest. */
+  var KINDS = ['tequila', 'mezcal', 'sotol', 'raicilla', 'bacanora'];
+
+  /* `agave_region` is free text on the card, so it is shown as written and
+   * only the two everyday cases get a German word. Everything else is passed
+   * through untouched rather than forced into a bucket it does not fit. */
+  var REGIONS = {
+    'highland': 'highland', 'los altos': 'highland', 'hochland': 'highland',
+    'lowland': 'lowland', 'valles': 'lowland', 'tiefland': 'lowland'
+  };
 
   /* Character, derived from the ingredient list and from nothing else.
    *
@@ -195,30 +224,47 @@
     return false;
   }
 
-  /* Everything this file is allowed to read, as one lower case string. Name,
-   * group and ingredients in both languages. No prose. */
-  function haystack(item) {
-    return [
-      item.name, item.name_en, item.group, item.group_en
-    ].concat(list(item.ingredients), list(item.ingredients_en))
+  /* Two haystacks, and the difference between them matters.
+   *
+   * `bottle` is the item's own name and its ingredients. It is what a bottle
+   * IS, and it is the only thing allowed to decide which spirit is in the
+   * glass or how it was aged.
+   *
+   * `shelf` adds the group. A group is the heading a bottle sits under, so it
+   * is good evidence that there is agave nearby and poor evidence of anything
+   * more specific. The real card calls the section "Tequila & Mezcal Neat",
+   * and reading that as the bottle would make every Don Julio on it a mezcal.
+   *
+   * Neither reads prose. `description` and `bartender_note` are sentences. */
+  function bottle(item) {
+    return [item.name, item.name_en]
+      .concat(list(item.ingredients), list(item.ingredients_en))
       .map(norm).join(' | ');
+  }
+
+  function shelf(item) {
+    return bottle(item) + ' | ' + norm(item.group) + ' | ' + norm(item.group_en);
   }
 
   // ---------------------------------------------------------- derivation --
 
+  /* A brand is a property of the bottle and never of the shelf it stands on. */
   function brandOf(item) {
-    var hay = haystack(item);
+    if (typeof item.brand === 'string' && item.brand) return item.brand;
+    var hay = bottle(item);
     for (var i = 0; i < BRANDS.length; i++) {
       if (has(hay, BRANDS[i][0])) return BRANDS[i][1];
     }
     return '';
   }
 
-  /* Is there an agave distillate in this glass. Three kinds of evidence,
-   * none of them a section title. */
+  /* Is there an agave distillate in this glass. Four kinds of evidence, none
+   * of them a section title. The card saying so outright beats all of them. */
   function isAgave(item) {
     if (!item) return false;
-    var hay = haystack(item);
+    if (typeof item.agave_kind === 'string' && item.agave_kind) return true;
+    if (typeof item.agave_expression === 'string' && item.agave_expression) return true;
+    var hay = shelf(item);
     for (var i = 0; i < SPIRIT_WORDS.length; i++) {
       if (has(hay, SPIRIT_WORDS[i])) return true;
     }
@@ -231,25 +277,71 @@
   }
 
   /* Tequila, mezcal, or an agave spirit we can see but cannot name more
-   * precisely. Mezcal wins where both appear, because the smoke is the
-   * thing a guest will notice. */
+   * precisely. Mezcal wins where both appear in the same glass, because the
+   * smoke is the thing a guest will notice. */
   function kindOf(item) {
-    var hay = haystack(item);
+    var given = norm(item.agave_kind).trim();
+    if (given) return KINDS.indexOf(given) !== -1 ? given : 'agave';
+
+    var hay = bottle(item);
     if (has(hay, 'mezcal') || has(hay, 'mescal')) return 'mezcal';
     if (has(hay, 'tequila')) return 'tequila';
-    var brand = brandOf(item);
     // Every brand in the list is a tequila house unless its own name says
     // otherwise, which the mezcal check above has already caught.
-    if (brand) return 'tequila';
+    if (brandOf(item)) return 'tequila';
+
+    /* Last resort, the shelf, and only when the shelf holds one kind. A
+     * section called "Tequila" tells you what a bottle is. A section called
+     * "Tequila & Mezcal Neat" tells you nothing about which of the two this
+     * one is, so it is not allowed to guess. */
+    var group = norm(item.group) + ' | ' + norm(item.group_en);
+    var smoky = has(group, 'mezcal') || has(group, 'mescal');
+    var agaved = has(group, 'tequila');
+    if (smoky && !agaved) return 'mezcal';
+    if (agaved && !smoky) return 'tequila';
     return 'agave';
   }
 
+  /* The card's own word where it has one, the bottle name where it does not.
+   *
+   * `agave_expression` arrives written for a person, so "Añejo" and
+   * "Extra Añejo" come back as the keys `anejo` and `extra-anejo`. That is
+   * the same table the name is read with, which is the point. A value the
+   * table does not know is kept as its own key rather than thrown away, so a
+   * new expression groups correctly and simply shows as written. */
   function expressionOf(item) {
-    var hay = haystack(item);
+    var given = norm(item.agave_expression).trim();
+    if (given) return matchExpression(given) || given.replace(/\s+/g, '-');
+    return matchExpression(bottle(item)) || '';
+    // Unknown stays unknown. "Margarita" says tequila and no more.
+  }
+
+  function matchExpression(hay) {
     for (var i = 0; i < EXPRESSIONS.length; i++) {
       if (has(hay, EXPRESSIONS[i][0])) return EXPRESSIONS[i][1];
     }
-    return '';   // unknown, and it stays unknown. "Margarita" says tequila and no more.
+    return '';
+  }
+
+  /* Where the agave grew, as the card writes it, plus a key for the two
+   * everyday cases so the interface can say Hochland rather than Highland. */
+  function regionOf(item) {
+    var raw = typeof item.agave_region === 'string' ? item.agave_region.trim() : '';
+    if (!raw) return null;
+    var n = norm(raw);
+    var key = '';
+    Object.keys(REGIONS).forEach(function (word) {
+      if (!key && has(n, word)) key = REGIONS[word];
+    });
+    return { text: raw, key: key };
+  }
+
+  /* Additive free, unknown, or additives. Three states and not two, because
+   * a card that does not say is not a card that says no. */
+  function additiveFreeOf(item) {
+    if (item.additive_free === true) return true;
+    if (item.additive_free === false) return false;
+    return null;
   }
 
   /* A pour or a mixed drink. One ingredient is a pour with a note against
@@ -354,11 +446,14 @@
       rank: typeof item.popularity_rank === 'number' ? item.popularity_rank : 9999,
       ing: list(item.ingredients),
 
-      // derived, every one of them from the vocabularies above
+      // the card's own fields where it has them, the vocabularies above
+      // where it does not
       kind: kindOf(item),
       expression: expressionOf(item),
       brand: brand,
       portfolio: PORTFOLIO[brand] || '',
+      region: regionOf(item),
+      additiveFree: additiveFreeOf(item),
       pour: isPour(item),
       strength: strengthOf(item),
       tags: character.tags,
@@ -378,11 +473,12 @@
     derive: derive, agaveItems: agaveItems,
     isAgave: isAgave, kindOf: kindOf, expressionOf: expressionOf, brandOf: brandOf,
     isPour: isPour, strengthOf: strengthOf, tagsOf: tagsOf, priceOf: priceOf, norm: norm,
-    isAgaveWord: isAgaveWord,
+    isAgaveWord: isAgaveWord, regionOf: regionOf, additiveFreeOf: additiveFreeOf,
+    bottle: bottle, shelf: shelf,
     budgetStops: budgetStops,
     SPIRIT_WORDS: SPIRIT_WORDS, BRANDS: BRANDS, PORTFOLIO: PORTFOLIO,
-    EXPRESSIONS: EXPRESSIONS, CHARACTER: CHARACTER, GENERIC_ING: GENERIC_ING,
-    STRENGTH: STRENGTH
+    EXPRESSIONS: EXPRESSIONS, KINDS: KINDS, REGIONS: REGIONS,
+    CHARACTER: CHARACTER, GENERIC_ING: GENERIC_ING, STRENGTH: STRENGTH
   };
   if (typeof module !== 'undefined' && module.exports) module.exports = api;
   root.BBAgave = api;

@@ -40,6 +40,11 @@
       hint: { de: 'Ein paar Monate im Fass, weicher und warm', en: 'A few months in oak, softer and warm' }
     },
     {
+      value: 'rosado',
+      label: { de: 'Rosado', en: 'Rosado' },
+      hint: { de: 'Im Weinfass nachgereift, beerig und weich', en: 'Finished in wine casks, berried and soft' }
+    },
+    {
       value: 'anejo',
       label: { de: 'Añejo', en: 'Añejo' },
       hint: { de: 'Über ein Jahr im Fass, holzig fast wie ein Whiskey', en: 'Over a year in oak, woody almost like a whiskey' }
@@ -183,12 +188,18 @@
         de: 'Was du hier wählst taucht garantiert nicht auf. Allergien sag uns bitte immer auch direkt am Tresen.',
         en: 'Whatever you pick here will not turn up. Please also tell us about allergies in person at the bar.'
       },
-      /* Mixed on purpose. Smoke is not an allergy but it is the same guest
-       * intent, so it rides in the same answer and the engine splits it back
-       * out on BBTequilaEngine.NO_SMOKE. The rest are the allergen strings
-       * the card itself uses. */
+      /* Mixed on purpose. Neither smoke nor additives are allergies but both
+       * are the same guest intent, so they ride in the same answer and the
+       * engine splits them back out on BBTequilaEngine.NOT_ALLERGENS. The
+       * rest are the allergen strings the card itself uses. */
       options: [
         { value: 'rauch', label: { de: 'Keinen Rauch', en: 'No smoke' }, hint: { de: 'Dann ohne Mezcal', en: 'Then no mezcal' } },
+        /* The card records this per bottle and records nothing for a mixed
+         * drink, so this answer narrows a guest to the bottles the bar has
+         * actually checked. The hint says so rather than letting it look
+         * like a filter that happens to return very little. */
+        { value: 'zusaetze', label: { de: 'Nur ohne Zusätze', en: 'Additive free only' },
+          hint: { de: 'Nur Flaschen, bei denen wir es sicher wissen', en: 'Only bottles we know for certain about' } },
         { value: 'Ei', label: { de: 'Kein Eiweiß', en: 'No egg white' } },
         { value: 'Nüsse', label: { de: 'Keine Nüsse', en: 'No nuts' } },
         { value: 'Milch', label: { de: 'Keine Milchprodukte', en: 'No dairy' } }
@@ -231,6 +242,7 @@
         smoky: 'Was Rauchiges',
         unsmoked: 'Was ohne Rauch',
         expression: 'Ein {x}',
+        region: 'Was aus {x}',
         neat: 'Das Gleiche pur',
         mixed: 'Was Gemixtes',
         stronger: 'Was Kräftigeres',
@@ -251,6 +263,7 @@
       bestseller: 'Bestseller',
       neatBadge: 'Pur',
       smokyBadge: 'Rauchig',
+      cleanBadge: 'Ohne Zusätze',
       notOnCard: 'Nicht auf der Karte',
 
       restart: 'Nochmal von vorn',
@@ -258,6 +271,7 @@
       ingredients: 'Drin ist',
       priceLabel: 'Preis',
       styleLabel: 'Stil',
+      regionLabel: 'Herkunft',
 
       empty: 'Bei dieser Kombination wird es eng.',
       emptySub: 'Kein Problem. Komm an den Tresen, dann suchen wir dir gemeinsam eine Flasche.',
@@ -274,11 +288,20 @@
         safe: 'ohne alles, was du ausgeschlossen hast',
         budget: 'liegt in deinem Rahmen'
       },
-      kindNames: { tequila: 'Tequila', mezcal: 'Mezcal', agave: 'Agavenbrand' },
+      kindNames: {
+        tequila: 'Tequila', mezcal: 'Mezcal', sotol: 'Sotol',
+        raicilla: 'Raicilla', bacanora: 'Bacanora', agave: 'Agavenbrand'
+      },
       expressionNames: {
-        blanco: 'Blanco', reposado: 'Reposado', anejo: 'Añejo',
+        blanco: 'Blanco', reposado: 'Reposado', rosado: 'Rosado', anejo: 'Añejo',
         'extra-anejo': 'Extra Añejo', cristalino: 'Cristalino'
       },
+      /* The card writes the region freely, so only the two everyday cases get
+       * a German word. Anything else is shown exactly as the card writes it.
+       * regionContrast carries the whole phrase rather than a preposition and
+       * a slot, because "Was aus dem Oaxaca / Valles" is not German. */
+      regionNames: { highland: 'Hochland', lowland: 'Tiefland' },
+      regionContrast: { highland: 'Was aus dem Hochland', lowland: 'Was aus dem Tiefland' },
       // Read back as "schmeckt ...", so these have to work as adverbs.
       characterNames: {
         'sauer/zitrus': 'sauer und frisch', 'rauchig': 'rauchig', 'süß': 'süß',
@@ -320,6 +343,7 @@
         smoky: 'Something smoky',
         unsmoked: 'Something without smoke',
         expression: '{x} instead',
+        region: 'Something from {x}',
         neat: 'The same thing neat',
         mixed: 'Something mixed',
         stronger: 'Something stronger',
@@ -339,6 +363,7 @@
       bestseller: 'Bestseller',
       neatBadge: 'Neat',
       smokyBadge: 'Smoky',
+      cleanBadge: 'Additive free',
       notOnCard: 'Off menu',
 
       restart: 'Start over',
@@ -346,6 +371,7 @@
       ingredients: 'What is in it',
       priceLabel: 'Price',
       styleLabel: 'Style',
+      regionLabel: 'Origin',
 
       empty: 'That combination gets tight.',
       emptySub: 'Not a problem. Come to the bar and we will find you a bottle together.',
@@ -362,11 +388,16 @@
         safe: 'free of everything you ruled out',
         budget: 'sits inside your range'
       },
-      kindNames: { tequila: 'tequila', mezcal: 'mezcal', agave: 'agave spirit' },
+      kindNames: {
+        tequila: 'tequila', mezcal: 'mezcal', sotol: 'sotol',
+        raicilla: 'raicilla', bacanora: 'bacanora', agave: 'agave spirit'
+      },
       expressionNames: {
-        blanco: 'Blanco', reposado: 'Reposado', anejo: 'Añejo',
+        blanco: 'Blanco', reposado: 'Reposado', rosado: 'Rosado', anejo: 'Añejo',
         'extra-anejo': 'Extra Añejo', cristalino: 'Cristalino'
       },
+      regionNames: { highland: 'Highlands', lowland: 'Lowlands' },
+      regionContrast: { highland: 'Something from the highlands', lowland: 'Something from the lowlands' },
       characterNames: {
         'sauer/zitrus': 'sour and fresh', 'rauchig': 'smoky', 'süß': 'sweet',
         'bitter': 'bitter', 'prickelnd': 'sparkling', 'fruchtig': 'fruity',
