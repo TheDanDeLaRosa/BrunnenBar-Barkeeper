@@ -24,9 +24,10 @@
 
   var MENU_URL = 'https://brunnenbar.com/wp-json/wp/v2/pages/217?_fields=content';
 
-  // How long a fetched menu is reused before going back to the network.
-  // Prices change without anyone rebuilding the app, so this stays short.
-  var MAX_AGE_MS = 5 * 60 * 1000;
+  /* How long a fetched menu is reused before going back to the network. The
+   * brief sets the ceiling, not the taste: never more often than hourly. The
+   * card changes a few times a week, not a few times a minute. */
+  var MAX_AGE_MS = 60 * 60 * 1000;
 
   var STORE_KEY = 'bb-menu-last-good';
 
@@ -131,10 +132,19 @@
     return inFlight;
   }
 
-  /* True when the published menu differs from the one in hand. The brief
-   * points at published_at for exactly this. */
+  /* True when the published menu differs from the one in hand.
+   *
+   * content_hash and not a timestamp. published_at moves on every build even
+   * when nothing about the card changed, so comparing it would rebuild the
+   * whole view for nothing. The hash only moves when the content does.
+   *
+   * Falls back to published_at if a payload predates the hash, since a
+   * needless redraw beats missing a real change. */
   function hasChanged(current, incoming) {
     if (!current || !incoming) return true;
+    if (current.content_hash && incoming.content_hash) {
+      return current.content_hash !== incoming.content_hash;
+    }
     return current.published_at !== incoming.published_at;
   }
 
@@ -163,14 +173,44 @@
     return item[key];
   }
 
+  /* Everything a guest may be shown, in the published order.
+   *
+   * hidden_on_card items are dropped here and nowhere else. They are till
+   * articles rather than guest positions, so they must not reach a screen at
+   * all, and doing it once at the door means no caller has to remember.
+   *
+   * This is the only filtering that happens. Availability is not filtered,
+   * because everything published is orderable. */
   function allItems(menu) {
     return ((menu && menu.sections) || []).reduce(function (acc, s) {
-      return acc.concat((s.items || []).map(function (i) {
-        // Carry the section down, since scoring and display both want it,
-        // without disturbing the order the brief says not to touch.
-        return Object.assign({ section: s.title, section_en: s.title_en }, i);
-      }));
+      return acc.concat((s.items || [])
+        .filter(function (i) { return !i.hidden_on_card; })
+        .map(function (i) {
+          // Carry the section down, since scoring and display both want it,
+          // without disturbing the order the brief says not to touch.
+          return Object.assign({ section: s.title, section_en: s.title_en }, i);
+        }));
     }, []);
+  }
+
+  /* A bottle poured neat, not a mixed drink. The spirit sections carry brand
+   * and origin fields that no cocktail has, which is what tells them apart
+   * without naming a section. */
+  function isNeatSpirit(item) {
+    return !!(item && (item.brand || item.agave_kind || item.agave_expression ||
+                       item.agave_region || item.additive_free != null));
+  }
+
+  /* Fields that exist for the bar and never for a guest. menu_class is the
+   * margin and popularity grading, and putting a "dog" label on a drink in
+   * front of the person about to order it would be quite a thing to ship. */
+  var INTERNAL_FIELDS = ['menu_class', 'pos_sku'];
+
+  /* An image URL, or null. Roughly a third of the card has no photo, so every
+   * caller has to cope with null rather than most of them. */
+  function imageOf(item) {
+    var src = item && item.image;
+    return typeof src === 'string' && src ? src : null;
   }
 
   /* Which items the recommender can actually score.
@@ -180,7 +220,10 @@
    * The test is the data itself: a cocktail has an ingredient list, beer and
    * wine do not. That stays true however the card is reorganised. */
   function isScoreable(item) {
-    return !!(item && item.ingredients && item.ingredients.length);
+    if (!item || !item.ingredients || !item.ingredients.length) return false;
+    // A neat pour can carry its own bottle as an ingredient. It is still not
+    // a cocktail, and the tequila and whiskey apps are the ones that want it.
+    return !isNeatSpirit(item);
   }
 
   function scoreableItems(menu) {
@@ -192,6 +235,7 @@
     loadMenu: loadMenu, extract: extract, hasChanged: hasChanged,
     formatPrice: formatPrice, priceList: priceList, field: field, allItems: allItems,
     isScoreable: isScoreable, scoreableItems: scoreableItems,
+    isNeatSpirit: isNeatSpirit, imageOf: imageOf, INTERNAL_FIELDS: INTERNAL_FIELDS,
     _reset: function () { memo = null; inFlight = null; }
   };
   if (typeof module !== 'undefined' && module.exports) module.exports = api;

@@ -1,15 +1,23 @@
 # Was die App zusätzlich aus dem Menu API braucht
 
-Stand 07.09.2026. Antwort auf das Menu API Brief.
+Stand 08.09.2026. Antwort auf das zweite Menu API Brief vom Website Seat.
 
-Der Loader ist gebaut und liest die eine Quelle so, wie das Brief es
-vorschreibt. Was noch fehlt, sind vier Felder pro Getränk. Ohne sie können drei
-der sieben Fragen nichts bewerten, weil die Karte nicht sagt, wonach etwas
-schmeckt.
+Der Loader liest die eine Quelle so, wie das Brief es vorschreibt. Stündlich
+höchstens, Abgleich über `content_hash`, `hidden_on_card` bleibt beim Gast
+draußen, `menu_class` und `pos_sku` sind intern, `image` kann `null` sein. Das
+ist alles eingebaut und getestet.
 
-Alle vier Felder gab es im vorherigen BarPatrol Export schon. Die Werte unten
-sind exakt die, die dort standen. Es geht also nicht darum, etwas Neues zu
-erfinden, sondern darum, Vorhandenes wieder mitzuliefern.
+Was weiterhin fehlt, sind vier Felder pro Getränk. Sie standen nicht in der
+ersten Feldliste und stehen auch nicht in der zweiten. Ohne sie können drei der
+sieben Fragen nichts bewerten, weil die Karte nicht sagt, wonach etwas schmeckt,
+wie es serviert wird und wann am Abend es passt.
+
+Alle vier gab es im BarPatrol Export schon. Die Werte unten sind exakt die, die
+dort standen. Es geht also nicht darum, etwas Neues zu erfinden, sondern darum,
+Vorhandenes wieder mitzuliefern.
+
+Die Felder gehören an die Quelle, nicht in eine App. Dann haben die Cocktail
+App, die Tequila App und die Whiskey App sie gleichzeitig.
 
 ---
 
@@ -149,15 +157,14 @@ vollständiger Eintrag aus:
 
 ---
 
-## Die Werte müssen niemand neu vergeben
+## Die Werte muss niemand neu vergeben
 
 Alle vier Felder stehen für alle 148 Getränke schon im letzten BarPatrol
 Export. Sie sind auf dem Weg ins Menu API verloren gegangen, nicht nie erhoben
 worden. Es ist also kein Taggen von Hand, sondern ein Durchreichen.
 
-`docs/menu-api-feldwerte.json` enthält genau diese Werte, fertig zum Mitgeben.
-Die Datei ist nach dem Getränkenamen aufgeschlüsselt und hat pro Getränk nur
-die Felder, die dem API noch fehlen.
+`docs/menu-api-feldwerte.json` enthält genau diese Werte, nach Getränkenamen
+aufgeschlüsselt, mit nur den Feldern, die dem API fehlen.
 
 ```json
 "Whiskey Sour": {
@@ -173,45 +180,29 @@ die Felder, die dem API noch fehlen.
 }
 ```
 
-Erzeugt wird sie mit `node tools/export-missing-fields.js`. Drei Sachen werden
-dabei repariert und jede einzelne wird beim Lauf gemeldet.
+Das ist eine Vorlage für den Generator, keine Datei, die irgendwohin
+hochgeladen wird. Das Brief ist da eindeutig, es gibt genau eine Quelle und
+keinen Upload. `node tools/merge-fields.js menu.json` dient nur zum Nachsehen,
+was nach dem Ergänzen noch offen wäre, und schreibt in eine neue Datei.
 
-- `Spaeter Abend` wird zu `Später Abend`, betrifft nur Don Julio Anejo
-  Manhattan. Ohne den Umlaut war der Drink über die erste Frage gar nicht
-  erreichbar.
-- `kraeftig` fällt weg, weil die Stärke schon im eigenen Feld steht, und
+Drei Sachen sind beim Erzeugen repariert worden und werden bei jedem Lauf
+gemeldet.
+
+- `Spaeter Abend` wird zu `Später Abend`. Ohne den Umlaut war Don Julio Anejo
+  Manhattan über die erste Frage gar nicht erreichbar.
+- `kraeftig` fällt weg, weil die Stärke ihr eigenes Feld hat, und
   `bitter-suess` wird zu `bitter` und `süß`. Betrifft denselben Drink.
-- Rosato Spritz wird gemeldet, weil `alcohol_free` true ist bei Stärke 1. Der
-  Wert wird nicht angefasst, das gehört in die Karte entschieden.
+- Rosato Spritz wird gemeldet, weil `alcohol_free` true ist bei Stärke 1 mit
+  Ramazzotti Rosato im Rezept. Der Wert wird nicht angefasst, das gehört in der
+  Karte entschieden.
 
 `holzig` bleibt drin, weil es sinnvoll ist. Wenn Gäste danach fragen können
 sollen, sagt Bescheid, dann bekommt es eine eigene Antwortmöglichkeit.
 
-### Zusammenführen, mit menu.json als Wahrheit
+### Namen, die beim Abgleich auffallen
 
-`menu.json` ist die genaue Quelle. Namen, Preise, Sektionen, Reihenfolge und
-was überhaupt auf der Karte steht, kommt von dort und wird nicht angefasst. Der
-alte Export dient nur zum Nachschlagen der vier Werte.
-
-```bash
-node tools/merge-fields.js pfad/zu/menu.json menu.merged.json
-```
-
-Die Eingabedatei wird nie verändert, das Ergebnis landet in einer neuen Datei,
-damit vor dem Veröffentlichen jemand drübersehen kann.
-
-Was das Werkzeug tut und was nicht.
-
-- Es füllt ein Feld nur, wenn es leer ist. Steht im `menu.json` schon ein Wert,
-  gilt der und wird gemeldet.
-- Es fasst nur Getränke mit Zutatenliste an. Bier und Wein brauchen die Felder
-  nicht und tauchen deshalb auch nicht als Lücke auf.
-- Es rät nie. Weicht ein Name ab, schlägt es den nächstliegenden vor und lässt
-  das Feld leer, bis jemand entschieden hat.
-
-Genau das passiert bei drei Namen, die im alten Export nach Tippfehlern
-aussehen. Stehen sie im `menu.json` richtig, findet der Abgleich sie nicht von
-allein und meldet sie als Vorschlag.
+Drei Namen sehen im alten Export nach Tippfehlern aus. Wenn sie im Menu API
+richtig stehen, findet ein Abgleich über den Namen sie nicht von allein.
 
 | Im Export | Auf der Karte vermutlich |
 |---|---|
@@ -219,8 +210,8 @@ allein und meldet sie als Vorschlag.
 | `Don Julio Reposado Margerita` | Margarita |
 | `Gin Tonic - Hendriks` | Hendrick's |
 
-Getränke, die es im Export nicht gab, werden als offen gemeldet. Für die müssen
-die vier Werte einmal vergeben werden, alles andere ist ein Durchreichen.
+Der Export hatte 148 Einträge, das Menu API führt 193 Positionen. Für alles, was
+im Export nicht vorkam, müssen die vier Werte einmal vergeben werden.
 
 ---
 

@@ -32,6 +32,7 @@ var MENU = {
   name: 'BrunnenBar',
   generated: '2026-09-07',
   published_at: '2026-09-07T23:10:16+02:00',
+  content_hash: 'fa59f27a2a8dc192',
   languages: ['de', 'en'],
   allergens: { de: { '1': 'Glutenhaltige Getreide' }, en: { '1': 'Cereals containing gluten' },
                intro_de: 'i', intro_en: 'i', outro_de: 'o', outro_en: 'o' },
@@ -45,7 +46,8 @@ var MENU = {
       ingredients: [], ingredients_en: [], strength: '',
       allergens: ['Gluten'], allergens_en: ['Gluten'], allergen_codes: [1],
       alcohol_free: false, pos_sku: '', hidden_on_card: false,
-      on_printed_menu: true, popularity_rank: 9999
+      on_printed_menu: true, popularity_rank: 9999,
+      image: 'https://brunnenbar.com/img/helles.jpg', menu_class: 'plowhorse'
     }] },
     { title: 'Wein', title_en: 'Wine', items: [{
       name: 'Riesling', name_en: 'Riesling', group: 'Weisswein', group_en: 'White wine',
@@ -55,7 +57,23 @@ var MENU = {
       ingredients: [], ingredients_en: [], strength: '',
       allergens: ['Sulfite'], allergens_en: ['Sulphites'], allergen_codes: [12],
       alcohol_free: false, pos_sku: '', hidden_on_card: false,
-      on_printed_menu: true, popularity_rank: 40
+      on_printed_menu: true, popularity_rank: 40,
+      image: null, menu_class: 'star'
+    }] },
+    { title: 'Tequila & Mezcal Neat', title_en: 'Tequila & mezcal neat', items: [{
+      name: 'Don Julio Reposado 4cl', name_en: 'Don Julio Reposado 4cl',
+      group: 'Reposado', group_en: 'Reposado',
+      price: 9.5, prices: [{ size: '4 cl', price: 9.5 }],
+      description: 'Acht Monate im Fass.', description_en: 'Eight months in cask.',
+      bartender_note: '', bartender_note_en: '',
+      // A neat pour can name its own bottle here. It is still not a cocktail.
+      ingredients: ['Don Julio Reposado'], ingredients_en: ['Don Julio Reposado'],
+      strength: 'stark', allergens: [], allergens_en: [], allergen_codes: [],
+      alcohol_free: false, pos_sku: '', hidden_on_card: false,
+      on_printed_menu: true, popularity_rank: 12, image: null, menu_class: 'puzzle',
+      brand: 'Don Julio', agave_kind: 'Reposado',
+      agave_expression: 'Don Julio Reposado', agave_region: 'Los Altos, Jalisco',
+      additive_free: true
     }] }
   ]
 };
@@ -87,7 +105,7 @@ function q(name, fn) { queue = queue.then(function () { return test(name, fn); }
 q('pulls the menu out of the pre block and ignores the rest of the page', function () {
   var menu = src.extract(page(jsonText(MENU)));
   assert.strictEqual(menu.name, 'BrunnenBar');
-  assert.strictEqual(menu.sections.length, 2);
+  assert.strictEqual(menu.sections.length, 3);
 });
 
 q('refuses a page with no menu block', function () {
@@ -173,7 +191,16 @@ q('fails outright rather than inventing a menu when nothing was ever saved', fun
           function (err) { assert.match(err.message, /offline/); });
 });
 
-q('notices a republish through published_at', function () {
+q('notices a real change through content_hash, and ignores a rebuild', function () {
+  var a = { published_at: '2026-09-07T23:10:16+02:00', content_hash: 'aaa' };
+  // Same content, built again. published_at moved, the hash did not.
+  var rebuilt = { published_at: '2026-09-08T04:00:00+02:00', content_hash: 'aaa' };
+  var edited = { published_at: '2026-09-08T04:00:00+02:00', content_hash: 'bbb' };
+  assert.strictEqual(src.hasChanged(a, rebuilt), false, 'a rebuild is not a change');
+  assert.strictEqual(src.hasChanged(a, edited), true);
+});
+
+q('falls back to published_at when a payload carries no hash', function () {
   var older = { published_at: '2026-09-07T23:10:16+02:00' };
   var newer = { published_at: '2026-09-08T10:00:00+02:00' };
   assert.strictEqual(src.hasChanged(older, older), false);
@@ -200,21 +227,26 @@ q('English is used where present and falls back per field', function () {
 q('section order and item order are preserved exactly', function () {
   var items = src.allItems(MENU);
   assert.deepStrictEqual(items.map(function (i) { return i.name; }),
-    ['Augustiner Helles 0,5l', 'Riesling']);
+    ['Augustiner Helles 0,5l', 'Riesling', 'Don Julio Reposado 4cl']);
   assert.strictEqual(items[0].section, 'Bier');
   assert.strictEqual(items[1].section_en, 'Wine');
 });
 
-q('nothing is filtered out, since everything published is orderable', function () {
+q('a till article never reaches a guest', function () {
   var hidden = JSON.parse(JSON.stringify(MENU));
   hidden.sections[0].items[0].hidden_on_card = true;
-  assert.strictEqual(src.allItems(hidden).length, 2,
-    'hidden_on_card only means it is off the printed card');
+  var shown = src.allItems(hidden).map(function (i) { return i.name; });
+  assert.strictEqual(shown.indexOf('Augustiner Helles 0,5l'), -1,
+    'hidden_on_card is a till article, not a guest position');
+  assert.strictEqual(shown.length, 2, 'and nothing else is dropped with it');
+});
+
+q('availability is still not filtered, everything published is orderable', function () {
+  assert.strictEqual(src.allItems(MENU).length, 3, 'the only filtering is hidden_on_card');
 });
 
 q('beer and wine are carried but never scored, without naming any section', function () {
-  // Both fixture items are beer/wine, so neither is scoreable.
-  assert.strictEqual(src.allItems(MENU).length, 2, 'everything stays available to list');
+  assert.strictEqual(src.allItems(MENU).length, 3, 'everything stays available to list');
   assert.strictEqual(src.scoreableItems(MENU).length, 0, 'nothing without ingredients is scored');
 
   var withCocktail = JSON.parse(JSON.stringify(MENU));
@@ -238,6 +270,44 @@ q('the cocktail test does not depend on section names', function () {
   renamed.sections[0].title = 'Etwas ganz Neues';
   assert.strictEqual(src.scoreableItems(renamed).length, 0,
     'renaming a section must not change what is scoreable');
+});
+
+console.log('\nThe rules the second brief added');
+
+q('a neat pour is never recommended as a cocktail', function () {
+  // Don Julio Reposado lists itself as its own ingredient, so the ingredient
+  // test alone would have called it a cocktail.
+  var neat = src.allItems(MENU).filter(function (i) { return i.brand; })[0];
+  assert.ok(neat, 'fixture should carry a neat pour');
+  assert.ok(neat.ingredients.length, 'and it does have an ingredient list');
+  assert.strictEqual(src.isNeatSpirit(neat), true);
+  assert.strictEqual(src.isScoreable(neat), false,
+    'the cocktail app must not recommend a bottle poured neat');
+});
+
+q('the neat sections are still carried, for the other two apps', function () {
+  var names = src.allItems(MENU).map(function (i) { return i.name; });
+  assert.ok(names.indexOf('Don Julio Reposado 4cl') !== -1,
+    'the tequila app reads the same one source');
+});
+
+q('a missing photo is null and not an empty string or a broken link', function () {
+  var items = src.allItems(MENU);
+  assert.strictEqual(src.imageOf(items[0]), 'https://brunnenbar.com/img/helles.jpg');
+  assert.strictEqual(src.imageOf(items[1]), null, 'Riesling has no photo');
+  assert.strictEqual(src.imageOf({}), null);
+  assert.strictEqual(src.imageOf({ image: '' }), null, 'an empty string is not a photo');
+});
+
+q('the internal grading is named as internal', function () {
+  // menu_class grades margin and popularity. Showing a guest that the drink
+  // they are about to order is a "dog" would be quite a thing to ship.
+  assert.ok(src.INTERNAL_FIELDS.indexOf('menu_class') !== -1);
+  assert.ok(src.INTERNAL_FIELDS.indexOf('pos_sku') !== -1);
+});
+
+q('the endpoint is asked at most hourly', function () {
+  assert.strictEqual(src.MAX_AGE_MS, 60 * 60 * 1000, 'the brief sets the ceiling at hourly');
 });
 
 queue.then(function () {

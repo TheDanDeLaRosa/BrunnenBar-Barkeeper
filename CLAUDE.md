@@ -48,25 +48,51 @@ it can be tested. Everything visual is in `assets/app.js`.
 ## The data rule that matters most
 
 There is exactly one source, the live Menu API, and `assets/menu-source.js` is
-the only file allowed to talk to it. From the brief, and these are not
-negotiable:
+the only file allowed to talk to it. Nothing is pushed to the apps, they fetch
+for themselves, and there is no export and no file anyone has to send.
+
+    https://brunnenbar.com/wp-json/wp/v2/pages/217?_fields=content
+
+From the brief, and these are not negotiable:
 
 - The app only reads, it never writes back.
-- Never ship a bundled copy of the menu as a fallback. The only fallback is the
-  last response that browser itself received, shown with its age.
+- Never cache it on a server of our own, and never bundle a copy. The only
+  fallback is the last response that browser itself received, shown with its
+  age.
+- Ask at most hourly. The card changes a few times a week, not a few times a
+  minute.
+- Compare `content_hash` to decide whether anything actually changed.
+  `published_at` moves on every build even when the card did not, so it would
+  cause a needless redraw every time.
 - If `&amp;` ever appears in the payload the publishing pipeline is broken.
   Report it, do not repair it.
 - Never render `content.rendered` as HTML, only read the `pre` block.
 - Never hard-code a drink, a price, a section name or an allergen.
-- The order of sections and items is the display order. Do not resort it.
-- Everything published is orderable. The app does not filter for availability.
+- The order of sections and items is the display order, already sorted by
+  `popularity_rank`. Do not resort it.
+- `hidden_on_card` items are till articles and must never reach a guest.
+  `allItems` drops them at the door so no caller has to remember.
+- Availability is not filtered. Everything else published is orderable.
+
+Two fields are for the bar and never for a guest. `menu_class` grades margin
+and popularity, so `star`, `puzzle`, `plowhorse` and `dog` stay internal, and
+`pos_sku` is the till link. Both are listed in `INTERNAL_FIELDS`.
+
+`image` is a full URL or `null`, and roughly a third of the card has no photo,
+so every caller has to cope with null.
 
 Whether an item can be recommended is decided by the data and never by a
-section name. A cocktail has an ingredient list, beer and wine do not.
+section name. A cocktail has an ingredient list. Beer and wine have none, and a
+neat pour is excluded separately because it can carry its own bottle as its
+ingredient, which the spirit fields give away.
+
+If a field is missing, it gets added at the source by the Website Seat and all
+three apps have it. Do not work around it in one app.
 
 ## Open work
 
 `docs/menu-api-felder-fuer-die-app.md` lists four fields the Menu API still
-needs before three of the seven questions can score anything. Until those land,
-the app runs on the bundled export, which the brief forbids, so this is the
-thing blocking a clean launch.
+needs before three of the seven questions can score anything. They were absent
+from the first brief and are still absent from the second, so this remains the
+one thing blocking a clean launch. Until they land the app runs on the bundled
+export, which the brief forbids.
