@@ -1,24 +1,18 @@
 # BrunnenBar — Cocktail recommender
 
 > There is a second app in this repository. The **agave recommender** for
-> tequila and mezcal lives under [`tequila/`](tequila/README.md) and reads the
-> live Menu API, which is the pattern this app still has to move to. The
-> shared look and the shared loader are referenced from there, not copied.
->
-> **Two rules below are out of date and the shared loader already knows it.**
-> The 08.09.2026 data spec says `hidden_on_card` items are till articles and
-> must not be shown, reversing the export's own note, and it says to ask the
-> endpoint hourly at most and to compare `content_hash` rather than a
-> timestamp. `assets/menu-source.js` enforces all three, so this app inherits
-> them the day it moves off the bundled export. See `CLAUDE.md`.
+> tequila and mezcal lives under [`tequila/`](tequila/README.md). Both apps
+> read the same live Menu API through the same `assets/menu-source.js`, and
+> the agave app references the shared theme and loader with `../` rather than
+> keeping copies of them.
 
 A cocktail recommender for [brunnenbar.com](https://brunnenbar.com). It asks a
 guest the questions we'd ask across the bar, then recommends drinks **from our
 actual card**, with a plain-language reason for each.
 
-Driven entirely by the bar's own export: 125 available drinks, real sales
-figures, prices, availability and allergens. Mobile-first, no build step to
-run it, no dependencies, no tracking.
+Driven entirely by the bar's live Menu API. There is no bundled copy of the
+card, no export step and no file anyone has to send. Mobile first, no build
+step, no dependencies, no tracking.
 
 ---
 
@@ -32,49 +26,53 @@ npx http-server . -p 8080   # or serve it locally
 node test/engine.test.js    # run the tests
 ```
 
+Every `*.test.js` in the repo also runs in CI on each push and pull request,
+via `.github/workflows/tests.yml`. It discovers the files rather than listing
+them, so a new suite needs no change there.
+
 ---
 
-## Updating the menu
+## Where the drinks come from
 
-**`data/cocktails.json` is the source of truth.** It is the BarPatrol export,
-stored verbatim. To update the card:
+**There is exactly one source and the app reads it directly.**
 
-```bash
-# 1. drop the new export in as data/cocktails.json
-node tools/build-menu.js    # 2. regenerate data/menu.js
-node test/engine.test.js    # 3. confirm nothing broke
-```
+    https://brunnenbar.com/wp-json/wp/v2/pages/217?_fields=content
 
-Every `*.test.js` in the repo also runs in CI on each push and pull request,
-via `.github/workflows/tests.yml`.
+Nothing is pushed to the app and nothing is bundled with it. A copy that
+shipped with the app would be wrong the moment a price changed, and wrong
+silently, so the only fallback is the last response that browser itself
+received, shown with its age. Update the card in the bar and the app has it
+within the hour.
 
-`data/menu.js` is **generated — never edit it by hand.** The build step exists
-because a browser cannot read a `.json` file off the file system without a web
-server, and this page has to work when opened directly.
+Three files, and only three, are involved:
 
-The build prints a report every time. Read it. It tells you:
+| File | Job |
+|---|---|
+| `assets/menu-source.js` | the only file that talks to the endpoint |
+| `assets/menu-adapt.js` | turns a published item into a drink the engine can rank |
+| `assets/spirits.js` | works out the base spirit, which the feed does not carry |
 
-- how many drinks were kept and how many were dropped as unavailable
-- any drink whose alcohol-free flag conflicts with its strength (see below)
-- any ingredient it could not resolve to a spirit family
-- any section names it folded together
+`menu-source.js` reads at most hourly, compares `content_hash` rather than a
+timestamp so a rebuild does not count as a change, withholds `hidden_on_card`
+items because those are till articles rather than guest positions, and reports
+HTML entities instead of repairing them.
 
-### What the build derives
+### It says what is wrong with the feed, and fixes nothing
 
-The export carries no base-spirit field, so `tools/build-menu.js` works it out
-from `ingredients_guest` using an explicit dictionary — every entry is a string
-that actually appears in the data, so the list is readable and checkable. It
-records two things:
+The old build step quietly repaired a transliterated `Spaeter Abend`. Nothing
+does that now, and nothing should. Repairing it in the app fixes it for one app
+and leaves the card wrong for the till, the printed menu and the other two
+recommenders.
 
-- `base` — the leading spirit, for *"I feel like gin tonight"*
-- `spirits` — **every** spirit in the drink, for *"no whiskey, ever"*
+So the first load reports, in the console, two things it cannot work around:
 
-That second one matters. A guest who says "nothing bitter" must not be shown a
-Boulevardier, and that only works because Campari is recorded even though
-bourbon leads the drink.
+- **a field missing everywhere**, which means a question cannot mean anything
+- **a value no question offers**, which means one drink is unreachable
 
-If you add a product the dictionary doesn't know, the build says so and the
-drink simply won't match a spirit preference. Add it to `SPIRIT_OF`.
+The second is the quieter of the two and the more expensive. Everything looks
+fine until someone asks why that drink is never suggested. On the August card
+it names `Spaeter Abend`, and the flavour tags `kraeftig`, `holzig`,
+`bitter-suess`, `salzig` and `überraschend`.
 
 ---
 
@@ -119,6 +117,100 @@ considerably, so two people at the same table get genuinely different
 suggestions rather than both being handed the current top seller. Hard rules
 still apply in full: free rein never overrides an allergen or a rejected
 spirit.
+
+### Questions only offer answers the card can honour
+
+Every option a guest can tap is worked out from the menu at the moment it is
+shown, against everything answered so far. If nothing still in reach matches an
+option, it is not offered.
+
+**Every answer narrows the next question, not just the hard rules.** Picking
+mezcal used to leave all nine flavours on offer, so a guest could ask for a
+mezcal coffee drink. The card has exactly one mezcal drink, Margarita Rojas,
+and it is a smoky sour. The flavour question now offers sour, smoky and
+Barkeeper's Choice, and nothing else.
+
+The same narrowing removes shapes that cannot happen. Mid evening at medium
+strength there is no spritz, because every spritz on the card is strength 0 or
+1, and no stirred drink, because none is tagged for mid evening. A test asserts
+both of those claims are still true of the card, so the exclusion cannot quietly
+become a snapshot of a bug.
+
+**A question with no real answer is dropped rather than padded out.** Late in
+the evening at strength 2 the only whiskey is Talisker Campfire, which is served
+hot, and hot is not one of the four shapes the question offers. Every answer
+would have led nowhere, so the question is not asked. An unanswerable question
+is not a gentler failure than a missing one, it is a promise the card cannot
+keep.
+
+**You are never offered to exclude something you just asked for.** Having said
+you like mezcal, "no mezcal" would be absurd and picking both would leave
+nothing at all.
+
+Two questions are deliberately never filtered. **Strength** is a scale, and a
+scale with holes in it reads as broken. **Allergens** is reassurance as much as
+it is a filter, and a guest with a nut allergy should see nuts acknowledged
+whether or not anything currently contains them.
+
+#### When the narrowing would leave nothing
+
+Option filtering climbs the same ladder the scoring does, in the same order.
+Full narrowing first, then gates only, then zero proof without the shot gate,
+then hard rules alone. Offering options from a stricter pool than the results
+will come from would take away answers that really were available.
+
+This matters in two places on the current card:
+
+- **Alcohol free shots do not exist.** The engine already answers that by
+  loosening the shot requirement and saying so on screen. The questions now
+  offer what that fallback can actually deliver, which is why zero proof
+  outlives the shot gate on the way down. A guest who asks for no alcohol
+  never gets offered a flavour only an alcoholic drink has.
+- **Nothing light late at night.** There is no strength 1 drink tagged for late
+  evening at all. Rather than collapsing the questionnaire to nothing, it
+  relaxes and carries on, and the guest gets the near miss the engine was
+  always going to give them.
+
+A test walks the funnel, 950 steps across every reachable moment, strength and
+spirit, and asserts every option still on offer leads to at least one real
+drink.
+
+### Answers do not linger behind a question you can no longer see
+
+Going back and choosing zero proof takes the spirit question away. Going back
+and choosing a round of shots takes four flavours away. Any answer that is no
+longer on offer is dropped when that happens.
+
+This matters more than it sounds. A stale answer keeps scoring from behind a
+question the guest cannot see, so the results are shaped by something with
+nothing on screen to explain it. Picking Sweet and Coffee, then going back to
+zero proof, now keeps Sweet and quietly drops Coffee.
+
+### The shots path asks less
+
+Picking *Eine Runde Shots* at the first question drops the questionnaire from
+seven questions to five. Two are skipped, and both for the same reason: they
+could not be answered correctly.
+
+**How it should turn up** is skipped because a shot already is the answer. The
+four shapes on offer are long over ice, short and stirred, shaken and silky,
+and spritz, and no shot can be any of them. Asking anyway cost every shot the
+same 18 points, so a perfect shot came back looking like a mediocre match.
+
+**Which spirit you like** is skipped because the shots on the card are almost
+all liqueur and schnapps. Only four of the eleven spirit options appear in a
+single available shot, so seven of them could only ever subtract.
+
+Two questions deliberately stay. **Strength** stays because it is the only
+thing separating a 40% Raki from a sweet hazelnut liqueur, and because picking
+zero proof is what triggers the honest fallback described above. **Allergens**
+stays because it is a hard rule, and a hard rule is never dropped to save a
+guest a tap.
+
+A test asserts the general form of this rather than the specific fix: every
+question the shots path still asks must have at least one option that at least
+one shot on the card actually matches. Add a shot-shaped serve option later and
+the test tells you the skip should be reconsidered.
 
 ### Serve styles the question does not offer
 
@@ -179,18 +271,34 @@ it never overturns a clear winner.
 
 ---
 
+### Off the card, and off limits
+
+Two fields sound alike and mean different things.
+
+`on_printed_menu: false` is an off menu drink. It is recommended like any
+other and carries a badge saying it is not on the printed card. 61 drinks on
+the August card are in that state, so this is the normal case rather than the
+exception.
+
+`hidden_on_card: true` is a till article and **never reaches a guest**.
+`allItems` drops it at the door so no caller has to remember. On the August
+card that withheld twelve entries that read like real cocktails, La Rosa and
+Mermaid's Melody among them. That was checked with Dan and confirmed as
+intended, so it is not a judgement call to revisit.
+
 ## Things the bar should look at
 
-**1. Rosato Spritz has a contradictory alcohol-free flag.** It is
-`alcohol_free: true`, but rated `strength 1 "leicht"`, and its recipe is
-`Ramazzotti Rosato` + `Freixenet 0,0` + soda. The Prosecco was swapped for the
-0,0 version, but Ramazzotti Rosato is a real aperitivo at roughly 15% ABV.
-Compare the Vibrante and Floreale spritzes, which use genuinely alcohol-free
-Martini aperitivos and are correctly strength 0.
+**1. Rosato Spritz. Decided, and the change belongs at the source.** It was
+`alcohol_free: true` at `strength 1`, with `Ramazzotti Rosato` in the recipe, a
+real aperitivo at roughly 15% ABV. The Prosecco had been swapped for the 0,0
+version but the aperitivo had not. Dan has ruled that it loses the alcohol-free
+flag.
 
-The build **treats it as containing alcohol** and keeps it out of the zero-proof
-results, because the safe reading of "maybe alcoholic" is "alcoholic". Fix the
-JSON either way and the warning goes away.
+The app never writes back, so that goes in the generator. Until it does, the
+app treats it as containing alcohol anyway: **a drink counts as alcohol free
+only when the flag says so and the strength is 0.** That rule stays whatever
+happens to this one drink, because the next time two fields disagree nobody
+finds out until someone is handed a drink they asked not to have.
 
 **2. Three drink names look like typos.** Guest-facing, so your call:
 
@@ -252,16 +360,22 @@ half-translated export degrades per drink instead of breaking.
 ## Files
 
 ```
-index.html              the page
-assets/styles.css       all styling
-assets/engine.js        scoring logic (pure, testable)
-assets/app.js           interface and question flow
-assets/favicon.svg
-data/cocktails.json     ← THE SOURCE OF TRUTH. Replace this to update the card.
-data/menu.js            generated by tools/build-menu.js — do not edit
-data/questions.js       the questions and all interface copy
-tools/build-menu.js     node tools/build-menu.js
-test/engine.test.js     node test/engine.test.js
+index.html                       the page
+assets/brunnenbar-theme.css      shared house style, copy it to the other apps
+assets/styles.css                only what is true of this app alone
+assets/menu-source.js            the one source, and the only file that reads it
+assets/menu-adapt.js             published item -> drink the engine can rank
+assets/spirits.js                base spirit from the ingredient list
+assets/engine.js                 scoring logic, pure and testable
+assets/app.js                    interface and question flow
+data/questions.js                the questions and all interface copy
+test/engine.test.js              node test/engine.test.js
+test/menu-source.test.js         node test/menu-source.test.js
+test/fixtures/menu-live.json     a payload shaped like the live one
+test/fixtures/export-2026-08-19.json   the last BarPatrol export, kept for its
+                                       field values, not read by the app
+tools/export-missing-fields.js   lifts those values out for the Website Seat
+tools/merge-fields.js            checks what a feed is still missing
 ```
 
 The test suite checks that the built menu matches the export exactly, that no

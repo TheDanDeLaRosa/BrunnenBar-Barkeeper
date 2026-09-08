@@ -6,11 +6,25 @@
 
 var assert = require('assert');
 var engine = require('../assets/engine.js');
-var menuMod = require('../data/menu.js');
 var questions = require('../data/questions.js');
-var source = require('../data/cocktails.json');
 
-var MENU = menuMod.MENU;
+/* The menu comes through the real path, not a bundled copy: the same
+ * extraction, the same cocktails-only rule and the same adapter the browser
+ * uses. A fixture shaped like the live payload stands in for the endpoint,
+ * so a change to any of those three shows up here rather than in the bar. */
+var source = require('../assets/menu-source.js');
+var adapt = require('../assets/menu-adapt.js');
+var FIXTURE = require('./fixtures/menu-live.json');
+
+var PUBLISHED = source.extract(FIXTURE);
+var ITEMS = source.scoreableItems(PUBLISHED);
+var MENU = ITEMS.map(adapt.adapt);
+
+var ING_EN = {};
+MENU.forEach(function (d) {
+  d.ing.forEach(function (de, i) { if (d.ingEn[i]) ING_EN[de] = d.ingEn[i]; });
+});
+
 var passed = 0;
 
 function test(name, fn) {
@@ -33,28 +47,35 @@ function opt(id) {
     .options.map(function (o) { return o.value; });
 }
 
-console.log('\nBuild output matches the source export');
+console.log('\nWhat the live feed turns into');
 
-test('every available drink from the export is in the menu, and no others', function () {
-  var expected = source.drinks.filter(function (d) { return d.available; });
-  assert.strictEqual(MENU.length, expected.length,
-    'menu has ' + MENU.length + ' drinks, export has ' + expected.length + ' available');
-  var built = MENU.map(function (d) { return d.name; }).sort();
-  var want = expected.map(function (d) { return d.name; }).sort();
-  assert.deepStrictEqual(built, want);
+test('every cocktail in the feed becomes a drink the engine can rank', function () {
+  assert.ok(MENU.length > 50, 'fixture should carry a real card, got ' + MENU.length);
+  assert.strictEqual(MENU.length, ITEMS.length);
+  MENU.forEach(function (d) {
+    assert.ok(d.name, 'every drink needs a name');
+    assert.ok(d.ing.length, 'a cocktail has ingredients, that is what makes it one');
+  });
 });
 
-test('nothing marked unavailable can ever be recommended', function () {
-  var blocked = source.drinks.filter(function (d) { return !d.available; })
-    .map(function (d) { return d.name; });
-  assert.ok(blocked.length > 0, 'the export should contain unavailable drinks');
-  var inMenu = MENU.filter(function (d) { return blocked.indexOf(d.name) !== -1; });
-  assert.deepStrictEqual(inMenu, [], 'unavailable drinks leaked into the menu');
+test('a till article never reaches the engine', function () {
+  // hidden_on_card is dropped by menu-source before anything else sees it.
+  var raw = PUBLISHED.sections.reduce(function (acc, sec) {
+    return acc.concat(sec.items.filter(function (i) { return i.hidden_on_card; }));
+  }, []);
+  assert.ok(raw.length, 'fixture should carry a hidden item, or this proves nothing');
+  raw.forEach(function (i) {
+    assert.ok(!MENU.some(function (d) { return d.name === i.name; }),
+      i.name + ' is a till article and must not be recommendable');
+  });
 });
 
-test('Gin Basil stays out while there is no basil', function () {
-  assert.ok(!MENU.some(function (d) { return /Gin Basil/.test(d.name); }),
-    'Gin Basil is unavailable and must not appear');
+test('availability is the bar\'s job, not the app\'s', function () {
+  // The brief is explicit: everything published is orderable, because
+  // anything unavailable is removed before publishing. The app must not
+  // invent a second opinion about it.
+  assert.ok(!('available' in (ITEMS[0] || {})),
+    'the feed carries no availability field and the app must not expect one');
 });
 
 test('ids are unique and every drink is fully populated', function () {
@@ -117,35 +138,29 @@ test('every moment option is a real moment', function () {
   });
 });
 
-test('every drink moment is one the question can actually offer', function () {
-  var offered = opt('moment').filter(function (v) { return v !== 'shots'; });
-  offered.push('Ganzer Abend');           // matches any moment, never offered directly
-  var bad = [];
-  MENU.forEach(function (d) {
-    d.moments.forEach(function (m) {
-      if (offered.indexOf(m) === -1) bad.push(d.name + ': "' + m + '"');
-    });
-  });
-  assert.deepStrictEqual(bad, [],
-    'moments no guest can select:\n       ' + bad.join('\n       '));
+test('a moment no question can offer is reported, never repaired', function () {
+  /* The old node build quietly rewrote "Spaeter Abend" to "Später Abend".
+   * Nothing does that now, and nothing should: repairing it here would fix
+   * one app and leave the card wrong for the till, the printed menu and the
+   * other two apps. It has to be loud instead. */
+  var vocab = { moment: opt('moment').concat([engine.MOMENT_ANY]) };
+  var check = adapt.report(ITEMS, vocab);
+  var offenders = (check.unknown.moment || []);
+  assert.ok(offenders.length, 'the fixture carries the transliterated spelling');
+  assert.ok(/Spaeter Abend/.test(offenders.join(' ')), 'and it is named in the report');
+  assert.strictEqual(check.ok, false, 'a feed with an unreachable value is not ok');
 });
 
-test('the transliterated moment spelling is repaired at build time', function () {
-  var raw = source.drinks.filter(function (d) {
-    return d.available && (d.moment || []).some(function (m) { return /Spaet/.test(m); });
+test('a clean feed reports clean', function () {
+  var clean = ITEMS.map(function (i) {
+    var copy = JSON.parse(JSON.stringify(i));
+    copy.moment = (copy.moment || []).map(function (m) {
+      return m === 'Spaeter Abend' ? 'Später Abend' : m;
+    });
+    return copy;
   });
-  raw.forEach(function (d) {
-    var built = MENU.filter(function (m) { return m.name === d.name; })[0];
-    assert.ok(built, d.name + ' should be on the menu');
-    assert.ok(built.moments.indexOf('Später Abend') !== -1,
-      d.name + ' should have been normalised to "Später Abend", got ' + JSON.stringify(built.moments));
-    // and it must actually be reachable through the question
-    var res = engine.recommend(MENU, ask({
-      moment: 'Später Abend', flavours: [engine.NO_PREFERENCE], strength: String(built.strength)
-    }), { limit: 999 });
-    assert.ok(res.items.some(function (i) { return i.drink.name === d.name; }),
-      d.name + ' is still unreachable via the late-night option');
-  });
+  assert.strictEqual(
+    adapt.report(clean, { moment: opt('moment').concat([engine.MOMENT_ANY]) }).ok, true);
 });
 
 test('every spirit option matches at least one drink', function () {
@@ -220,12 +235,13 @@ test('dropping Frozen and Hot from the question leaves those drinks reachable', 
 
 console.log('\nEnglish never falls back to German silently');
 
-var ING_EN = menuMod.ING_EN;
-
 test('German and English arrays stay in step', function () {
+  /* Matched by position, so an entry gained on one side and not the other
+   * lands the wrong English word against the wrong ingredient. Silent, and
+   * only visible to a guest reading English. */
   var bad = [];
-  source.drinks.filter(function (d) { return d.available; }).forEach(function (d) {
-    [['ingredients_guest', 'ingredients_guest_en'], ['flavour_tags', 'flavour_tags_en'],
+  ITEMS.forEach(function (d) {
+    [['ingredients', 'ingredients_en'], ['flavour_tags', 'flavour_tags_en'],
      ['moment', 'moment_en'], ['allergens', 'allergens_en']].forEach(function (pair) {
       var a = d[pair[0]] || [], b = d[pair[1]] || [];
       if (a.length && b.length && a.length !== b.length) bad.push(d.name + ' / ' + pair[0]);
@@ -428,9 +444,19 @@ function freq() {
 }
 
 test('a runner-up is labelled by an ingredient the top pick lacks', function () {
-  var hero = byName("Mermaid's Melody"), alt = byName('La Rosa');
-  assert.ok(hero && alt, 'both drinks should be on the menu');
-  var c = engine.contrastOf(hero, alt, freq());
+  // Found rather than named, so the test does not break every time the card
+  // changes. Any pair whose contrast is an ingredient proves the same thing.
+  var f = freq(), hero = null, alt = null;
+  MENU.some(function (h) {
+    return MENU.some(function (x) {
+      if (x === h) return false;
+      var c = engine.contrastOf(h, x, f);
+      if (c && c.kind === 'ingredient') { hero = h; alt = x; return true; }
+      return false;
+    });
+  });
+  assert.ok(hero && alt, 'the card should contain a pair separated by an ingredient');
+  var c = engine.contrastOf(hero, alt, f);
   assert.strictEqual(c.kind, 'ingredient');
   assert.ok(hero.ing.indexOf(c.value) === -1, 'the named ingredient must be absent from the top pick');
   assert.ok(alt.ing.indexOf(c.value) !== -1, 'the named ingredient must be in the runner-up');
@@ -539,29 +565,65 @@ test('the same answers and seed always give the same result', function () {
     ids(engine.recommend(MENU, a, { seed: 42 })));
 });
 
-test('the seed breaks ties without overturning a clear winner', function () {
-  // Predictability beats novelty here: the same answers should give the same
-  // advice. The seed exists only to stop exact ties resolving by menu order.
+test('the seed never promotes a worse match', function () {
+  /* The old form of this asserted one single winner across every seed. That
+   * held while the export carried unit sales, which separated drinks the
+   * scoring could not. The API gives a rank, and Boulvadier, Old Fashioned
+   * and Maple Old Fashioned are the same strength, the same spirit, the same
+   * flavour and the same shape, so they are genuinely tied and choosing
+   * between them is what the jitter is for.
+   *
+   * What must still hold is that it only ever breaks a tie. */
   var a = ask({ spirit: ['whiskey'], flavours: ['bitter'], strength: '5' });
-  var tops = {};
-  for (var s = 0; s < 30; s++) tops[ids(engine.recommend(MENU, a, { seed: s }))[0]] = true;
-  assert.strictEqual(Object.keys(tops).length, 1,
-    'a clear best match should not change between guests');
+  var best = engine.recommend(MENU, a, { seed: 0 }).items[0].match;
+  for (var s = 0; s < 40; s++) {
+    var top = engine.recommend(MENU, a, { seed: s }).items[0];
+    assert.ok(top.match >= best,
+      'seed ' + s + ' promoted ' + top.drink.name + ' at ' + top.match +
+      '%, below the best available ' + best + '%');
+  }
 });
 
-test('a drink whose alcohol-free flag conflicts with its strength is treated as alcoholic', function () {
-  // Rosato Spritz is alcohol_free:true in the export but rated strength 1,
-  // and its recipe carries Ramazzotti Rosato. Fail safe, never the other way.
-  var conflicted = source.drinks.filter(function (d) {
-    return d.available && d.alcohol_free && d.strength.level !== 0;
+test('the same guest always sees the same advice', function () {
+  var a = ask({ spirit: ['whiskey'], flavours: ['bitter'], strength: '5' });
+  var once = ids(engine.recommend(MENU, a, { seed: 7 }));
+  for (var i = 0; i < 5; i++) {
+    assert.deepStrictEqual(ids(engine.recommend(MENU, a, { seed: 7 })), once);
+  }
+});
+
+test('a conflicting alcohol-free flag is read as alcoholic', function () {
+  /* Rosato Spritz used to be the live example: flagged alcohol free, rated
+   * strength 1, and built on a real aperitivo at roughly 15 percent. Dan has
+   * since had the flag removed at the source, so the card no longer carries
+   * the conflict and this is constructed instead.
+   *
+   * The rule stays, because the next time two fields disagree nobody finds
+   * out until someone is handed a drink they asked not to have. The safe
+   * reading of "maybe alcoholic" is "alcoholic", never the other way. */
+  var conflicted = adapt.adapt({
+    name: 'Widerspruch', ingredients: ['Aperitivo', 'Soda'], ingredients_en: ['Aperitivo', 'Soda'],
+    alcohol_free: true, strength_level: 1, serve_style: 'Spritz',
+    flavour_tags: ['bitter'], moment: ['Auftakt'], allergens: [],
+    price: 9, prices: [], popularity_rank: 50
   });
-  conflicted.forEach(function (d) {
-    var built = MENU.filter(function (m) { return m.name === d.name; })[0];
-    assert.ok(built, d.name + ' should still be on the menu, just not as zero proof');
-    assert.strictEqual(built.alcoholFree, false,
-      d.name + ' has a conflicting alcohol-free flag and must not count as zero proof');
-  });
-  // and it must never reach a guest who asked for zero proof
+  assert.strictEqual(conflicted.alcoholFree, false,
+    'a drink flagged alcohol free at a non-zero strength must not count as zero proof');
+
+  // It may only ever surface for a zero-proof guest once the gate has been
+  // visibly relaxed, never quietly.
+  var res = engine.recommend([conflicted], { strength: '0' }, { limit: 99 });
+  assert.ok(!res.items.length || res.relaxed,
+    'it must not reach a zero-proof list without the guest being told');
+});
+
+test('the card itself no longer carries that conflict', function () {
+  var bad = ITEMS.filter(function (i) { return i.alcohol_free && i.strength_level !== 0; });
+  assert.deepStrictEqual(bad.map(function (i) { return i.name; }), [],
+    'a flag and a strength disagree again, decide it at the source');
+});
+
+test('nothing with alcohol reaches a zero-proof result', function () {
   var res = engine.recommend(MENU, ask({ strength: '0' }), { limit: 999 });
   res.items.forEach(function (i) {
     assert.strictEqual(i.drink.strength, 0,
@@ -609,6 +671,334 @@ test('every combination still returns something with all allergens excluded', fu
   });
   assert.strictEqual(worst, null, 'empty result for ' + worst);
   console.log('       (' + combos + ' allergen-restricted combinations checked)');
+});
+
+console.log('\nThe shots path only asks what a shot can answer');
+
+/* Mirrors what assets/app.js does, so the tests see the same questions a
+ * guest does. */
+function activeIds(answers) {
+  return questions.QUESTIONS
+    .filter(function (q) { return !(q.skipIf && q.skipIf(answers)); })
+    .map(function (q) { return q.id; });
+}
+
+var SHOTS = MENU.filter(function (d) { return d.serve === 'Shot'; });
+
+/* Which drink property each question scores against. Exclusion questions are
+ * left out, since "no nuts" is answerable whether or not anything has nuts. */
+var ANSWERABLE_BY = {
+  strength: function (d, v) { return String(d.strength) === v; },
+  spirit:   function (d, v) { return (d.spirits || []).indexOf(v) !== -1; },
+  flavours: function (d, v) { return (d.flavours || []).indexOf(v) !== -1; },
+  serve:    function (d, v) { return engine.serveGroupOf(d.serve) === v; }
+};
+
+test('a round of shots is not asked how it should turn up', function () {
+  var asked = activeIds({ moment: 'shots' });
+  assert.ok(asked.indexOf('serve') === -1, 'the serve question should be skipped');
+  assert.ok(asked.indexOf('spirit') === -1, 'the base spirit question should be skipped');
+});
+
+test('the ordinary path still asks both of them', function () {
+  var asked = activeIds({ moment: 'Mittendrin', strength: '3' });
+  assert.ok(asked.indexOf('serve') !== -1);
+  assert.ok(asked.indexOf('spirit') !== -1);
+});
+
+test('every question the shots path still asks can actually be answered', function () {
+  assert.ok(SHOTS.length, 'no shots on the card, this test proves nothing');
+  activeIds({ moment: 'shots' }).forEach(function (id) {
+    var match = ANSWERABLE_BY[id];
+    if (!match) return;                       // exclusion or free-text question
+    var reachable = opt(id).filter(function (v) {
+      return SHOTS.some(function (d) { return match(d, v); });
+    });
+    assert.ok(reachable.length,
+      'the shots path asks "' + id + '" but no shot matches any of its options');
+  });
+});
+
+test('the serve question is skipped because no shot could ever match it', function () {
+  // The reason for the skip, pinned. If a shot-shaped serve option is ever
+  // added this fails, and the skip above should be reconsidered.
+  var anyMatch = opt('serve').some(function (v) {
+    return SHOTS.some(function (d) { return engine.serveGroupOf(d.serve) === v; });
+  });
+  assert.strictEqual(anyMatch, false,
+    'a shot now matches a serve option, so skipping the question loses signal');
+});
+
+test('skipping the two questions costs a shot no match percentage', function () {
+  // Asking and being unanswerable used to drag every shot down by the same
+  // amount, which made a perfect shot look like a mediocre recommendation.
+  var res = engine.recommend(MENU, {
+    moment: 'shots', strength: '2', spirit: [], avoid: [],
+    flavours: ['süß'], serve: '', allergens: []
+  });
+  assert.ok(res.items.length, 'the shots path must return something');
+  assert.ok(res.items[0].match >= 90,
+    'top shot should score near perfect, got ' + res.items[0].match);
+});
+
+console.log('\nNo question offers an answer the card cannot honour');
+
+function values(id) { return opt(id); }
+
+/* Every path a guest can actually reach through the first two questions. */
+var PATHS = [];
+opt('moment').forEach(function (m) {
+  opt('strength').forEach(function (st) {
+    PATHS.push({ moment: m, strength: st });
+  });
+});
+
+function sansOwn(id) { var o = {}; o[id] = undefined; return o; }
+var MATCH = {
+  spirit:   function (d, v) { return (d.spirits || []).indexOf(v) !== -1; },
+  avoid:    function (d, v) { return (d.spirits || []).indexOf(v) !== -1; },
+  flavours: function (d, v) { return (d.flavours || []).indexOf(v) !== -1; },
+  serve:    function (d, v) { return engine.serveGroupOf(d.serve) === v; }
+};
+
+test('no path offers an option that nothing in reach can match', function () {
+  var dead = [];
+  PATHS.forEach(function (a) {
+    questions.QUESTIONS.forEach(function (q) {
+      if (q.skipIf && q.skipIf(a)) return;
+      if (!engine.canDiscriminate(MENU, a, q.id, values(q.id))) return;
+      var live = engine.liveOptions(MENU, a, q.id, values(q.id));
+      var pool = engine.poolFor(MENU, Object.assign({}, a, sansOwn(q.id)));
+      if (!pool.length) return;
+      live.forEach(function (v) {
+        if (v === engine.NO_PREFERENCE) return;
+        var matcher = MATCH[q.id];
+        if (!matcher) return;
+        if (!pool.some(function (d) { return matcher(d, v); })) {
+          dead.push(a.moment + '/' + a.strength + '  ' + q.id + '=' + v);
+        }
+      });
+    });
+  });
+  assert.deepStrictEqual(dead, [], 'dead options offered');
+  console.log('       (' + PATHS.length + ' paths checked)');
+});
+
+test('an answer narrows what the next question offers', function () {
+  var a = { moment: 'Mittendrin', strength: '3' };
+  // Every spirit and every flavour is still reachable mid evening at medium.
+  assert.strictEqual(engine.liveOptions(MENU, a, 'spirit', values('spirit')).length, values('spirit').length);
+  assert.strictEqual(engine.liveOptions(MENU, a, 'flavours', values('flavours')).length, values('flavours').length);
+
+  // The shapes are not. Every spritz on the card is strength 0 or 1, and no
+  // stirred drink is tagged Mittendrin, so neither can be served here.
+  var serve = engine.liveOptions(MENU, a, 'serve', values('serve'));
+  assert.deepStrictEqual(serve.slice().sort(), ['lang', 'schaum']);
+});
+
+test('the claim behind that narrowing is true of the card', function () {
+  // Guards the test above against becoming a snapshot of a bug.
+  var spritz = MENU.filter(function (d) { return engine.serveGroupOf(d.serve) === 'spritzig'; });
+  assert.ok(spritz.length, 'there are spritzes');
+  assert.ok(spritz.every(function (d) { return d.strength <= 1; }),
+    'a spritz stronger than 1 would make the exclusion wrong');
+  var stirred = MENU.filter(function (d) { return engine.serveGroupOf(d.serve) === 'kurz'; });
+  assert.ok(stirred.length, 'there are stirred drinks');
+  assert.ok(stirred.every(function (d) { return (d.moments || []).indexOf('Mittendrin') === -1; }),
+    'a stirred drink tagged Mittendrin would make the exclusion wrong');
+});
+
+test('mezcal and coffee cannot both be asked for', function () {
+  // The card has one mezcal drink, a smoky sour, so seven of the nine
+  // flavours are unreachable the moment mezcal is picked.
+  var a = { moment: 'Mittendrin', strength: '3', spirit: ['mezcal'] };
+  var f = engine.liveOptions(MENU, a, 'flavours', values('flavours'));
+  assert.ok(f.indexOf('kaffee') === -1, 'there is no mezcal coffee drink to offer');
+  assert.deepStrictEqual(f.filter(function (v) { return v !== engine.NO_PREFERENCE; }).sort(),
+    ['rauchig', 'sauer/zitrus']);
+});
+
+test('you are not offered to exclude a spirit you just asked for', function () {
+  var a = { moment: 'Mittendrin', strength: '3', spirit: ['mezcal'] };
+  assert.ok(engine.liveOptions(MENU, a, 'avoid', values('avoid')).indexOf('mezcal') === -1);
+});
+
+test('walking the funnel never reaches a question with no answer behind it', function () {
+  /* The invariant Dan asked for, stated directly. At every step, every option
+   * still on offer must lead to at least one real drink. */
+  var checked = 0, dead = [];
+  opt('moment').forEach(function (m) {
+    opt('strength').forEach(function (st) {
+      var base = { moment: m, strength: st };
+      if (!engine.poolFor(MENU, base).length) return;   // unreachable pairing
+
+      // Mirror the app: a question the guest never sees is never answered.
+      var spiritQ = questions.QUESTIONS.filter(function (q) { return q.id === 'spirit'; })[0];
+      var asksSpirit = !(spiritQ.skipIf && spiritQ.skipIf(base)) &&
+        engine.canDiscriminate(MENU, base, 'spirit', values('spirit'));
+      var spiritChoices = asksSpirit
+        ? [null].concat(engine.liveOptions(MENU, base, 'spirit', values('spirit')))
+        : [null];
+      spiritChoices.forEach(function (sp) {
+        var a = Object.assign({}, base, sp ? { spirit: [sp] } : {});
+        if (!engine.poolFor(MENU, a).length) { dead.push(m + '/' + st + '/' + sp); return; }
+
+        ['flavours', 'serve'].forEach(function (id) {
+          var q = questions.QUESTIONS.filter(function (x) { return x.id === id; })[0];
+          if (q.skipIf && q.skipIf(a)) return;
+          if (!engine.canDiscriminate(MENU, a, id, values(id))) return;
+          engine.liveOptions(MENU, a, id, values(id)).forEach(function (v) {
+            if (v === engine.NO_PREFERENCE) return;
+            var next = Object.assign({}, a);
+            next[id] = id === 'flavours' ? [v] : v;
+            checked++;
+            if (!engine.poolFor(MENU, next).length) {
+              dead.push([m, st, sp, id + '=' + v].join(' / '));
+            }
+          });
+        });
+      });
+    });
+  });
+  assert.deepStrictEqual(dead, [], 'options offered that lead nowhere');
+  console.log('       (' + checked + ' funnel steps checked)');
+});
+
+test('zero proof stops offering smoky, coffee and short & stirred', function () {
+  var a = { moment: 'Mittendrin', strength: '0' };
+  var f = engine.liveOptions(MENU, a, 'flavours', values('flavours'));
+  assert.ok(f.indexOf('rauchig') === -1 && f.indexOf('kaffee') === -1);
+  assert.ok(f.indexOf('sauer/zitrus') !== -1, 'the ones that do exist stay');
+  assert.ok(engine.liveOptions(MENU, a, 'serve', values('serve')).indexOf('kurz') === -1);
+});
+
+test('a round of shots stops offering bitter and sparkling', function () {
+  var a = { moment: 'shots', strength: '2' };
+  var f = engine.liveOptions(MENU, a, 'flavours', values('flavours'));
+  ['bitter', 'prickelnd', 'kaffee', 'rauchig'].forEach(function (v) {
+    assert.ok(f.indexOf(v) === -1, v + ' should not be offered for shots');
+  });
+  assert.ok(f.indexOf('süß') !== -1);
+});
+
+test('handing the choice back is on offer whenever flavours are asked', function () {
+  var asked = 0;
+  PATHS.forEach(function (a) {
+    var f = engine.liveOptions(MENU, a, 'flavours', values('flavours'));
+    if (!f.length) return;                       // question not asked at all
+    asked++;
+    assert.ok(f.indexOf(engine.NO_PREFERENCE) !== -1,
+      'Barkeeper\'s Choice missing on ' + a.moment + '/' + a.strength);
+  });
+  assert.strictEqual(asked, PATHS.length, 'the question should be reachable everywhere');
+});
+
+test('a question is never filtered by its own answer', function () {
+  // Picking "no gin" must not remove the "no gin" option underneath the guest.
+  var a = { moment: 'Mittendrin', strength: '3', avoid: ['gin'] };
+  assert.ok(engine.liveOptions(MENU, a, 'avoid', values('avoid')).indexOf('gin') !== -1);
+});
+
+test('strength and allergens are never filtered', function () {
+  // A scale with holes reads as broken, and an allergy should be acknowledged
+  // whether or not the card currently carries it.
+  PATHS.forEach(function (a) {
+    assert.strictEqual(
+      engine.liveOptions(MENU, a, 'strength', values('strength')).length, values('strength').length);
+    assert.strictEqual(
+      engine.liveOptions(MENU, a, 'allergens', values('allergens')).length, values('allergens').length);
+  });
+});
+
+test('a question with no real answer is dropped, not padded out', function () {
+  /* Built rather than found, because whether the live card happens to contain
+   * such a corner changes with every republish. The rule does not.
+   *
+   * One drink, served hot. Hot is deliberately not one of the four shapes the
+   * question offers, so every answer would lead nowhere. Padding the question
+   * out with all four was the old behaviour and it invited a guest to ask for
+   * something the card could not give. */
+  var only = [{
+    id: 'hot-one', name: 'Hot One', ing: ['Whiskey', 'Honig'], ingEn: ['Whiskey', 'Honey'],
+    serve: 'Hot', strength: 3, flavours: ['süß'], moments: ['Später Abend'],
+    allergens: [], alcoholFree: false, spirits: ['whiskey'], base: 'whiskey',
+    sold: 1, rank: 1, price: 9, prices: [], glass: '', glassEn: '',
+    tagline: '', taglineEn: '', note: '', noteEn: '', onPrintedMenu: true
+  }];
+  var a = { moment: 'Später Abend', strength: '3' };
+  assert.deepStrictEqual(engine.liveOptions(only, a, 'serve', values('serve')), [],
+    'no shape on offer can describe a hot drink');
+  assert.strictEqual(engine.canDiscriminate(only, a, 'serve', values('serve')), false,
+    'so the question is not worth asking');
+
+  // The drink itself is still perfectly recommendable, it just cannot be
+  // asked for by shape.
+  var res = engine.recommend(only, a, {});
+  assert.strictEqual(res.items.length, 1);
+  assert.strictEqual(res.items[0].drink.name, 'Hot One');
+});
+
+test('an impossible combination relaxes instead of emptying out', function () {
+  // Alcohol free shots do not exist. The engine already answers that by
+  // loosening the shot gate and saying so on screen, so the questions have to
+  // offer what that fallback can actually deliver.
+  var a = { moment: 'shots', strength: '0' };
+  var pool = engine.poolFor(MENU, a);
+  assert.ok(pool.length, 'the questionnaire must not collapse here');
+  assert.ok(pool.every(function (d) { return d.alcoholFree; }),
+    'zero proof outlives the shot gate, a guest asking for none gets none');
+
+  var f = engine.liveOptions(MENU, a, 'flavours', values('flavours'));
+  assert.ok(f.indexOf('kaffee') === -1 && f.indexOf('rauchig') === -1,
+    'nothing alcohol free is smoky or coffee flavoured');
+  assert.ok(f.indexOf('süß') !== -1);
+});
+
+test('nothing light late at night still asks the rest of the questions', function () {
+  // The card has no strength 1 drink tagged Später Abend at all. Collapsing
+  // straight to results would be a worse answer than the near miss coming.
+  var a = { moment: 'Später Abend', strength: '1' };
+  assert.ok(engine.poolFor(MENU, a).length, 'relaxes rather than dead ends');
+  assert.ok(engine.canDiscriminate(MENU, a, 'flavours', values('flavours')),
+    'the flavour question should still be worth asking');
+});
+
+console.log('\nSaying what we could not do');
+
+test('asking for alcohol free shots relaxes the shot rule and nothing else', function () {
+  // The card carries no alcohol free shot, so this path is reachable by any
+  // guest who taps the two most obvious things.
+  var res = engine.recommend(MENU, ask({ moment: 'shots', strength: '0' }), { limit: 99 });
+  assert.strictEqual(res.relaxed, 'shot', 'the shot requirement is the one to drop');
+  assert.ok(res.items.length, 'and something must come back');
+  res.items.forEach(function (i) {
+    assert.strictEqual(i.drink.alcoholFree, true,
+      i.drink.name + ' has alcohol and reached a guest who asked for none');
+  });
+});
+
+test('every relaxation has copy in both languages', function () {
+  /* The message is picked by branch, so a missing key renders the word
+   * undefined on the results page in front of a guest. */
+  ['loosened', 'loosenedShot', 'loosenedNoShot', 'loosenedAlcohol'].forEach(function (k) {
+    ['de', 'en'].forEach(function (lang) {
+      var v = questions.UI[lang][k];
+      assert.ok(typeof v === 'string' && v.length > 20,
+        'UI.' + lang + '.' + k + ' is missing or too short to explain anything');
+    });
+  });
+});
+
+test('the alcohol-free wording is only ever used when it is true', function () {
+  // Guarding the wording itself: it promises the drinks below are alcohol
+  // free, so it must never be the message when the zero proof gate was the
+  // thing that got dropped.
+  ['de', 'en'].forEach(function (lang) {
+    var free = questions.UI[lang].loosenedShot;
+    var alc = questions.UI[lang].loosenedAlcohol;
+    assert.notStrictEqual(free, alc, 'the two cases must not share wording');
+    assert.ok(/alkohol|alcohol/i.test(alc), 'the alcohol warning has to mention alcohol');
+  });
 });
 
 console.log('\n' + passed + ' passed' + (process.exitCode ? ', SOME FAILED' : '') + '\n');

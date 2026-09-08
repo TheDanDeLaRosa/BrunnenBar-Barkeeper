@@ -1,0 +1,3252 @@
+{
+  "Porn Star Martini": {
+    "flavour_tags": [
+      "fruchtig",
+      "süß",
+      "prickelnd"
+    ],
+    "flavour_tags_en": [
+      "fruity",
+      "sweet",
+      "sparkling"
+    ],
+    "serve_style": "Sour",
+    "serve_style_en": "Sour",
+    "moment": [
+      "Auftakt",
+      "Mittendrin"
+    ],
+    "moment_en": [
+      "Opener",
+      "Midway"
+    ],
+    "strength_level": 3,
+    "glass": "Coupe mit Prosecco Sidecar",
+    "glass_en": "Coupe with Prosecco sidecar"
+  },
+  "Lemon Drop": {
+    "flavour_tags": [
+      "sauer/zitrus",
+      "süß"
+    ],
+    "flavour_tags_en": [
+      "sour/citrus",
+      "sweet"
+    ],
+    "serve_style": "Shot",
+    "serve_style_en": "Shot",
+    "moment": [
+      "Mittendrin",
+      "Später Abend"
+    ],
+    "moment_en": [
+      "Midway",
+      "Late night"
+    ],
+    "strength_level": 3,
+    "glass": "Shotglas",
+    "glass_en": "Shot glass"
+  },
+  "Espresso Martini": {
+    "flavour_tags": [
+      "kaffee",
+      "süß",
+      "cremig"
+    ],
+    "flavour_tags_en": [
+      "coffee",
+      "sweet",
+      "creamy"
+    ],
+    "serve_style": "Shaken",
+    "serve_style_en": "Shaken",
+    "moment": [
+      "Mittendrin",
+      "Später Abend"
+    ],
+    "moment_en": [
+      "Midway",
+      "Late night"
+    ],
+    "strength_level": 3,
+    "glass": "Coupe",
+    "glass_en": "Coupe"
+  },
+  "Cinnamon Toast Crunch": {
+    "flavour_tags": [
+      "cremig",
+      "süß"
+    ],
+    "flavour_tags_en": [
+      "creamy",
+      "sweet"
+    ],
+    "serve_style": "Shot",
+    "serve_style_en": "Shot",
+    "moment": [
+      "Mittendrin",
+      "Später Abend"
+    ],
+    "moment_en": [
+      "Midway",
+      "Late night"
+    ],
+    "strength_level": 2,
+    "glass": "Shotglas",
+    "glass_en": "Shot glass"
+  },
+  "Aperol Spritz": {
+    "flavour_tags": [
+      "bitter",
+      "prickelnd",
+      "fruchtig"
+    ],
+    "flavour_tags_en": [
+      "bitter",
+      "sparkling",
+      "fruity"
+    ],
+    "serve_style": "Spritz",
+    "serve_style_en": "Spritz",
+    "moment": [
+      "Auftakt"
+    ],
+    "moment_en": [
+      "Opener"
+    ],
+    "strength_level": 1,
+    "glass": "Weinglas",
+    "glass_en": "Wine glass"
+  },
+  "Gin Basil": {
+    "flavour_tags": [
+      "kräuterig/frisch",
+      "sauer/zitrus"
+    ],
+    "flavour_tags_en": [
+      "herbal/fresh",
+      "sour/citrus"
+    ],
+    "serve_style": "Sour",
+    "serve_style_en": "Sour",
+    "moment": [
+      "Auftakt",
+      "Mittendrin"
+    ],
+    "moment_en": [
+      "Opener",
+      "Midway"
+    ],
+    "strength_level": 3,
+    "glass": "Tumbler",
+    "glass_en": "Tumbler"
+  },
+  "Paloma": {
+    "flavour_tags": [
+      "fruchtig",
+      "prickelnd",
+      "sauer/zitrus"
+    ],
+    "flavour_tags_en": [
+      "fruity",
+      "sparkling",
+      "sour/citrus"
+    ],
+    "serve_style": "Highball",
+    "serve_style_en": "Highball",
+    "moment": [
+      "Auftakt",
+      "Mittendrin"
+    ],
+    "moment_en": [
+      "Opener",
+      "Midway"
+    ],
+    "strength_level": 2,
+    "glass": "Highball",
+    "glass_en": "Highball"
+  },
+  "Whiskey Sour": {
+    "flavour_tags": [
+      "sauer/zitrus",
+      "cremig"
+    ],
+    "flavour_tags_en": [
+      "sour/citrus",
+      "creamy"
+    ],
+    "serve_style": "Sour",
+    "serve_style_en": "Sour",
+    "moment": [
+      "Mittendrin"
+    ],
+    "moment_en": [
+      "Midway"
+    ],
+    "strength_level": 4,
+    "glass": "Tumbler",
+    "glass_en": "Tumbler"
+  },
+  "Augsburg Sour": {
+    "flavour_tags": [
+      "fruchtig",
+      "sauer/zitrus"
+    ],
+    "flavour_tags_en": [
+      "fruity",
+      "sour/citrus"
+    ],
+    "serve_style": "Sour",
+    "serve_style_en": "Sour",
+    "moment": [
+      "Mittendrin"
+    ],
+    "moment_en": [
+      "Midway"
+    ],
+    "strength_level": 3,
+    "glass": "Tumbler",
+    "glass_en": "Tumbler"
+  },
+  "Sarti Spritz": {
+    "flavour_tags": [
+      "fruchtig",
+      "prickelnd"
+    ],
+    "flavour_tags_en": [
+      "fruity",
+      "sparkling"
+    ],
+    "serve_style": "Spritz",
+    "serve_style_en": "Spritz",
+    "moment": [
+      "Auftakt"
+    ],
+    "moment_en": [
+      "Opener"
+    ],
+    "strength_level": 1,
+    "glass": "Weinglas",
+    "glass_en": "Wine glass"
+  },
+  "Ficken 2cl": {
+    "flavour_tags": [
+      "süß",
+      "fruchtig"
+    ],
+    "flavour_tags_en": [
+      "sweet",
+      "fruity"
+    ],
+    "serve_style": "Shot",
+    "serve_style_en": "Shot",
+    "moment": [
+      "Mittendrin",
+      "Später Abend"
+    ],
+    "moment_en": [
+      "Midway",
+      "Late night"
+    ],
+    "strength_level": 2,
+    "glass": "Shotglas",
+    "glass_en": "Shot glass"
+  },
+  "Mojito": {
+    "flavour_tags": [
+      "kräuterig/frisch",
+      "sauer/zitrus",
+      "prickelnd"
+    ],
+    "flavour_tags_en": [
+      "herbal/fresh",
+      "sour/citrus",
+      "sparkling"
+    ],
+    "serve_style": "Highball",
+    "serve_style_en": "Highball",
+    "moment": [
+      "Auftakt",
+      "Mittendrin"
+    ],
+    "moment_en": [
+      "Opener",
+      "Midway"
+    ],
+    "strength_level": 2,
+    "glass": "Highball",
+    "glass_en": "Highball"
+  },
+  "Negroni": {
+    "flavour_tags": [
+      "bitter",
+      "kräuterig/frisch"
+    ],
+    "flavour_tags_en": [
+      "bitter",
+      "herbal/fresh"
+    ],
+    "serve_style": "Stirred",
+    "serve_style_en": "Stirred",
+    "moment": [
+      "Auftakt",
+      "Später Abend"
+    ],
+    "moment_en": [
+      "Opener",
+      "Late night"
+    ],
+    "strength_level": 5,
+    "glass": "Tumbler",
+    "glass_en": "Tumbler"
+  },
+  "Apfelstrudel 2cl": {
+    "flavour_tags": [
+      "süß",
+      "fruchtig"
+    ],
+    "flavour_tags_en": [
+      "sweet",
+      "fruity"
+    ],
+    "serve_style": "Shot",
+    "serve_style_en": "Shot",
+    "moment": [
+      "Mittendrin"
+    ],
+    "moment_en": [
+      "Midway"
+    ],
+    "strength_level": 2,
+    "glass": "Shotglas",
+    "glass_en": "Shot glass"
+  },
+  "Berliner Luft 2cl": {
+    "flavour_tags": [
+      "kräuterig/frisch",
+      "süß"
+    ],
+    "flavour_tags_en": [
+      "herbal/fresh",
+      "sweet"
+    ],
+    "serve_style": "Shot",
+    "serve_style_en": "Shot",
+    "moment": [
+      "Später Abend"
+    ],
+    "moment_en": [
+      "Late night"
+    ],
+    "strength_level": 3,
+    "glass": "Shotglas",
+    "glass_en": "Shot glass"
+  },
+  "Green Tea Shot": {
+    "flavour_tags": [
+      "fruchtig",
+      "sauer/zitrus"
+    ],
+    "flavour_tags_en": [
+      "fruity",
+      "sour/citrus"
+    ],
+    "serve_style": "Shot",
+    "serve_style_en": "Shot",
+    "moment": [
+      "Mittendrin",
+      "Später Abend"
+    ],
+    "moment_en": [
+      "Midway",
+      "Late night"
+    ],
+    "strength_level": 2,
+    "glass": "Shotglas",
+    "glass_en": "Shot glass"
+  },
+  "Gin Tonic - Bombay": {
+    "flavour_tags": [
+      "kräuterig/frisch",
+      "bitter",
+      "prickelnd"
+    ],
+    "flavour_tags_en": [
+      "herbal/fresh",
+      "bitter",
+      "sparkling"
+    ],
+    "serve_style": "Highball",
+    "serve_style_en": "Highball",
+    "moment": [
+      "Auftakt",
+      "Mittendrin"
+    ],
+    "moment_en": [
+      "Opener",
+      "Midway"
+    ],
+    "strength_level": 3,
+    "glass": "Ballonglas",
+    "glass_en": "Balloon glass"
+  },
+  "London Mule": {
+    "flavour_tags": [
+      "prickelnd",
+      "sauer/zitrus",
+      "kräuterig/frisch"
+    ],
+    "flavour_tags_en": [
+      "sparkling",
+      "sour/citrus",
+      "herbal/fresh"
+    ],
+    "serve_style": "Highball",
+    "serve_style_en": "Highball",
+    "moment": [
+      "Mittendrin"
+    ],
+    "moment_en": [
+      "Midway"
+    ],
+    "strength_level": 3,
+    "glass": "Kupferbecher",
+    "glass_en": "Copper mug"
+  },
+  "Singapore Sling": {
+    "flavour_tags": [
+      "fruchtig",
+      "süß",
+      "sauer/zitrus"
+    ],
+    "flavour_tags_en": [
+      "fruity",
+      "sweet",
+      "sour/citrus"
+    ],
+    "serve_style": "Sling",
+    "serve_style_en": "Sling",
+    "moment": [
+      "Mittendrin"
+    ],
+    "moment_en": [
+      "Midway"
+    ],
+    "strength_level": 3,
+    "glass": "Highball",
+    "glass_en": "Highball"
+  },
+  "Moscow Mule": {
+    "flavour_tags": [
+      "prickelnd",
+      "sauer/zitrus",
+      "kräuterig/frisch"
+    ],
+    "flavour_tags_en": [
+      "sparkling",
+      "sour/citrus",
+      "herbal/fresh"
+    ],
+    "serve_style": "Highball",
+    "serve_style_en": "Highball",
+    "moment": [
+      "Mittendrin"
+    ],
+    "moment_en": [
+      "Midway"
+    ],
+    "strength_level": 3,
+    "glass": "Kupferbecher",
+    "glass_en": "Copper mug"
+  },
+  "Alkoholfreie Cocktails": {
+    "flavour_tags": [
+      "überraschend"
+    ],
+    "flavour_tags_en": [
+      "surprising"
+    ],
+    "serve_style": "Bartender's Choice",
+    "serve_style_en": "Bartender's Choice",
+    "moment": [
+      "Ganzer Abend"
+    ],
+    "moment_en": [
+      "All evening"
+    ],
+    "strength_level": 0,
+    "glass": "je nach Drink",
+    "glass_en": "depends on the drink"
+  },
+  "Aperol Sour": {
+    "flavour_tags": [
+      "bitter",
+      "fruchtig",
+      "sauer/zitrus"
+    ],
+    "flavour_tags_en": [
+      "bitter",
+      "fruity",
+      "sour/citrus"
+    ],
+    "serve_style": "Sour",
+    "serve_style_en": "Sour",
+    "moment": [
+      "Auftakt",
+      "Mittendrin"
+    ],
+    "moment_en": [
+      "Opener",
+      "Midway"
+    ],
+    "strength_level": 2,
+    "glass": "Tumbler",
+    "glass_en": "Tumbler"
+  },
+  "Cuba Libre 6cl": {
+    "flavour_tags": [
+      "süß",
+      "prickelnd"
+    ],
+    "flavour_tags_en": [
+      "sweet",
+      "sparkling"
+    ],
+    "serve_style": "Highball",
+    "serve_style_en": "Highball",
+    "moment": [
+      "Mittendrin"
+    ],
+    "moment_en": [
+      "Midway"
+    ],
+    "strength_level": 3,
+    "glass": "Highball",
+    "glass_en": "Highball"
+  },
+  "Special Cocktail": {
+    "flavour_tags": [
+      "überraschend"
+    ],
+    "flavour_tags_en": [
+      "surprising"
+    ],
+    "serve_style": "Bartender's Choice",
+    "serve_style_en": "Bartender's Choice",
+    "moment": [
+      "Mittendrin",
+      "Später Abend"
+    ],
+    "moment_en": [
+      "Midway",
+      "Late night"
+    ],
+    "strength_level": 3,
+    "glass": "je nach Drink",
+    "glass_en": "depends on the drink"
+  },
+  "Raspberry Mule": {
+    "flavour_tags": [
+      "fruchtig",
+      "prickelnd",
+      "sauer/zitrus"
+    ],
+    "flavour_tags_en": [
+      "fruity",
+      "sparkling",
+      "sour/citrus"
+    ],
+    "serve_style": "Highball",
+    "serve_style_en": "Highball",
+    "moment": [
+      "Mittendrin"
+    ],
+    "moment_en": [
+      "Midway"
+    ],
+    "strength_level": 3,
+    "glass": "Kupferbecher",
+    "glass_en": "Copper mug"
+  },
+  "Caipirinha": {
+    "flavour_tags": [
+      "sauer/zitrus",
+      "süß"
+    ],
+    "flavour_tags_en": [
+      "sour/citrus",
+      "sweet"
+    ],
+    "serve_style": "Muddled",
+    "serve_style_en": "Muddled",
+    "moment": [
+      "Mittendrin"
+    ],
+    "moment_en": [
+      "Midway"
+    ],
+    "strength_level": 3,
+    "glass": "Tumbler",
+    "glass_en": "Tumbler"
+  },
+  "Italian Stallion": {
+    "flavour_tags": [
+      "fruchtig",
+      "süß"
+    ],
+    "flavour_tags_en": [
+      "fruity",
+      "sweet"
+    ],
+    "serve_style": "Sour",
+    "serve_style_en": "Sour",
+    "moment": [
+      "Mittendrin"
+    ],
+    "moment_en": [
+      "Midway"
+    ],
+    "strength_level": 3,
+    "glass": "Coupe",
+    "glass_en": "Coupe"
+  },
+  "Mexico Mule": {
+    "flavour_tags": [
+      "prickelnd",
+      "sauer/zitrus"
+    ],
+    "flavour_tags_en": [
+      "sparkling",
+      "sour/citrus"
+    ],
+    "serve_style": "Highball",
+    "serve_style_en": "Highball",
+    "moment": [
+      "Mittendrin"
+    ],
+    "moment_en": [
+      "Midway"
+    ],
+    "strength_level": 3,
+    "glass": "Kupferbecher",
+    "glass_en": "Copper mug"
+  },
+  "Pisco Sour": {
+    "flavour_tags": [
+      "sauer/zitrus",
+      "cremig"
+    ],
+    "flavour_tags_en": [
+      "sour/citrus",
+      "creamy"
+    ],
+    "serve_style": "Sour",
+    "serve_style_en": "Sour",
+    "moment": [
+      "Auftakt",
+      "Mittendrin"
+    ],
+    "moment_en": [
+      "Opener",
+      "Midway"
+    ],
+    "strength_level": 3,
+    "glass": "Coupe",
+    "glass_en": "Coupe"
+  },
+  "Cosmopolitan": {
+    "flavour_tags": [
+      "fruchtig",
+      "sauer/zitrus"
+    ],
+    "flavour_tags_en": [
+      "fruity",
+      "sour/citrus"
+    ],
+    "serve_style": "Shaken",
+    "serve_style_en": "Shaken",
+    "moment": [
+      "Auftakt",
+      "Mittendrin"
+    ],
+    "moment_en": [
+      "Opener",
+      "Midway"
+    ],
+    "strength_level": 3,
+    "glass": "Coupe",
+    "glass_en": "Coupe"
+  },
+  "Gin Tonic - Tanqueray": {
+    "flavour_tags": [
+      "kräuterig/frisch",
+      "bitter",
+      "prickelnd"
+    ],
+    "flavour_tags_en": [
+      "herbal/fresh",
+      "bitter",
+      "sparkling"
+    ],
+    "serve_style": "Highball",
+    "serve_style_en": "Highball",
+    "moment": [
+      "Auftakt",
+      "Mittendrin"
+    ],
+    "moment_en": [
+      "Opener",
+      "Midway"
+    ],
+    "strength_level": 3,
+    "glass": "Ballonglas",
+    "glass_en": "Balloon glass"
+  },
+  "Amaretto Sour": {
+    "flavour_tags": [
+      "süß",
+      "sauer/zitrus",
+      "cremig"
+    ],
+    "flavour_tags_en": [
+      "sweet",
+      "sour/citrus",
+      "creamy"
+    ],
+    "serve_style": "Sour",
+    "serve_style_en": "Sour",
+    "moment": [
+      "Mittendrin"
+    ],
+    "moment_en": [
+      "Midway"
+    ],
+    "strength_level": 3,
+    "glass": "Tumbler",
+    "glass_en": "Tumbler"
+  },
+  "Ricky Ricky": {
+    "flavour_tags": [
+      "kräuterig/frisch",
+      "sauer/zitrus",
+      "prickelnd"
+    ],
+    "flavour_tags_en": [
+      "herbal/fresh",
+      "sour/citrus",
+      "sparkling"
+    ],
+    "serve_style": "Highball",
+    "serve_style_en": "Highball",
+    "moment": [
+      "Auftakt"
+    ],
+    "moment_en": [
+      "Opener"
+    ],
+    "strength_level": 2,
+    "glass": "Highball",
+    "glass_en": "Highball"
+  },
+  "Wildberry Lillet Spritz": {
+    "flavour_tags": [
+      "fruchtig",
+      "prickelnd"
+    ],
+    "flavour_tags_en": [
+      "fruity",
+      "sparkling"
+    ],
+    "serve_style": "Spritz",
+    "serve_style_en": "Spritz",
+    "moment": [
+      "Auftakt"
+    ],
+    "moment_en": [
+      "Opener"
+    ],
+    "strength_level": 1,
+    "glass": "Weinglas",
+    "glass_en": "Wine glass"
+  },
+  "Margarita": {
+    "flavour_tags": [
+      "sauer/zitrus",
+      "süß"
+    ],
+    "flavour_tags_en": [
+      "sour/citrus",
+      "sweet"
+    ],
+    "serve_style": "Shaken",
+    "serve_style_en": "Shaken",
+    "moment": [
+      "Auftakt",
+      "Mittendrin"
+    ],
+    "moment_en": [
+      "Opener",
+      "Midway"
+    ],
+    "strength_level": 4,
+    "glass": "Coupe",
+    "glass_en": "Coupe"
+  },
+  "Haselnuss 2cl": {
+    "flavour_tags": [
+      "süß",
+      "cremig"
+    ],
+    "flavour_tags_en": [
+      "sweet",
+      "creamy"
+    ],
+    "serve_style": "Shot",
+    "serve_style_en": "Shot",
+    "moment": [
+      "Später Abend"
+    ],
+    "moment_en": [
+      "Late night"
+    ],
+    "strength_level": 2,
+    "glass": "Shotglas",
+    "glass_en": "Shot glass"
+  },
+  "Skinny Lady": {
+    "flavour_tags": [
+      "sauer/zitrus",
+      "prickelnd"
+    ],
+    "flavour_tags_en": [
+      "sour/citrus",
+      "sparkling"
+    ],
+    "serve_style": "Highball",
+    "serve_style_en": "Highball",
+    "moment": [
+      "Auftakt"
+    ],
+    "moment_en": [
+      "Opener"
+    ],
+    "strength_level": 2,
+    "glass": "Highball",
+    "glass_en": "Highball"
+  },
+  "Johnnie Black White Peach": {
+    "flavour_tags": [
+      "fruchtig",
+      "prickelnd"
+    ],
+    "flavour_tags_en": [
+      "fruity",
+      "sparkling"
+    ],
+    "serve_style": "Highball",
+    "serve_style_en": "Highball",
+    "moment": [
+      "Mittendrin"
+    ],
+    "moment_en": [
+      "Midway"
+    ],
+    "strength_level": 3,
+    "glass": "Highball",
+    "glass_en": "Highball"
+  },
+  "Naughty or Nice": {
+    "flavour_tags": [
+      "bitter",
+      "fruchtig",
+      "sauer/zitrus"
+    ],
+    "flavour_tags_en": [
+      "bitter",
+      "fruity",
+      "sour/citrus"
+    ],
+    "serve_style": "Sour",
+    "serve_style_en": "Sour",
+    "moment": [
+      "Mittendrin"
+    ],
+    "moment_en": [
+      "Midway"
+    ],
+    "strength_level": 4,
+    "glass": "Coupe",
+    "glass_en": "Coupe"
+  },
+  "Alkoholfrei - Porn Star Martini": {
+    "flavour_tags": [
+      "fruchtig",
+      "süß",
+      "prickelnd"
+    ],
+    "flavour_tags_en": [
+      "fruity",
+      "sweet",
+      "sparkling"
+    ],
+    "serve_style": "Sour",
+    "serve_style_en": "Sour",
+    "moment": [
+      "Auftakt",
+      "Mittendrin"
+    ],
+    "moment_en": [
+      "Opener",
+      "Midway"
+    ],
+    "strength_level": 0,
+    "glass": "Coupe mit Sidecar",
+    "glass_en": "Coupe with sidecar"
+  },
+  "La Rosa": {
+    "flavour_tags": [
+      "fruchtig",
+      "sauer/zitrus",
+      "prickelnd"
+    ],
+    "flavour_tags_en": [
+      "fruity",
+      "sour/citrus",
+      "sparkling"
+    ],
+    "serve_style": "Highball",
+    "serve_style_en": "Highball",
+    "moment": [
+      "Mittendrin"
+    ],
+    "moment_en": [
+      "Midway"
+    ],
+    "strength_level": 2,
+    "glass": "Highball",
+    "glass_en": "Highball"
+  },
+  "Clover Club": {
+    "flavour_tags": [
+      "fruchtig",
+      "cremig",
+      "sauer/zitrus"
+    ],
+    "flavour_tags_en": [
+      "fruity",
+      "creamy",
+      "sour/citrus"
+    ],
+    "serve_style": "Sour",
+    "serve_style_en": "Sour",
+    "moment": [
+      "Auftakt",
+      "Mittendrin"
+    ],
+    "moment_en": [
+      "Opener",
+      "Midway"
+    ],
+    "strength_level": 3,
+    "glass": "Coupe",
+    "glass_en": "Coupe"
+  },
+  "Frangelico Sour": {
+    "flavour_tags": [
+      "süß",
+      "cremig",
+      "sauer/zitrus"
+    ],
+    "flavour_tags_en": [
+      "sweet",
+      "creamy",
+      "sour/citrus"
+    ],
+    "serve_style": "Sour",
+    "serve_style_en": "Sour",
+    "moment": [
+      "Später Abend"
+    ],
+    "moment_en": [
+      "Late night"
+    ],
+    "strength_level": 3,
+    "glass": "Tumbler",
+    "glass_en": "Tumbler"
+  },
+  "Pina Colada": {
+    "flavour_tags": [
+      "fruchtig",
+      "cremig",
+      "süß"
+    ],
+    "flavour_tags_en": [
+      "fruity",
+      "creamy",
+      "sweet"
+    ],
+    "serve_style": "Frozen",
+    "serve_style_en": "Frozen",
+    "moment": [
+      "Mittendrin"
+    ],
+    "moment_en": [
+      "Midway"
+    ],
+    "strength_level": 2,
+    "glass": "Hurricane",
+    "glass_en": "Hurricane"
+  },
+  "Long Island Ice Tea": {
+    "flavour_tags": [
+      "süß",
+      "sauer/zitrus",
+      "prickelnd"
+    ],
+    "flavour_tags_en": [
+      "sweet",
+      "sour/citrus",
+      "sparkling"
+    ],
+    "serve_style": "Highball",
+    "serve_style_en": "Highball",
+    "moment": [
+      "Später Abend"
+    ],
+    "moment_en": [
+      "Late night"
+    ],
+    "strength_level": 5,
+    "glass": "Highball",
+    "glass_en": "Highball"
+  },
+  "Campari Spritz": {
+    "flavour_tags": [
+      "bitter",
+      "prickelnd"
+    ],
+    "flavour_tags_en": [
+      "bitter",
+      "sparkling"
+    ],
+    "serve_style": "Spritz",
+    "serve_style_en": "Spritz",
+    "moment": [
+      "Auftakt"
+    ],
+    "moment_en": [
+      "Opener"
+    ],
+    "strength_level": 1,
+    "glass": "Weinglas",
+    "glass_en": "Wine glass"
+  },
+  "Mint Julep": {
+    "flavour_tags": [
+      "kräuterig/frisch",
+      "süß"
+    ],
+    "flavour_tags_en": [
+      "herbal/fresh",
+      "sweet"
+    ],
+    "serve_style": "Julep",
+    "serve_style_en": "Julep",
+    "moment": [
+      "Mittendrin"
+    ],
+    "moment_en": [
+      "Midway"
+    ],
+    "strength_level": 4,
+    "glass": "Becher",
+    "glass_en": "Mug"
+  },
+  "Wodka & Orange 6cl": {
+    "flavour_tags": [
+      "fruchtig"
+    ],
+    "flavour_tags_en": [
+      "fruity"
+    ],
+    "serve_style": "Highball",
+    "serve_style_en": "Highball",
+    "moment": [
+      "Mittendrin"
+    ],
+    "moment_en": [
+      "Midway"
+    ],
+    "strength_level": 3,
+    "glass": "Highball",
+    "glass_en": "Highball"
+  },
+  "Boulvadier": {
+    "flavour_tags": [
+      "bitter",
+      "süß"
+    ],
+    "flavour_tags_en": [
+      "bitter",
+      "sweet"
+    ],
+    "serve_style": "Stirred",
+    "serve_style_en": "Stirred",
+    "moment": [
+      "Später Abend"
+    ],
+    "moment_en": [
+      "Late night"
+    ],
+    "strength_level": 5,
+    "glass": "Tumbler",
+    "glass_en": "Tumbler"
+  },
+  "Gin Tonic - Fugger": {
+    "flavour_tags": [
+      "kräuterig/frisch",
+      "bitter",
+      "prickelnd"
+    ],
+    "flavour_tags_en": [
+      "herbal/fresh",
+      "bitter",
+      "sparkling"
+    ],
+    "serve_style": "Highball",
+    "serve_style_en": "Highball",
+    "moment": [
+      "Auftakt",
+      "Mittendrin"
+    ],
+    "moment_en": [
+      "Opener",
+      "Midway"
+    ],
+    "strength_level": 3,
+    "glass": "Ballonglas",
+    "glass_en": "Balloon glass"
+  },
+  "Maple Old Fashioned": {
+    "flavour_tags": [
+      "süß",
+      "bitter"
+    ],
+    "flavour_tags_en": [
+      "sweet",
+      "bitter"
+    ],
+    "serve_style": "Stirred",
+    "serve_style_en": "Stirred",
+    "moment": [
+      "Später Abend"
+    ],
+    "moment_en": [
+      "Late night"
+    ],
+    "strength_level": 5,
+    "glass": "Tumbler",
+    "glass_en": "Tumbler"
+  },
+  "Vibrante Alkoholfrei Spritz": {
+    "flavour_tags": [
+      "bitter",
+      "prickelnd"
+    ],
+    "flavour_tags_en": [
+      "bitter",
+      "sparkling"
+    ],
+    "serve_style": "Spritz",
+    "serve_style_en": "Spritz",
+    "moment": [
+      "Auftakt"
+    ],
+    "moment_en": [
+      "Opener"
+    ],
+    "strength_level": 0,
+    "glass": "Weinglas",
+    "glass_en": "Wine glass"
+  },
+  "Limoncello Spritz": {
+    "flavour_tags": [
+      "sauer/zitrus",
+      "süß",
+      "prickelnd"
+    ],
+    "flavour_tags_en": [
+      "sour/citrus",
+      "sweet",
+      "sparkling"
+    ],
+    "serve_style": "Spritz",
+    "serve_style_en": "Spritz",
+    "moment": [
+      "Auftakt"
+    ],
+    "moment_en": [
+      "Opener"
+    ],
+    "strength_level": 1,
+    "glass": "Weinglas",
+    "glass_en": "Wine glass"
+  },
+  "Negroni Sbagliato": {
+    "flavour_tags": [
+      "bitter",
+      "prickelnd"
+    ],
+    "flavour_tags_en": [
+      "bitter",
+      "sparkling"
+    ],
+    "serve_style": "Stirred",
+    "serve_style_en": "Stirred",
+    "moment": [
+      "Auftakt"
+    ],
+    "moment_en": [
+      "Opener"
+    ],
+    "strength_level": 2,
+    "glass": "Tumbler",
+    "glass_en": "Tumbler"
+  },
+  "Rosato Spritz": {
+    "flavour_tags": [
+      "fruchtig",
+      "prickelnd"
+    ],
+    "flavour_tags_en": [
+      "fruity",
+      "sparkling"
+    ],
+    "serve_style": "Spritz",
+    "serve_style_en": "Spritz",
+    "moment": [
+      "Auftakt"
+    ],
+    "moment_en": [
+      "Opener"
+    ],
+    "strength_level": 1,
+    "glass": "Weinglas",
+    "glass_en": "Wine glass"
+  },
+  "Campari & Soda": {
+    "flavour_tags": [
+      "bitter",
+      "prickelnd"
+    ],
+    "flavour_tags_en": [
+      "bitter",
+      "sparkling"
+    ],
+    "serve_style": "Highball",
+    "serve_style_en": "Highball",
+    "moment": [
+      "Auftakt"
+    ],
+    "moment_en": [
+      "Opener"
+    ],
+    "strength_level": 1,
+    "glass": "Highball",
+    "glass_en": "Highball"
+  },
+  "Gin Fizz": {
+    "flavour_tags": [
+      "sauer/zitrus",
+      "prickelnd"
+    ],
+    "flavour_tags_en": [
+      "sour/citrus",
+      "sparkling"
+    ],
+    "serve_style": "Fizz",
+    "serve_style_en": "Fizz",
+    "moment": [
+      "Auftakt"
+    ],
+    "moment_en": [
+      "Opener"
+    ],
+    "strength_level": 2,
+    "glass": "Highball",
+    "glass_en": "Highball"
+  },
+  "Old Fashioned": {
+    "flavour_tags": [
+      "süß",
+      "bitter"
+    ],
+    "flavour_tags_en": [
+      "sweet",
+      "bitter"
+    ],
+    "serve_style": "Stirred",
+    "serve_style_en": "Stirred",
+    "moment": [
+      "Später Abend"
+    ],
+    "moment_en": [
+      "Late night"
+    ],
+    "strength_level": 5,
+    "glass": "Tumbler",
+    "glass_en": "Tumbler"
+  },
+  "Alkoholfrei - Caipirinha": {
+    "flavour_tags": [
+      "sauer/zitrus",
+      "süß"
+    ],
+    "flavour_tags_en": [
+      "sour/citrus",
+      "sweet"
+    ],
+    "serve_style": "Muddled",
+    "serve_style_en": "Muddled",
+    "moment": [
+      "Ganzer Abend"
+    ],
+    "moment_en": [
+      "All evening"
+    ],
+    "strength_level": 0,
+    "glass": "Tumbler",
+    "glass_en": "Tumbler"
+  },
+  "Alkoholfrei - Gin Basil": {
+    "flavour_tags": [
+      "kräuterig/frisch",
+      "sauer/zitrus"
+    ],
+    "flavour_tags_en": [
+      "herbal/fresh",
+      "sour/citrus"
+    ],
+    "serve_style": "Sour",
+    "serve_style_en": "Sour",
+    "moment": [
+      "Auftakt",
+      "Mittendrin"
+    ],
+    "moment_en": [
+      "Opener",
+      "Midway"
+    ],
+    "strength_level": 0,
+    "glass": "Tumbler",
+    "glass_en": "Tumbler"
+  },
+  "Danube Morning": {
+    "flavour_tags": [
+      "fruchtig",
+      "kräuterig/frisch",
+      "prickelnd"
+    ],
+    "flavour_tags_en": [
+      "fruity",
+      "herbal/fresh",
+      "sparkling"
+    ],
+    "serve_style": "Highball",
+    "serve_style_en": "Highball",
+    "moment": [
+      "Auftakt",
+      "Mittendrin"
+    ],
+    "moment_en": [
+      "Opener",
+      "Midway"
+    ],
+    "strength_level": 2,
+    "glass": "Highball",
+    "glass_en": "Highball"
+  },
+  "Don Julio Ranch Water": {
+    "flavour_tags": [
+      "sauer/zitrus",
+      "prickelnd"
+    ],
+    "flavour_tags_en": [
+      "sour/citrus",
+      "sparkling"
+    ],
+    "serve_style": "Highball",
+    "serve_style_en": "Highball",
+    "moment": [
+      "Auftakt"
+    ],
+    "moment_en": [
+      "Opener"
+    ],
+    "strength_level": 2,
+    "glass": "Highball",
+    "glass_en": "Highball"
+  },
+  "Gingerle Sour": {
+    "flavour_tags": [
+      "sauer/zitrus",
+      "prickelnd"
+    ],
+    "flavour_tags_en": [
+      "sour/citrus",
+      "sparkling"
+    ],
+    "serve_style": "Sour",
+    "serve_style_en": "Sour",
+    "moment": [
+      "Mittendrin"
+    ],
+    "moment_en": [
+      "Midway"
+    ],
+    "strength_level": 2,
+    "glass": "Tumbler",
+    "glass_en": "Tumbler"
+  },
+  "Pfeffi 2cl": {
+    "flavour_tags": [
+      "kräuterig/frisch",
+      "süß"
+    ],
+    "flavour_tags_en": [
+      "herbal/fresh",
+      "sweet"
+    ],
+    "serve_style": "Shot",
+    "serve_style_en": "Shot",
+    "moment": [
+      "Später Abend"
+    ],
+    "moment_en": [
+      "Late night"
+    ],
+    "strength_level": 2,
+    "glass": "Shotglas",
+    "glass_en": "Shot glass"
+  },
+  "Philosoph": {
+    "flavour_tags": [
+      "fruchtig",
+      "sauer/zitrus"
+    ],
+    "flavour_tags_en": [
+      "fruity",
+      "sour/citrus"
+    ],
+    "serve_style": "Sour",
+    "serve_style_en": "Sour",
+    "moment": [
+      "Mittendrin"
+    ],
+    "moment_en": [
+      "Midway"
+    ],
+    "strength_level": 3,
+    "glass": "Coupe",
+    "glass_en": "Coupe"
+  },
+  "Talisker Campfire": {
+    "flavour_tags": [
+      "cremig",
+      "süß"
+    ],
+    "flavour_tags_en": [
+      "creamy",
+      "sweet"
+    ],
+    "serve_style": "Hot",
+    "serve_style_en": "Hot",
+    "moment": [
+      "Später Abend"
+    ],
+    "moment_en": [
+      "Late night"
+    ],
+    "strength_level": 3,
+    "glass": "Henkelglas",
+    "glass_en": "Handled glass"
+  },
+  "Campari Orange": {
+    "flavour_tags": [
+      "bitter",
+      "fruchtig"
+    ],
+    "flavour_tags_en": [
+      "bitter",
+      "fruity"
+    ],
+    "serve_style": "Highball",
+    "serve_style_en": "Highball",
+    "moment": [
+      "Auftakt"
+    ],
+    "moment_en": [
+      "Opener"
+    ],
+    "strength_level": 1,
+    "glass": "Highball",
+    "glass_en": "Highball"
+  },
+  "Hugo Spritz": {
+    "flavour_tags": [
+      "süß",
+      "prickelnd",
+      "kräuterig/frisch"
+    ],
+    "flavour_tags_en": [
+      "sweet",
+      "sparkling",
+      "herbal/fresh"
+    ],
+    "serve_style": "Spritz",
+    "serve_style_en": "Spritz",
+    "moment": [
+      "Auftakt"
+    ],
+    "moment_en": [
+      "Opener"
+    ],
+    "strength_level": 1,
+    "glass": "Weinglas",
+    "glass_en": "Wine glass"
+  },
+  "Jack & Cola 6cl": {
+    "flavour_tags": [
+      "süß",
+      "prickelnd"
+    ],
+    "flavour_tags_en": [
+      "sweet",
+      "sparkling"
+    ],
+    "serve_style": "Highball",
+    "serve_style_en": "Highball",
+    "moment": [
+      "Mittendrin"
+    ],
+    "moment_en": [
+      "Midway"
+    ],
+    "strength_level": 3,
+    "glass": "Highball",
+    "glass_en": "Highball"
+  },
+  "Manhattan": {
+    "flavour_tags": [
+      "süß",
+      "bitter"
+    ],
+    "flavour_tags_en": [
+      "sweet",
+      "bitter"
+    ],
+    "serve_style": "Stirred",
+    "serve_style_en": "Stirred",
+    "moment": [
+      "Später Abend"
+    ],
+    "moment_en": [
+      "Late night"
+    ],
+    "strength_level": 5,
+    "glass": "Coupe",
+    "glass_en": "Coupe"
+  },
+  "Marille 2cl": {
+    "flavour_tags": [
+      "fruchtig"
+    ],
+    "flavour_tags_en": [
+      "fruity"
+    ],
+    "serve_style": "Shot",
+    "serve_style_en": "Shot",
+    "moment": [
+      "Später Abend"
+    ],
+    "moment_en": [
+      "Late night"
+    ],
+    "strength_level": 3,
+    "glass": "Shotglas",
+    "glass_en": "Shot glass"
+  },
+  "Mate Spritz": {
+    "flavour_tags": [
+      "prickelnd",
+      "bitter"
+    ],
+    "flavour_tags_en": [
+      "sparkling",
+      "bitter"
+    ],
+    "serve_style": "Spritz",
+    "serve_style_en": "Spritz",
+    "moment": [
+      "Auftakt",
+      "Mittendrin"
+    ],
+    "moment_en": [
+      "Opener",
+      "Midway"
+    ],
+    "strength_level": 1,
+    "glass": "Weinglas",
+    "glass_en": "Wine glass"
+  },
+  "Paper Plane": {
+    "flavour_tags": [
+      "bitter",
+      "sauer/zitrus",
+      "fruchtig"
+    ],
+    "flavour_tags_en": [
+      "bitter",
+      "sour/citrus",
+      "fruity"
+    ],
+    "serve_style": "Shaken",
+    "serve_style_en": "Shaken",
+    "moment": [
+      "Mittendrin"
+    ],
+    "moment_en": [
+      "Midway"
+    ],
+    "strength_level": 4,
+    "glass": "Coupe",
+    "glass_en": "Coupe"
+  },
+  "Sambuca 2cl": {
+    "flavour_tags": [
+      "süß",
+      "kräuterig/frisch"
+    ],
+    "flavour_tags_en": [
+      "sweet",
+      "herbal/fresh"
+    ],
+    "serve_style": "Shot",
+    "serve_style_en": "Shot",
+    "moment": [
+      "Später Abend"
+    ],
+    "moment_en": [
+      "Late night"
+    ],
+    "strength_level": 3,
+    "glass": "Shotglas",
+    "glass_en": "Shot glass"
+  },
+  "Zacapa & Ginger": {
+    "flavour_tags": [
+      "prickelnd",
+      "süß"
+    ],
+    "flavour_tags_en": [
+      "sparkling",
+      "sweet"
+    ],
+    "serve_style": "Highball",
+    "serve_style_en": "Highball",
+    "moment": [
+      "Mittendrin"
+    ],
+    "moment_en": [
+      "Midway"
+    ],
+    "strength_level": 3,
+    "glass": "Highball",
+    "glass_en": "Highball"
+  },
+  "Mandelino": {
+    "flavour_tags": [
+      "süß",
+      "prickelnd"
+    ],
+    "flavour_tags_en": [
+      "sweet",
+      "sparkling"
+    ],
+    "serve_style": "Spritz",
+    "serve_style_en": "Spritz",
+    "moment": [
+      "Auftakt"
+    ],
+    "moment_en": [
+      "Opener"
+    ],
+    "strength_level": 1,
+    "glass": "Weinglas",
+    "glass_en": "Wine glass"
+  },
+  "Margarita Rojas": {
+    "flavour_tags": [
+      "sauer/zitrus",
+      "rauchig"
+    ],
+    "flavour_tags_en": [
+      "sour/citrus",
+      "smoky"
+    ],
+    "serve_style": "Shaken",
+    "serve_style_en": "Shaken",
+    "moment": [
+      "Mittendrin"
+    ],
+    "moment_en": [
+      "Midway"
+    ],
+    "strength_level": 4,
+    "glass": "Coupe",
+    "glass_en": "Coupe"
+  },
+  "Mermaid's Melody": {
+    "flavour_tags": [
+      "fruchtig",
+      "süß",
+      "cremig"
+    ],
+    "flavour_tags_en": [
+      "fruity",
+      "sweet",
+      "creamy"
+    ],
+    "serve_style": "Highball",
+    "serve_style_en": "Highball",
+    "moment": [
+      "Mittendrin"
+    ],
+    "moment_en": [
+      "Midway"
+    ],
+    "strength_level": 2,
+    "glass": "Highball",
+    "glass_en": "Highball"
+  },
+  "Mikki": {
+    "flavour_tags": [
+      "süß",
+      "bitter"
+    ],
+    "flavour_tags_en": [
+      "sweet",
+      "bitter"
+    ],
+    "serve_style": "Stirred",
+    "serve_style_en": "Stirred",
+    "moment": [
+      "Später Abend"
+    ],
+    "moment_en": [
+      "Late night"
+    ],
+    "strength_level": 5,
+    "glass": "Tumbler",
+    "glass_en": "Tumbler"
+  },
+  "Touchdown": {
+    "flavour_tags": [
+      "fruchtig",
+      "süß"
+    ],
+    "flavour_tags_en": [
+      "fruity",
+      "sweet"
+    ],
+    "serve_style": "Shaken",
+    "serve_style_en": "Shaken",
+    "moment": [
+      "Mittendrin"
+    ],
+    "moment_en": [
+      "Midway"
+    ],
+    "strength_level": 3,
+    "glass": "Highball",
+    "glass_en": "Highball"
+  },
+  "Augsburg Blume": {
+    "flavour_tags": [
+      "fruchtig",
+      "bitter",
+      "süß"
+    ],
+    "flavour_tags_en": [
+      "fruity",
+      "bitter",
+      "sweet"
+    ],
+    "serve_style": "Stirred",
+    "serve_style_en": "Stirred",
+    "moment": [
+      "Auftakt",
+      "Später Abend"
+    ],
+    "moment_en": [
+      "Opener",
+      "Late night"
+    ],
+    "strength_level": 4,
+    "glass": "Coupe",
+    "glass_en": "Coupe"
+  },
+  "Dama Elena": {
+    "flavour_tags": [
+      "sauer/zitrus",
+      "cremig"
+    ],
+    "flavour_tags_en": [
+      "sour/citrus",
+      "creamy"
+    ],
+    "serve_style": "Sour",
+    "serve_style_en": "Sour",
+    "moment": [
+      "Mittendrin"
+    ],
+    "moment_en": [
+      "Midway"
+    ],
+    "strength_level": 3,
+    "glass": "Coupe",
+    "glass_en": "Coupe"
+  },
+  "Don Julio Anejo Negroni": {
+    "flavour_tags": [
+      "bitter",
+      "süß"
+    ],
+    "flavour_tags_en": [
+      "bitter",
+      "sweet"
+    ],
+    "serve_style": "Stirred",
+    "serve_style_en": "Stirred",
+    "moment": [
+      "Später Abend"
+    ],
+    "moment_en": [
+      "Late night"
+    ],
+    "strength_level": 5,
+    "glass": "Tumbler",
+    "glass_en": "Tumbler"
+  },
+  "Don Julio Reposado Old Fashioned": {
+    "flavour_tags": [
+      "süß",
+      "bitter"
+    ],
+    "flavour_tags_en": [
+      "sweet",
+      "bitter"
+    ],
+    "serve_style": "Stirred",
+    "serve_style_en": "Stirred",
+    "moment": [
+      "Später Abend"
+    ],
+    "moment_en": [
+      "Late night"
+    ],
+    "strength_level": 5,
+    "glass": "Tumbler",
+    "glass_en": "Tumbler"
+  },
+  "Fresco Spritz": {
+    "flavour_tags": [
+      "bitter",
+      "prickelnd"
+    ],
+    "flavour_tags_en": [
+      "bitter",
+      "sparkling"
+    ],
+    "serve_style": "Spritz",
+    "serve_style_en": "Spritz",
+    "moment": [
+      "Auftakt"
+    ],
+    "moment_en": [
+      "Opener"
+    ],
+    "strength_level": 1,
+    "glass": "Weinglas",
+    "glass_en": "Wine glass"
+  },
+  "Gin Tonic - Tanqueray 10": {
+    "flavour_tags": [
+      "sauer/zitrus",
+      "bitter",
+      "prickelnd"
+    ],
+    "flavour_tags_en": [
+      "sour/citrus",
+      "bitter",
+      "sparkling"
+    ],
+    "serve_style": "Highball",
+    "serve_style_en": "Highball",
+    "moment": [
+      "Auftakt",
+      "Mittendrin"
+    ],
+    "moment_en": [
+      "Opener",
+      "Midway"
+    ],
+    "strength_level": 3,
+    "glass": "Ballonglas",
+    "glass_en": "Balloon glass"
+  },
+  "Jaegermeister & Red Bull 6cl": {
+    "flavour_tags": [
+      "süß",
+      "prickelnd",
+      "kräuterig/frisch"
+    ],
+    "flavour_tags_en": [
+      "sweet",
+      "sparkling",
+      "herbal/fresh"
+    ],
+    "serve_style": "Highball",
+    "serve_style_en": "Highball",
+    "moment": [
+      "Später Abend"
+    ],
+    "moment_en": [
+      "Late night"
+    ],
+    "strength_level": 3,
+    "glass": "Highball",
+    "glass_en": "Highball"
+  },
+  "Secco Spritz": {
+    "flavour_tags": [
+      "prickelnd"
+    ],
+    "flavour_tags_en": [
+      "sparkling"
+    ],
+    "serve_style": "Spritz",
+    "serve_style_en": "Spritz",
+    "moment": [
+      "Auftakt"
+    ],
+    "moment_en": [
+      "Opener"
+    ],
+    "strength_level": 1,
+    "glass": "Weinglas",
+    "glass_en": "Wine glass"
+  },
+  "Take-It-Easy": {
+    "flavour_tags": [
+      "fruchtig",
+      "süß",
+      "bitter"
+    ],
+    "flavour_tags_en": [
+      "fruity",
+      "sweet",
+      "bitter"
+    ],
+    "serve_style": "Shaken",
+    "serve_style_en": "Shaken",
+    "moment": [
+      "Mittendrin"
+    ],
+    "moment_en": [
+      "Midway"
+    ],
+    "strength_level": 3,
+    "glass": "Coupe",
+    "glass_en": "Coupe"
+  },
+  "Wodka & Red Bull 6cl": {
+    "flavour_tags": [
+      "süß",
+      "prickelnd"
+    ],
+    "flavour_tags_en": [
+      "sweet",
+      "sparkling"
+    ],
+    "serve_style": "Highball",
+    "serve_style_en": "Highball",
+    "moment": [
+      "Später Abend"
+    ],
+    "moment_en": [
+      "Late night"
+    ],
+    "strength_level": 3,
+    "glass": "Highball",
+    "glass_en": "Highball"
+  },
+  "Zacapa Espresso Martini": {
+    "flavour_tags": [
+      "kaffee",
+      "süß",
+      "cremig"
+    ],
+    "flavour_tags_en": [
+      "coffee",
+      "sweet",
+      "creamy"
+    ],
+    "serve_style": "Shaken",
+    "serve_style_en": "Shaken",
+    "moment": [
+      "Später Abend"
+    ],
+    "moment_en": [
+      "Late night"
+    ],
+    "strength_level": 3,
+    "glass": "Coupe",
+    "glass_en": "Coupe"
+  },
+  "Alk Freier Spritz": {
+    "flavour_tags": [
+      "prickelnd"
+    ],
+    "flavour_tags_en": [
+      "sparkling"
+    ],
+    "serve_style": "Spritz",
+    "serve_style_en": "Spritz",
+    "moment": [
+      "Auftakt"
+    ],
+    "moment_en": [
+      "Opener"
+    ],
+    "strength_level": 0,
+    "glass": "Weinglas",
+    "glass_en": "Wine glass"
+  },
+  "Alkoholfrei - Augsburg Sour": {
+    "flavour_tags": [
+      "fruchtig",
+      "sauer/zitrus"
+    ],
+    "flavour_tags_en": [
+      "fruity",
+      "sour/citrus"
+    ],
+    "serve_style": "Sour",
+    "serve_style_en": "Sour",
+    "moment": [
+      "Ganzer Abend"
+    ],
+    "moment_en": [
+      "All evening"
+    ],
+    "strength_level": 0,
+    "glass": "Tumbler",
+    "glass_en": "Tumbler"
+  },
+  "Alkoholfrei - Mojito": {
+    "flavour_tags": [
+      "kräuterig/frisch",
+      "sauer/zitrus",
+      "prickelnd"
+    ],
+    "flavour_tags_en": [
+      "herbal/fresh",
+      "sour/citrus",
+      "sparkling"
+    ],
+    "serve_style": "Highball",
+    "serve_style_en": "Highball",
+    "moment": [
+      "Ganzer Abend"
+    ],
+    "moment_en": [
+      "All evening"
+    ],
+    "strength_level": 0,
+    "glass": "Highball",
+    "glass_en": "Highball"
+  },
+  "Cherry Amaretto Margarita": {
+    "flavour_tags": [
+      "fruchtig",
+      "süß",
+      "sauer/zitrus"
+    ],
+    "flavour_tags_en": [
+      "fruity",
+      "sweet",
+      "sour/citrus"
+    ],
+    "serve_style": "Shaken",
+    "serve_style_en": "Shaken",
+    "moment": [
+      "Mittendrin"
+    ],
+    "moment_en": [
+      "Midway"
+    ],
+    "strength_level": 4,
+    "glass": "Coupe",
+    "glass_en": "Coupe"
+  },
+  "Dirty Martini": {
+    "flavour_tags": [
+      "salzig",
+      "kräuterig/frisch"
+    ],
+    "flavour_tags_en": [
+      "salty",
+      "herbal/fresh"
+    ],
+    "serve_style": "Stirred",
+    "serve_style_en": "Stirred",
+    "moment": [
+      "Auftakt",
+      "Später Abend"
+    ],
+    "moment_en": [
+      "Opener",
+      "Late night"
+    ],
+    "strength_level": 5,
+    "glass": "Coupe",
+    "glass_en": "Coupe"
+  },
+  "Floreale Alkoholfrei Spritz": {
+    "flavour_tags": [
+      "bitter",
+      "fruchtig",
+      "prickelnd"
+    ],
+    "flavour_tags_en": [
+      "bitter",
+      "fruity",
+      "sparkling"
+    ],
+    "serve_style": "Spritz",
+    "serve_style_en": "Spritz",
+    "moment": [
+      "Auftakt"
+    ],
+    "moment_en": [
+      "Opener"
+    ],
+    "strength_level": 0,
+    "glass": "Weinglas",
+    "glass_en": "Wine glass"
+  },
+  "Frangelico 2cl": {
+    "flavour_tags": [
+      "süß",
+      "cremig"
+    ],
+    "flavour_tags_en": [
+      "sweet",
+      "creamy"
+    ],
+    "serve_style": "Shot",
+    "serve_style_en": "Shot",
+    "moment": [
+      "Später Abend"
+    ],
+    "moment_en": [
+      "Late night"
+    ],
+    "strength_level": 2,
+    "glass": "Shotglas",
+    "glass_en": "Shot glass"
+  },
+  "Gin/Vodka Martini": {
+    "flavour_tags": [
+      "kräuterig/frisch"
+    ],
+    "flavour_tags_en": [
+      "herbal/fresh"
+    ],
+    "serve_style": "Stirred",
+    "serve_style_en": "Stirred",
+    "moment": [
+      "Auftakt",
+      "Später Abend"
+    ],
+    "moment_en": [
+      "Opener",
+      "Late night"
+    ],
+    "strength_level": 5,
+    "glass": "Coupe",
+    "glass_en": "Coupe"
+  },
+  "Johnnie Black Sour": {
+    "flavour_tags": [
+      "sauer/zitrus",
+      "rauchig"
+    ],
+    "flavour_tags_en": [
+      "sour/citrus",
+      "smoky"
+    ],
+    "serve_style": "Sour",
+    "serve_style_en": "Sour",
+    "moment": [
+      "Später Abend"
+    ],
+    "moment_en": [
+      "Late night"
+    ],
+    "strength_level": 4,
+    "glass": "Tumbler",
+    "glass_en": "Tumbler"
+  },
+  "Mai Tai": {
+    "flavour_tags": [
+      "fruchtig",
+      "süß",
+      "sauer/zitrus"
+    ],
+    "flavour_tags_en": [
+      "fruity",
+      "sweet",
+      "sour/citrus"
+    ],
+    "serve_style": "Shaken",
+    "serve_style_en": "Shaken",
+    "moment": [
+      "Mittendrin"
+    ],
+    "moment_en": [
+      "Midway"
+    ],
+    "strength_level": 4,
+    "glass": "Tumbler",
+    "glass_en": "Tumbler"
+  },
+  "Alkoholfrei - Italian Stallion": {
+    "flavour_tags": [
+      "fruchtig",
+      "süß"
+    ],
+    "flavour_tags_en": [
+      "fruity",
+      "sweet"
+    ],
+    "serve_style": "Sour",
+    "serve_style_en": "Sour",
+    "moment": [
+      "Ganzer Abend"
+    ],
+    "moment_en": [
+      "All evening"
+    ],
+    "strength_level": 0,
+    "glass": "Coupe",
+    "glass_en": "Coupe"
+  },
+  "Alkoholfrei - Mule": {
+    "flavour_tags": [
+      "prickelnd",
+      "sauer/zitrus"
+    ],
+    "flavour_tags_en": [
+      "sparkling",
+      "sour/citrus"
+    ],
+    "serve_style": "Highball",
+    "serve_style_en": "Highball",
+    "moment": [
+      "Ganzer Abend"
+    ],
+    "moment_en": [
+      "All evening"
+    ],
+    "strength_level": 0,
+    "glass": "Kupferbecher",
+    "glass_en": "Copper mug"
+  },
+  "Alkoholfrei - Singapore Sling": {
+    "flavour_tags": [
+      "fruchtig",
+      "süß"
+    ],
+    "flavour_tags_en": [
+      "fruity",
+      "sweet"
+    ],
+    "serve_style": "Sling",
+    "serve_style_en": "Sling",
+    "moment": [
+      "Mittendrin"
+    ],
+    "moment_en": [
+      "Midway"
+    ],
+    "strength_level": 0,
+    "glass": "Highball",
+    "glass_en": "Highball"
+  },
+  "Caipiroska": {
+    "flavour_tags": [
+      "sauer/zitrus",
+      "süß"
+    ],
+    "flavour_tags_en": [
+      "sour/citrus",
+      "sweet"
+    ],
+    "serve_style": "Muddled",
+    "serve_style_en": "Muddled",
+    "moment": [
+      "Mittendrin"
+    ],
+    "moment_en": [
+      "Midway"
+    ],
+    "strength_level": 3,
+    "glass": "Tumbler",
+    "glass_en": "Tumbler"
+  },
+  "Gin Tonic - Hendriks": {
+    "flavour_tags": [
+      "kräuterig/frisch",
+      "prickelnd"
+    ],
+    "flavour_tags_en": [
+      "herbal/fresh",
+      "sparkling"
+    ],
+    "serve_style": "Highball",
+    "serve_style_en": "Highball",
+    "moment": [
+      "Auftakt",
+      "Mittendrin"
+    ],
+    "moment_en": [
+      "Opener",
+      "Midway"
+    ],
+    "strength_level": 3,
+    "glass": "Ballonglas",
+    "glass_en": "Balloon glass"
+  },
+  "Himbeere Mojito": {
+    "flavour_tags": [
+      "fruchtig",
+      "kräuterig/frisch",
+      "prickelnd"
+    ],
+    "flavour_tags_en": [
+      "fruity",
+      "herbal/fresh",
+      "sparkling"
+    ],
+    "serve_style": "Highball",
+    "serve_style_en": "Highball",
+    "moment": [
+      "Mittendrin"
+    ],
+    "moment_en": [
+      "Midway"
+    ],
+    "strength_level": 2,
+    "glass": "Highball",
+    "glass_en": "Highball"
+  },
+  "Johnnie Black & Ginger": {
+    "flavour_tags": [
+      "prickelnd",
+      "rauchig"
+    ],
+    "flavour_tags_en": [
+      "sparkling",
+      "smoky"
+    ],
+    "serve_style": "Highball",
+    "serve_style_en": "Highball",
+    "moment": [
+      "Mittendrin"
+    ],
+    "moment_en": [
+      "Midway"
+    ],
+    "strength_level": 3,
+    "glass": "Highball",
+    "glass_en": "Highball"
+  },
+  "Mimosa": {
+    "flavour_tags": [
+      "fruchtig",
+      "prickelnd"
+    ],
+    "flavour_tags_en": [
+      "fruity",
+      "sparkling"
+    ],
+    "serve_style": "Spritz",
+    "serve_style_en": "Spritz",
+    "moment": [
+      "Auftakt"
+    ],
+    "moment_en": [
+      "Opener"
+    ],
+    "strength_level": 1,
+    "glass": "Weinglas",
+    "glass_en": "Wine glass"
+  },
+  "White Russian": {
+    "flavour_tags": [
+      "cremig",
+      "kaffee",
+      "süß"
+    ],
+    "flavour_tags_en": [
+      "creamy",
+      "coffee",
+      "sweet"
+    ],
+    "serve_style": "Built",
+    "serve_style_en": "Built",
+    "moment": [
+      "Später Abend"
+    ],
+    "moment_en": [
+      "Late night"
+    ],
+    "strength_level": 3,
+    "glass": "Tumbler",
+    "glass_en": "Tumbler"
+  },
+  "Zacapa Wolke": {
+    "flavour_tags": [
+      "süß"
+    ],
+    "flavour_tags_en": [
+      "sweet"
+    ],
+    "serve_style": "Built",
+    "serve_style_en": "Built",
+    "moment": [
+      "Später Abend"
+    ],
+    "moment_en": [
+      "Late night"
+    ],
+    "strength_level": 5,
+    "glass": "Tumbler",
+    "glass_en": "Tumbler"
+  },
+  "gingerle Spritz": {
+    "flavour_tags": [
+      "prickelnd",
+      "sauer/zitrus"
+    ],
+    "flavour_tags_en": [
+      "sparkling",
+      "sour/citrus"
+    ],
+    "serve_style": "Spritz",
+    "serve_style_en": "Spritz",
+    "moment": [
+      "Auftakt"
+    ],
+    "moment_en": [
+      "Opener"
+    ],
+    "strength_level": 1,
+    "glass": "Weinglas",
+    "glass_en": "Wine glass"
+  },
+  "Alkoholfrei - Clover Club": {
+    "flavour_tags": [
+      "fruchtig",
+      "cremig"
+    ],
+    "flavour_tags_en": [
+      "fruity",
+      "creamy"
+    ],
+    "serve_style": "Sour",
+    "serve_style_en": "Sour",
+    "moment": [
+      "Ganzer Abend"
+    ],
+    "moment_en": [
+      "All evening"
+    ],
+    "strength_level": 0,
+    "glass": "Coupe",
+    "glass_en": "Coupe"
+  },
+  "Alkoholfrei - Mermaid's Melody": {
+    "flavour_tags": [
+      "fruchtig",
+      "cremig",
+      "süß"
+    ],
+    "flavour_tags_en": [
+      "fruity",
+      "creamy",
+      "sweet"
+    ],
+    "serve_style": "Highball",
+    "serve_style_en": "Highball",
+    "moment": [
+      "Ganzer Abend"
+    ],
+    "moment_en": [
+      "All evening"
+    ],
+    "strength_level": 0,
+    "glass": "Highball",
+    "glass_en": "Highball"
+  },
+  "Alkoholfrei - Ricky Ricky": {
+    "flavour_tags": [
+      "kräuterig/frisch",
+      "prickelnd"
+    ],
+    "flavour_tags_en": [
+      "herbal/fresh",
+      "sparkling"
+    ],
+    "serve_style": "Highball",
+    "serve_style_en": "Highball",
+    "moment": [
+      "Auftakt"
+    ],
+    "moment_en": [
+      "Opener"
+    ],
+    "strength_level": 0,
+    "glass": "Highball",
+    "glass_en": "Highball"
+  },
+  "Asbach & Cola 4cl": {
+    "flavour_tags": [
+      "süß",
+      "prickelnd"
+    ],
+    "flavour_tags_en": [
+      "sweet",
+      "sparkling"
+    ],
+    "serve_style": "Highball",
+    "serve_style_en": "Highball",
+    "moment": [
+      "Mittendrin"
+    ],
+    "moment_en": [
+      "Midway"
+    ],
+    "strength_level": 3,
+    "glass": "Highball",
+    "glass_en": "Highball"
+  },
+  "Bacardi & Cola 6cl": {
+    "flavour_tags": [
+      "süß",
+      "prickelnd"
+    ],
+    "flavour_tags_en": [
+      "sweet",
+      "sparkling"
+    ],
+    "serve_style": "Highball",
+    "serve_style_en": "Highball",
+    "moment": [
+      "Mittendrin"
+    ],
+    "moment_en": [
+      "Midway"
+    ],
+    "strength_level": 3,
+    "glass": "Highball",
+    "glass_en": "Highball"
+  },
+  "Berliner Luft 4cl": {
+    "flavour_tags": [
+      "kräuterig/frisch",
+      "süß"
+    ],
+    "flavour_tags_en": [
+      "herbal/fresh",
+      "sweet"
+    ],
+    "serve_style": "Shot",
+    "serve_style_en": "Shot",
+    "moment": [
+      "Später Abend"
+    ],
+    "moment_en": [
+      "Late night"
+    ],
+    "strength_level": 3,
+    "glass": "Shotglas",
+    "glass_en": "Shot glass"
+  },
+  "Bramble": {
+    "flavour_tags": [
+      "fruchtig",
+      "sauer/zitrus"
+    ],
+    "flavour_tags_en": [
+      "fruity",
+      "sour/citrus"
+    ],
+    "serve_style": "Sour",
+    "serve_style_en": "Sour",
+    "moment": [
+      "Mittendrin"
+    ],
+    "moment_en": [
+      "Midway"
+    ],
+    "strength_level": 3,
+    "glass": "Tumbler",
+    "glass_en": "Tumbler"
+  },
+  "Dark & Stormy": {
+    "flavour_tags": [
+      "prickelnd",
+      "süß"
+    ],
+    "flavour_tags_en": [
+      "sparkling",
+      "sweet"
+    ],
+    "serve_style": "Highball",
+    "serve_style_en": "Highball",
+    "moment": [
+      "Mittendrin"
+    ],
+    "moment_en": [
+      "Midway"
+    ],
+    "strength_level": 3,
+    "glass": "Highball",
+    "glass_en": "Highball"
+  },
+  "Don Julio Reposado Margerita": {
+    "flavour_tags": [
+      "sauer/zitrus",
+      "süß"
+    ],
+    "flavour_tags_en": [
+      "sour/citrus",
+      "sweet"
+    ],
+    "serve_style": "Shaken",
+    "serve_style_en": "Shaken",
+    "moment": [
+      "Mittendrin"
+    ],
+    "moment_en": [
+      "Midway"
+    ],
+    "strength_level": 4,
+    "glass": "Coupe",
+    "glass_en": "Coupe"
+  },
+  "Erdbeer Spritz": {
+    "flavour_tags": [
+      "fruchtig",
+      "süß",
+      "prickelnd"
+    ],
+    "flavour_tags_en": [
+      "fruity",
+      "sweet",
+      "sparkling"
+    ],
+    "serve_style": "Spritz",
+    "serve_style_en": "Spritz",
+    "moment": [
+      "Auftakt"
+    ],
+    "moment_en": [
+      "Opener"
+    ],
+    "strength_level": 1,
+    "glass": "Weinglas",
+    "glass_en": "Wine glass"
+  },
+  "Erdbeere Daiquiri": {
+    "flavour_tags": [
+      "fruchtig",
+      "süß",
+      "sauer/zitrus"
+    ],
+    "flavour_tags_en": [
+      "fruity",
+      "sweet",
+      "sour/citrus"
+    ],
+    "serve_style": "Frozen",
+    "serve_style_en": "Frozen",
+    "moment": [
+      "Mittendrin"
+    ],
+    "moment_en": [
+      "Midway"
+    ],
+    "strength_level": 2,
+    "glass": "Coupe",
+    "glass_en": "Coupe"
+  },
+  "Espresso Royal": {
+    "flavour_tags": [
+      "kaffee",
+      "cremig",
+      "süß"
+    ],
+    "flavour_tags_en": [
+      "coffee",
+      "creamy",
+      "sweet"
+    ],
+    "serve_style": "Shaken",
+    "serve_style_en": "Shaken",
+    "moment": [
+      "Mittendrin",
+      "Später Abend"
+    ],
+    "moment_en": [
+      "Midway",
+      "Late night"
+    ],
+    "strength_level": 3,
+    "glass": "Coupe",
+    "glass_en": "Coupe"
+  },
+  "Ficken 4cl": {
+    "flavour_tags": [
+      "süß",
+      "fruchtig"
+    ],
+    "flavour_tags_en": [
+      "sweet",
+      "fruity"
+    ],
+    "serve_style": "Shot",
+    "serve_style_en": "Shot",
+    "moment": [
+      "Später Abend"
+    ],
+    "moment_en": [
+      "Late night"
+    ],
+    "strength_level": 2,
+    "glass": "Shotglas",
+    "glass_en": "Shot glass"
+  },
+  "Frozen Aperol": {
+    "flavour_tags": [
+      "bitter",
+      "fruchtig"
+    ],
+    "flavour_tags_en": [
+      "bitter",
+      "fruity"
+    ],
+    "serve_style": "Frozen",
+    "serve_style_en": "Frozen",
+    "moment": [
+      "Mittendrin"
+    ],
+    "moment_en": [
+      "Midway"
+    ],
+    "strength_level": 1,
+    "glass": "Weinglas",
+    "glass_en": "Wine glass"
+  },
+  "Frozen Sarti": {
+    "flavour_tags": [
+      "fruchtig"
+    ],
+    "flavour_tags_en": [
+      "fruity"
+    ],
+    "serve_style": "Frozen",
+    "serve_style_en": "Frozen",
+    "moment": [
+      "Mittendrin"
+    ],
+    "moment_en": [
+      "Midway"
+    ],
+    "strength_level": 1,
+    "glass": "Weinglas",
+    "glass_en": "Wine glass"
+  },
+  "Frozen Spritz": {
+    "flavour_tags": [
+      "bitter",
+      "fruchtig"
+    ],
+    "flavour_tags_en": [
+      "bitter",
+      "fruity"
+    ],
+    "serve_style": "Frozen",
+    "serve_style_en": "Frozen",
+    "moment": [
+      "Mittendrin"
+    ],
+    "moment_en": [
+      "Midway"
+    ],
+    "strength_level": 1,
+    "glass": "Weinglas",
+    "glass_en": "Wine glass"
+  },
+  "Gin Tonic - Alkoholfrei": {
+    "flavour_tags": [
+      "bitter",
+      "prickelnd",
+      "kräuterig/frisch"
+    ],
+    "flavour_tags_en": [
+      "bitter",
+      "sparkling",
+      "herbal/fresh"
+    ],
+    "serve_style": "Highball",
+    "serve_style_en": "Highball",
+    "moment": [
+      "Ganzer Abend"
+    ],
+    "moment_en": [
+      "All evening"
+    ],
+    "strength_level": 0,
+    "glass": "Ballonglas",
+    "glass_en": "Balloon glass"
+  },
+  "Gin Tonic - August": {
+    "flavour_tags": [
+      "kräuterig/frisch",
+      "bitter",
+      "prickelnd"
+    ],
+    "flavour_tags_en": [
+      "herbal/fresh",
+      "bitter",
+      "sparkling"
+    ],
+    "serve_style": "Highball",
+    "serve_style_en": "Highball",
+    "moment": [
+      "Auftakt",
+      "Mittendrin"
+    ],
+    "moment_en": [
+      "Opener",
+      "Midway"
+    ],
+    "strength_level": 3,
+    "glass": "Ballonglas",
+    "glass_en": "Balloon glass"
+  },
+  "Gingerle 4cl & Tonic": {
+    "flavour_tags": [
+      "prickelnd",
+      "bitter"
+    ],
+    "flavour_tags_en": [
+      "sparkling",
+      "bitter"
+    ],
+    "serve_style": "Highball",
+    "serve_style_en": "Highball",
+    "moment": [
+      "Mittendrin"
+    ],
+    "moment_en": [
+      "Midway"
+    ],
+    "strength_level": 2,
+    "glass": "Ballonglas",
+    "glass_en": "Balloon glass"
+  },
+  "Haselnuss 4cl": {
+    "flavour_tags": [
+      "süß",
+      "cremig"
+    ],
+    "flavour_tags_en": [
+      "sweet",
+      "creamy"
+    ],
+    "serve_style": "Shot",
+    "serve_style_en": "Shot",
+    "moment": [
+      "Später Abend"
+    ],
+    "moment_en": [
+      "Late night"
+    ],
+    "strength_level": 2,
+    "glass": "Shotglas",
+    "glass_en": "Shot glass"
+  },
+  "Heidi": {
+    "flavour_tags": [
+      "fruchtig",
+      "prickelnd"
+    ],
+    "flavour_tags_en": [
+      "fruity",
+      "sparkling"
+    ],
+    "serve_style": "Spritz",
+    "serve_style_en": "Spritz",
+    "moment": [
+      "Auftakt"
+    ],
+    "moment_en": [
+      "Opener"
+    ],
+    "strength_level": 1,
+    "glass": "Weinglas",
+    "glass_en": "Wine glass"
+  },
+  "La Dama Rosa": {
+    "flavour_tags": [
+      "fruchtig",
+      "sauer/zitrus",
+      "prickelnd"
+    ],
+    "flavour_tags_en": [
+      "fruity",
+      "sour/citrus",
+      "sparkling"
+    ],
+    "serve_style": "Highball",
+    "serve_style_en": "Highball",
+    "moment": [
+      "Auftakt",
+      "Mittendrin"
+    ],
+    "moment_en": [
+      "Opener",
+      "Midway"
+    ],
+    "strength_level": 3,
+    "glass": "Highball",
+    "glass_en": "Highball"
+  },
+  "Licor 43 2cl": {
+    "flavour_tags": [
+      "süß"
+    ],
+    "flavour_tags_en": [
+      "sweet"
+    ],
+    "serve_style": "Shot",
+    "serve_style_en": "Shot",
+    "moment": [
+      "Später Abend"
+    ],
+    "moment_en": [
+      "Late night"
+    ],
+    "strength_level": 2,
+    "glass": "Shotglas",
+    "glass_en": "Shot glass"
+  },
+  "Licor 43 4cl & Ginger": {
+    "flavour_tags": [
+      "süß",
+      "prickelnd"
+    ],
+    "flavour_tags_en": [
+      "sweet",
+      "sparkling"
+    ],
+    "serve_style": "Highball",
+    "serve_style_en": "Highball",
+    "moment": [
+      "Später Abend"
+    ],
+    "moment_en": [
+      "Late night"
+    ],
+    "strength_level": 2,
+    "glass": "Highball",
+    "glass_en": "Highball"
+  },
+  "Old Cuban": {
+    "flavour_tags": [
+      "kräuterig/frisch",
+      "prickelnd",
+      "süß"
+    ],
+    "flavour_tags_en": [
+      "herbal/fresh",
+      "sparkling",
+      "sweet"
+    ],
+    "serve_style": "Shaken",
+    "serve_style_en": "Shaken",
+    "moment": [
+      "Mittendrin"
+    ],
+    "moment_en": [
+      "Midway"
+    ],
+    "strength_level": 3,
+    "glass": "Coupe",
+    "glass_en": "Coupe"
+  },
+  "Picante de la Casa": {
+    "flavour_tags": [
+      "sauer/zitrus",
+      "scharf",
+      "kräuterig/frisch"
+    ],
+    "flavour_tags_en": [
+      "sour/citrus",
+      "spicy",
+      "herbal/fresh"
+    ],
+    "serve_style": "Shaken",
+    "serve_style_en": "Shaken",
+    "moment": [
+      "Mittendrin"
+    ],
+    "moment_en": [
+      "Midway"
+    ],
+    "strength_level": 4,
+    "glass": "Tumbler",
+    "glass_en": "Tumbler"
+  },
+  "Raki 2cl": {
+    "flavour_tags": [
+      "kräuterig/frisch"
+    ],
+    "flavour_tags_en": [
+      "herbal/fresh"
+    ],
+    "serve_style": "Shot",
+    "serve_style_en": "Shot",
+    "moment": [
+      "Später Abend"
+    ],
+    "moment_en": [
+      "Late night"
+    ],
+    "strength_level": 4,
+    "glass": "Shotglas",
+    "glass_en": "Shot glass"
+  },
+  "Raki 4cl": {
+    "flavour_tags": [
+      "kräuterig/frisch"
+    ],
+    "flavour_tags_en": [
+      "herbal/fresh"
+    ],
+    "serve_style": "Shot",
+    "serve_style_en": "Shot",
+    "moment": [
+      "Später Abend"
+    ],
+    "moment_en": [
+      "Late night"
+    ],
+    "strength_level": 4,
+    "glass": "Shotglas",
+    "glass_en": "Shot glass"
+  },
+  "Royal Mojito": {
+    "flavour_tags": [
+      "kräuterig/frisch",
+      "prickelnd",
+      "sauer/zitrus"
+    ],
+    "flavour_tags_en": [
+      "herbal/fresh",
+      "sparkling",
+      "sour/citrus"
+    ],
+    "serve_style": "Highball",
+    "serve_style_en": "Highball",
+    "moment": [
+      "Mittendrin"
+    ],
+    "moment_en": [
+      "Midway"
+    ],
+    "strength_level": 3,
+    "glass": "Highball",
+    "glass_en": "Highball"
+  },
+  "Sambuca 4 cl": {
+    "flavour_tags": [
+      "süß",
+      "kräuterig/frisch"
+    ],
+    "flavour_tags_en": [
+      "sweet",
+      "herbal/fresh"
+    ],
+    "serve_style": "Shot",
+    "serve_style_en": "Shot",
+    "moment": [
+      "Später Abend"
+    ],
+    "moment_en": [
+      "Late night"
+    ],
+    "strength_level": 3,
+    "glass": "Shotglas",
+    "glass_en": "Shot glass"
+  },
+  "Scotch Sour": {
+    "flavour_tags": [
+      "sauer/zitrus",
+      "cremig"
+    ],
+    "flavour_tags_en": [
+      "sour/citrus",
+      "creamy"
+    ],
+    "serve_style": "Sour",
+    "serve_style_en": "Sour",
+    "moment": [
+      "Später Abend"
+    ],
+    "moment_en": [
+      "Late night"
+    ],
+    "strength_level": 4,
+    "glass": "Tumbler",
+    "glass_en": "Tumbler"
+  },
+  "Swimming Pool": {
+    "flavour_tags": [
+      "fruchtig",
+      "cremig",
+      "süß"
+    ],
+    "flavour_tags_en": [
+      "fruity",
+      "creamy",
+      "sweet"
+    ],
+    "serve_style": "Shaken",
+    "serve_style_en": "Shaken",
+    "moment": [
+      "Mittendrin"
+    ],
+    "moment_en": [
+      "Midway"
+    ],
+    "strength_level": 3,
+    "glass": "Hurricane",
+    "glass_en": "Hurricane"
+  },
+  "Tiramisu Martini": {
+    "flavour_tags": [
+      "kaffee",
+      "cremig",
+      "süß"
+    ],
+    "flavour_tags_en": [
+      "coffee",
+      "creamy",
+      "sweet"
+    ],
+    "serve_style": "Shaken",
+    "serve_style_en": "Shaken",
+    "moment": [
+      "Später Abend"
+    ],
+    "moment_en": [
+      "Late night"
+    ],
+    "strength_level": 3,
+    "glass": "Coupe",
+    "glass_en": "Coupe"
+  },
+  "Turbo Mate": {
+    "flavour_tags": [
+      "prickelnd",
+      "bitter"
+    ],
+    "flavour_tags_en": [
+      "sparkling",
+      "bitter"
+    ],
+    "serve_style": "Highball",
+    "serve_style_en": "Highball",
+    "moment": [
+      "Später Abend"
+    ],
+    "moment_en": [
+      "Late night"
+    ],
+    "strength_level": 3,
+    "glass": "Highball",
+    "glass_en": "Highball"
+  },
+  "Vanilla Blush": {
+    "flavour_tags": [
+      "fruchtig",
+      "süß",
+      "prickelnd"
+    ],
+    "flavour_tags_en": [
+      "fruity",
+      "sweet",
+      "sparkling"
+    ],
+    "serve_style": "Spritz",
+    "serve_style_en": "Spritz",
+    "moment": [
+      "Auftakt"
+    ],
+    "moment_en": [
+      "Opener"
+    ],
+    "strength_level": 1,
+    "glass": "Weinglas",
+    "glass_en": "Wine glass"
+  },
+  "Don Julio Anejo Manhattan": {
+    "flavour_tags": [
+      "holzig",
+      "bitter",
+      "süß"
+    ],
+    "flavour_tags_en": [
+      "woody",
+      "bitter",
+      "sweet"
+    ],
+    "serve_style": "Stirred",
+    "serve_style_en": "Stirred",
+    "moment": [
+      "Später Abend"
+    ],
+    "moment_en": [
+      "Late night"
+    ],
+    "strength_level": 4,
+    "glass": "Coupe",
+    "glass_en": "Coupe"
+  }
+}

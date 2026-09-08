@@ -1,7 +1,7 @@
 /*
  * BrunnenBar — Question flow + all interface copy
  * =========================================================================
- * Every answer value here is a literal value from data/cocktails.json, not
+ * Every answer value here is a literal value from the live Menu API, not
  * a translation of one. "Mittendrin" is the string in the export; the
  * strength numbers are the export's own 0 to 5 scale; the flavour values
  * are its flavour_tags verbatim. That means no mapping layer can drift.
@@ -59,7 +59,11 @@
       id: 'spirit',
       type: 'multi',
       optional: true,
-      skipIf: function (a) { return a.strength === '0'; },
+      /* Nothing to ask about with no alcohol, and nothing useful to ask about
+       * for shots either. The shots on the card are almost all liqueur and
+       * schnapps, so eight of the eleven options here match no shot at all. A
+       * question that can only ever subtract is worse than no question. */
+      skipIf: function (a) { return a.strength === '0' || a.moment === 'shots'; },
       title: { de: 'Gibt es was, das du gern trinkst?', en: 'Anything you like drinking?' },
       sub: {
         de: 'Mehrfachauswahl möglich. Nichts auszuwählen ist auch eine Antwort, dann entscheiden wir.',
@@ -134,6 +138,10 @@
       id: 'serve',
       type: 'single',
       optional: true,
+      /* A shot is already an answer to this question. None of the four shapes
+       * below can be true of one, so asking costs every shot the same points
+       * for something the guest had no way of getting right. */
+      skipIf: function (a) { return a.moment === 'shots'; },
       title: { de: 'Wie soll er ankommen?', en: 'How should it turn up?' },
       sub: {
         de: 'Die Form entscheidet mit, wie lange ein Drink hält.',
@@ -213,7 +221,14 @@
       priceLabel: 'Preis',
       empty: 'Bei dieser Kombination wird es eng.',
       emptySub: 'Kein Problem. Komm an den Tresen, dann bauen wir dir was Eigenes.',
-      loosened: 'Wir haben eine Vorgabe gelockert, um dir trotzdem etwas anbieten zu können.',
+      loading: 'Einen Moment, wir holen gerade die aktuelle Karte.',
+      offline: 'Wir kommen im Moment nicht an unsere Karte. Probier es gleich nochmal oder frag einfach am Tresen.',
+      noMenu: 'Gerade steht nichts auf der Karte, das wir hier empfehlen können. Am Tresen helfen wir dir sofort weiter.',
+      stale: 'Wir zeigen dir die Karte von {when}, weil wir gerade nicht an die aktuelle kommen. Frag am Tresen nach, falls sich etwas geändert hat.',
+      loosenedShot: 'Alkoholfreie Shots haben wir gerade nicht auf der Karte. Deshalb zeigen wir dir unsere alkoholfreien Drinks. Wenn es wirklich kurz sein soll, frag am Tresen, da finden wir was für dich.',
+      loosenedNoShot: 'Als Shot gibt es das gerade nicht. Das hier kommt am nächsten dran.',
+      loosenedAlcohol: 'Ohne Alkohol bekommen wir das mit deinen Wünschen gerade nicht hin. Die Drinks hier enthalten Alkohol. Komm damit an den Tresen, dann finden wir zusammen etwas Alkoholfreies.',
+      loosened: 'Genau so haben wir es gerade nicht. Das hier kommt am nächsten dran.',
       footer: 'Alle Drinks werden frisch gebaut. Allergien bitte immer direkt beim Team melden.',
       reasons: {
         moment: 'passt zu diesem Moment im Abend',
@@ -285,7 +300,14 @@
       priceLabel: 'Price',
       empty: 'That combination gets tight.',
       emptySub: 'Not a problem. Come to the bar and we’ll build you something off-menu.',
-      loosened: 'We relaxed one preference so we could still offer you something.',
+      loading: 'One moment, we are fetching the current card.',
+      offline: 'We cannot reach our card right now. Try again in a moment or just ask at the bar.',
+      noMenu: 'There is nothing on the card we can recommend here right now. Come to the bar and we will help you straight away.',
+      stale: 'This is our card as of {when}, because we cannot reach the current one right now. Ask at the bar in case something has changed.',
+      loosenedShot: 'We do not have alcohol free shots on the card right now. So these are our alcohol free drinks instead. If it really has to be short, ask at the bar and we will find you something.',
+      loosenedNoShot: 'We cannot do that as a shot right now. This is what comes closest.',
+      loosenedAlcohol: 'We cannot keep this alcohol free with what you asked for. The drinks below contain alcohol. Bring that to the bar and we will find you something without.',
+      loosened: 'We do not have exactly that right now. This is what comes closest.',
       footer: 'Every drink is built to order. Please always tell the team about allergies in person.',
       reasons: {
         moment: 'fits this point in the evening',

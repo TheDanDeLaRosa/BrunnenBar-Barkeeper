@@ -238,6 +238,19 @@ var SECTIONS = [
         strength: 'mild', popularity_rank: 60, pos_sku: 'C6'
       }),
       item({
+        /* The live card really does carry these three on one drink. They are
+         * ad hoc tags the bar has been asked to fix, `kraeftig` duplicates the
+         * strength scale and `bitter-suess` is two flavours in one string.
+         * Until they go, the app must carry the drink and never print the raw
+         * slug at a guest. */
+        name: 'Anejo Manhattan', name_en: 'Anejo Manhattan',
+        price: 12.9, prices: priced(12.9),
+        ingredients: ['Don Julio Añejo', 'Roter Wermut', 'Angostura'],
+        ingredients_en: ['Don Julio Añejo', 'Sweet vermouth', 'Angostura'],
+        flavour_tags: ['kraeftig', 'holzig', 'bitter-suess'],
+        strength: 'stark', on_printed_menu: false, pos_sku: 'C8'
+      }),
+      item({
         name: 'Picante', name_en: 'Picante',
         price: 12, prices: priced(12),
         ingredients: ['Don Julio Reposado', 'Limette', 'Agave', 'Chili', 'Koriander'],

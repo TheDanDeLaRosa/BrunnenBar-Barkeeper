@@ -8,9 +8,13 @@
 (function () {
   'use strict';
 
-  var MENU = window.BBMenu.MENU;
-  var ING_EN = window.BBMenu.ING_EN;
+  /* Filled in once the live menu has been read. There is no bundled copy to
+   * fall back on, by design: a copy that shipped with the app is wrong the
+   * moment a price changes, and wrong silently. */
+  var MENU = [];
+  var ING_EN = {};
   var QUESTIONS = window.BBQuestions.QUESTIONS;
+  var BBEngine = window.BBEngine;
   var UI = window.BBQuestions.UI;
   var CARD_URL = 'https://brunnenbar.com/cocktailkarte/';
 
@@ -73,12 +77,63 @@
     return node;
   }
 
-  /* Recomputed rather than cached: answering the strength question changes
-   * how many questions there are. */
+  /* The options a question can still offer, given what has been answered.
+   * Derived from the menu, so nothing here needs updating when the card
+   * changes. */
+  function liveOptions(q) {
+    var values = BBEngine.liveOptions(
+      MENU, state.answers, q.id, q.options.map(function (o) { return o.value; }));
+    return q.options.filter(function (o) { return values.indexOf(o.value) !== -1; });
+  }
+
+  /* Recomputed rather than cached, because answering one question changes how
+   * many are left. Two reasons a question drops out. Some are ruled out
+   * outright, the way a round of shots is not asked how it should turn up.
+   * The rest fall away when the card can no longer tell the answers apart, so
+   * nobody is asked to choose between options that all lead to the same
+   * drinks. */
   function activeQuestions() {
     return QUESTIONS.filter(function (q) {
-      return !(q.skipIf && q.skipIf(state.answers));
+      if (q.skipIf && q.skipIf(state.answers)) return false;
+      return BBEngine.canDiscriminate(
+        MENU, state.answers, q.id, q.options.map(function (o) { return o.value; }));
     });
+  }
+
+  /* Answers can go stale when an earlier one is changed. Going back and
+   * choosing zero proof takes away the spirit question, and going back and
+   * choosing a round of shots takes away four of the flavours. Left alone,
+   * the old pick keeps scoring from behind a question the guest can no longer
+   * see, which is the worst kind of wrong because there is nothing on screen
+   * to explain the result.
+   *
+   * So anything that is no longer on offer is dropped. Repeated because
+   * dropping one answer can take another out of reach, and capped because a
+   * fixed point is not worth an unbounded loop. */
+  function pruneAnswers() {
+    for (var pass = 0; pass < 3; pass++) {
+      var changed = false;
+      QUESTIONS.forEach(function (q) {
+        var v = state.answers[q.id];
+        if (v == null || v === '' || (Array.isArray(v) && !v.length)) return;
+
+        if (q.skipIf && q.skipIf(state.answers)) {
+          state.answers[q.id] = Array.isArray(v) ? [] : '';
+          changed = true;
+          return;
+        }
+
+        var live = liveOptions(q).map(function (o) { return o.value; });
+        if (Array.isArray(v)) {
+          var kept = v.filter(function (x) { return live.indexOf(x) !== -1; });
+          if (kept.length !== v.length) { state.answers[q.id] = kept; changed = true; }
+        } else if (live.indexOf(v) === -1) {
+          state.answers[q.id] = '';
+          changed = true;
+        }
+      });
+      if (!changed) return;
+    }
   }
 
   function isAnswered(q) {
@@ -88,12 +143,32 @@
 
   function announce(msg) { if (liveRegion) liveRegion.textContent = msg; }
 
+  /* When the page sits in an iframe on the website, tell the parent how tall
+   * it needs to be. Without this the results page scrolls inside a fixed
+   * frame, which on a phone means two scrollbars fighting each other.
+   * Silent and harmless when the page is opened directly. */
+  function reportHeight() {
+    if (window.parent === window) return;
+    try {
+      /* Measure the content, not the document. scrollHeight can never report
+       * less than the frame it is sitting in, so using it lets the frame grow
+       * on the results page and then never shrink back for the next guest. */
+      var shell = document.querySelector('.shell');
+      var h = shell ? shell.getBoundingClientRect().height : document.body.scrollHeight;
+      window.parent.postMessage({ type: 'bb-height', height: Math.ceil(h) }, '*');
+    } catch (e) { /* a parent on another origin that refuses, nothing to do */ }
+  }
+
   function render() {
+    pruneAnswers();
     stage.innerHTML = '';
     if (state.screen === 'intro') stage.appendChild(renderIntro());
     else if (state.screen === 'quiz') stage.appendChild(renderQuiz());
     else stage.appendChild(renderResults());
     window.scrollTo({ top: 0, behavior: 'smooth' });
+    reportHeight();
+    // Again once the entry animation has settled and the height is final.
+    setTimeout(reportHeight, 500);
   }
 
   // --------------------------------------------------------------- intro --
@@ -177,12 +252,13 @@
   function renderOptions(q) {
     var multi = q.type === 'multi';
     var current = state.answers[q.id];
+    var options = liveOptions(q);
     var wrap = el('div', {
-      class: 'options' + (q.options.length > 4 ? ' cols-2' : ''),
+      class: 'options' + (options.length > 4 ? ' cols-2' : ''),
       role: multi ? 'group' : 'radiogroup',
       'aria-label': L(q.title)
     });
-    q.options.forEach(function (opt) {
+    options.forEach(function (opt) {
       var selected = multi
         ? Array.isArray(current) && current.indexOf(opt.value) !== -1
         : current === opt.value;
@@ -347,8 +423,26 @@
     return el('article', { class: 'card' + (hero ? ' hero' : ' alt') }, children);
   }
 
+  /* Say which rule was bent, not that one was.
+   *
+   * "We relaxed one preference" told a guest nothing, so asking for alcohol
+   * free shots and being handed a Mojito read as a bug rather than as the
+   * honest answer it is. Name the thing we could not do.
+   *
+   * The alcohol case is the one that matters most. The engine drops the zero
+   * proof gate only as a last resort, and a guest who asked for none must be
+   * told in plain words that what they are looking at is not. */
+  function loosenedMessage(relaxed) {
+    if (!relaxed) return null;
+    var wantedZeroProof = state.answers.strength === '0';
+    if (relaxed === 'shot') {
+      return wantedZeroProof ? t().loosenedShot : t().loosenedNoShot;
+    }
+    return wantedZeroProof ? t().loosenedAlcohol : t().loosened;
+  }
+
   function renderResults() {
-    var res = window.BBEngine.recommend(MENU, state.answers, {
+    var res = BBEngine.recommend(MENU, state.answers, {
       seed: state.seed,
       limit: state.showAll ? 8 : 3
     });
@@ -361,7 +455,8 @@
         : null
     ].filter(Boolean)));
 
-    if (res.relaxed) frag.appendChild(el('div', { class: 'notice', text: t().loosened }));
+    var loosened = loosenedMessage(res.relaxed);
+    if (loosened) frag.appendChild(el('div', { class: 'notice', text: loosened }));
 
     res.items.forEach(function (item, i) { frag.appendChild(renderCard(item, i)); });
 
@@ -416,5 +511,86 @@
 
   document.documentElement.lang = state.lang;
   renderChrome();
-  render();
+  boot();
+
+  // ---------------------------------------------------------------- boot --
+
+  function bootMessage(title, detail) {
+    stage.innerHTML = '';
+    stage.appendChild(el('section', { class: 'intro' }, [
+      el('h1', { text: title }),
+      el('hr', { class: 'rule' }),
+      detail ? el('p', { class: 'lede', text: detail }) : null,
+      el('div', {}, [
+        el('a', { class: 'link-card', href: CARD_URL, target: '_blank', rel: 'noopener',
+                  text: t().fullCard })
+      ])
+    ]));
+    reportHeight();
+    setTimeout(reportHeight, 500);
+  }
+
+  /* Reads the one source, reshapes it, and only then shows a question. The
+   * English half of the ingredient map is built from the same payload, so
+   * there is no second translation table to fall out of step with the card. */
+  /* What the questions can actually offer, read off the questions themselves
+   * so the two can never drift apart. */
+  function vocabulary() {
+    function vals(id) {
+      var q = QUESTIONS.filter(function (x) { return x.id === id; })[0];
+      return q ? q.options.map(function (o) { return o.value; }) : [];
+    }
+    return {
+      moment: vals('moment').concat([BBEngine.MOMENT_ANY]),
+      flavour_tags: vals('flavours'),
+      /* Every shape the engine knows, plus the catch all. Not the question's
+       * four options: Frozen and Hot are deliberately not offered, and those
+       * drinks are still perfectly recommendable, just not askable by shape. */
+      serve_style: Object.keys(BBEngine.SERVE_GROUPS).reduce(function (acc, g) {
+        return acc.concat(BBEngine.SERVE_GROUPS[g]);
+      }, [BBEngine.CATCH_ALL])
+    };
+  }
+
+  function boot() {
+    bootMessage(t().title, t().loading);
+
+    window.BBMenuSource.loadMenu().then(function (out) {
+      var items = window.BBMenuSource.scoreableItems(out.menu);
+      MENU = items.map(window.BBMenuAdapt.adapt);
+
+      ING_EN = {};
+      MENU.forEach(function (d) {
+        d.ing.forEach(function (de, i) { if (d.ingEn[i]) ING_EN[de] = d.ingEn[i]; });
+      });
+
+      /* Say it out loud rather than quietly scoring nothing. A question whose
+       * field is missing everywhere is a question that cannot mean anything,
+       * and that has to be visible on the first load, not discovered later. */
+      var check = window.BBMenuAdapt.report(items, vocabulary());
+      if (check.missing.length) {
+        console.warn('[BrunnenBar] Menu API is missing fields the questions score against:',
+          check.missing.join(', '),
+          '\nAffected drinks, first few per field:',
+          check.missing.reduce(function (acc, f) {
+            acc[f] = check.gaps[f].slice(0, 5); return acc;
+          }, {}));
+      }
+      if (check.unreachable.length) {
+        console.warn('[BrunnenBar] Values no question can offer, so these drinks ' +
+          'cannot be reached that way:', check.unknown);
+      }
+      state.dataNotice = check.ok ? null : check;
+      state.stale = out.fromCache ? out : null;
+
+      if (!MENU.length) {
+        bootMessage(t().title, t().noMenu);
+        return;
+      }
+      render();
+    }, function (err) {
+      console.error('[BrunnenBar]', err);
+      bootMessage(t().title, t().offline);
+    });
+  }
 })();

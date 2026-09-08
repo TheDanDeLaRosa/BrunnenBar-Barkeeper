@@ -372,9 +372,11 @@
       return fill(t().reasons.expression, { x: t().expressionNames[r.x] || r.x });
     }
     if (r.key === 'character') {
-      var names = String(r.x).split(', ').map(function (c) {
-        return t().characterNames[c] || c;
-      }).join(t().and);
+      /* Same rule as the contrast label. A tag with no word of its own is
+       * left out of the sentence rather than read back as a slug. */
+      var named = String(r.x).split(', ').filter(function (c) { return t().characterNames[c]; });
+      if (!named.length) return null;
+      var names = named.map(function (c) { return t().characterNames[c]; }).join(t().and);
       /* Name the ingredient the character was read off, so a guest can check
        * the claim against the ingredient list on the same card. */
       var from = (r.from || []).filter(Boolean).map(function (i) { return ingIn(d, i); });
@@ -393,8 +395,21 @@
     var copy = t().contrast[c.kind];
     if (!copy) return t().alsoGood;
     var x = c.value;
-    if (c.kind === 'expression') x = t().expressionNames[c.value] || c.value;
-    if (c.kind === 'character') x = t().characterCompare[c.value] || c.value;
+
+    /* A value we have no word for falls back to the generic label rather than
+     * printing its raw slug at a guest. The live card carries `kraeftig` and
+     * `bitter-suess` on one drink, which are ad hoc tags the bar has been
+     * asked to fix, and "Was kraeftig" on a result card would be the app
+     * showing its own plumbing. The region is the exception, because there
+     * the raw value is the card's own words for a place. */
+    if (c.kind === 'expression') {
+      if (!t().expressionNames[c.value]) return t().alsoGood;
+      x = t().expressionNames[c.value];
+    }
+    if (c.kind === 'character') {
+      if (!t().characterCompare[c.value]) return t().alsoGood;
+      x = t().characterCompare[c.value];
+    }
     /* The region phrase is looked up whole where we have a word for it,
      * because German will not take a preposition and a free text slot. */
     if (c.kind === 'region') {

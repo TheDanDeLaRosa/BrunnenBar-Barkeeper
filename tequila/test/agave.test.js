@@ -378,6 +378,12 @@ test('a neat mezcal is smoky with no ingredient list to read', function () {
   assert.ok(mz.tags.indexOf('rauchig') !== -1);
 });
 
+/* Three tags on one drink of the live card that the bar has been asked to fix.
+ * `kraeftig` duplicates the strength scale and `bitter-suess` is two flavours
+ * in one string, so neither gets copy. Listed here so a NEW unknown tag still
+ * fails the test below instead of joining them unnoticed. */
+var KNOWN_BAD_TAGS = ['kraeftig', 'bitter-suess'];
+
 test('every flavour on the card is one the app has a word for', function () {
   /* If the bar adds a tag nobody has written copy for, this is what says so,
    * rather than the option quietly never appearing. */
@@ -386,8 +392,32 @@ test('every flavour on the card is one the app has a word for', function () {
   Q.CHARACTER_CHOICES.forEach(function (o) { known[o.value] = true; });
   ITEMS.forEach(function (d) {
     d.tags.forEach(function (t) {
+      if (KNOWN_BAD_TAGS.indexOf(t) !== -1) return;
       assert.ok(known[t], 'no copy for the flavour ' + JSON.stringify(t) +
         ' on ' + d.name + '. Add it to CHARACTER_CHOICES or alias it.');
+    });
+  });
+});
+
+test('a flavour with no word of its own is carried but never offered', function () {
+  var Q = require('../data/questions.js');
+  var manhattan = byName('Anejo Manhattan');
+
+  // Carried, so the drink itself is not lost over a bad tag.
+  KNOWN_BAD_TAGS.forEach(function (t) {
+    assert.ok(manhattan.tags.indexOf(t) !== -1, t + ' should still be on the item');
+  });
+  // And its one good tag still works.
+  assert.ok(manhattan.tags.indexOf('holzig') !== -1);
+
+  // Never offered as something to ask for, in either language, and never
+  // given a word it does not have.
+  var offered = Q.characterOptions(ITEMS).map(function (o) { return o.value; });
+  ['de', 'en'].forEach(function (lang) {
+    KNOWN_BAD_TAGS.forEach(function (t) {
+      assert.strictEqual(offered.indexOf(t), -1, lang + ': ' + t + ' must not be an option');
+      assert.strictEqual(Q.UI[lang].characterNames[t], undefined);
+      assert.strictEqual(Q.UI[lang].characterCompare[t], undefined);
     });
   });
 });
