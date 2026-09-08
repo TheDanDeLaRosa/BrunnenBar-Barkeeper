@@ -105,6 +105,32 @@ suggestions rather than both being handed the current top seller. Hard rules
 still apply in full: free rein never overrides an allergen or a rejected
 spirit.
 
+### The shots path asks less
+
+Picking *Eine Runde Shots* at the first question drops the questionnaire from
+seven questions to five. Two are skipped, and both for the same reason: they
+could not be answered correctly.
+
+**How it should turn up** is skipped because a shot already is the answer. The
+four shapes on offer are long over ice, short and stirred, shaken and silky,
+and spritz, and no shot can be any of them. Asking anyway cost every shot the
+same 18 points, so a perfect shot came back looking like a mediocre match.
+
+**Which spirit you like** is skipped because the shots on the card are almost
+all liqueur and schnapps. Only four of the eleven spirit options appear in a
+single available shot, so seven of them could only ever subtract.
+
+Two questions deliberately stay. **Strength** stays because it is the only
+thing separating a 40% Raki from a sweet hazelnut liqueur, and because picking
+zero proof is what triggers the honest fallback described above. **Allergens**
+stays because it is a hard rule, and a hard rule is never dropped to save a
+guest a tap.
+
+A test asserts the general form of this rather than the specific fix: every
+question the shots path still asks must have at least one option that at least
+one shot on the card actually matches. Add a shot-shaped serve option later and
+the test tells you the skip should be reconsidered.
+
 ### Serve styles the question does not offer
 
 *Frozen* and *Hot* are deliberately absent from the "how should it turn up"

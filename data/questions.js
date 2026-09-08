@@ -59,7 +59,11 @@
       id: 'spirit',
       type: 'multi',
       optional: true,
-      skipIf: function (a) { return a.strength === '0'; },
+      /* Nothing to ask about with no alcohol, and nothing useful to ask about
+       * for shots either. The shots on the card are almost all liqueur and
+       * schnapps, so eight of the eleven options here match no shot at all. A
+       * question that can only ever subtract is worse than no question. */
+      skipIf: function (a) { return a.strength === '0' || a.moment === 'shots'; },
       title: { de: 'Gibt es was, das du gern trinkst?', en: 'Anything you like drinking?' },
       sub: {
         de: 'Mehrfachauswahl möglich. Nichts auszuwählen ist auch eine Antwort, dann entscheiden wir.',
@@ -134,6 +138,10 @@
       id: 'serve',
       type: 'single',
       optional: true,
+      /* A shot is already an answer to this question. None of the four shapes
+       * below can be true of one, so asking costs every shot the same points
+       * for something the guest had no way of getting right. */
+      skipIf: function (a) { return a.moment === 'shots'; },
       title: { de: 'Wie soll er ankommen?', en: 'How should it turn up?' },
       sub: {
         de: 'Die Form entscheidet mit, wie lange ein Drink hält.',

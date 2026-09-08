@@ -611,4 +611,72 @@ test('every combination still returns something with all allergens excluded', fu
   console.log('       (' + combos + ' allergen-restricted combinations checked)');
 });
 
+console.log('\nThe shots path only asks what a shot can answer');
+
+/* Mirrors what assets/app.js does, so the tests see the same questions a
+ * guest does. */
+function activeIds(answers) {
+  return questions.QUESTIONS
+    .filter(function (q) { return !(q.skipIf && q.skipIf(answers)); })
+    .map(function (q) { return q.id; });
+}
+
+var SHOTS = MENU.filter(function (d) { return d.serve === 'Shot'; });
+
+/* Which drink property each question scores against. Exclusion questions are
+ * left out, since "no nuts" is answerable whether or not anything has nuts. */
+var ANSWERABLE_BY = {
+  strength: function (d, v) { return String(d.strength) === v; },
+  spirit:   function (d, v) { return (d.spirits || []).indexOf(v) !== -1; },
+  flavours: function (d, v) { return (d.flavours || []).indexOf(v) !== -1; },
+  serve:    function (d, v) { return engine.serveGroupOf(d.serve) === v; }
+};
+
+test('a round of shots is not asked how it should turn up', function () {
+  var asked = activeIds({ moment: 'shots' });
+  assert.ok(asked.indexOf('serve') === -1, 'the serve question should be skipped');
+  assert.ok(asked.indexOf('spirit') === -1, 'the base spirit question should be skipped');
+});
+
+test('the ordinary path still asks both of them', function () {
+  var asked = activeIds({ moment: 'Mittendrin', strength: '3' });
+  assert.ok(asked.indexOf('serve') !== -1);
+  assert.ok(asked.indexOf('spirit') !== -1);
+});
+
+test('every question the shots path still asks can actually be answered', function () {
+  assert.ok(SHOTS.length, 'no shots on the card, this test proves nothing');
+  activeIds({ moment: 'shots' }).forEach(function (id) {
+    var match = ANSWERABLE_BY[id];
+    if (!match) return;                       // exclusion or free-text question
+    var reachable = opt(id).filter(function (v) {
+      return SHOTS.some(function (d) { return match(d, v); });
+    });
+    assert.ok(reachable.length,
+      'the shots path asks "' + id + '" but no shot matches any of its options');
+  });
+});
+
+test('the serve question is skipped because no shot could ever match it', function () {
+  // The reason for the skip, pinned. If a shot-shaped serve option is ever
+  // added this fails, and the skip above should be reconsidered.
+  var anyMatch = opt('serve').some(function (v) {
+    return SHOTS.some(function (d) { return engine.serveGroupOf(d.serve) === v; });
+  });
+  assert.strictEqual(anyMatch, false,
+    'a shot now matches a serve option, so skipping the question loses signal');
+});
+
+test('skipping the two questions costs a shot no match percentage', function () {
+  // Asking and being unanswerable used to drag every shot down by the same
+  // amount, which made a perfect shot look like a mediocre recommendation.
+  var res = engine.recommend(MENU, {
+    moment: 'shots', strength: '2', spirit: [], avoid: [],
+    flavours: ['süß'], serve: '', allergens: []
+  });
+  assert.ok(res.items.length, 'the shots path must return something');
+  assert.ok(res.items[0].match >= 90,
+    'top shot should score near perfect, got ' + res.items[0].match);
+});
+
 console.log('\n' + passed + ' passed' + (process.exitCode ? ', SOME FAILED' : '') + '\n');
