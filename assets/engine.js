@@ -305,14 +305,77 @@
    * These are derived from the menu rather than listed, so they stay right
    * when the card changes and need no upkeep. */
 
-  /* What is still reachable given the answers so far. Deliberately the strict
-   * pool with no gate relaxing, since the question is what a guest can be
-   * given, not what we would fall back to. */
+  /* What is still reachable given the answers so far.
+   *
+   * Every answer narrows this, not just the hard rules and the gates. Someone
+   * who says mezcal should not then be offered coffee, because the card has
+   * one mezcal drink and it is a smoky sour. Scoring stays soft and is
+   * untouched by this, so a near miss can still be recommended. What narrows
+   * here is only what a guest is invited to ask for.
+   *
+   * No gate relaxing either, since the question is what a guest can be given
+   * rather than what we would fall back to.
+   *
+   * Strength allows one step of slack because the engine scores one step as a
+   * good match and only starts penalising at two. Narrowing tighter than the
+   * scoring would take away options that really would have been recommended.
+   */
   function poolFor(menu, answers) {
     var a = answers || {};
-    return menu.filter(function (d) {
-      return passesHard(d, a) && passesZeroProofGate(d, a) && passesShotGate(d, a);
-    });
+
+    /* The same ladder recommend() climbs when nothing survives. Offering
+     * options from a stricter pool than the one the results will come from
+     * would take away answers that really were available. Late in the evening
+     * at strength 1 the card has nothing at all, and collapsing the whole
+     * questionnaire there would be a worse answer than the near miss the
+     * engine is about to give. */
+    var rungs = [
+      function (d) { return gates(d, a) && narrowed(d, a); },
+      function (d) { return gates(d, a); },
+      // Zero proof outlives the shot gate, exactly as in recommend(). A round
+      // of alcohol free shots becomes alcohol free drinks, never a drink with
+      // alcohol in it.
+      function (d) { return passesHard(d, a) && passesZeroProofGate(d, a); },
+      function (d) { return passesHard(d, a); }
+    ];
+    for (var i = 0; i < rungs.length; i++) {
+      var pool = menu.filter(rungs[i]);
+      if (pool.length) return pool;
+    }
+    return [];
+  }
+
+  function gates(d, a) {
+    return passesHard(d, a) && passesZeroProofGate(d, a) && passesShotGate(d, a);
+  }
+
+  function narrowed(d, a) {
+    return (function () {
+
+      // "Ganzer Abend" fits wherever the guest is, exactly as it scores.
+      if (a.moment && a.moment !== 'shots') {
+        var m = d.moments || [];
+        if (m.indexOf(a.moment) === -1 && m.indexOf('Ganzer Abend') === -1) return false;
+      }
+
+      if (a.strength != null && a.strength !== '') {
+        if (Math.abs(d.strength - Number(a.strength)) > 1) return false;
+      }
+
+      var wantSpirit = asArray(a.spirit);
+      if (wantSpirit.length && !wantSpirit.some(function (x) {
+        return (d.spirits || []).indexOf(x) !== -1;
+      })) return false;
+
+      var wantFlavour = asArray(a.flavours).filter(function (x) { return x !== NO_PREFERENCE; });
+      if (wantFlavour.length && !wantFlavour.some(function (x) {
+        return (d.flavours || []).indexOf(x) !== -1;
+      })) return false;
+
+      if (a.serve && serveGroupOf(d.serve) !== a.serve) return false;
+
+      return true;
+    })();
   }
 
   /* Which drink property each question scores against. Questions absent from
@@ -337,9 +400,15 @@
    * Without that, picking "no gin" would remove every gin drink and then take
    * the "no gin" option away underneath the guest's finger.
    *
-   * Returns every value unchanged when the question is not filtered, or when
-   * filtering would leave nothing, since showing all of them is a better
-   * failure than showing none.
+   * Returns every value unchanged only when the question is not filtered at
+   * all. When filtering leaves nothing, it returns nothing, and the question
+   * is dropped by canDiscriminate rather than asked.
+   *
+   * Showing all of them instead was tried and was worse. Talisker Campfire is
+   * the only whiskey late in the evening at that strength and it is served
+   * hot, a shape the question deliberately does not offer, so every one of the
+   * four answers led nowhere. An unanswerable question is not a gentler
+   * failure than a missing one, it is a promise the card cannot keep.
    */
   function liveOptions(menu, answers, questionId, values) {
     var match = OPTION_MATCH[questionId];
@@ -349,17 +418,22 @@
     delete probe[questionId];
 
     var pool = poolFor(menu, probe);
-    if (!pool.length) return values.slice();
+    if (!pool.length) return [];
+
+    /* Having just said you like mezcal, being offered "no mezcal" on the next
+     * screen is absurd, and picking both would empty the pool outright. */
+    var contradicts = questionId === 'avoid' ? asArray((answers || {}).spirit) : [];
 
     var live = values.filter(function (v) {
       // The sentinel is not a property of any drink, it is the guest handing
       // the choice back, so it is always on offer.
       if (v === NO_PREFERENCE) return true;
+      if (contradicts.indexOf(v) !== -1) return false;
       return pool.some(function (d) { return match(d, v); });
     });
 
     var real = live.filter(function (v) { return v !== NO_PREFERENCE; });
-    return real.length ? live : values.slice();
+    return real.length ? live : [];
   }
 
   /* A question worth asking has at least two answers that lead somewhere

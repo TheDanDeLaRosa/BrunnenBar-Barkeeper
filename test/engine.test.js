@@ -722,12 +722,84 @@ test('no path offers an option that nothing in reach can match', function () {
   console.log('       (' + PATHS.length + ' paths checked)');
 });
 
-test('the ordinary path still offers every option it always did', function () {
+test('an answer narrows what the next question offers', function () {
   var a = { moment: 'Mittendrin', strength: '3' };
+  // Every spirit and every flavour is still reachable mid evening at medium.
   assert.strictEqual(engine.liveOptions(MENU, a, 'spirit', values('spirit')).length, values('spirit').length);
-  assert.strictEqual(engine.liveOptions(MENU, a, 'avoid', values('avoid')).length, values('avoid').length);
   assert.strictEqual(engine.liveOptions(MENU, a, 'flavours', values('flavours')).length, values('flavours').length);
-  assert.strictEqual(engine.liveOptions(MENU, a, 'serve', values('serve')).length, values('serve').length);
+
+  // The shapes are not. Every spritz on the card is strength 0 or 1, and no
+  // stirred drink is tagged Mittendrin, so neither can be served here.
+  var serve = engine.liveOptions(MENU, a, 'serve', values('serve'));
+  assert.deepStrictEqual(serve.slice().sort(), ['lang', 'schaum']);
+});
+
+test('the claim behind that narrowing is true of the card', function () {
+  // Guards the test above against becoming a snapshot of a bug.
+  var spritz = MENU.filter(function (d) { return engine.serveGroupOf(d.serve) === 'spritzig'; });
+  assert.ok(spritz.length, 'there are spritzes');
+  assert.ok(spritz.every(function (d) { return d.strength <= 1; }),
+    'a spritz stronger than 1 would make the exclusion wrong');
+  var stirred = MENU.filter(function (d) { return engine.serveGroupOf(d.serve) === 'kurz'; });
+  assert.ok(stirred.length, 'there are stirred drinks');
+  assert.ok(stirred.every(function (d) { return (d.moments || []).indexOf('Mittendrin') === -1; }),
+    'a stirred drink tagged Mittendrin would make the exclusion wrong');
+});
+
+test('mezcal and coffee cannot both be asked for', function () {
+  // The card has one mezcal drink, a smoky sour, so seven of the nine
+  // flavours are unreachable the moment mezcal is picked.
+  var a = { moment: 'Mittendrin', strength: '3', spirit: ['mezcal'] };
+  var f = engine.liveOptions(MENU, a, 'flavours', values('flavours'));
+  assert.ok(f.indexOf('kaffee') === -1, 'there is no mezcal coffee drink to offer');
+  assert.deepStrictEqual(f.filter(function (v) { return v !== engine.NO_PREFERENCE; }).sort(),
+    ['rauchig', 'sauer/zitrus']);
+});
+
+test('you are not offered to exclude a spirit you just asked for', function () {
+  var a = { moment: 'Mittendrin', strength: '3', spirit: ['mezcal'] };
+  assert.ok(engine.liveOptions(MENU, a, 'avoid', values('avoid')).indexOf('mezcal') === -1);
+});
+
+test('walking the funnel never reaches a question with no answer behind it', function () {
+  /* The invariant Dan asked for, stated directly. At every step, every option
+   * still on offer must lead to at least one real drink. */
+  var checked = 0, dead = [];
+  opt('moment').forEach(function (m) {
+    opt('strength').forEach(function (st) {
+      var base = { moment: m, strength: st };
+      if (!engine.poolFor(MENU, base).length) return;   // unreachable pairing
+
+      // Mirror the app: a question the guest never sees is never answered.
+      var spiritQ = questions.QUESTIONS.filter(function (q) { return q.id === 'spirit'; })[0];
+      var asksSpirit = !(spiritQ.skipIf && spiritQ.skipIf(base)) &&
+        engine.canDiscriminate(MENU, base, 'spirit', values('spirit'));
+      var spiritChoices = asksSpirit
+        ? [null].concat(engine.liveOptions(MENU, base, 'spirit', values('spirit')))
+        : [null];
+      spiritChoices.forEach(function (sp) {
+        var a = Object.assign({}, base, sp ? { spirit: [sp] } : {});
+        if (!engine.poolFor(MENU, a).length) { dead.push(m + '/' + st + '/' + sp); return; }
+
+        ['flavours', 'serve'].forEach(function (id) {
+          var q = questions.QUESTIONS.filter(function (x) { return x.id === id; })[0];
+          if (q.skipIf && q.skipIf(a)) return;
+          if (!engine.canDiscriminate(MENU, a, id, values(id))) return;
+          engine.liveOptions(MENU, a, id, values(id)).forEach(function (v) {
+            if (v === engine.NO_PREFERENCE) return;
+            var next = Object.assign({}, a);
+            next[id] = id === 'flavours' ? [v] : v;
+            checked++;
+            if (!engine.poolFor(MENU, next).length) {
+              dead.push([m, st, sp, id + '=' + v].join(' / '));
+            }
+          });
+        });
+      });
+    });
+  });
+  assert.deepStrictEqual(dead, [], 'options offered that lead nowhere');
+  console.log('       (' + checked + ' funnel steps checked)');
 });
 
 test('zero proof stops offering smoky, coffee and short & stirred', function () {
@@ -747,12 +819,16 @@ test('a round of shots stops offering bitter and sparkling', function () {
   assert.ok(f.indexOf('süß') !== -1);
 });
 
-test('handing the choice back is always on offer', function () {
+test('handing the choice back is on offer whenever flavours are asked', function () {
+  var asked = 0;
   PATHS.forEach(function (a) {
     var f = engine.liveOptions(MENU, a, 'flavours', values('flavours'));
+    if (!f.length) return;                       // question not asked at all
+    asked++;
     assert.ok(f.indexOf(engine.NO_PREFERENCE) !== -1,
       'Barkeeper\'s Choice missing on ' + a.moment + '/' + a.strength);
   });
+  assert.strictEqual(asked, PATHS.length, 'the question should be reachable everywhere');
 });
 
 test('a question is never filtered by its own answer', function () {
@@ -772,10 +848,38 @@ test('strength and allergens are never filtered', function () {
   });
 });
 
-test('filtering shows everything rather than nothing when it would empty out', function () {
-  var impossible = { moment: 'shots', strength: '0', allergens: ['Ei', 'Milch', 'Nüsse'] };
-  var f = engine.liveOptions(MENU, impossible, 'flavours', values('flavours'));
-  assert.ok(f.length, 'an empty question is a dead end, show them all instead');
+test('a question with no real answer is dropped, not padded out', function () {
+  // Talisker Campfire is the only whiskey late in the evening at that
+  // strength, and it is served hot, which the question does not offer. Every
+  // answer would have led nowhere, so the question is not asked.
+  var a = { moment: 'Später Abend', strength: '2', spirit: ['whiskey'] };
+  assert.deepStrictEqual(engine.liveOptions(MENU, a, 'serve', values('serve')), []);
+  assert.strictEqual(engine.canDiscriminate(MENU, a, 'serve', values('serve')), false);
+});
+
+test('an impossible combination relaxes instead of emptying out', function () {
+  // Alcohol free shots do not exist. The engine already answers that by
+  // loosening the shot gate and saying so on screen, so the questions have to
+  // offer what that fallback can actually deliver.
+  var a = { moment: 'shots', strength: '0' };
+  var pool = engine.poolFor(MENU, a);
+  assert.ok(pool.length, 'the questionnaire must not collapse here');
+  assert.ok(pool.every(function (d) { return d.alcoholFree; }),
+    'zero proof outlives the shot gate, a guest asking for none gets none');
+
+  var f = engine.liveOptions(MENU, a, 'flavours', values('flavours'));
+  assert.ok(f.indexOf('kaffee') === -1 && f.indexOf('rauchig') === -1,
+    'nothing alcohol free is smoky or coffee flavoured');
+  assert.ok(f.indexOf('süß') !== -1);
+});
+
+test('nothing light late at night still asks the rest of the questions', function () {
+  // The card has no strength 1 drink tagged Später Abend at all. Collapsing
+  // straight to results would be a worse answer than the near miss coming.
+  var a = { moment: 'Später Abend', strength: '1' };
+  assert.ok(engine.poolFor(MENU, a).length, 'relaxes rather than dead ends');
+  assert.ok(engine.canDiscriminate(MENU, a, 'flavours', values('flavours')),
+    'the flavour question should still be worth asking');
 });
 
 console.log('\n' + passed + ' passed' + (process.exitCode ? ', SOME FAILED' : '') + '\n');

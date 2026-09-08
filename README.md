@@ -107,39 +107,60 @@ spirit.
 
 ### Questions only offer answers the card can honour
 
-Every option a guest can tap is derived from the menu at the moment it is
-shown, never from a fixed list. If nothing in reach matches an option, it is
-not offered.
+Every option a guest can tap is worked out from the menu at the moment it is
+shown, against everything answered so far. If nothing still in reach matches an
+option, it is not offered.
 
-On the current card that removes seven dead taps:
+**Every answer narrows the next question, not just the hard rules.** Picking
+mezcal used to leave all nine flavours on offer, so a guest could ask for a
+mezcal coffee drink. The card has exactly one mezcal drink, Margarita Rojas,
+and it is a smoky sour. The flavour question now offers sour, smoky and
+Barkeeper's Choice, and nothing else.
 
-| Path | No longer offered |
-|---|---|
-| Zero proof | Coffee and Smoky, and *Short & stirred* |
-| A round of shots | Bitter, Sparkling, Coffee and Smoky |
+The same narrowing removes shapes that cannot happen. Mid evening at medium
+strength there is no spritz, because every spritz on the card is strength 0 or
+1, and no stirred drink, because none is tagged for mid evening. A test asserts
+both of those claims are still true of the card, so the exclusion cannot quietly
+become a snapshot of a bug.
 
-The ordinary paths are untouched, all eleven spirits, all ten flavours and all
-four shapes still appear, because the card really does carry all of them.
+**A question with no real answer is dropped rather than padded out.** Late in
+the evening at strength 2 the only whiskey is Talisker Campfire, which is served
+hot, and hot is not one of the four shapes the question offers. Every answer
+would have led nowhere, so the question is not asked. An unanswerable question
+is not a gentler failure than a missing one, it is a promise the card cannot
+keep.
+
+**You are never offered to exclude something you just asked for.** Having said
+you like mezcal, "no mezcal" would be absurd and picking both would leave
+nothing at all.
 
 Two questions are deliberately never filtered. **Strength** is a scale, and a
-scale with holes in it reads as broken rather than helpful. **Allergens** is
-reassurance as much as it is a filter, and a guest with a nut allergy should
-see nuts acknowledged whether or not anything currently contains them.
+scale with holes in it reads as broken. **Allergens** is reassurance as much as
+it is a filter, and a guest with a nut allergy should see nuts acknowledged
+whether or not anything currently contains them.
 
-Three details that stop this being annoying rather than helpful:
+#### When the narrowing would leave nothing
 
-- A question is never filtered by its own answer. Without that, picking
-  *no gin* would remove every gin drink and then take the *no gin* option away
-  underneath the guest's finger.
-- Barkeeper's Choice is always offered. It is not a property of any drink, it
-  is the guest handing the choice back.
-- If filtering would leave nothing, everything is shown instead. An empty
-  question is a dead end, a slightly wrong one is merely untidy.
+Option filtering climbs the same ladder the scoring does, in the same order.
+Full narrowing first, then gates only, then zero proof without the shot gate,
+then hard rules alone. Offering options from a stricter pool than the results
+will come from would take away answers that really were available.
 
-There is also a safety net: a question whose remaining options all lead to the
-same place is dropped entirely. **It does not fire on the current card**, and
-it exists so that a shrunken card degrades into fewer questions rather than
-into a question with one answer.
+This matters in two places on the current card:
+
+- **Alcohol free shots do not exist.** The engine already answers that by
+  loosening the shot requirement and saying so on screen. The questions now
+  offer what that fallback can actually deliver, which is why zero proof
+  outlives the shot gate on the way down. A guest who asks for no alcohol
+  never gets offered a flavour only an alcoholic drink has.
+- **Nothing light late at night.** There is no strength 1 drink tagged for late
+  evening at all. Rather than collapsing the questionnaire to nothing, it
+  relaxes and carries on, and the guest gets the near miss the engine was
+  always going to give them.
+
+A test walks the funnel, 950 steps across every reachable moment, strength and
+spirit, and asserts every option still on offer leads to at least one real
+drink.
 
 ### Answers do not linger behind a question you can no longer see
 
