@@ -171,7 +171,15 @@ auf der Karte und wird bewusst nicht gewertet, weil 38 und 42 Prozent für eine
 Empfehlung dasselbe sind. `image` wird verlinkt, nicht kopiert, und auf `null`
 geprüft. `menu_class` erreicht die
 Oberfläche gar nicht erst, es wird beim Einlesen nicht übernommen.
-`hidden_on_card` wird nicht angezeigt.
+**`hidden_on_card` hält nichts zurück.** Im Brief steht, das seien
+Kassenartikel. Die Daten sagen etwas anderes. Das Flag sitzt auf echten Drinks,
+die nicht auf der gedruckten Karte stehen, unter anderem Mikki und Dama Elena,
+während die echten Kassenposten wie `Cuba Libre 6cl` es gar nicht tragen. Die
+App hat das eine Weile falsch gelesen und dabei zwei eigene Hausdrinks
+weggelassen. Was einen Drink als nicht auf der Karte markiert, ist
+`on_printed_menu`, und das steht als Hinweis auf der Ergebniskarte.
+
+**Bitte im Brief korrigieren.** Sonst macht die Whisky App denselben Fehler.
 
 **Zu den Sektionen.** Die Spezifikation sagt, per Stichwort filtern statt per
 Titel. Die App macht beides. Ein Eintrag gehört ihr, wenn er selbst Agave

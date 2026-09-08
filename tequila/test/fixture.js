@@ -162,13 +162,6 @@ var SECTIONS = [
         group: 'Tequila & Mezcal Neat', group_en: 'Tequila & Mezcal Neat',
         price: 12, prices: priced(12), pos_sku: 'T7'
       }),
-      pour({
-        /* A till article. Carried in the payload, never shown to a guest.
-         * If this ever turns up in a result the source stopped filtering. */
-        name: 'Don Julio Blanco Flasche', name_en: 'Don Julio Blanco bottle',
-        agave_expression: 'Blanco', hidden_on_card: true,
-        price: 220, prices: priced(220), pos_sku: 'T99'
-      })
     ]
   },
   {
@@ -219,7 +212,9 @@ var SECTIONS = [
         ingredients_en: ['Don Julio Blanco', 'Cointreau', 'Lemon', 'Egg white'],
         strength: 'mittel',
         allergens: ['Ei'], allergens_en: ['Egg'], allergen_codes: [3],
-        on_printed_menu: false, pos_sku: 'C4'
+        /* Exactly as the live card has it. hidden_on_card marks an off menu
+         * drink, not a till article, and this one has to stay recommendable. */
+        hidden_on_card: true, on_printed_menu: false, pos_sku: 'C4'
       }),
       item({
         name: 'Mikki', name_en: 'Mikki',
@@ -228,7 +223,7 @@ var SECTIONS = [
         ingredients_en: ['Don Julio Reposado', 'Amaretto', 'Agave', 'Orange bitters'],
         strength: 'stark',
         allergens: ['Nüsse'], allergens_en: ['Nuts'], allergen_codes: [8],
-        on_printed_menu: false, pos_sku: 'C5'
+        hidden_on_card: true, on_printed_menu: false, pos_sku: 'C5'
       }),
       item({
         name: 'Ranch Water', name_en: 'Ranch Water',

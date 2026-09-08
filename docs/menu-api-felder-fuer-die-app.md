@@ -100,6 +100,22 @@ die beiden, wird es als alkoholhaltig behandelt und aus den alkoholfreien
 Vorschlägen genommen. Die sichere Lesart von vielleicht alkoholisch ist
 alkoholisch.
 
+### Eine Stelle, an der das Brief nicht zu den Daten passt
+
+Im Brief steht, `hidden_on_card: true` seien Kassenartikel und dürften Gästen
+nicht gezeigt werden. In den Daten stimmt das nicht. Die Flagge sitzt auf zwölf
+echten Drinks, unter anderem Talisker Campfire, Paper Plane und Mermaid's
+Melody, also genau den Sachen von der Backbar, die eine Empfehlung wert sind.
+Die echten Kassenpositionen wie `Cuba Libre 6cl` oder `Wodka & Orange 6cl`
+tragen die Flagge gar nicht.
+
+Die App empfiehlt diese Drinks deshalb wieder, mit dem Hinweis nicht auf der
+Karte. Was einen Drink vom Gast fernhält, ist allein, dass er nicht mehr im
+Payload steht, und ausgelistete Drinks stehen dort ohnehin nicht mehr drin.
+
+Bitte im Brief korrigieren, sonst übernehmen die Tequila App und die Whiskey
+App denselben Fehler.
+
 ### Was auf der Karte fehlt, wenn es das gibt
 
 **Alkoholfreie Shots.** Auf der Karte steht kein einziger. Wer in der App eine

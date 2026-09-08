@@ -254,17 +254,34 @@ q('a section is matched by keyword, in either language, never by exact title', f
   assert.strictEqual(src.inSection(items[1], /^wine$/i), true);
 });
 
-q('a till article never reaches a guest', function () {
+q('hidden_on_card does not withhold a drink', function () {
+  /* Read for a while as "till article, never show it", from the brief's
+   * wording. The data says otherwise: the flag marks off menu drinks, the back
+   * bar whiskies and the seasonal specials, and the real till entries do not
+   * carry it at all. Withholding them removed exactly the drinks worth
+   * recommending. */
   var hidden = JSON.parse(JSON.stringify(MENU));
   hidden.sections[0].items[0].hidden_on_card = true;
   var shown = src.allItems(hidden).map(function (i) { return i.name; });
-  assert.strictEqual(shown.indexOf('Augustiner Helles 0,5l'), -1,
-    'hidden_on_card is a till article, not a guest position');
-  assert.strictEqual(shown.length, 2, 'and nothing else is dropped with it');
+  assert.ok(shown.indexOf('Augustiner Helles 0,5l') !== -1,
+    'an off menu drink is still a drink');
+  assert.strictEqual(shown.length, 3, 'and nothing is dropped at all');
 });
 
-q('availability is still not filtered, everything published is orderable', function () {
-  assert.strictEqual(src.allItems(MENU).length, 3, 'the only filtering is hidden_on_card');
+q('the payload is the whole truth, nothing is filtered out of it', function () {
+  /* The rule that actually keeps a retired drink off a guest's screen is that
+   * it is not in the payload. Nothing here decides, so nothing here can be
+   * wrong about it. */
+  var published = MENU.sections.reduce(function (n, s) { return n + s.items.length; }, 0);
+  assert.strictEqual(src.allItems(MENU).length, published);
+});
+
+q('a drink absent from the payload can never be recommended', function () {
+  var without = JSON.parse(JSON.stringify(MENU));
+  without.sections[2].items = [];                    // as if the pour were retired
+  var names = src.allItems(without).map(function (i) { return i.name; });
+  assert.strictEqual(names.indexOf('Don Julio Reposado 4cl'), -1);
+  assert.strictEqual(src.scoreableItems(without).length, 0);
 });
 
 q('beer and wine are carried but never scored, without naming any section', function () {

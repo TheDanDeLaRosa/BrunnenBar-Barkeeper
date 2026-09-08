@@ -177,22 +177,27 @@
 
   /* Everything a guest may be shown, in the published order.
    *
-   * hidden_on_card items are dropped here and nowhere else. They are till
-   * articles rather than guest positions, so they must not reach a screen at
-   * all, and doing it once at the door means no caller has to remember. The
-   * 08.09.2026 data spec reversed the original brief on this.
+   * Nothing is filtered here, and that is the point. **The payload is the
+   * whole truth.** A drink that has been retired is simply absent from it, so
+   * it cannot be recommended no matter what this file does. Anything still in
+   * the payload is a drink the bar can pour.
    *
-   * This is the only filtering that happens. Availability is not filtered,
-   * because everything published is orderable. */
+   * In particular hidden_on_card is NOT a reason to withhold an item. It was
+   * read that way for a while, from the brief's description of till articles,
+   * and that was wrong: in the data it marks off menu drinks, the back bar
+   * whiskies and the seasonal specials, all of them real and all of them worth
+   * recommending. The genuine till entries, the 6cl pours and the mixers, do
+   * not carry the flag at all.
+   *
+   * What marks a drink as off the printed card is on_printed_menu, and the
+   * result card already says so with a badge. */
   function allItems(menu) {
     return ((menu && menu.sections) || []).reduce(function (acc, s) {
-      return acc.concat((s.items || [])
-        .filter(function (i) { return !i.hidden_on_card; })
-        .map(function (i) {
-          // Carry the section down, since scoring and display both want it,
-          // without disturbing the order the brief says not to touch.
-          return Object.assign({ section: s.title, section_en: s.title_en }, i);
-        }));
+      return acc.concat((s.items || []).map(function (i) {
+        // Carry the section down, since scoring and display both want it,
+        // without disturbing the order the brief says not to touch.
+        return Object.assign({ section: s.title, section_en: s.title_en }, i);
+      }));
     }, []);
   }
 

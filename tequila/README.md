@@ -181,13 +181,21 @@ drink whose ingredients name nothing recognisable is still picked up by its
 shelf. The consequence, tested rather than glossed over: a rename to a title
 with no keyword in it loses only the items that had no evidence of their own.
 
-### Two things that never reach a guest
+### The payload is the whole truth
 
-`hidden_on_card` items are till articles and are dropped in
-`../assets/menu-source.js`, which is the one place it can be forgotten only
-once. `menu_class` is BarPatrol's margin bucket, and rather than trusting the
-interface to remember not to print it, `agave.js` does not copy it into the
-record at all. Both have tests.
+Nothing is filtered out of it. A retired drink is simply absent, so nothing in
+the code has to decide about it and nothing in the code can get it wrong.
+
+**`hidden_on_card` is not a reason to withhold anything.** It was read that way
+for a while, from the brief's wording about till articles, and it cost this app
+two of its own house drinks: in the data the flag sits on off menu drinks, Mikki
+and Dama Elena among them, while the genuine till entries like `Cuba Libre 6cl`
+do not carry it at all. `on_printed_menu` is what marks a drink as off the
+printed card, and the result card already says so with a badge. There is a test.
+
+`menu_class` is the one thing held back, and not by a filter: `agave.js` simply
+never copies BarPatrol's margin bucket into the record it hands the interface,
+so it cannot be printed by accident.
 
 ### The trap this is built around
 

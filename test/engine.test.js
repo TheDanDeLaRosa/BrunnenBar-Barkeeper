@@ -58,15 +58,42 @@ test('every cocktail in the feed becomes a drink the engine can rank', function 
   });
 });
 
-test('a till article never reaches the engine', function () {
-  // hidden_on_card is dropped by menu-source before anything else sees it.
-  var raw = PUBLISHED.sections.reduce(function (acc, sec) {
-    return acc.concat(sec.items.filter(function (i) { return i.hidden_on_card; }));
-  }, []);
-  assert.ok(raw.length, 'fixture should carry a hidden item, or this proves nothing');
-  raw.forEach(function (i) {
-    assert.ok(!MENU.some(function (d) { return d.name === i.name; }),
-      i.name + ' is a till article and must not be recommendable');
+test('an off-menu drink is still recommended, and badged', function () {
+  /* Talisker Campfire and Paper Plane carry hidden_on_card and are exactly
+   * the back bar whiskies worth suggesting. They were being withheld, which
+   * was the bug. */
+  var offMenu = ITEMS.filter(function (i) { return i.hidden_on_card; });
+  assert.ok(offMenu.length, 'fixture should carry off-menu drinks');
+  offMenu.forEach(function (i) {
+    assert.ok(MENU.some(function (d) { return d.name === i.name; }),
+      i.name + ' is off the printed card, not off the menu');
+  });
+});
+
+test('a drink absent from the payload can never be recommended', function () {
+  /* The one rule that keeps a retired drink away from a guest. La Rosa and
+   * Danube Morning were retired, so the API stopped publishing them, so the
+   * app cannot suggest them however it is asked. Nothing in the code decides
+   * this, which is why it cannot get it wrong. */
+  ['La Rosa', 'Danube Morning'].forEach(function (name) {
+    assert.ok(!ITEMS.some(function (i) { return i.name === name; }),
+      name + ' should not be in the payload at all');
+    assert.ok(!MENU.some(function (d) { return d.name === name; }),
+      name + ' is retired and must be unreachable');
+  });
+
+  // and no answer combination can conjure one up
+  var seen = {};
+  opt('moment').forEach(function (m) {
+    opt('strength').forEach(function (st) {
+      engine.recommend(MENU, ask({ moment: m, strength: st }), { limit: 999 })
+        .items.forEach(function (i) { seen[i.drink.name] = true; });
+    });
+  });
+  assert.ok(!seen['La Rosa'] && !seen['Danube Morning']);
+  Object.keys(seen).forEach(function (n) {
+    assert.ok(ITEMS.some(function (i) { return i.name === n; }),
+      n + ' was recommended but is not in the payload');
   });
 });
 
@@ -578,9 +605,12 @@ test('the seed never promotes a worse match', function () {
   var best = engine.recommend(MENU, a, { seed: 0 }).items[0].match;
   for (var s = 0; s < 40; s++) {
     var top = engine.recommend(MENU, a, { seed: s }).items[0];
-    assert.ok(top.match >= best,
+    /* Half a raw point of jitter is about 0.45 of a match point, so two drinks
+     * can land either side of a rounding boundary and read as 87 and 86. One
+     * point is the whole reach of the jitter, and it must not exceed it. */
+    assert.ok(top.match >= best - 1,
       'seed ' + s + ' promoted ' + top.drink.name + ' at ' + top.match +
-      '%, below the best available ' + best + '%');
+      '%, more than a rounding step below the best available ' + best + '%');
   }
 });
 

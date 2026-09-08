@@ -49,13 +49,22 @@ test('agave syrup in a gin drink is a sweetener, not a spirit', function () {
   assert.strictEqual(A.derive(gin), null);
 });
 
-test('a till article is carried in the payload and never shown', function () {
-  // hidden_on_card is a Kassenartikel per the 08.09.2026 data spec. Dropped
-  // at the source, so no app can forget.
-  var raws = F.MENU.sections.reduce(function (a, s) { return a.concat(s.items); }, []);
-  assert.ok(raws.some(function (i) { return i.hidden_on_card === true; }),
-    'the fixture must actually contain one');
-  assert.strictEqual(ITEMS.filter(function (d) { return /Flasche/.test(d.name); }).length, 0);
+test('an off menu drink is still a drink', function () {
+  /* hidden_on_card was read as "till article, never show it", from the
+   * brief's wording, and that cost this app two of its own house drinks. In
+   * the data the flag sits on real off menu drinks, Mikki and Dama Elena
+   * among them, while the genuine till entries do not carry it at all.
+   * on_printed_menu is what marks a drink as off the printed card. */
+  var flagged = ITEMS.filter(function (d) { return d.item.hidden_on_card === true; });
+  assert.ok(flagged.length >= 2, 'the fixture must carry some, as the live card does');
+  ['Mikki', 'Dama Elena'].forEach(function (n) {
+    assert.ok(flagged.some(function (d) { return d.name === n; }), n + ' must be offered');
+  });
+
+  // Nothing published is withheld, in either direction.
+  var published = F.MENU.sections.reduce(function (n, s) { return n + s.items.length; }, 0);
+  assert.strictEqual(SRC.allItems(F.MENU).length, published,
+    'the payload is the whole truth and nothing is filtered out of it');
 });
 
 test('an item with agave of its own never depends on a section title', function () {

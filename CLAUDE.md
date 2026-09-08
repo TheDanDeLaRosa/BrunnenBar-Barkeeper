@@ -84,9 +84,12 @@ From the 08.09.2026 data spec, and these are not negotiable:
 - **`content_hash` decides whether anything changed**, not `published_at`.
   Every build stamps a new timestamp whether or not the card moved, so
   comparing it would cause a needless redraw every time.
-- **`hidden_on_card: true` is never shown.** These are till articles, not guest
-  positions. `allItems` drops them, which is the one place it can be forgotten
-  only once. This reverses the original brief, which called them orderable.
+- **`hidden_on_card` is NOT a reason to withhold an item.** The brief calls
+  these till articles, and that reading is wrong. In the data the flag marks
+  off menu drinks, the back bar pours and the seasonal specials, ten of them
+  including Mikki and Dama Elena, while the genuine till entries like
+  `Cuba Libre 6cl` do not carry it at all. What marks a drink as off the
+  printed card is `on_printed_menu`, and the result card says so with a badge.
 - **`menu_class` is never shown to a guest.** It is BarPatrol's margin and
   popularity bucket. `assets/menu-source.js` lists it in `INTERNAL_FIELDS`, and
   `tequila/assets/agave.js` additionally never copies it into the record it
@@ -97,13 +100,19 @@ From the 08.09.2026 data spec, and these are not negotiable:
 - Never hard-code a drink, a price, a section name or an allergen.
 - The order of sections and items is the display order, already sorted by
   `popularity_rank`. Do not resort it.
+- **The payload is the whole truth. Only ever recommend what is in it.**
+  A retired drink is absent from the payload, so nothing in the code has to
+  decide about it, which is why nothing in the code can get it wrong. Never
+  add a filter that withholds something the API published.
 - Availability is not filtered. Everything published is orderable.
 - `image` is a full URL or `null`, and roughly a third of the card has no
   photo. Link it, never copy it, and always test for null.
 - `recommended` marks the card's own leader for a section. Show it as a marker.
   It is not a ranking input and there is no separate recommendations block.
-- `pos_sku` is the till link and is for the bar, not a guest. It is in
-  `INTERNAL_FIELDS` alongside `menu_class`.
+
+Two fields are for the bar and never for a guest. `menu_class` grades margin
+and popularity, so `star`, `puzzle`, `plowhorse` and `dog` stay internal, and
+`pos_sku` is the till link. Both are listed in `INTERNAL_FIELDS`.
 
 If a field is missing, it gets added at the source by the Website Seat and all
 three apps have it. Do not work around it in one app.
@@ -191,10 +200,17 @@ which is which any more, and a test pins the direction.
 
 ### Two data questions, both decided
 
-`hidden_on_card` items are never shown to a guest, even where they look like
-real cocktails. That is settled, not a judgement call to revisit. It is a
-different field from `on_printed_menu`, which marks an off menu drink that is
-still recommended and still carries its badge.
+`hidden_on_card` does **not** withhold a drink. The brief describes it as
+marking till articles, and the app read it that way for a while, which was
+wrong. In the data the flag sits on twelve real off menu drinks, the back bar
+whiskies and the seasonal specials, while the genuine till entries like the 6cl
+pours do not carry it at all. Withholding them removed exactly the drinks worth
+suggesting. `on_printed_menu` is what marks a drink as off the printed card,
+and the result card says so with a badge.
+
+The brief still says the opposite, and that needs reconciling with the Website
+Seat. Both apps now follow the data rather than the brief; the whiskey app
+should too.
 
 Rosato Spritz loses its alcohol free flag, because the recipe carries a real
 aperitivo at roughly 15 percent. That change belongs in the generator, since
