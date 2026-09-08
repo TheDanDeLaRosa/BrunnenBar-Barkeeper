@@ -963,4 +963,42 @@ test('nothing light late at night still asks the rest of the questions', functio
     'the flavour question should still be worth asking');
 });
 
+console.log('\nSaying what we could not do');
+
+test('asking for alcohol free shots relaxes the shot rule and nothing else', function () {
+  // The card carries no alcohol free shot, so this path is reachable by any
+  // guest who taps the two most obvious things.
+  var res = engine.recommend(MENU, ask({ moment: 'shots', strength: '0' }), { limit: 99 });
+  assert.strictEqual(res.relaxed, 'shot', 'the shot requirement is the one to drop');
+  assert.ok(res.items.length, 'and something must come back');
+  res.items.forEach(function (i) {
+    assert.strictEqual(i.drink.alcoholFree, true,
+      i.drink.name + ' has alcohol and reached a guest who asked for none');
+  });
+});
+
+test('every relaxation has copy in both languages', function () {
+  /* The message is picked by branch, so a missing key renders the word
+   * undefined on the results page in front of a guest. */
+  ['loosened', 'loosenedShot', 'loosenedNoShot', 'loosenedAlcohol'].forEach(function (k) {
+    ['de', 'en'].forEach(function (lang) {
+      var v = questions.UI[lang][k];
+      assert.ok(typeof v === 'string' && v.length > 20,
+        'UI.' + lang + '.' + k + ' is missing or too short to explain anything');
+    });
+  });
+});
+
+test('the alcohol-free wording is only ever used when it is true', function () {
+  // Guarding the wording itself: it promises the drinks below are alcohol
+  // free, so it must never be the message when the zero proof gate was the
+  // thing that got dropped.
+  ['de', 'en'].forEach(function (lang) {
+    var free = questions.UI[lang].loosenedShot;
+    var alc = questions.UI[lang].loosenedAlcohol;
+    assert.notStrictEqual(free, alc, 'the two cases must not share wording');
+    assert.ok(/alkohol|alcohol/i.test(alc), 'the alcohol warning has to mention alcohol');
+  });
+});
+
 console.log('\n' + passed + ' passed' + (process.exitCode ? ', SOME FAILED' : '') + '\n');

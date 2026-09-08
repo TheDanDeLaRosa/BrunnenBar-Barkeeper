@@ -225,7 +225,10 @@
       offline: 'Wir kommen im Moment nicht an unsere Karte. Probier es gleich nochmal oder frag einfach am Tresen.',
       noMenu: 'Gerade steht nichts auf der Karte, das wir hier empfehlen können. Am Tresen helfen wir dir sofort weiter.',
       stale: 'Wir zeigen dir die Karte von {when}, weil wir gerade nicht an die aktuelle kommen. Frag am Tresen nach, falls sich etwas geändert hat.',
-      loosened: 'Wir haben eine Vorgabe gelockert, um dir trotzdem etwas anbieten zu können.',
+      loosenedShot: 'Alkoholfreie Shots haben wir gerade nicht auf der Karte. Deshalb zeigen wir dir unsere alkoholfreien Drinks. Wenn es wirklich kurz sein soll, frag am Tresen, da finden wir was für dich.',
+      loosenedNoShot: 'Als Shot gibt es das gerade nicht. Das hier kommt am nächsten dran.',
+      loosenedAlcohol: 'Ohne Alkohol bekommen wir das mit deinen Wünschen gerade nicht hin. Die Drinks hier enthalten Alkohol. Komm damit an den Tresen, dann finden wir zusammen etwas Alkoholfreies.',
+      loosened: 'Genau so haben wir es gerade nicht. Das hier kommt am nächsten dran.',
       footer: 'Alle Drinks werden frisch gebaut. Allergien bitte immer direkt beim Team melden.',
       reasons: {
         moment: 'passt zu diesem Moment im Abend',
@@ -301,7 +304,10 @@
       offline: 'We cannot reach our card right now. Try again in a moment or just ask at the bar.',
       noMenu: 'There is nothing on the card we can recommend here right now. Come to the bar and we will help you straight away.',
       stale: 'This is our card as of {when}, because we cannot reach the current one right now. Ask at the bar in case something has changed.',
-      loosened: 'We relaxed one preference so we could still offer you something.',
+      loosenedShot: 'We do not have alcohol free shots on the card right now. So these are our alcohol free drinks instead. If it really has to be short, ask at the bar and we will find you something.',
+      loosenedNoShot: 'We cannot do that as a shot right now. This is what comes closest.',
+      loosenedAlcohol: 'We cannot keep this alcohol free with what you asked for. The drinks below contain alcohol. Bring that to the bar and we will find you something without.',
+      loosened: 'We do not have exactly that right now. This is what comes closest.',
       footer: 'Every drink is built to order. Please always tell the team about allergies in person.',
       reasons: {
         moment: 'fits this point in the evening',

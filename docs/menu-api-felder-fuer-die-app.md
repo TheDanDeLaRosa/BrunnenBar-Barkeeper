@@ -100,6 +100,20 @@ die beiden, wird es als alkoholhaltig behandelt und aus den alkoholfreien
 Vorschlägen genommen. Die sichere Lesart von vielleicht alkoholisch ist
 alkoholisch.
 
+### Was auf der Karte fehlt, wenn es das gibt
+
+**Alkoholfreie Shots.** Auf der Karte steht kein einziger. Wer in der App eine
+Runde Shots und alkoholfrei antippt, bekommt deshalb alkoholfreie Longdrinks
+angeboten, mit einem Hinweis, dass wir alkoholfreie Shots gerade nicht haben.
+
+Tanqueray 0.0 und alkoholfreie Cachaça sind in den Rezepten längst drin, es
+gibt sie also im Haus. Wenn ein 2cl Tanqueray 0.0 und ein 2cl Pitú 0.0
+bestellbar sind, gehören sie als eigene Positionen auf die Karte, mit
+`serve_style` auf `Shot`, `alcohol_free` auf true und `strength_level` auf 0.
+
+Dann fällt der Hinweis in der App von allein weg und die beiden werden ganz
+normal empfohlen. In der App ist dafür nichts zu ändern.
+
 ### Eine Änderung, die an die Quelle gehört
 
 **Rosato Spritz bekommt `alcohol_free: false`.** Entschieden von Dan am

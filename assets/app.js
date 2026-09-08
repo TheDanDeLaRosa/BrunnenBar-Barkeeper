@@ -423,6 +423,24 @@
     return el('article', { class: 'card' + (hero ? ' hero' : ' alt') }, children);
   }
 
+  /* Say which rule was bent, not that one was.
+   *
+   * "We relaxed one preference" told a guest nothing, so asking for alcohol
+   * free shots and being handed a Mojito read as a bug rather than as the
+   * honest answer it is. Name the thing we could not do.
+   *
+   * The alcohol case is the one that matters most. The engine drops the zero
+   * proof gate only as a last resort, and a guest who asked for none must be
+   * told in plain words that what they are looking at is not. */
+  function loosenedMessage(relaxed) {
+    if (!relaxed) return null;
+    var wantedZeroProof = state.answers.strength === '0';
+    if (relaxed === 'shot') {
+      return wantedZeroProof ? t().loosenedShot : t().loosenedNoShot;
+    }
+    return wantedZeroProof ? t().loosenedAlcohol : t().loosened;
+  }
+
   function renderResults() {
     var res = BBEngine.recommend(MENU, state.answers, {
       seed: state.seed,
@@ -437,7 +455,8 @@
         : null
     ].filter(Boolean)));
 
-    if (res.relaxed) frag.appendChild(el('div', { class: 'notice', text: t().loosened }));
+    var loosened = loosenedMessage(res.relaxed);
+    if (loosened) frag.appendChild(el('div', { class: 'notice', text: loosened }));
 
     res.items.forEach(function (item, i) { frag.appendChild(renderCard(item, i)); });
 
