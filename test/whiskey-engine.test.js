@@ -14,6 +14,7 @@ var E = require('../whiskey/assets/engine.js');
 var SRC = require('../assets/menu-source.js');
 var Q = require('../whiskey/data/questions.js');
 var DEMO = require('../whiskey/data/demo-menu.js');
+var LIVE = require('./fixtures/published-cocktail-row.js');
 
 var passed = 0;
 function test(name, fn) {
@@ -84,6 +85,30 @@ test('beer and cocktails are never recommendable, however the sections are named
     'renaming every section must not change what is recommendable');
 });
 
+/* The bug this caught was not hypothetical. Read against a real published
+ * payload the app called every cocktail on the card a whisky, because the
+ * tasting tags it was using as evidence are the same field the cocktail app
+ * scores on. These three tests are the fence around that. */
+test('a real cocktail from a real payload is never a whisky', function () {
+  assert.ok(LIVE.ROW.flavour_tags.length, 'the fixture should carry tasting tags');
+  assert.strictEqual(E.isWhisky(LIVE.ROW), false,
+    LIVE.ROW.name + ' carries flavour_tags and is still a cocktail');
+});
+
+test('tasting tags alone are never evidence of a whisky', function () {
+  var tagsOnly = row('Nur Tags', { flavour_tags: ['würzig', 'fruchtig'] });
+  assert.strictEqual(E.isWhisky(tagsOnly), false,
+    'flavour_tags is shared with the cocktail card and proves nothing on its own');
+});
+
+test('a drink with an ingredient list is never a whisky, peat or not', function () {
+  var smokyDrink = row('Rauchiger Cocktail', { peat: 4, region: 'Islay' });
+  smokyDrink.ingredients = ['Lagavulin', 'Wermut'];
+  smokyDrink.ingredients_en = ['Lagavulin', 'Vermouth'];
+  assert.strictEqual(E.isWhisky(smokyDrink), false,
+    'a whisky is poured, not built, and somebody may well give a smoky drink a peat value');
+});
+
 test('a whisky profiled outside the whisky section is still found', function () {
   var found = E.bottles(SRC.allItems(DEMO.menu)).map(function (b) { return b.name; });
   assert.ok(found.some(function (n) { return /Jack Daniel/.test(n); }),
@@ -105,7 +130,7 @@ test('a whiskey the card has not profiled is left alone', function () {
   var fireball = all.filter(function (i) { return i.name === 'Fireball'; })[0];
   assert.ok(fireball, 'the fixture should carry an unprofiled whiskey');
   assert.strictEqual(E.isWhisky(fireball), false,
-    'a flavoured bottle with no peat, origin or notes must not be recommended');
+    'a flavoured bottle with no peat rating must not be recommended');
 });
 
 test('the card may spell the region and the tags either way', function () {
@@ -676,6 +701,21 @@ test('the house voice rules hold in every guest facing string', function () {
     q.options.forEach(function (o) { walk({ label: o.label, hint: o.hint }, 'Q.' + q.id + '.' + o.value); });
   });
   assert.deepStrictEqual(offenders, [], 'no dashes, colons or semicolons in guest copy');
+});
+
+// ------------------------------------------------------------------------
+
+group('the cocktail app, and what the published card already carries');
+
+/* Worth a test in this suite because it was reported twice as missing and
+ * the payload says otherwise. If this ever fails, the cocktail app's launch
+ * blocker really has come back. */
+test('the published payload carries the four fields the cocktail app needs', function () {
+  LIVE.COCKTAIL_FIELDS.forEach(function (f) {
+    var v = LIVE.ROW[f];
+    assert.ok(v != null && v !== '' && (!Array.isArray(v) || v.length),
+      f + ' is missing from a real published row');
+  });
 });
 
 // ------------------------------------------------------------------------

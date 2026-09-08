@@ -75,8 +75,10 @@ negotiable:
 
 Whether an item can be recommended is decided by the data and never by a
 section name. A cocktail has an ingredient list, beer and wine do not. A whisky
-carries `peat`, `region` or `flavour_tags`, and the app accepts the older
-`origin` and `notes` spellings too. An agave pour carries `agave_kind`,
+carries `peat` and has no ingredient list, so it is poured rather than built.
+`flavour_tags` is **not** evidence of a whisky, it is on every cocktail in the
+published card. The app reads `region` and `flavour_tags` once a row qualifies,
+and accepts the older `origin` and `notes` spellings for both. An agave pour carries `agave_kind`,
 `agave_expression`, `agave_region` and `additive_free`. All of these are flat
 on the item, next to `brand`.
 
@@ -93,10 +95,11 @@ and so is an answer nothing in the pool carries. See `BBWhiskyEngine.tailor`.
 
 Both apps are waiting on the same thing, fields in the Menu API.
 
-`docs/menu-api-felder-fuer-die-app.md` lists four fields the cocktail app
-needs before three of its seven questions can score anything. Until those
-land, that app runs on the bundled export, which the brief forbids, so this is
-the thing blocking a clean cocktail launch.
+`docs/menu-api-felder-fuer-die-app.md` asked for four fields. A capture of a
+real published payload shows all four already there, on every position, so
+the cocktail app is not waiting on data. It still runs on the bundled export
+the brief forbids, but that is now work on the app rather than a request to
+the website seat.
 
 `docs/whisky-api-felder-fuer-die-app.md` is now a description rather than a
 request. Fifteen whiskies carry every field the app asked for, which is all

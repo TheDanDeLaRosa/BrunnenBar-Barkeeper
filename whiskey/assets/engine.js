@@ -12,12 +12,13 @@
  *   SOFT  Everything else, scored and summed.
  *
  * What counts as a bottle this app may recommend is decided by the data and
- * never by a section name. A whisky carries peat, origin or tasting notes, a
- * beer and a cocktail do not. That is not a stylistic preference. Jack
- * Daniel's is profiled in the Spirituosen section rather than in Whisk(e)y,
- * and six more bottles sit behind `hidden_on_card` so the printed card can
- * stay short, so anything that filtered on the section title would quietly
- * lose almost half the shelf.
+ * never by a section name. A whisky carries a peat rating and no ingredient
+ * list, so it is poured rather than built.
+ *
+ * That is not a stylistic preference. Jack Daniel's is profiled in the
+ * Spirituosen section rather than in Whisk(e)y, and six more bottles sit
+ * behind `hidden_on_card` so the printed card can stay short, so anything
+ * filtering on the section title would quietly lose almost half the shelf.
  * =========================================================================
  */
 (function (root) {
@@ -48,8 +49,25 @@
     brand: ['brand']
   };
 
-  /* Carrying any one of these is what makes a row a whisky. */
-  var PROFILE_FIELDS = ['peat', 'origin', 'notes'];
+  /* What makes a row a whisky.
+   *
+   * `peat` and nothing else. This was wrong once and the way it was wrong is
+   * worth keeping written down. The tasting tags looked like good evidence,
+   * until a capture of the published card showed `flavour_tags` on all one
+   * hundred and twenty five cocktails, because it is the same field the
+   * cocktail app scores on. Read against that payload the app called an
+   * Aperol Spritz a whisky.
+   *
+   * The region is no safer. A wine carries a region too, and a wine has no
+   * ingredient list either, so region plus pour would sweep the wine list in
+   * the day someone adds it.
+   *
+   * Peat is a number nothing else on a bar card has any reason to carry, and
+   * the field doc makes it required. The second half of the test is that a
+   * whisky is poured rather than built, so it has no ingredient list. That
+   * keeps a smoky cocktail out even if someone gives it a peat value one
+   * day, which is a thing a person might reasonably do. */
+  var PROFILE_FIELDS = ['peat'];
 
   /* A tasting tag that duplicates an axis the app already scores on its own.
    * Smoke has the whole peat scale behind it, so counting it a second time as
@@ -117,6 +135,10 @@
    * is not a whisky, which is what keeps beer, wine and cocktails out. */
   function profileOf(item) {
     if (!item) return null;
+
+    // Built rather than poured, so it is a drink and not a bottle.
+    if (item.ingredients && item.ingredients.length) return null;
+
     var carries = false;
     for (var i = 0; i < PROFILE_FIELDS.length; i++) {
       if (raw(item, PROFILE_FIELDS[i]) !== undefined) { carries = true; break; }

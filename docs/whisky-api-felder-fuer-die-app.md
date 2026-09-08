@@ -24,10 +24,26 @@ nicht mehr eine Bitte.
 
 ## Die Regel, die alles trägt
 
-Ein Eintrag ist ein Whisky, wenn er `peat`, `region` oder `flavour_tags`
-trägt. Sonst nicht. Der Abschnitt spielt keine Rolle.
+Ein Eintrag ist ein Whisky, wenn er `peat` trägt und keine Zutatenliste hat.
+Sonst nicht. Der Abschnitt spielt keine Rolle.
 
-Die App akzeptiert bei zweien davon beide Schreibweisen, also `region` und
+**Damit ist `peat` Pflicht.** Eine Flasche ohne diesen Wert ist für die App
+kein Whisky und taucht nirgends auf. Das ist kein Schönheitsfehler, sondern
+Absicht, und der Grund steht gleich darunter.
+
+Die App hat kurzzeitig auch `flavour_tags` als Beweis genommen. Gegen einen
+echten veröffentlichten Stand gelesen hat sie damit alle hundertfünfundzwanzig
+Cocktails für Whisky gehalten, weil `flavour_tags` genau dasselbe Feld ist,
+das die Cocktail App bewertet. Ein Aperol Spritz als Antwort auf eine
+Whiskyfrage. Die Herkunft wäre genauso wenig sicher, denn ein Wein hat auch
+eine Herkunft und ebenfalls keine Zutatenliste.
+
+`peat` ist eine Zahl, die sonst nichts auf einer Barkarte zu tragen hat. Die
+zweite Hälfte der Regel ist, dass ein Whisky eingeschenkt und nicht gebaut
+wird, also keine Zutatenliste hat. Das hält auch einen rauchigen Cocktail
+draussen, falls dem mal jemand einen Rauchwert gibt.
+
+Bei zwei Feldern akzeptiert die App beide Schreibweisen, also `region` und
 `origin`, `flavour_tags` und `notes`. Das kostet je eine Zeile und sorgt
 dafür, dass weder eine Umbenennung noch ein halb durchgelaufener Bau das
 Regal leert.

@@ -11,18 +11,32 @@ Alle vier Felder gab es im vorherigen BarPatrol Export schon. Die Werte unten
 sind exakt die, die dort standen. Es geht also nicht darum, etwas Neues zu
 erfinden, sondern darum, Vorhandenes wieder mitzuliefern.
 
-**Nachtrag 08.09.2026.** Die Schreibweisen sind an der Quelle bereinigt, also
-`kraeftig` und `bitter-suess` sind weg und `Don Julio Anejo Manhattan` steht
-jetzt auf `würzig, holzig, bitter, süß`. Das gilt aber nur für die Quelle und
-den Druck. **Im Menu API sind Cocktail `flavour_tags` weiterhin gar nicht
-enthalten**, weil `cocktail_item` das Feld nicht mitgibt. Solange das so ist,
-hilft die Bereinigung der App nicht, und die Cocktail App bleibt auf dem
-mitgelieferten Export, was das Brief verbietet.
+**Nachtrag 08.09.2026. Diese vier Felder sind längst da.**
 
-Es ist damit keine Datenpflege mehr, sondern eine Schemaänderung beim Website
-Seat. Für Whisky und Agave wurde genau dieselbe Änderung schon gemacht, die
-Felder liegen dort flach am Item. `holzig` ist inzwischen fest im Vokabular,
-die Whisky App kennt es mit Namen und Steigerung in beiden Sprachen.
+Es hiess zweimal, Cocktail `flavour_tags` seien im Menu API nicht enthalten
+und `cocktail_item` gebe sie nicht mit. Ein echter veröffentlichter Stand
+sagt etwas anderes. Der Bau `fa59f27a2a8dc192` trägt auf allen
+hundertfünfundzwanzig Positionen `flavour_tags`, `flavour_tags_en`,
+`serve_style`, `moment`, `strength_level` und dazu `glass`. Das ist alles,
+was oben steht, plus das Optionale.
+
+Nachzulesen im Mitschnitt der ganzen Karte unter
+`test/fixtures/menu-live.json` auf dem Tequila Branch. Eine Zeile daraus
+liegt wortgleich in `test/fixtures/published-cocktail-row.js`, und ein Test
+scheitert, wenn eines der vier Felder wieder verschwindet.
+
+**Damit ist die Cocktail App nicht mehr blockiert.** Sie läuft weiter auf dem
+mitgelieferten Export, den das Brief verbietet, aber nicht weil Daten fehlen,
+sondern weil sie noch nicht auf den Loader umgestellt ist. Das ist Arbeit an
+der App und keine Bitte an den Seat mehr.
+
+Die Schreibweisen sind an der Quelle bereinigt, also `kraeftig` und
+`bitter-suess` sind weg und `Don Julio Anejo Manhattan` steht jetzt auf
+`würzig, holzig, bitter, süß`. `holzig` ist fest im Vokabular, die Whisky App
+kennt es mit Namen und Steigerung in beiden Sprachen.
+
+Zu prüfen bleibt, ob der Stand, der heute live steht, dieselben vier Felder
+trägt. `tools/menu-check.html` sagt es in einem Blick.
 
 ---
 
