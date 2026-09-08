@@ -143,6 +143,22 @@
 
   function announce(msg) { if (liveRegion) liveRegion.textContent = msg; }
 
+  /* When the page sits in an iframe on the website, tell the parent how tall
+   * it needs to be. Without this the results page scrolls inside a fixed
+   * frame, which on a phone means two scrollbars fighting each other.
+   * Silent and harmless when the page is opened directly. */
+  function reportHeight() {
+    if (window.parent === window) return;
+    try {
+      /* Measure the content, not the document. scrollHeight can never report
+       * less than the frame it is sitting in, so using it lets the frame grow
+       * on the results page and then never shrink back for the next guest. */
+      var shell = document.querySelector('.shell');
+      var h = shell ? shell.getBoundingClientRect().height : document.body.scrollHeight;
+      window.parent.postMessage({ type: 'bb-height', height: Math.ceil(h) }, '*');
+    } catch (e) { /* a parent on another origin that refuses, nothing to do */ }
+  }
+
   function render() {
     pruneAnswers();
     stage.innerHTML = '';
@@ -150,6 +166,9 @@
     else if (state.screen === 'quiz') stage.appendChild(renderQuiz());
     else stage.appendChild(renderResults());
     window.scrollTo({ top: 0, behavior: 'smooth' });
+    reportHeight();
+    // Again once the entry animation has settled and the height is final.
+    setTimeout(reportHeight, 500);
   }
 
   // --------------------------------------------------------------- intro --
@@ -488,6 +507,8 @@
                   text: t().fullCard })
       ])
     ]));
+    reportHeight();
+    setTimeout(reportHeight, 500);
   }
 
   /* Reads the one source, reshapes it, and only then shows a question. The
