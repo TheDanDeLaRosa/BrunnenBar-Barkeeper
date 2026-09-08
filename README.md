@@ -1,5 +1,11 @@
 # BrunnenBar — Cocktail recommender
 
+> There is a second app in this repository. The **agave recommender** for
+> tequila and mezcal lives under [`tequila/`](tequila/README.md). Both apps
+> read the same live Menu API through the same `assets/menu-source.js`, and
+> the agave app references the shared theme and loader with `../` rather than
+> keeping copies of them.
+
 A cocktail recommender for [brunnenbar.com](https://brunnenbar.com). It asks a
 guest the questions we'd ask across the bar, then recommends drinks **from our
 actual card**, with a plain-language reason for each.
@@ -19,6 +25,10 @@ a USB stick, or on an iPad behind the bar.
 npx http-server . -p 8080   # or serve it locally
 node test/engine.test.js    # run the tests
 ```
+
+Every `*.test.js` in the repo also runs in CI on each push and pull request,
+via `.github/workflows/tests.yml`. It discovers the files rather than listing
+them, so a new suite needs no change there.
 
 ---
 
@@ -43,9 +53,8 @@ Three files, and only three, are involved:
 | `assets/spirits.js` | works out the base spirit, which the feed does not carry |
 
 `menu-source.js` reads at most hourly, compares `content_hash` rather than a
-timestamp so a rebuild does not count as a change, withholds `hidden_on_card`
-items because those are till articles rather than guest positions, and reports
-HTML entities instead of repairing them.
+timestamp so a rebuild does not count as a change, filters nothing out of the
+payload, and reports HTML entities instead of repairing them.
 
 ### It says what is wrong with the feed, and fixes nothing
 

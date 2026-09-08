@@ -25,8 +25,8 @@
   var MENU_URL = 'https://brunnenbar.com/wp-json/wp/v2/pages/217?_fields=content';
 
   /* How long a fetched menu is reused before going back to the network. The
-   * brief sets the ceiling, not the taste: never more often than hourly. The
-   * card changes a few times a week, not a few times a minute. */
+   * data spec sets the ceiling, not the taste: never more often than hourly.
+   * The card changes a few times a week, not a few times a minute. */
   var MAX_AGE_MS = 60 * 60 * 1000;
 
   var STORE_KEY = 'bb-menu-last-good';
@@ -138,11 +138,13 @@
    * when nothing about the card changed, so comparing it would rebuild the
    * whole view for nothing. The hash only moves when the content does.
    *
-   * Falls back to published_at if a payload predates the hash, since a
-   * needless redraw beats missing a real change. */
+   * Either side carrying a hash is enough to compare on it, so a payload that
+   * gains or loses one counts as changed. Falls back to published_at only
+   * when neither has a hash, since a needless redraw beats missing a real
+   * change. */
   function hasChanged(current, incoming) {
     if (!current || !incoming) return true;
-    if (current.content_hash && incoming.content_hash) {
+    if (current.content_hash || incoming.content_hash) {
       return current.content_hash !== incoming.content_hash;
     }
     return current.published_at !== incoming.published_at;
@@ -199,6 +201,18 @@
     }, []);
   }
 
+  /* Does this item sit under a section whose title carries a keyword.
+   *
+   * The data spec asks every app to pick its sections by keyword rather than
+   * by exact title, because the head barkeeper renames them as the card
+   * moves. One implementation here rather than three slightly different ones
+   * across the apps. Both language titles are tested, so an English rename
+   * does not lose a section either. */
+  function inSection(item, re) {
+    if (!item) return false;
+    return re.test(String(item.section || '')) || re.test(String(item.section_en || ''));
+  }
+
   /* A bottle poured neat, not a mixed drink. The spirit sections carry brand
    * and origin fields that no cocktail has, which is what tells them apart
    * without naming a section. */
@@ -240,6 +254,7 @@
     MENU_URL: MENU_URL, MAX_AGE_MS: MAX_AGE_MS, STORE_KEY: STORE_KEY,
     loadMenu: loadMenu, extract: extract, hasChanged: hasChanged,
     formatPrice: formatPrice, priceList: priceList, field: field, allItems: allItems,
+    inSection: inSection,
     isScoreable: isScoreable, scoreableItems: scoreableItems,
     isNeatSpirit: isNeatSpirit, imageOf: imageOf, INTERNAL_FIELDS: INTERNAL_FIELDS,
     _reset: function () { memo = null; inFlight = null; }

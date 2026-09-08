@@ -1,0 +1,22 @@
+/* =========================================================================
+   BrunnenBar Tequila — app-specific styling
+   =========================================================================
+   Everything that gives the app its look lives in ../assets/brunnenbar-theme.css
+   and is shared with the cocktail app. This file holds only what is true of
+   the tequila app and nothing else.
+
+   Keep it this small. If a rule here would also be right for the cocktail or
+   the whiskey app, it belongs in the theme instead.
+   ========================================================================= */
+
+/* The strength question has three stops, not six, because the Menu API
+   carries three strength words and the app does not invent stops between
+   them. The theme opens the scale to six columns above 34rem, which would
+   leave three stops sitting in half a row. */
+.scale { grid-template-columns: repeat(3, 1fr); }
+@media (min-width: 34rem) { .scale { grid-template-columns: repeat(3, 1fr); } }
+
+/* Prices are shown per size, side by side, so several sizes need to line up
+   rather than run together as one string. */
+.meta-val.price { white-space: pre-wrap; }
+

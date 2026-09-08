@@ -1,0 +1,550 @@
+/*
+ * Tequila engine tests — run with:  node tequila/test/engine.test.js
+ *
+ * The engine is pure, so this walks the whole answer space rather than
+ * spot checking it. Three things it will not let slip. A hard rule is never
+ * bent, a reason on a card is never a lie, and a runner up never claims a
+ * difference that is not there.
+ */
+'use strict';
+
+var assert = require('assert');
+var A = require('../assets/agave.js');
+var E = require('../assets/engine.js');
+var SRC = require('../../assets/menu-source.js');
+var Q = require('../data/questions.js');
+var F = require('./fixture.js');
+
+var passed = 0;
+function test(name, fn) {
+  try { fn(); passed++; console.log('  ok   ' + name); }
+  catch (err) { console.error('  FAIL ' + name + '\n       ' + err.message); process.exitCode = 1; }
+}
+
+var ITEMS = A.agaveItems(F.MENU, SRC);
+var STOPS = A.budgetStops(ITEMS);
+
+function byName(n) {
+  return ITEMS.filter(function (d) { return d.name === n; })[0];
+}
+function names(res) { return res.items.map(function (r) { return r.drink.name; }); }
+
+/* Two questions build their options from the card, so a test that wants to
+ * walk every possible option has to ask for the full list rather than read a
+ * static `options` array that is not there. */
+function allOptionsFor(q) {
+  if (q.options) return q.options;
+  if (q.id === 'agave') return Q.AGAVE_CHOICES;
+  if (q.id === 'character') return Q.CHARACTER_CHOICES.concat([Q.FREE_REIN]);
+  return [];
+}
+
+console.log('\nHard rules, never relaxed');
+
+test('an excluded allergen never reaches a guest, at any answer', function () {
+  ['Ei', 'Nüsse'].forEach(function (allergen) {
+    walk({ exclude: [allergen] }, function (res) {
+      res.items.forEach(function (r) {
+        assert.strictEqual(r.drink.allergens.indexOf(allergen), -1,
+          r.drink.name + ' carries ' + allergen);
+      });
+    });
+  });
+});
+
+test('no smoke means no mezcal and nothing tagged smoky, at any answer', function () {
+  walk({ exclude: ['rauch'] }, function (res) {
+    res.items.forEach(function (r) {
+      assert.notStrictEqual(r.drink.kind, 'mezcal', r.drink.name);
+      assert.strictEqual(r.drink.tags.indexOf('rauchig'), -1, r.drink.name);
+    });
+  });
+});
+
+test('additive free only shows nothing the card has not vouched for', function () {
+  walk({ exclude: ['zusaetze'] }, function (res) {
+    res.items.forEach(function (r) {
+      assert.strictEqual(r.drink.additiveFree, true,
+        r.drink.name + ' is ' + r.drink.additiveFree + ', which is not a yes');
+    });
+  });
+  // And it is a real filter on this card, not a no-op that passes vacuously.
+  var vouched = ITEMS.filter(function (d) { return d.additiveFree === true; });
+  assert.ok(vouched.length > 0 && vouched.length < ITEMS.length);
+});
+
+test('a budget holds even when it empties the results', function () {
+  STOPS.forEach(function (stop) {
+    walk({ budget: String(stop) }, function (res) {
+      res.items.forEach(function (r) {
+        assert.ok(r.drink.price != null && r.drink.price <= stop,
+          r.drink.name + ' at ' + r.drink.price + ' is over ' + stop);
+      });
+    });
+  });
+});
+
+test('a price the card does not carry is never offered against a budget', function () {
+  var noPrice = A.derive({ name: 'Sotol', group: 'Agave', prices: [], allergens: [] });
+  assert.strictEqual(noPrice.price, null);
+  var res = E.recommend(ITEMS.concat([noPrice]), { budget: '20' }, { limit: 99 });
+  assert.strictEqual(names(res).indexOf('Sotol'), -1);
+});
+
+test('asking for smoke and excluding it returns nothing rather than something wrong', function () {
+  var res = E.recommend(ITEMS, { character: ['rauchig'], exclude: ['rauch'] }, {});
+  res.items.forEach(function (r) {
+    assert.strictEqual(r.drink.tags.indexOf('rauchig'), -1);
+  });
+});
+
+console.log('\nThe one gate');
+
+test('nothing neat in range falls back to mixed and says so', function () {
+  // Two euro buys nothing neat on this card, and nothing mixed either, so
+  // widen it to a budget that leaves only mixed drinks under it.
+  var cheapPours = ITEMS.filter(function (d) { return d.pour && d.price <= 9; });
+  assert.strictEqual(cheapPours.length, 0, 'fixture must have no pour at or under 9');
+  var res = E.recommend(ITEMS, { serve: 'pur', budget: '9' }, {});
+  assert.strictEqual(res.relaxed, 'serve');
+  assert.ok(res.items.length > 0);
+  res.items.forEach(function (r) { assert.strictEqual(r.drink.pour, false); });
+});
+
+test('the gate is not relaxed while it still has something to offer', function () {
+  var res = E.recommend(ITEMS, { serve: 'pur' }, {});
+  assert.strictEqual(res.relaxed, null);
+  res.items.forEach(function (r) { assert.strictEqual(r.drink.pour, true); });
+});
+
+test('a gate is never relaxed to get around a hard rule', function () {
+  walk({}, function (res, answers) {
+    if (res.relaxed !== 'serve') return;
+    res.items.forEach(function (r) {
+      assert.ok(E.passesHard(r.drink, answers), r.drink.name + ' slipped a hard rule');
+    });
+  });
+});
+
+console.log('\nWhat the data does not say');
+
+test('an unnamed expression is not punished for the card being brief', function () {
+  var margarita = byName('Margarita');
+  assert.strictEqual(margarita.expression, '');
+  var res = E.recommend(ITEMS, { agave: ['reposado'] }, { limit: 99 });
+  assert.ok(names(res).indexOf('Margarita') !== -1,
+    'Margarita must stay reachable when reposado is asked for');
+});
+
+test('a missing strength is still offered, and never beats a real match', function () {
+  /* An unmeasured bottle stays reachable and never outranks one that matched
+   * exactly. It may still outrank one whose recorded strength is plainly
+   * wrong, which is the right advice: a guest who asked for something light
+   * is better served by "we have not measured this one" than by a bottle the
+   * card says is strong. */
+  var ocho = byName('Ocho Plata');
+  assert.strictEqual(ocho.strength, null);
+
+  ['1', '2', '3'].forEach(function (want) {
+    var res = E.recommend(ITEMS, { strength: want }, { limit: 99 });
+    assert.ok(names(res).indexOf('Ocho Plata') !== -1, 'dropped at strength ' + want);
+
+    var exact = res.items.filter(function (r) { return r.drink.strength === Number(want); });
+    var atOcho = names(res).indexOf('Ocho Plata');
+    exact.forEach(function (r) {
+      assert.ok(names(res).indexOf(r.drink.name) < atOcho,
+        r.drink.name + ' matched exactly and should outrank an unmeasured bottle');
+    });
+  });
+
+  // And it claims nothing, because there is nothing to claim.
+  var one = E.recommend(ITEMS, { strength: '1' }, { limit: 99 }).items
+    .filter(function (r) { return r.drink.name === 'Ocho Plata'; })[0];
+  assert.strictEqual(one.reasons.filter(function (r) {
+    return r.key.indexOf('strength') === 0;
+  }).length, 0);
+});
+
+console.log('\nReasons are claims, and every claim is checked');
+
+test('no reason printed on a card is false', function () {
+  walk({}, function (res, answers) {
+    res.items.forEach(function (row) {
+      var d = row.drink;
+      row.reasons.forEach(function (r) {
+        if (r.key === 'kind') assert.strictEqual(d.kind, r.x, d.name);
+        if (r.key === 'expression') assert.strictEqual(d.expression, r.x, d.name);
+        if (r.key === 'character') {
+          String(r.x).split(', ').forEach(function (tag) {
+            assert.ok(d.tags.indexOf(tag) !== -1, d.name + ' does not taste ' + tag);
+          });
+          (r.from || []).filter(Boolean).forEach(function (ing) {
+            assert.ok(d.ing.indexOf(ing) !== -1 || ing === d.name,
+              d.name + ' has no ' + ing + ' to taste of');
+          });
+        }
+        if (r.key === 'strength_exact') {
+          assert.strictEqual(d.strength, Number(answers.strength), d.name);
+        }
+        if (r.key === 'strength_near') {
+          assert.strictEqual(Math.abs(d.strength - Number(answers.strength)), 1, d.name);
+        }
+        if (r.key === 'budget') {
+          assert.ok(d.price <= Number(answers.budget), d.name);
+        }
+      });
+    });
+  });
+});
+
+test('every reason key has copy in both languages', function () {
+  var keys = {};
+  walk({}, function (res) {
+    res.items.forEach(function (row) {
+      row.reasons.forEach(function (r) { keys[r.key] = true; });
+    });
+  });
+  Object.keys(keys).forEach(function (k) {
+    ['de', 'en'].forEach(function (lang) {
+      assert.ok(Q.UI[lang].reasons[k], 'no ' + lang + ' copy for reason ' + k);
+    });
+  });
+});
+
+console.log('\nRunner ups say how they differ');
+
+test('every contrast claim is true of that pair', function () {
+  var ingFreq = {};
+  ITEMS.forEach(function (d) {
+    d.ing.forEach(function (i) { ingFreq[i] = (ingFreq[i] || 0) + 1; });
+  });
+  var checked = 0;
+  ITEMS.forEach(function (hero) {
+    ITEMS.forEach(function (alt) {
+      if (hero === alt) return;
+      var c = E.contrastOf(hero, alt, ingFreq);
+      if (!c) return;
+      checked++;
+      var where = hero.name + ' vs ' + alt.name + ' claimed ' + c.kind;
+      if (c.kind === 'smoky') assert.strictEqual(alt.kind, 'mezcal', where);
+      if (c.kind === 'unsmoked') assert.notStrictEqual(alt.kind, 'mezcal', where);
+      if (c.kind === 'expression') {
+        assert.strictEqual(alt.expression, c.value, where);
+        assert.notStrictEqual(hero.expression, c.value, where);
+      }
+      if (c.kind === 'older') {
+        assert.ok(alt.agedMonths != null && hero.agedMonths != null, where);
+        assert.ok(alt.agedMonths - hero.agedMonths >= E.AGE_GAP_MONTHS, where);
+      }
+      if (c.kind === 'younger') {
+        assert.ok(alt.agedMonths != null && hero.agedMonths != null, where);
+        assert.ok(hero.agedMonths - alt.agedMonths >= E.AGE_GAP_MONTHS, where);
+      }
+      if (c.kind === 'region') {
+        assert.ok(alt.region && hero.region, where);
+        assert.notStrictEqual(alt.region.text, hero.region.text, where);
+        assert.strictEqual(c.value, alt.region.key || alt.region.text, where);
+      }
+      if (c.kind === 'neat') { assert.ok(alt.pour, where); assert.ok(!hero.pour, where); }
+      if (c.kind === 'mixed') { assert.ok(!alt.pour, where); assert.ok(hero.pour, where); }
+      if (c.kind === 'stronger') assert.ok(alt.strength > hero.strength, where);
+      if (c.kind === 'lighter') assert.ok(alt.strength < hero.strength, where);
+      if (c.kind === 'ingredient') {
+        assert.ok(alt.ing.indexOf(c.value) !== -1, where);
+        assert.strictEqual(hero.ing.indexOf(c.value), -1, where);
+        assert.strictEqual(A.GENERIC_ING.indexOf(A.norm(c.value)), -1,
+          where + ' but ' + c.value + ' is too generic to name');
+        assert.strictEqual(A.isAgaveWord(c.value), false,
+          where + ' but every drink here has agave in it, so ' + c.value +
+          ' is not a reason to pick one');
+      }
+      if (c.kind === 'cheaper') {
+        assert.ok(hero.price - alt.price >= E.PRICE_GAP, where);
+      }
+      if (c.kind === 'character') {
+        assert.ok(alt.tags.indexOf(c.value) !== -1, where);
+        assert.strictEqual(hero.tags.indexOf(c.value), -1, where);
+      }
+    });
+  });
+  console.log('       (' + checked + ' pairs checked)');
+});
+
+test('every contrast kind the engine can emit has copy in both languages', function () {
+  var ingFreq = {};
+  var kinds = {};
+  ITEMS.forEach(function (hero) {
+    ITEMS.forEach(function (alt) {
+      var c = hero === alt ? null : E.contrastOf(hero, alt, ingFreq);
+      if (c) kinds[c.kind] = true;
+    });
+  });
+  Object.keys(kinds).forEach(function (k) {
+    ['de', 'en'].forEach(function (lang) {
+      assert.ok(Q.UI[lang].contrast[k], 'no ' + lang + ' copy for contrast ' + k);
+    });
+  });
+});
+
+test('the generic ingredient list is actually reaching the contrast', function () {
+  // isGeneric reads its vocabulary from BBAgave at call time. If the load
+  // order in index.html ever changes, this is what notices.
+  var a = { kind: 'tequila', expression: '', pour: false, strength: 2, price: 9,
+            tags: [], ing: ['Tequila', 'Limette'] };
+  var b = { kind: 'tequila', expression: '', pour: false, strength: 2, price: 9,
+            tags: [], ing: ['Tequila'] };
+  assert.strictEqual(E.contrastOf(b, a, {}), null,
+    'Limette alone is not a reason to pick a different drink');
+});
+
+console.log('\nBehaviour under every answer');
+
+test('every combination returns something unless a hard rule emptied the card', function () {
+  var walked = 0;
+  walk({}, function (res, answers) {
+    walked++;
+    var survivors = ITEMS.filter(function (d) { return E.passesHard(d, answers); });
+    if (survivors.length) {
+      assert.ok(res.items.length > 0, 'nothing offered for ' + JSON.stringify(answers));
+    } else {
+      assert.strictEqual(res.items.length, 0);
+    }
+  });
+  console.log('       (' + walked + ' answer combinations checked)');
+});
+
+test('a match percentage is only reported once it can separate anything', function () {
+  /* One question answered means every survivor scores the same, and three
+   * cards reading 99 per cent is worse than no number at all. The count is a
+   * property of the answers, so every card in one result agrees. */
+  assert.strictEqual(E.recommend(ITEMS, { strength: '3' }, { seed: 7 }).dimensions, 1);
+  assert.strictEqual(E.recommend(ITEMS, { serve: 'pur', budget: '12' }, { seed: 7 }).dimensions, 0,
+    'a gate and a hard rule are not things a percentage can express');
+  assert.strictEqual(
+    E.recommend(ITEMS, { strength: '3', agave: ['reposado'], character: ['süß'] }, {}).dimensions, 3);
+
+  walk({}, function (res) { assert.strictEqual(typeof res.dimensions, 'number'); });
+});
+
+test('no two runner ups ever carry the same label', function () {
+  // Two cards both saying "Was ohne Rauch" is barely better than two both
+  // saying "Passt ebenfalls".
+  walk({}, function (res, answers) {
+    var seen = {};
+    res.items.slice(1).forEach(function (row) {
+      if (!row.contrast) return;
+      var key = E.labelKey(row.contrast);
+      assert.ok(!seen[key],
+        'two runner ups both claim ' + key + ' for ' + JSON.stringify(answers));
+      seen[key] = true;
+    });
+  });
+});
+
+test('results come back ranked, and never more than asked for', function () {
+  walk({}, function (res) {
+    for (var i = 1; i < res.items.length; i++) {
+      assert.ok(res.items[i - 1].score >= res.items[i].score, 'out of order');
+    }
+    assert.ok(res.items.length <= 3);
+  });
+});
+
+test('the same answers give the same advice', function () {
+  var answers = { serve: 'cocktail', agave: ['reposado'], strength: '3', character: ['süß'] };
+  var a = E.recommend(ITEMS, answers, { seed: 42 });
+  var b = E.recommend(ITEMS, answers, { seed: 42 });
+  assert.deepStrictEqual(names(a), names(b));
+});
+
+test('free rein spreads the answers instead of always handing over one drink', function () {
+  var seen = {};
+  for (var s = 0; s < 40; s++) {
+    seen[names(E.recommend(ITEMS, { character: ['barkeeper'] }, { seed: s }))[0]] = true;
+  }
+  assert.ok(Object.keys(seen).length > 1,
+    'handing the choice back should not always produce the same drink');
+});
+
+test('a stated preference is not drowned out by that jitter', function () {
+  for (var s = 0; s < 40; s++) {
+    var top = E.recommend(ITEMS, { serve: 'pur', agave: ['mezcal'] }, { seed: s }).items[0];
+    assert.strictEqual(top.drink.kind, 'mezcal', 'seed ' + s + ' gave ' + top.drink.name);
+  }
+});
+
+console.log('\nBefore the seat republishes');
+
+test('the app still answers on the card page 217 serves today', function () {
+  var older = A.agaveItems(F.beforePublish(), SRC);
+  assert.strictEqual(older.length, ITEMS.length);
+  var res = E.recommend(older, { serve: 'pur', agave: ['reposado'] }, { seed: 7 });
+  assert.ok(res.items.length > 0);
+  assert.strictEqual(res.items[0].drink.expression, 'reposado');
+});
+
+test('an answer the older card cannot support simply offers nothing false', function () {
+  var older = A.agaveItems(F.beforePublish(), SRC);
+  // additive_free is one of the fields that has not arrived yet, so nothing
+  // can be vouched for and the honest answer is an empty result.
+  var res = E.recommend(older, { exclude: ['zusaetze'] }, {});
+  assert.strictEqual(res.items.length, 0);
+});
+
+console.log('\nQuestions and data agree');
+
+test('every static answer value is something the card can actually answer', function () {
+  var kinds = {}, exprs = {}, tags = {}, allergens = {};
+  ITEMS.forEach(function (d) {
+    kinds[d.kind] = true;
+    if (d.expression) exprs[d.expression] = true;
+    d.tags.forEach(function (t) { tags[t] = true; });
+    d.allergens.forEach(function (a) { allergens[a] = true; });
+  });
+  /* Both self-building questions offer only what the card carries, so check
+   * what they would actually put on screen rather than the vocabulary they
+   * draw from. */
+  Q.agaveOptions(ITEMS).forEach(function (opt) {
+    assert.ok(exprs[opt.value] || kinds[opt.value], 'no item is a ' + opt.value);
+  });
+  assert.ok(Q.AGAVE_CHOICES.length > Q.agaveOptions(ITEMS).length,
+    'this fixture should not carry every expression, or the filter proves nothing');
+
+  Q.characterOptions(ITEMS).forEach(function (opt) {
+    if (opt.exclusive) return;
+    assert.ok(tags[opt.value], 'nothing on the card tastes of ' + opt.value);
+  });
+  assert.ok(Q.CHARACTER_CHOICES.length + 1 > Q.characterOptions(ITEMS).length,
+    'this fixture should not carry every flavour, or the filter proves nothing');
+
+  Q.QUESTIONS.forEach(function (q) {
+    (q.options || []).forEach(function (opt) {
+      var v = opt.value;
+      if (opt.exclusive) return;                       // the sentinel, not a value
+      if (q.id === 'exclude' && E.NOT_ALLERGENS.indexOf(v) === -1) {
+        // Allergen values are the card's own strings, so they only have to
+        // be strings the card could carry, not ones this fixture does.
+        assert.strictEqual(typeof v, 'string', v);
+      } else if (q.id === 'strength') {
+        assert.ok(['1', '2', '3'].indexOf(v) !== -1, v);
+      }
+    });
+  });
+});
+
+test('every option and question carries both languages', function () {
+  Q.QUESTIONS.forEach(function (q) {
+    ['de', 'en'].forEach(function (lang) {
+      assert.ok(q.title[lang], q.id + ' title ' + lang);
+      assert.ok(!q.sub || q.sub[lang], q.id + ' sub ' + lang);
+    });
+    allOptionsFor(q).forEach(function (opt) {
+      ['de', 'en'].forEach(function (lang) {
+        assert.ok(opt.label[lang], q.id + '/' + opt.value + ' label ' + lang);
+        assert.ok(!opt.hint || opt.hint[lang], q.id + '/' + opt.value + ' hint ' + lang);
+      });
+    });
+  });
+});
+
+test('every character and expression the engine can name reads back in both languages', function () {
+  ['de', 'en'].forEach(function (lang) {
+    Q.CHARACTER_CHOICES.forEach(function (opt) {
+      assert.ok(Q.UI[lang].characterNames[opt.value], lang + ' has no name for ' + opt.value);
+      assert.ok(Q.UI[lang].characterCompare[opt.value], lang + ' has no comparative for ' + opt.value);
+    });
+    Object.keys(A.CHARACTER).forEach(function (tag) {
+      assert.ok(Q.UI[lang].characterNames[tag], lang + ' has no name for ' + tag);
+      assert.ok(Q.UI[lang].characterCompare[tag], lang + ' has no comparative for ' + tag);
+    });
+    A.EXPRESSIONS.forEach(function (e) {
+      assert.ok(Q.UI[lang].expressionNames[e[1]], lang + ' has no name for ' + e[1]);
+    });
+    A.KINDS.concat(['agave']).forEach(function (k) {
+      assert.ok(Q.UI[lang].kindNames[k], lang + ' has no name for ' + k);
+    });
+    Object.keys(A.REGIONS).forEach(function (word) {
+      var key = A.REGIONS[word];
+      assert.ok(Q.UI[lang].regionNames[key], lang + ' has no name for region ' + key);
+      assert.ok(Q.UI[lang].regionContrast[key], lang + ' has no contrast for region ' + key);
+    });
+  });
+});
+
+test('no two flavours read the same on a runner up', function () {
+  /* Runner ups are deduplicated on the contrast key, not on the rendered
+   * string, so two different flavours sharing a comparative would put the
+   * same words on two cards again. */
+  ['de', 'en'].forEach(function (lang) {
+    var seen = {};
+    var compare = Q.UI[lang].characterCompare;
+    Object.keys(compare).forEach(function (tag) {
+      assert.ok(!seen[compare[tag]],
+        lang + ': ' + tag + ' and ' + seen[compare[tag]] + ' both read "' + compare[tag] + '"');
+      seen[compare[tag]] = tag;
+    });
+  });
+});
+
+test('the guest copy keeps the house voice', function () {
+  // No hyphens, no dashes, no colons, no semicolons. Checked rather than
+  // trusted, because it is the rule most easily lost in a hurry.
+  var offenders = [];
+  function check(path, s) {
+    if (typeof s !== 'string') return;
+    if (/[–—;:]/.test(s) || / - /.test(s)) offenders.push(path + '  ' + s);
+  }
+  function walkCopy(node, path) {
+    if (typeof node === 'string') return check(path, node);
+    if (!node || typeof node !== 'object') return;
+    Object.keys(node).forEach(function (k) { walkCopy(node[k], path + '.' + k); });
+  }
+  Q.QUESTIONS.forEach(function (q) {
+    walkCopy(q.title, q.id + '.title');
+    walkCopy(q.sub, q.id + '.sub');
+    allOptionsFor(q).forEach(function (o) {
+      walkCopy(o.label, q.id + '.' + o.value + '.label');
+      walkCopy(o.hint, q.id + '.' + o.value + '.hint');
+    });
+  });
+  ['de', 'en'].forEach(function (lang) { walkCopy(Q.UI[lang], 'UI.' + lang); });
+  assert.strictEqual(offenders.length, 0, 'house voice broken\n       ' + offenders.join('\n       '));
+});
+
+// ------------------------------------------------------------- the walk ---
+
+/* Every combination of answers the interface can produce, with `fixed`
+ * pinned. Cheap enough to run in full, so it runs in full. */
+function walk(fixed, fn) {
+  var serves = ['', 'pur', 'cocktail'];
+  var agaves = [[], ['blanco'], ['reposado'], ['anejo'], ['cristalino'], ['mezcal'],
+                ['blanco', 'reposado']];
+  var strengths = ['', '1', '2', '3'];
+  var characters = [[], ['barkeeper'], ['sauer/zitrus'], ['rauchig'], ['süß'], ['bitter'],
+                    ['prickelnd'], ['fruchtig'], ['scharf'], ['kräuterig/frisch'],
+                    ['cremig'], ['agave'], ['vanille'], ['eiche'],
+                    ['sauer/zitrus', 'süß'], ['vanille', 'eiche']];
+  var budgets = [''].concat(STOPS.map(String));
+  var excludes = [[], ['rauch'], ['zusaetze'], ['Ei'], ['Nüsse'],
+                  ['rauch', 'zusaetze', 'Ei', 'Nüsse', 'Milch']];
+
+  serves.forEach(function (serve) {
+    agaves.forEach(function (agave) {
+      strengths.forEach(function (strength) {
+        characters.forEach(function (character) {
+          budgets.forEach(function (budget) {
+            excludes.forEach(function (exclude) {
+              var answers = Object.assign({
+                serve: serve, agave: agave, strength: strength,
+                character: character, budget: budget, exclude: exclude
+              }, fixed);
+              fn(E.recommend(ITEMS, answers, { seed: 7 }), answers);
+            });
+          });
+        });
+      });
+    });
+  });
+}
+
+console.log('\n' + passed + ' passed\n');

@@ -198,13 +198,24 @@ q('notices a real change through content_hash, and ignores a rebuild', function 
   var edited = { published_at: '2026-09-08T04:00:00+02:00', content_hash: 'bbb' };
   assert.strictEqual(src.hasChanged(a, rebuilt), false, 'a rebuild is not a change');
   assert.strictEqual(src.hasChanged(a, edited), true);
+
+  // A payload that gains or loses its hash counts as changed, rather than
+  // quietly falling back to a timestamp that may not have moved.
+  var noHash = { published_at: '2026-09-07T23:10:16+02:00' };
+  assert.strictEqual(src.hasChanged(noHash, a), true);
+  assert.strictEqual(src.hasChanged(a, noHash), true);
 });
 
-q('falls back to published_at when a payload carries no hash', function () {
+q('falls back to published_at when neither payload carries a hash', function () {
   var older = { published_at: '2026-09-07T23:10:16+02:00' };
   var newer = { published_at: '2026-09-08T10:00:00+02:00' };
   assert.strictEqual(src.hasChanged(older, older), false);
   assert.strictEqual(src.hasChanged(older, newer), true);
+});
+
+q('does not go back to the network more often than the spec allows', function () {
+  assert.ok(src.MAX_AGE_MS >= 60 * 60 * 1000,
+    'the data spec says hourly at most');
 });
 
 console.log('\nPresenting what it returns');
@@ -230,6 +241,17 @@ q('section order and item order are preserved exactly', function () {
     ['Augustiner Helles 0,5l', 'Riesling', 'Don Julio Reposado 4cl']);
   assert.strictEqual(items[0].section, 'Bier');
   assert.strictEqual(items[1].section_en, 'Wine');
+});
+
+q('a section is matched by keyword, in either language, never by exact title', function () {
+  /* The data spec asks every app to pick its sections by keyword rather than
+   * by exact title, because the head barkeeper renames them as the card
+   * moves. One implementation here rather than one per app. */
+  var items = src.allItems(MENU);
+  assert.strictEqual(src.inSection(items[0], /bier|beer/i), true);
+  assert.strictEqual(src.inSection(items[0], /wein|wine/i), false);
+  // The English title alone is enough, so an English rename loses nothing.
+  assert.strictEqual(src.inSection(items[1], /^wine$/i), true);
 });
 
 q('hidden_on_card does not withhold a drink', function () {
