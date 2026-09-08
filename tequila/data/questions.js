@@ -257,7 +257,7 @@
 
   var UI = {
     de: {
-      title: 'Agave',
+      title: 'Der Agavenkenner',
       lede: 'Von Blanco bis Añejo und einmal quer durch den Rauch. Sag uns kurz worauf du Lust hast, den Rest machen wir.',
       start: 'Los geht’s',
       fullCard: 'Zur ganzen Karte',
@@ -377,7 +377,7 @@
     },
 
     en: {
-      title: 'Agave',
+      title: 'The Agave Expert',
       lede: 'From blanco to añejo and all the way through the smoke. Tell us what you feel like and we will take it from there.',
       start: 'Start',
       fullCard: 'See the full list',
