@@ -24,7 +24,11 @@
       background: var(--ink-2); border: 1px solid var(--line-soft);
       border-radius: var(--radius); padding: 1rem; overflow-x: auto;
       font-size: 0.78rem; line-height: 1.5; color: var(--muted); white-space: pre;
+      max-height: 22rem;
     }
+    .copy-head { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; margin-bottom: 0.7rem; }
+    .copy-head h2 { margin: 0; }
+    .copy-hint { color: var(--muted); font-size: 0.9rem; margin: 0 0 1rem; }
   </style>
 </head>
 <body>
@@ -223,15 +227,57 @@
       if (!demo.items.length) row(b8, 'Ergebnis', 'nichts, das ist ein Problem', 'gap');
 
       // ------------------------------------------------------------ copy --
-      var pre = document.createElement('pre');
-      pre.className = 'copy';
-      pre.textContent = lines.join('\n').trim();
+      /* The whole point of the page is the text below, so it gets a button
+       * rather than an invitation to select three hundred lines by hand. */
+      var text = lines.join('\n').trim();
+
       report.appendChild(document.createElement('hr')).className = 'rule';
+
       var h = document.createElement('div');
       h.className = 'block';
-      h.innerHTML = '<h2>Zum Kopieren</h2>';
+
+      var head = document.createElement('div');
+      head.className = 'copy-head';
+      var h2 = document.createElement('h2');
+      h2.textContent = 'Zum Kopieren';
+      var btn = document.createElement('button');
+      btn.className = 'btn btn-primary';
+      btn.type = 'button';
+      btn.textContent = 'Bericht kopieren';
+      head.appendChild(h2);
+      head.appendChild(btn);
+      h.appendChild(head);
+
+      var hint = document.createElement('p');
+      hint.className = 'copy-hint';
+      hint.textContent = 'Das hier ist der Bericht, nicht der Quelltext der Seite. '
+        + 'Auf den Knopf tippen und einfügen, dann ist alles drin, was die App sieht.';
+      h.appendChild(hint);
+
+      var pre = document.createElement('pre');
+      pre.className = 'copy';
+      pre.textContent = text;
+      h.appendChild(pre);
       report.appendChild(h);
-      report.appendChild(pre);
+
+      btn.addEventListener('click', function () {
+        function done() { btn.textContent = 'Kopiert'; }
+        function fallback() {
+          // Older browsers, and any page not served over https.
+          var sel = window.getSelection();
+          var range = document.createRange();
+          range.selectNodeContents(pre);
+          sel.removeAllRanges();
+          sel.addRange(range);
+          try { document.execCommand('copy'); done(); }
+          catch (e) { btn.textContent = 'Bitte von Hand markieren'; }
+        }
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(text).then(done, fallback);
+        } else {
+          fallback();
+        }
+      });
     }
 
     SRC.loadMenu({ force: true }).then(run, function (err) {
