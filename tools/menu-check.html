@@ -100,11 +100,20 @@
 
     form.hidden = false;
     input.value = expected;
+
+    /* Redraws against the new expectation without going back to the network
+     * and without touching the address. Navigating would have been shorter,
+     * but this page is meant to be opened straight off disk, where editing a
+     * file:// address by hand is exactly the sort of small friction that ends
+     * with nobody running the check. */
+    var lastOut = null;
     form.addEventListener('submit', function (e) {
       e.preventDefault();
-      var v = input.value.trim();
-      // Re-runs the whole report against the new expectation, from cache.
-      window.location.search = v ? '?hash=' + encodeURIComponent(v) : '';
+      expected = input.value.trim();
+      if (!lastOut) return;
+      report.innerHTML = '';
+      lines = [];
+      run(lastOut);
     });
 
     function block(title) {
@@ -150,6 +159,7 @@
     }
 
     function run(out) {
+      lastOut = out;
       var menu = out.menu;
       var items = SRC.allItems(menu);
       var shelf = ENG.bottles(items);
