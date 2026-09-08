@@ -63,21 +63,51 @@ statt Gin" makes any keyword search lie.
 ## The data rule that matters most
 
 There is exactly one source, the live Menu API, and `assets/menu-source.js` is
-the only file allowed to talk to it. From the brief, and these are not
-negotiable:
+the only file allowed to talk to it. From the 08.09.2026 data spec, and these
+are not negotiable:
 
 - The app only reads, it never writes back.
-- Never ship a bundled copy of the menu as a fallback. The only fallback is the
-  last response that browser itself received, shown with its age.
+- Never ship a bundled copy of the menu as a fallback, and never cache it on a
+  server of our own. The only fallback is the last response that browser itself
+  received, shown with its age.
+- **Ask hourly at most.** The card changes a few times a week, not a few times
+  a minute. `MAX_AGE_MS` is one hour and should not be shortened.
+- **`content_hash` decides whether anything changed**, not `published_at`.
+  Every build stamps a new timestamp whether or not the content moved.
+- **`hidden_on_card: true` is never shown.** These are till articles, not guest
+  positions. `allItems` drops them, which is the one place it can be forgotten
+  only once. This reverses the original brief, which called them orderable.
+- **`menu_class` is never shown to a guest.** It is BarPatrol's margin and
+  popularity bucket. `tequila/assets/agave.js` deliberately does not copy it
+  into the record it hands the interface, so it cannot leak by accident.
 - If `&amp;` ever appears in the payload the publishing pipeline is broken.
   Report it, do not repair it.
 - Never render `content.rendered` as HTML, only read the `pre` block.
 - Never hard-code a drink, a price, a section name or an allergen.
 - The order of sections and items is the display order. Do not resort it.
-- Everything published is orderable. The app does not filter for availability.
+- `image` is a URL or `null`. Link it, never copy it, and always test for null.
+- `recommended` marks the card's own leader for a section. Show it as a marker.
+  It is not a ranking input and there is no separate recommendations block.
 
-Whether an item can be recommended is decided by the data and never by a
-section name. A cocktail has an ingredient list, beer and wine do not.
+### Sections may add, never remove
+
+The data spec asks each app to pick its sections by keyword, because the head
+barkeeper renames them as the card moves. That is a weaker rule than the one
+this repo already had, so the two are combined rather than swapped.
+
+An item is an app's business if **it carries evidence of its own** (a cocktail
+has an ingredient list, an agave spirit names a spirit or a brand) **or** it
+sits in a section whose title carries the keyword. So a Margarita that moves to
+Klassiker keeps being a Margarita, and a house drink whose ingredients name
+nothing recognisable is still picked up by its shelf.
+
+The consequence, and it is worth knowing rather than discovering: renaming a
+section to something with no keyword in it loses only the items that had no
+evidence of their own. Everything else survives any rename at all. There is a
+test for both halves.
+
+Whether an item can be recommended is otherwise decided by the data. A cocktail
+has an ingredient list, beer and wine do not.
 
 ## Open work
 
@@ -97,3 +127,9 @@ Nothing there blocks it, it runs today.
 The build environment's network policy denies `brunnenbar.com`, so everything
 is written against the documented schema and tested against synthetic fixtures
 shaped like it. The first run against the real payload is worth watching.
+
+**`agave_kind` and `agave_expression` are documented two ways.** Dan's example
+has `agave_kind: "Tequila"` and `agave_expression: "Añejo"`. The data spec's
+field table glosses them the other way round. `agave.js` reads both values by
+what they SAY rather than by which key they arrived under, so it is right
+either way. That shim comes out once the generator and the doc agree.

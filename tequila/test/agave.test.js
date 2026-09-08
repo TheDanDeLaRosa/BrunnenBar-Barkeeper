@@ -49,14 +49,52 @@ test('agave syrup in a gin drink is a sweetener, not a spirit', function () {
   assert.strictEqual(A.derive(gin), null);
 });
 
-test('membership never depends on a section title', function () {
+test('a till article is carried in the payload and never shown', function () {
+  // hidden_on_card is a Kassenartikel per the 08.09.2026 data spec. Dropped
+  // at the source, so no app can forget.
+  var raws = F.MENU.sections.reduce(function (a, s) { return a.concat(s.items); }, []);
+  assert.ok(raws.some(function (i) { return i.hidden_on_card === true; }),
+    'the fixture must actually contain one');
+  assert.strictEqual(ITEMS.filter(function (d) { return /Flasche/.test(d.name); }).length, 0);
+});
+
+test('an item with agave of its own never depends on a section title', function () {
+  /* The strong half of the rule, and the one that matters. Every item that
+   * can vouch for itself survives any rename at all. */
   var renamed = JSON.parse(JSON.stringify(F.MENU));
   renamed.sections.forEach(function (s, i) {
     s.title = 'Abschnitt ' + i;
     s.title_en = 'Section ' + i;
   });
   var after = A.agaveItems(renamed, SRC).map(function (d) { return d.name; });
-  assert.deepStrictEqual(after, ITEMS.map(function (d) { return d.name; }));
+  SRC.allItems(F.MENU).filter(A.isAgave).forEach(function (i) {
+    assert.ok(after.indexOf(i.name) !== -1, i.name + ' lost to a rename');
+  });
+});
+
+test('the section can add an item, and is the only thing that can lose one', function () {
+  /* The data spec asks every app to pick its sections by keyword. That is
+   * how El Jefe reaches this app at all, since it names no agave anywhere,
+   * and it is also the one thing a keyword-free rename can cost. Said out
+   * loud here rather than left as a surprise. */
+  var jefe = SRC.allItems(F.MENU).filter(function (i) { return i.name === 'El Jefe'; })[0];
+  assert.strictEqual(A.isAgave(jefe), false, 'it vouches for nothing itself');
+  assert.strictEqual(A.isRelevant(jefe, SRC), true, 'the section vouches for it');
+  assert.ok(ITEMS.some(function (d) { return d.name === 'El Jefe'; }));
+
+  // A rename that keeps a keyword keeps the item.
+  var kept = JSON.parse(JSON.stringify(F.MENU));
+  kept.sections.forEach(function (s) {
+    if (s.title === 'Tequila Cocktails') { s.title = 'Agave Drinks'; s.title_en = 'Agave Drinks'; }
+  });
+  assert.ok(A.agaveItems(kept, SRC).some(function (d) { return d.name === 'El Jefe'; }));
+
+  // One that drops every keyword does not.
+  var lost = JSON.parse(JSON.stringify(F.MENU));
+  lost.sections.forEach(function (s) {
+    if (s.title === 'Tequila Cocktails') { s.title = 'Hausdrinks'; s.title_en = 'House drinks'; }
+  });
+  assert.ok(!A.agaveItems(lost, SRC).some(function (d) { return d.name === 'El Jefe'; }));
 });
 
 test('a brand name carries agave where the word tequila never appears', function () {
@@ -67,7 +105,9 @@ test('a brand name carries agave where the word tequila never appears', function
 });
 
 test('card order is preserved, never resorted', function () {
-  var order = SRC.allItems(F.MENU).filter(A.isAgave).map(function (i) { return i.name; });
+  var order = SRC.allItems(F.MENU)
+    .filter(function (i) { return A.isRelevant(i, SRC); })
+    .map(function (i) { return i.name; });
   assert.deepStrictEqual(ITEMS.map(function (d) { return d.name; }), order);
 });
 
@@ -140,6 +180,42 @@ test('a region the lookup does not know is shown as the card writes it', functio
   var r = A.regionOf({ agave_region: 'Jalisco, irgendwo' });
   assert.strictEqual(r.text, 'Jalisco, irgendwo');
   assert.strictEqual(r.key, '');
+});
+
+test('the two spirit fields are read whichever way round they arrive', function () {
+  /* Dan's example has agave_kind "Tequila" and agave_expression "Añejo". The
+   * data spec's field table glosses them the other way round. Both are read
+   * by what they say rather than by which key they came under, so the app is
+   * right either way. Remove this once the generator and the doc agree. */
+  var right = { agave_kind: 'Tequila', agave_expression: 'Añejo' };
+  var round = { agave_kind: 'Añejo', agave_expression: 'Tequila' };
+  assert.deepStrictEqual(A.spiritFields(right), A.spiritFields(round));
+  assert.strictEqual(A.kindOf(round), 'tequila');
+  assert.strictEqual(A.expressionOf(round), 'anejo');
+});
+
+test('the margin bucket is never handed to the interface', function () {
+  // menu_class is internal. The spec says do not show it, and the surest way
+  // is for the interface never to receive it.
+  var raws = F.MENU.sections.reduce(function (a, s) { return a.concat(s.items); }, []);
+  assert.ok(raws.some(function (i) { return i.menu_class; }), 'the fixture must carry it');
+  ITEMS.forEach(function (d) {
+    assert.strictEqual('menu_class' in d, false, d.name);
+  });
+});
+
+test('the leader marker and the photo come straight off the card', function () {
+  var blanco = byName('Don Julio Blanco');
+  assert.strictEqual(blanco.recommended, true);
+  assert.match(blanco.image, /^https:\/\/brunnenbar\.com\//);
+  var repo = byName('Don Julio Reposado');
+  assert.strictEqual(repo.recommended, false);
+  assert.strictEqual(repo.image, null, 'no photo is null, never a placeholder');
+});
+
+test('zero proof is a strength of its own rather than an unknown', function () {
+  assert.strictEqual(A.strengthOf({ strength: 'alkoholfrei' }), 0);
+  assert.strictEqual(A.strengthOf({ strength: 'leicht' }), 1);
 });
 
 console.log('\nBefore the seat republishes');

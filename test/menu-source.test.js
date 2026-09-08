@@ -173,11 +173,26 @@ q('fails outright rather than inventing a menu when nothing was ever saved', fun
           function (err) { assert.match(err.message, /offline/); });
 });
 
-q('notices a republish through published_at', function () {
+q('notices a republish through content_hash, not through a timestamp', function () {
+  // Every build stamps a new published_at whether or not anything changed,
+  // so the hash is the only field that answers the question asked.
+  var a = { content_hash: 'fa59f27a2a8dc192', published_at: '2026-09-08T00:00:00+02:00' };
+  var rebuilt = { content_hash: 'fa59f27a2a8dc192', published_at: '2026-09-09T00:00:00+02:00' };
+  var edited = { content_hash: '0011223344556677', published_at: '2026-09-09T00:00:00+02:00' };
+  assert.strictEqual(src.hasChanged(a, rebuilt), false, 'a rebuild is not a change');
+  assert.strictEqual(src.hasChanged(a, edited), true);
+});
+
+q('falls back to published_at for a payload built before the hash existed', function () {
   var older = { published_at: '2026-09-07T23:10:16+02:00' };
   var newer = { published_at: '2026-09-08T10:00:00+02:00' };
   assert.strictEqual(src.hasChanged(older, older), false);
   assert.strictEqual(src.hasChanged(older, newer), true);
+});
+
+q('does not go back to the network more often than the spec allows', function () {
+  assert.ok(src.MAX_AGE_MS >= 60 * 60 * 1000,
+    'the data spec says hourly at most');
 });
 
 console.log('\nPresenting what it returns');
@@ -205,11 +220,25 @@ q('section order and item order are preserved exactly', function () {
   assert.strictEqual(items[1].section_en, 'Wine');
 });
 
-q('nothing is filtered out, since everything published is orderable', function () {
+q('a till article is never shown to a guest', function () {
+  /* Reversed on 08.09.2026. The original brief said hidden_on_card only
+   * meant "not on the printed card, still orderable". The data spec the
+   * website seat maintains now says these are Kassenartikel and must not be
+   * displayed, so they are dropped at the source. */
   var hidden = JSON.parse(JSON.stringify(MENU));
   hidden.sections[0].items[0].hidden_on_card = true;
-  assert.strictEqual(src.allItems(hidden).length, 2,
-    'hidden_on_card only means it is off the printed card');
+  var out = src.allItems(hidden);
+  assert.strictEqual(out.length, 1);
+  assert.strictEqual(out[0].name, 'Riesling');
+  assert.strictEqual(src.scoreableItems(hidden).length, 0);
+});
+
+q('a section is matched by keyword, in either language, never by exact title', function () {
+  var items = src.allItems(MENU);
+  assert.strictEqual(src.inSection(items[0], /bier|beer/i), true);
+  assert.strictEqual(src.inSection(items[0], /wein|wine/i), false);
+  // The English title alone is enough, so an English rename loses nothing.
+  assert.strictEqual(src.inSection(items[1], /^wine$/i), true);
 });
 
 q('beer and wine are carried but never scored, without naming any section', function () {

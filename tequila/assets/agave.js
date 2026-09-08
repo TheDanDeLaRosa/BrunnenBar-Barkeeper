@@ -136,6 +136,17 @@
   /* `agave_region` is free text on the card, so it is shown as written and
    * only the two everyday cases get a German word. Everything else is passed
    * through untouched rather than forced into a bucket it does not fit. */
+  /* The sections this app is responsible for, as a keyword rather than a
+   * title, because the head barkeeper renames them as the card moves. Taken
+   * from the 08.09.2026 data spec, which names "Tequila & Mezcal Neat" and
+   * "Tequila Cocktails" for this app.
+   *
+   * This can only ADD. An item is relevant if it carries agave evidence of
+   * its own OR sits in one of these sections, so renaming a section can
+   * never lose a bottle, and a Margarita that moves to Klassiker keeps
+   * being a Margarita. */
+  var SECTION = /tequila|mezcal|mescal|agave/i;
+
   var REGIONS = {
     'highland': 'highland', 'los altos': 'highland', 'hochland': 'highland',
     'lowland': 'lowland', 'valles': 'lowland', 'tiefland': 'lowland'
@@ -179,6 +190,11 @@
    * including the empty string, is null and scores neutral rather than
    * being guessed at. */
   var STRENGTH = {
+    // The 08.09.2026 spec's vocabulary is leicht, mittel, stark, alkoholfrei.
+    // The older words are kept because they cost nothing and the card has
+    // used them. Zero proof scores as itself rather than as unknown, even
+    // though no agave spirit will ever be it.
+    'alkoholfrei': 0, 'alcohol free': 0, 'alkoholfei': 0,
     'mild': 1, 'leicht': 1, 'light': 1,
     'mittel': 2, 'medium': 2,
     'stark': 3, 'kraftig': 3, 'bold': 3, 'strong': 3
@@ -280,8 +296,8 @@
    * precisely. Mezcal wins where both appear in the same glass, because the
    * smoke is the thing a guest will notice. */
   function kindOf(item) {
-    var given = norm(item.agave_kind).trim();
-    if (given) return KINDS.indexOf(given) !== -1 ? given : 'agave';
+    var given = matchKind(spiritFields(item).kind);
+    if (given) return given;
 
     var hay = bottle(item);
     if (has(hay, 'mezcal') || has(hay, 'mescal')) return 'mezcal';
@@ -310,7 +326,7 @@
    * table does not know is kept as its own key rather than thrown away, so a
    * new expression groups correctly and simply shows as written. */
   function expressionOf(item) {
-    var given = norm(item.agave_expression).trim();
+    var given = spiritFields(item).expression;
     if (given) return matchExpression(given) || given.replace(/\s+/g, '-');
     return matchExpression(bottle(item)) || '';
     // Unknown stays unknown. "Margarita" says tequila and no more.
@@ -321,6 +337,32 @@
       if (has(hay, EXPRESSIONS[i][0])) return EXPRESSIONS[i][1];
     }
     return '';
+  }
+
+  function matchKind(hay) {
+    for (var i = 0; i < KINDS.length; i++) {
+      if (has(hay, KINDS[i])) return KINDS[i];
+    }
+    return '';
+  }
+
+  /* `agave_kind` and `agave_expression`, read whichever way round they arrive.
+   *
+   * Dan's own example has agave_kind "Tequila" and agave_expression "Añejo".
+   * The data spec's field table glosses them the other way round. Rather than
+   * pick one and be wrong half the time, the two values are recognised by
+   * what they SAY. A value naming a spirit is the kind, a value naming a
+   * maturation is the expression, whichever key it arrived under.
+   *
+   * This is a compatibility shim, not a design. It should come out once the
+   * generator and the doc agree. */
+  function spiritFields(item) {
+    var a = norm(item.agave_kind).trim();
+    var b = norm(item.agave_expression).trim();
+    if (!matchKind(a) && matchExpression(a) && matchKind(b)) {
+      return { kind: b, expression: a };
+    }
+    return { kind: a, expression: b };
   }
 
   /* Where the agave grew, as the card writes it, plus a key for the two
@@ -426,14 +468,23 @@
     });
   }
 
+  /* Is this item this app's business. Its own evidence, or the shelf it sits
+   * on, and the shelf can only add. See SECTION above. */
+  function isRelevant(item, sourceApi) {
+    if (!item) return false;
+    if (isAgave(item)) return true;
+    var src = sourceApi || root.BBMenuSource;
+    return !!(src && src.inSection(item, SECTION));
+  }
+
   /**
    * One item, as the recommender wants it.
    * @param {Object} item  a Menu API item, section already carried down by
    *                       BBMenuSource.allItems
-   * @returns {Object|null} null when there is no agave spirit in it
+   * @returns {Object|null} null when it is not this app's business
    */
   function derive(item) {
-    if (!isAgave(item)) return null;
+    if (!isRelevant(item)) return null;
     var brand = brandOf(item);
     var character = tagsOf(item);
     return {
@@ -445,6 +496,15 @@
       allergens: list(item.allergens),
       rank: typeof item.popularity_rank === 'number' ? item.popularity_rank : 9999,
       ing: list(item.ingredients),
+      // The card's own leader for its section, one per section, shown the way
+      // the website shows it. A marker, never a ranking input.
+      recommended: item.recommended === true,
+      image: (typeof item.image === 'string' && item.image) ? item.image : null,
+
+      /* `menu_class` is deliberately absent. It is BarPatrol's margin and
+       * popularity bucket, the spec says do not show it to a guest, and the
+       * surest way to honour that is for the interface never to be handed
+       * it. There is a test asserting it does not appear here. */
 
       // the card's own fields where it has them, the vocabularies above
       // where it does not
@@ -466,18 +526,22 @@
    * resorted here, only filtered. */
   function agaveItems(menu, sourceApi) {
     var src = sourceApi || root.BBMenuSource;
-    return src.allItems(menu).map(derive).filter(Boolean);
+    return src.allItems(menu)
+      .filter(function (i) { return isRelevant(i, src); })
+      .map(derive)
+      .filter(Boolean);
   }
 
   var api = {
     derive: derive, agaveItems: agaveItems,
-    isAgave: isAgave, kindOf: kindOf, expressionOf: expressionOf, brandOf: brandOf,
+    isAgave: isAgave, isRelevant: isRelevant, spiritFields: spiritFields,
+    matchKind: matchKind, matchExpression: matchExpression, kindOf: kindOf, expressionOf: expressionOf, brandOf: brandOf,
     isPour: isPour, strengthOf: strengthOf, tagsOf: tagsOf, priceOf: priceOf, norm: norm,
     isAgaveWord: isAgaveWord, regionOf: regionOf, additiveFreeOf: additiveFreeOf,
     bottle: bottle, shelf: shelf,
     budgetStops: budgetStops,
     SPIRIT_WORDS: SPIRIT_WORDS, BRANDS: BRANDS, PORTFOLIO: PORTFOLIO,
-    EXPRESSIONS: EXPRESSIONS, KINDS: KINDS, REGIONS: REGIONS,
+    EXPRESSIONS: EXPRESSIONS, KINDS: KINDS, REGIONS: REGIONS, SECTION: SECTION,
     CHARACTER: CHARACTER, GENERIC_ING: GENERIC_ING, STRENGTH: STRENGTH
   };
   if (typeof module !== 'undefined' && module.exports) module.exports = api;

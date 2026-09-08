@@ -126,13 +126,33 @@ test('an unnamed expression is not punished for the card being brief', function 
     'Margarita must stay reachable when reposado is asked for');
 });
 
-test('a missing strength scores neutral rather than being guessed', function () {
+test('a missing strength is still offered, and never beats a real match', function () {
+  /* An unmeasured bottle stays reachable and never outranks one that matched
+   * exactly. It may still outrank one whose recorded strength is plainly
+   * wrong, which is the right advice: a guest who asked for something light
+   * is better served by "we have not measured this one" than by a bottle the
+   * card says is strong. */
   var ocho = byName('Ocho Plata');
   assert.strictEqual(ocho.strength, null);
-  ['1', '2', '3'].forEach(function (s) {
-    var res = E.recommend(ITEMS, { strength: s }, { limit: 99 });
-    assert.ok(names(res).indexOf('Ocho Plata') !== -1, 'dropped at strength ' + s);
+
+  ['1', '2', '3'].forEach(function (want) {
+    var res = E.recommend(ITEMS, { strength: want }, { limit: 99 });
+    assert.ok(names(res).indexOf('Ocho Plata') !== -1, 'dropped at strength ' + want);
+
+    var exact = res.items.filter(function (r) { return r.drink.strength === Number(want); });
+    var atOcho = names(res).indexOf('Ocho Plata');
+    exact.forEach(function (r) {
+      assert.ok(names(res).indexOf(r.drink.name) < atOcho,
+        r.drink.name + ' matched exactly and should outrank an unmeasured bottle');
+    });
   });
+
+  // And it claims nothing, because there is nothing to claim.
+  var one = E.recommend(ITEMS, { strength: '1' }, { limit: 99 }).items
+    .filter(function (r) { return r.drink.name === 'Ocho Plata'; })[0];
+  assert.strictEqual(one.reasons.filter(function (r) {
+    return r.key.indexOf('strength') === 0;
+  }).length, 0);
 });
 
 console.log('\nReasons are claims, and every claim is checked');
@@ -276,18 +296,16 @@ test('every combination returns something unless a hard rule emptied the card', 
 });
 
 test('a match percentage is only reported once it can separate anything', function () {
-  // One question answered means every survivor scores the same, and three
-  // cards reading 99 per cent is worse than no number at all.
-  var one = E.recommend(ITEMS, { strength: '3' }, { seed: 7 });
-  one.items.forEach(function (r) { assert.strictEqual(r.dimensions, 1, r.drink.name); });
+  /* One question answered means every survivor scores the same, and three
+   * cards reading 99 per cent is worse than no number at all. The count is a
+   * property of the answers, so every card in one result agrees. */
+  assert.strictEqual(E.recommend(ITEMS, { strength: '3' }, { seed: 7 }).dimensions, 1);
+  assert.strictEqual(E.recommend(ITEMS, { serve: 'pur', budget: '12' }, { seed: 7 }).dimensions, 0,
+    'a gate and a hard rule are not things a percentage can express');
+  assert.strictEqual(
+    E.recommend(ITEMS, { strength: '3', agave: ['reposado'], character: ['süß'] }, {}).dimensions, 3);
 
-  var several = E.recommend(ITEMS, { strength: '3', agave: ['reposado'], character: ['süß'] }, { seed: 7 });
-  several.items.forEach(function (r) { assert.ok(r.dimensions >= 2, r.drink.name); });
-
-  // And every result carries the count, so the interface never has to guess.
-  walk({}, function (res) {
-    res.items.forEach(function (r) { assert.strictEqual(typeof r.dimensions, 'number'); });
-  });
+  walk({}, function (res) { assert.strictEqual(typeof res.dimensions, 'number'); });
 });
 
 test('no two runner ups ever carry the same label', function () {

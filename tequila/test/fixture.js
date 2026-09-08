@@ -33,7 +33,8 @@ function item(over) {
     strength: '',
     allergens: [], allergens_en: [], allergen_codes: [],
     alcohol_free: false, pos_sku: '', hidden_on_card: false,
-    on_printed_menu: true, popularity_rank: 9999
+    on_printed_menu: true, popularity_rank: 9999,
+    image: null, recommended: false, menu_class: 'dog'
   }, over);
 }
 
@@ -102,7 +103,8 @@ var SECTIONS = [
     title: 'Tequila & Mezcal Neat', title_en: 'Tequila & Mezcal Neat', items: [
       pour({
         name: 'Don Julio Blanco', name_en: 'Don Julio Blanco',
-        agave_expression: 'Blanco',
+        agave_expression: 'Blanco', recommended: true, menu_class: 'star',
+        image: 'https://brunnenbar.com/wp-content/uploads/don-julio-blanco.jpg',
         price: 9.5, prices: [{ size: '2 cl', price: 9.5 }, { size: '4 cl', price: 17 }],
         description: 'Pfeffrig und klar.', description_en: 'Peppery and clear.',
         bartender_note: 'Die Agave ganz vorn.', bartender_note_en: 'Agave right up front.',
@@ -144,6 +146,27 @@ var SECTIONS = [
         name: 'Ocho Plata', name_en: 'Ocho Plata',
         group: 'Tequila & Mezcal Neat', group_en: 'Tequila & Mezcal Neat',
         price: 12, prices: priced(12), pos_sku: 'T7'
+      }),
+      pour({
+        /* A till article. Carried in the payload, never shown to a guest.
+         * If this ever turns up in a result the source stopped filtering. */
+        name: 'Don Julio Blanco Flasche', name_en: 'Don Julio Blanco bottle',
+        agave_expression: 'Blanco', hidden_on_card: true,
+        price: 220, prices: priced(220), pos_sku: 'T99'
+      })
+    ]
+  },
+  {
+    /* The section the data spec assigns this app alongside the neat shelf.
+     * Its one item names no agave anywhere, which is the case only the
+     * section can vouch for. */
+    title: 'Tequila Cocktails', title_en: 'Tequila Cocktails', items: [
+      item({
+        name: 'El Jefe', name_en: 'El Jefe',
+        price: 10, prices: priced(10),
+        ingredients: ['Hausmischung', 'Limette', 'Soda'],
+        ingredients_en: ['House mix', 'Lime', 'Soda'],
+        strength: 'mittel', recommended: true, menu_class: 'puzzle', pos_sku: 'C0'
       })
     ]
   },
@@ -154,6 +177,8 @@ var SECTIONS = [
         name: 'Margarita', name_en: 'Margarita',
         price: 9, prices: priced(9),
         description: 'Der Massstab.', description_en: 'The benchmark.',
+        recommended: true, menu_class: 'plowhorse',
+        image: 'https://brunnenbar.com/wp-content/uploads/margarita.jpg',
         ingredients: ['Tequila', 'Limette', 'Cointreau', 'Salz'],
         ingredients_en: ['Tequila', 'Lime', 'Cointreau', 'Salt'],
         strength: 'stark', popularity_rank: 5, pos_sku: 'C1'
@@ -212,6 +237,7 @@ var MENU = {
   name: 'BrunnenBar',
   generated: '2026-09-08',
   published_at: '2026-09-08T10:00:00+02:00',
+  content_hash: 'fa59f27a2a8dc192',
   url: 'https://brunnenbar.com/wp-json/wp/v2/pages/217?_fields=content',
   languages: ['de', 'en'],
   allergens: {

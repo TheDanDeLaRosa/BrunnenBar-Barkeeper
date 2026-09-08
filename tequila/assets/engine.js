@@ -27,6 +27,19 @@
     character: 30,
     strengthExact: 22,
     strengthNear: 8,
+    /* An item the card records no strength for, when the guest asked about
+     * strength. Below a near miss, above a real mismatch, which is the same
+     * ORDER a neutral zero gave. What changes is the percentage and the
+     * denominator: strength is now a dimension the guest asked about whether
+     * or not this bottle can answer it, so an unmeasured bottle reads as a
+     * weaker match rather than as a free pass, and every card in a result
+     * agrees about what the number is out of.
+     *
+     * It still outranks a bottle whose recorded strength is plainly wrong,
+     * and that is deliberate. A guest who asked for something light is better
+     * served by "we have not measured this one" than by a bottle the card
+     * says is strong. */
+    strengthUnknown: -6,
     strengthFar: -20
   };
 
@@ -128,23 +141,31 @@
      * that a real answer instead of always handing over the top seller. */
     var freeRein = wantChar.length === 0;
 
+    var askedStrength = a.strength != null && a.strength !== '';
+
+    /* How many things the guest actually asked about. A property of the
+     * answers and not of any one item, so every card in a result agrees about
+     * whether a match percentage means anything at all. */
+    var dimensions = (wantKinds.length ? 1 : 0) + (wantExpr.length ? 1 : 0) +
+                     (wantChar.length ? 1 : 0) + (askedStrength ? 1 : 0);
+
     var knownRanks = items.filter(function (d) { return d.rank < 9999; })
                           .map(function (d) { return d.rank; });
     var worstRank = knownRanks.length ? Math.max.apply(null, knownRanks) : 1;
 
     var scored = pool.map(function (d) {
-      var score = 0, maxScore = 0, reasons = [], dims = 0;
+      var score = 0, maxScore = 0, reasons = [];
 
       // — which agave spirit —
       if (wantKinds.length) {
-        maxScore += W.kind; dims++;
+        maxScore += W.kind;
         if (wantKinds.indexOf(d.kind) !== -1) {
           score += W.kind;
           reasons.push({ key: 'kind', weight: W.kind, x: d.kind });
         }
       }
       if (wantExpr.length) {
-        maxScore += W.expression; dims++;
+        maxScore += W.expression;
         if (d.expression && wantExpr.indexOf(d.expression) !== -1) {
           score += W.expression;
           reasons.push({ key: 'expression', weight: W.expression, x: d.expression });
@@ -156,7 +177,7 @@
 
       // — character — the share of what was asked for that this one has —
       if (wantChar.length) {
-        maxScore += W.character; dims++;
+        maxScore += W.character;
         var hits = wantChar.filter(function (t) { return d.tags.indexOf(t) !== -1; });
         if (hits.length) {
           score += W.character * (hits.length / wantChar.length);
@@ -167,18 +188,22 @@
         }
       }
 
-      // — strength — neutral, and silent, where the card records none —
-      if (a.strength != null && a.strength !== '' && d.strength != null) {
-        maxScore += W.strengthExact; dims++;
-        var delta = Math.abs(d.strength - Number(a.strength));
-        if (delta === 0) {
-          score += W.strengthExact;
-          reasons.push({ key: 'strength_exact', weight: W.strengthExact, x: d.strength });
-        } else if (delta === 1) {
-          score += W.strengthNear;
-          reasons.push({ key: 'strength_near', weight: W.strengthNear, x: d.strength });
+      // — strength — silent, but not free, where the card records none —
+      if (askedStrength) {
+        maxScore += W.strengthExact;
+        if (d.strength == null) {
+          score += W.strengthUnknown;      // and no reason, because there is none
         } else {
-          score += W.strengthFar;
+          var delta = Math.abs(d.strength - Number(a.strength));
+          if (delta === 0) {
+            score += W.strengthExact;
+            reasons.push({ key: 'strength_exact', weight: W.strengthExact, x: d.strength });
+          } else if (delta === 1) {
+            score += W.strengthNear;
+            reasons.push({ key: 'strength_near', weight: W.strengthNear, x: d.strength });
+          } else {
+            score += W.strengthFar;
+          }
         }
       }
 
@@ -203,12 +228,6 @@
       return {
         drink: d, score: score,
         match: Math.max(35, Math.min(99, pct)),
-        /* How many scored dimensions the guest actually asked about. A guest
-         * who named one thing and got everything that matches it is not
-         * looking at a 99 per cent match, they are looking at a card with one
-         * question answered, and the interface hides the number rather than
-         * printing the same 99 three times. */
-        dimensions: dims,
         reasons: reasons.slice(0, 3)
       };
     });
@@ -226,7 +245,10 @@
       if (row.contrast) used[labelKey(row.contrast)] = true;
     });
 
-    return { items: out, relaxed: relaxed, total: scored.length };
+    /* dimensions is how many things the guest asked about. Answer one and
+     * everything that matches it scores the same, which is three cards all
+     * reading 99 per cent, so the interface hides the number below two. */
+    return { items: out, relaxed: relaxed, total: scored.length, dimensions: dimensions };
   }
 
   /* Why take THIS one instead of the favourite.

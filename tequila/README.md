@@ -69,7 +69,39 @@ on its own, that is the moment to copy them and not before.
 
 ---
 
-## What the app derives, and from what
+## Fields first, names second
+
+As of the 08.09.2026 card the Menu API carries `agave_kind`,
+`agave_expression`, `brand`, `agave_region` and `additive_free`. Every one is
+read straight off the item, and `assets/agave.js` consults its own
+vocabularies only where a field is missing.
+
+| Field on the card | What the app does with it |
+|---|---|
+| `agave_kind` | tequila, mezcal, sotol, raicilla, bacanora |
+| `agave_expression` | blanco, reposado, rosado, añejo, extra añejo, cristalino |
+| `brand` | shown as a badge, and mapped to a house |
+| `agave_region` | shown on the card, and separates two otherwise identical suggestions |
+| `additive_free` | a hard rule the guest can ask for |
+| `recommended` | the card's own leader for its section, shown as a marker |
+| `image` | the bottle shot on the favourite, linked and never copied |
+| `menu_class` | **nothing.** It is not copied into the record at all, see below |
+
+**`agave_kind` and `agave_expression` are documented two ways.** Dan's example
+has kind `Tequila` and expression `Añejo`. The data spec's field table glosses
+them the other way round. Both values are read by *what they say* rather than
+by which key they arrived under, so the app is right either way. That shim
+comes out once the generator and the doc agree.
+
+### The fallback is not dead code
+
+Those fields live in `menu.json` and reach page 217 only when the website seat
+republishes, so a browser will see the older shape in between. It degrades per
+field, the way the German and English strings already do, and loses exactly one
+thing: that Don Julio 1942 is an añejo. `test/fixture.js` exports both shapes
+and the tests walk both.
+
+### What it derives when it has to
 
 `assets/agave.js` reads **structured fields only** — `name`, `group` and the
 two `ingredients` lists. It never reads `description` or `bartender_note`,
@@ -78,20 +110,48 @@ statt Gin"* would make any keyword search lie.
 
 | Derived | From | Notes |
 |---|---|---|
-| is it agave at all | spirit words and brand names | never a section title |
-| `kind` | tequila, mezcal, or agave | mezcal wins where both appear |
-| `expression` | blanco, reposado, añejo, extra añejo, cristalino | empty where the card does not name one |
+| is it agave at all | spirit words, brand names, the section | the section can only add |
+| `kind` | the bottle, then the shelf | mezcal wins where both are in one glass |
+| `expression` | the bottle name | empty where nothing names one |
 | `brand` and `portfolio` | a brand list | Diageo houses are recorded, see below |
 | `pour` | the ingredient count | under two ingredients is a pour |
 | `strength` | the card's own strength word | `null` where the card is silent |
 | `tags` | the ingredient list | `flavour_tags` wins the day it exists |
 | `price` | the cheapest size in `prices` | never a number written into the app |
 
-**The vocabularies are words for spirits and brands, never drinks, prices,
-section names or allergens.** That distinction is the whole of the data rule.
-A vocabulary of spirit words survives the card being reorganised, renamed or
-reprinted, which is the point. A test renames every section in the fixture
-and asserts nothing changes.
+### A bottle is not the shelf it stands on
+
+The real section is called **Tequila & Mezcal Neat**. Reading a group or a
+section as though it were the bottle made every Don Julio on that shelf a
+mezcal, tagged it smoky, and dropped it the moment a guest said no smoke. So
+the evidence is split.
+
+- **A bottle** is its own name and its ingredients. Only that decides which
+  spirit is in the glass or how it was aged.
+- **A shelf** may say there is agave nearby, and may name the spirit only when
+  it holds one kind. A section called `Tequila` tells you what a bottle is. A
+  section called `Tequila & Mezcal Neat` does not.
+
+### Sections may add, never remove
+
+The data spec asks each app to pick its sections by keyword, because the head
+barkeeper renames them as the card moves. That is weaker than the rule this
+repo already had, so the two are combined rather than swapped. An item is this
+app's business if it carries agave evidence of its own **or** sits in a section
+matching `/tequila|mezcal|mescal|agave/i`.
+
+So a Margarita that moves to Klassiker keeps being a Margarita, and a house
+drink whose ingredients name nothing recognisable is still picked up by its
+shelf. The consequence, tested rather than glossed over: a rename to a title
+with no keyword in it loses only the items that had no evidence of their own.
+
+### Two things that never reach a guest
+
+`hidden_on_card` items are till articles and are dropped in
+`../assets/menu-source.js`, which is the one place it can be forgotten only
+once. `menu_class` is BarPatrol's margin bucket, and rather than trusting the
+interface to remember not to print it, `agave.js` does not copy it into the
+record at all. Both have tests.
 
 ### The trap this is built around
 
@@ -117,10 +177,12 @@ somebody chose to write.
 
 ## Three tiers of rule
 
-1. **Hard, never relaxed.** Allergens, a budget the guest named, and "no
-   smoke". A guest who says eleven euro is not shown a thirteen euro pour
-   with an apology, and an item whose price the card does not carry is never
-   offered against a budget at all. Silence is not a yes.
+1. **Hard, never relaxed.** Allergens, a budget the guest named, "no smoke"
+   and "additive free only". A guest who says eleven euro is not shown a
+   thirteen euro pour with an apology, and an item whose price the card does
+   not carry is never offered against a budget at all. Silence is not a yes,
+   which is why *additive free only* narrows a guest to the bottles the bar
+   has actually vouched for, and why the question says so.
 2. **One gate, relaxed only as a last resort.** Neat against mixed. If
    nothing neat survives the hard rules, the app offers mixed drinks and
    **says on screen that it did**.
@@ -131,8 +193,19 @@ somebody chose to write.
 
 An item whose expression the card does not name is **not penalised** for the
 card being brief. A Margarita says tequila and stops there, and holding that
-against it would be holding the card's brevity against the drink. Same for
-strength. Neither is guessed at, and neither is claimed on screen.
+against it would be holding the card's brevity against the drink.
+
+Strength is the one place silence costs a little. A bottle nobody has measured
+scores below a near miss and above a real mismatch, so it stays reachable, it
+never outranks something that matched exactly, and it claims nothing on screen.
+It may still outrank a bottle the card says is *too* strong, which is the right
+advice: a guest who asked for something light is better served by "we have not
+measured this one" than by one we know is wrong.
+
+**A match percentage is only shown once the guest has asked about two things.**
+Answer one question and everything that matches it scores the same, which was
+three cards all reading 99 per cent. The count is a property of the answers, so
+every card in one result agrees about whether the number means anything.
 
 ### Runner-ups say how they differ
 
@@ -148,8 +221,14 @@ single thing that separates it from the favourite, in this order.
 7. a character the favourite does not have
 
 If nothing separates them it falls back to "Passt ebenfalls" rather than
-inventing a difference. A test walks every pair on the card and asserts the
-claim is true of that pair.
+inventing a difference.
+
+**No two runner-ups ever carry the same label.** Two cards both saying "Was
+ohne Rauch" is barely better than two both saying "Passt ebenfalls", so each
+runner-up skips a claim already on screen and uses the next true one.
+
+A test walks every pair on the card and asserts the claim is true of that pair,
+and the walk over every answer combination asserts no result repeats a label.
 
 Naming the **spirit** is never a difference. Every item this app recommends
 has agave in it, so "take this one, it has tequila in it" is not a reason to
@@ -174,7 +253,7 @@ slower route to the top seller. Hard rules still apply in full.
 | Wie kräftig darf er sein | the card's own strength word, three stops | soft |
 | Wonach soll es schmecken | the ingredient list, until `flavour_tags` lands | soft |
 | Wo soll der Preis landen | `prices`, and the stops are derived from them | hard |
-| Soll etwas draussen bleiben | `allergens`, plus smoke | hard |
+| Soll etwas draussen bleiben | `allergens`, plus smoke and additives | hard |
 
 **Two questions build themselves from the card.** The agave question offers
 only expressions the bar carries today, so it can never invite a guest to ask
@@ -196,11 +275,16 @@ the documented Menu API schema and tested against a synthetic fixture shaped
 exactly like it. The first run against the real payload is worth watching,
 and `docs/menu-api-felder-tequila.md` lists what to look for.
 
-**Neat pours probably carry no `strength` and no `flavour_tags`.** If so, two
-of the six questions score nothing for exactly the items this app exists to
-recommend. That is the first thing to check and the first thing to fix.
-Neither costs a pour its place in the results, it simply cannot be ranked by
-either.
+**Neat pours carry `strength` now but still no `flavour_tags`.** A pour has no
+ingredient list to read a character off, so a blanco and an añejo taste the
+same to this app, which is exactly the difference. It is the one field left
+that would change what the app can do.
+
+**The loader asks hourly at most and compares `content_hash`.** Both come from
+the data spec. `published_at` moves on every build whether or not anything
+changed, so it is only the fallback for a payload built before the hash
+existed. Both rules live in the shared `../assets/menu-source.js`, so the
+cocktail app inherits them the day it moves across.
 
 **The cocktail app still runs on the bundled export.** This app is the
 working example of the pattern the brief asks for, so when the cocktail app

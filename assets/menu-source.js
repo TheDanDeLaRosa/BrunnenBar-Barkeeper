@@ -24,9 +24,14 @@
 
   var MENU_URL = 'https://brunnenbar.com/wp-json/wp/v2/pages/217?_fields=content';
 
-  // How long a fetched menu is reused before going back to the network.
-  // Prices change without anyone rebuilding the app, so this stays short.
-  var MAX_AGE_MS = 5 * 60 * 1000;
+  /* How long a fetched menu is reused before going back to the network.
+   *
+   * One hour, because the 08.09.2026 data spec says not to ask more often
+   * than hourly and the card changes a few times a week, not a few times a
+   * minute. This was five minutes against the original brief's "höchstens
+   * ein paar Minuten"; the newer document is the one the website seat
+   * maintains, so it wins. */
+  var MAX_AGE_MS = 60 * 60 * 1000;
 
   var STORE_KEY = 'bb-menu-last-good';
 
@@ -131,10 +136,17 @@
     return inFlight;
   }
 
-  /* True when the published menu differs from the one in hand. The brief
-   * points at published_at for exactly this. */
+  /* True when the published menu differs from the one in hand.
+   *
+   * content_hash is the right field and published_at is not, because every
+   * build stamps a new timestamp whether or not anything actually changed.
+   * The timestamp stays as the fallback for a payload built before the hash
+   * existed. */
   function hasChanged(current, incoming) {
     if (!current || !incoming) return true;
+    if (current.content_hash || incoming.content_hash) {
+      return current.content_hash !== incoming.content_hash;
+    }
     return current.published_at !== incoming.published_at;
   }
 
@@ -163,14 +175,35 @@
     return item[key];
   }
 
+  /* Everything a guest may be shown, in the card's own order.
+   *
+   * hidden_on_card items are dropped here and nowhere else. The 08.09.2026
+   * data spec reversed the original brief on this: they are till articles
+   * rather than guest positions, and "hidden_on_card: true nicht anzeigen"
+   * is explicit. Doing it at the one place that reads the source means no
+   * app can forget. */
   function allItems(menu) {
     return ((menu && menu.sections) || []).reduce(function (acc, s) {
-      return acc.concat((s.items || []).map(function (i) {
-        // Carry the section down, since scoring and display both want it,
-        // without disturbing the order the brief says not to touch.
-        return Object.assign({ section: s.title, section_en: s.title_en }, i);
-      }));
+      return acc.concat((s.items || [])
+        .filter(function (i) { return i.hidden_on_card !== true; })
+        .map(function (i) {
+          // Carry the section down, since scoring and display both want it,
+          // without disturbing the order the spec says not to touch.
+          return Object.assign({ section: s.title, section_en: s.title_en }, i);
+        }));
     }, []);
+  }
+
+  /* Does this item sit under a section whose title carries a keyword.
+   *
+   * The data spec asks every app to pick its sections by keyword rather than
+   * by exact title, because the head barkeeper renames them as the card
+   * moves. One implementation here rather than three slightly different ones
+   * across the apps. Both language titles are tested, so an English rename
+   * does not lose a section either. */
+  function inSection(item, re) {
+    if (!item) return false;
+    return re.test(String(item.section || '')) || re.test(String(item.section_en || ''));
   }
 
   /* Which items the recommender can actually score.
@@ -191,6 +224,7 @@
     MENU_URL: MENU_URL, MAX_AGE_MS: MAX_AGE_MS, STORE_KEY: STORE_KEY,
     loadMenu: loadMenu, extract: extract, hasChanged: hasChanged,
     formatPrice: formatPrice, priceList: priceList, field: field, allItems: allItems,
+    inSection: inSection,
     isScoreable: isScoreable, scoreableItems: scoreableItems,
     _reset: function () { memo = null; inFlight = null; }
   };

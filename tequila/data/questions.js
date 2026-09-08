@@ -123,7 +123,9 @@
       // The Menu API's own three strength words and nothing invented between
       // them. An item the card gives no strength scores neutral here.
       options: [
-        { value: '1', label: { de: 'Mild', en: 'Mild' } },
+        // The card's own words as of the 08.09.2026 spec, which are leicht,
+        // mittel and stark. agave.js still reads the older "mild" too.
+        { value: '1', label: { de: 'Leicht', en: 'Light' } },
         { value: '2', label: { de: 'Mittel', en: 'Medium' } },
         { value: '3', label: { de: 'Stark', en: 'Strong' } }
       ]
@@ -264,6 +266,8 @@
       neatBadge: 'Pur',
       smokyBadge: 'Rauchig',
       cleanBadge: 'Ohne Zusätze',
+      // The card's own leader for its section, the gold star on the website.
+      leaderBadge: 'Unsere Wahl',
       notOnCard: 'Nicht auf der Karte',
 
       restart: 'Nochmal von vorn',
@@ -309,7 +313,6 @@
         'scharf': 'scharf', 'kräuterig/frisch': 'kräuterig', 'cremig': 'cremig',
         'salzig': 'salzig'
       },
-      strengthNames: { 1: 'mild', 2: 'mittel', 3: 'stark' },
       and: ' und '
     },
 
@@ -364,6 +367,7 @@
       neatBadge: 'Neat',
       smokyBadge: 'Smoky',
       cleanBadge: 'Additive free',
+      leaderBadge: 'Our choice',
       notOnCard: 'Off menu',
 
       restart: 'Start over',
@@ -404,7 +408,6 @@
         'scharf': 'spicy', 'kräuterig/frisch': 'herbal', 'cremig': 'creamy',
         'salzig': 'salty'
       },
-      strengthNames: { 1: 'mild', 2: 'medium', 3: 'strong' },
       and: ' and '
     }
   };

@@ -4,6 +4,13 @@
 > tequila and mezcal lives under [`tequila/`](tequila/README.md) and reads the
 > live Menu API, which is the pattern this app still has to move to. The
 > shared look and the shared loader are referenced from there, not copied.
+>
+> **Two rules below are out of date and the shared loader already knows it.**
+> The 08.09.2026 data spec says `hidden_on_card` items are till articles and
+> must not be shown, reversing the export's own note, and it says to ask the
+> endpoint hourly at most and to compare `content_hash` rather than a
+> timestamp. `assets/menu-source.js` enforces all three, so this app inherits
+> them the day it moves off the bundled export. See `CLAUDE.md`.
 
 A cocktail recommender for [brunnenbar.com](https://brunnenbar.com). It asks a
 guest the questions we'd ask across the bar, then recommends drinks **from our

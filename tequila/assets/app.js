@@ -394,13 +394,16 @@
     return parts.join(' ');
   }
 
-  function renderCard(row, rank) {
+  function renderCard(row, rank, showMatch) {
     var d = row.drink;
     var item = d.item;
     var hero = rank === 0;
 
     var badges = el('div', { class: 'badges' });
     if (d.brand) badges.appendChild(el('span', { class: 'badge accent', text: d.brand }));
+    // The card's own leader for its section, shown the way the website shows
+    // it. A marker the bar set, never something this app worked out.
+    if (d.recommended) badges.appendChild(el('span', { class: 'badge accent', text: t().leaderBadge }));
     if (d.rank <= BESTSELLER_RANK) badges.appendChild(el('span', { class: 'badge accent', text: t().bestseller }));
     if (d.kind === 'mezcal') badges.appendChild(el('span', { class: 'badge good', text: t().smokyBadge }));
     /* Only a card that says so outright earns this. Unknown is not a yes,
@@ -410,12 +413,19 @@
     if (item.on_printed_menu === false) badges.appendChild(el('span', { class: 'badge quiet', text: t().notOnCard }));
 
     var children = [
+      /* The card's own photo, linked rather than copied, so a new bottle
+       * shot is live without an app update. Only on the favourite, because
+       * three of them turns a list of suggestions into a catalogue, and only
+       * where the card has one at all. */
+      hero && d.image ? el('img', {
+        class: 'shot', src: d.image, alt: '', loading: 'lazy', decoding: 'async'
+      }) : null,
       el('p', { class: 'card-rank', text: hero ? t().topPick : contrastLabel(row) }),
       el('div', { class: 'card-top' }, [
         el('h3', { text: f(item, 'name') }),
         // Only shown once the guest has said enough for it to separate one
         // suggestion from another. See `dimensions` in the engine.
-        row.dimensions >= MATCH_MIN_DIMENSIONS
+        showMatch
           ? el('span', { class: 'match', text: fill(t().match, { n: row.match }) })
           : null
       ]),
@@ -486,7 +496,10 @@
       frag.appendChild(el('p', { class: 'notice', text: t().loosened }));
     }
 
-    res.items.forEach(function (row, i) { frag.appendChild(renderCard(row, i)); });
+    /* One decision for the whole result, so two cards never disagree about
+     * whether a percentage is worth printing. */
+    var showMatch = res.dimensions >= MATCH_MIN_DIMENSIONS;
+    res.items.forEach(function (row, i) { frag.appendChild(renderCard(row, i, showMatch)); });
 
     var actions = el('div', { class: 'results-actions' });
     if (!state.showAll && res.total > res.items.length) {

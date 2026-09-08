@@ -400,6 +400,22 @@ worth having. It can be tested, and a test can assert that renaming every
 section changes nothing, which is the data rule made enforceable rather than
 merely written down.
 
+### Which items are yours
+
+The 08.09.2026 data spec assigns each app its sections by keyword, and names
+`Whisk(e)y Neat` and `Whisk(e)y Cocktails` for the whiskey one, so
+`/whisk/i` is the test.
+
+Do not stop there. Combine it with item-level evidence the way the agave app
+does. An item is yours if it carries evidence of its own **or** sits in a
+matching section, so the section can add but never remove. Renaming a section
+then costs you only the items that could not vouch for themselves, and a drink
+that moves between sections keeps working.
+
+And keep the shelf and the bottle apart. A section called `Whisk(e)y Neat`
+says there is whisky nearby and nothing at all about whether this bottle is
+peated, which is the mistake the agave app made first and has a test against.
+
 ### Let the card build the questions
 
 Two of the agave app's six questions build themselves from the data.
