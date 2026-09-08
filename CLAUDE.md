@@ -113,8 +113,14 @@ is unverified from here, because brunnenbar.com is blocked from this
 environment. The app answers it on first load: open the console and it names
 any field that is missing and any value no question can offer.
 
-Two things need a decision from Dan rather than code. Rosato Spritz is flagged
-alcohol free at strength 1 with a real aperitivo in it, and is treated as
-alcoholic until that is settled. And `hidden_on_card` in the August export
-marked twelve real off menu cocktails, La Rosa and Mermaid's Melody among them,
-which the second brief's rule now withholds entirely.
+Both open data questions are now decided.
+
+`hidden_on_card` items are never shown to a guest, even where they look like
+real cocktails. That is settled, not a judgement call to revisit. It is a
+different field from `on_printed_menu`, which marks an off menu drink that is
+still recommended and still carries its badge.
+
+Rosato Spritz loses its alcohol free flag, because the recipe carries a real
+aperitivo at roughly 15 percent. That change belongs in the generator, since
+the app never writes back. The safety rule stays either way, a drink counts as
+alcohol free only when the flag says so and the strength is 0.

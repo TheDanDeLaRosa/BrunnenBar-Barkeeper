@@ -592,20 +592,38 @@ test('the same guest always sees the same advice', function () {
   }
 });
 
-test('a drink whose alcohol-free flag conflicts with its strength is treated as alcoholic', function () {
-  // Rosato Spritz is alcohol_free:true in the export but rated strength 1,
-  // and its recipe carries Ramazzotti Rosato. Fail safe, never the other way.
-  var conflicted = ITEMS.filter(function (d) {
-    return d.alcohol_free && d.strength_level !== 0;
+test('a conflicting alcohol-free flag is read as alcoholic', function () {
+  /* Rosato Spritz used to be the live example: flagged alcohol free, rated
+   * strength 1, and built on a real aperitivo at roughly 15 percent. Dan has
+   * since had the flag removed at the source, so the card no longer carries
+   * the conflict and this is constructed instead.
+   *
+   * The rule stays, because the next time two fields disagree nobody finds
+   * out until someone is handed a drink they asked not to have. The safe
+   * reading of "maybe alcoholic" is "alcoholic", never the other way. */
+  var conflicted = adapt.adapt({
+    name: 'Widerspruch', ingredients: ['Aperitivo', 'Soda'], ingredients_en: ['Aperitivo', 'Soda'],
+    alcohol_free: true, strength_level: 1, serve_style: 'Spritz',
+    flavour_tags: ['bitter'], moment: ['Auftakt'], allergens: [],
+    price: 9, prices: [], popularity_rank: 50
   });
-  assert.ok(conflicted.length, 'fixture should carry the conflict, or this proves nothing');
-  conflicted.forEach(function (d) {
-    var built = MENU.filter(function (m) { return m.name === d.name; })[0];
-    assert.ok(built, d.name + ' should still be on the menu, just not as zero proof');
-    assert.strictEqual(built.alcoholFree, false,
-      d.name + ' has a conflicting alcohol-free flag and must not count as zero proof');
-  });
-  // and it must never reach a guest who asked for zero proof
+  assert.strictEqual(conflicted.alcoholFree, false,
+    'a drink flagged alcohol free at a non-zero strength must not count as zero proof');
+
+  // It may only ever surface for a zero-proof guest once the gate has been
+  // visibly relaxed, never quietly.
+  var res = engine.recommend([conflicted], { strength: '0' }, { limit: 99 });
+  assert.ok(!res.items.length || res.relaxed,
+    'it must not reach a zero-proof list without the guest being told');
+});
+
+test('the card itself no longer carries that conflict', function () {
+  var bad = ITEMS.filter(function (i) { return i.alcohol_free && i.strength_level !== 0; });
+  assert.deepStrictEqual(bad.map(function (i) { return i.name; }), [],
+    'a flag and a strength disagree again, decide it at the source');
+});
+
+test('nothing with alcohol reaches a zero-proof result', function () {
   var res = engine.recommend(MENU, ask({ strength: '0' }), { limit: 999 });
   res.items.forEach(function (i) {
     assert.strictEqual(i.drink.strength, 0,

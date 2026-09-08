@@ -97,10 +97,21 @@ Das bisherige `strength` kann bleiben, es stört nicht.
 **Regel, die die App durchsetzt.** Ein Getränk gilt nur dann als alkoholfrei,
 wenn `alcohol_free` true ist **und** `strength_level` 0 ist. Widersprechen sich
 die beiden, wird es als alkoholhaltig behandelt und aus den alkoholfreien
-Vorschlägen genommen. Grund ist Rosato Spritz aus dem letzten Export, dort
-stand `alcohol_free: true` bei Stärke 1 und einem Rezept mit Ramazzotti Rosato,
-also rund 15 Prozent. Die sichere Lesart von vielleicht alkoholisch ist
+Vorschlägen genommen. Die sichere Lesart von vielleicht alkoholisch ist
 alkoholisch.
+
+### Eine Änderung, die an die Quelle gehört
+
+**Rosato Spritz bekommt `alcohol_free: false`.** Entschieden von Dan am
+08.09.2026. Der Drink stand mit `alcohol_free: true` bei Stärke 1 in der Karte,
+im Rezept steckt aber Ramazzotti Rosato mit rund 15 Prozent. Er ist also nicht
+alkoholfrei und darf niemandem angeboten werden, der genau danach fragt.
+
+Die App schreibt nichts zurück, deshalb muss das im Generator passieren. Bis es
+dort steht, behandelt die App ihn ohnehin als alkoholhaltig, die Regel oben
+greift. Danach greift sie nicht mehr, weil es keinen Widerspruch mehr gibt.
+
+`strength_level` bleibt bei 1, das stimmt.
 
 ---
 
@@ -192,9 +203,9 @@ gemeldet.
   Manhattan über die erste Frage gar nicht erreichbar.
 - `kraeftig` fällt weg, weil die Stärke ihr eigenes Feld hat, und
   `bitter-suess` wird zu `bitter` und `süß`. Betrifft denselben Drink.
-- Rosato Spritz wird gemeldet, weil `alcohol_free` true ist bei Stärke 1 mit
-  Ramazzotti Rosato im Rezept. Der Wert wird nicht angefasst, das gehört in der
-  Karte entschieden.
+- Rosato Spritz wurde gemeldet, weil `alcohol_free` true stand bei Stärke 1 mit
+  Ramazzotti Rosato im Rezept. Das ist inzwischen entschieden, der Wert kommt
+  weg, siehe oben.
 
 `holzig` bleibt drin, weil es sinnvoll ist. Wenn Gäste danach fragen können
 sollen, sagt Bescheid, dann bekommt es eine eigene Antwortmöglichkeit.

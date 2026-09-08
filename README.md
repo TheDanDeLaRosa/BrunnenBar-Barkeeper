@@ -261,18 +261,34 @@ it never overturns a clear winner.
 
 ---
 
+### Off the card, and off limits
+
+Two fields sound alike and mean different things.
+
+`on_printed_menu: false` is an off menu drink. It is recommended like any
+other and carries a badge saying it is not on the printed card. 61 drinks on
+the August card are in that state, so this is the normal case rather than the
+exception.
+
+`hidden_on_card: true` is a till article and **never reaches a guest**.
+`allItems` drops it at the door so no caller has to remember. On the August
+card that withheld twelve entries that read like real cocktails, La Rosa and
+Mermaid's Melody among them. That was checked with Dan and confirmed as
+intended, so it is not a judgement call to revisit.
+
 ## Things the bar should look at
 
-**1. Rosato Spritz has a contradictory alcohol-free flag.** It is
-`alcohol_free: true`, but rated `strength 1 "leicht"`, and its recipe is
-`Ramazzotti Rosato` + `Freixenet 0,0` + soda. The Prosecco was swapped for the
-0,0 version, but Ramazzotti Rosato is a real aperitivo at roughly 15% ABV.
-Compare the Vibrante and Floreale spritzes, which use genuinely alcohol-free
-Martini aperitivos and are correctly strength 0.
+**1. Rosato Spritz. Decided, and the change belongs at the source.** It was
+`alcohol_free: true` at `strength 1`, with `Ramazzotti Rosato` in the recipe, a
+real aperitivo at roughly 15% ABV. The Prosecco had been swapped for the 0,0
+version but the aperitivo had not. Dan has ruled that it loses the alcohol-free
+flag.
 
-The build **treats it as containing alcohol** and keeps it out of the zero-proof
-results, because the safe reading of "maybe alcoholic" is "alcoholic". Fix the
-JSON either way and the warning goes away.
+The app never writes back, so that goes in the generator. Until it does, the
+app treats it as containing alcohol anyway: **a drink counts as alcohol free
+only when the flag says so and the strength is 0.** That rule stays whatever
+happens to this one drink, because the next time two fields disagree nobody
+finds out until someone is handed a drink they asked not to have.
 
 **2. Three drink names look like typos.** Guest-facing, so your call:
 
