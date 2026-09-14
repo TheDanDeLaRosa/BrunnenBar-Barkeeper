@@ -302,24 +302,30 @@ it never overturns a clear winner.
 nothing in the code has to decide about it, and nothing in the code can get it
 wrong. Never invent unavailability.
 
-Beyond that there is exactly one filter, and one badge.
+Beyond that, two flags, and they do different things.
 
 | Flag | Count | Effect |
 |---|---|---|
 | `hidden_on_card` | 10 | withheld, never recommended |
-| `on_printed_menu: false` | 70 | recommended, badged "Nicht auf der Karte" |
+| `on_printed_menu: false` | 70 | heavily demoted, only surfaces when the card has no answer |
 
-This flipped twice before it settled, so the reasoning is written down rather
-than left to the next reader. Withholding on `hidden_on_card` costs exactly ten
-drinks: Talisker Campfire, Paper Plane, Mermaid's Melody, Naughty or Nice,
-Augsburg Blume, Zacapa Wolke, Mikki, Dama Elena, Take-It-Easy and Tiramisu
-Martini. Dan chose that with the list in front of him.
+`hidden_on_card` costs exactly ten drinks: Talisker Campfire, Paper Plane,
+Mermaid's Melody, Naughty or Nice, Augsburg Blume, Zacapa Wolke, Mikki, Dama
+Elena, Take-It-Easy and Tiramisu Martini.
 
-Withholding on `on_printed_menu` instead would be a different order of
-magnitude: seventy drinks, including eight of the eleven shots and twelve of
-the fourteen alcohol free drinks. A guest asking for a round of shots would get
-three options and a guest asking for zero proof would get two. That flag is a
-badge and must never become a filter.
+**`on_printed_menu` is a demotion, not a filter, and the difference is the
+whole point.** A guest reading the printed card should not be handed something
+that is not on it while something that is fits just as well, so an off-card
+drink takes a heavy penalty. But eight of the eleven shots and twelve of the
+fourteen alcohol free drinks are off the card, so excluding them outright would
+leave a round of shots with three options and a zero proof request with two.
+
+A demotion has the property an exclusion does not: when everything still in
+reach is off the card, every candidate takes the same penalty and the ranking
+between them is untouched. Those paths keep their full choice, and every one of
+the twenty four answer combinations still returns three drinks. Ask for more
+suggestions and the rest of the card is there, because none of it is
+unorderable.
 
 ## Things the bar should look at
 

@@ -39,7 +39,19 @@
     /* The bar's own pick for its section, the gold star on the website. Their
      * judgement beats ours, so it settles a close call. Absent from the feed
      * means absent from the scoring, never a penalty. */
-    housePick: 10
+    housePick: 10,
+
+    /* Not on the printed card. A heavy demotion rather than a filter, and the
+     * difference matters: eight of the eleven shots and twelve of the fourteen
+     * alcohol free drinks are off the card, so excluding them outright would
+     * leave a guest asking for a round of shots with three options and a guest
+     * asking for zero proof with two.
+     *
+     * A demotion has the property an exclusion does not. When everything in
+     * reach is off the card, every candidate takes the same penalty and the
+     * ranking between them is untouched, so those paths keep their full
+     * choice. When the card does have something, it wins. */
+    offCard: -40
   };
 
   /* Things poured from a bottle to lengthen a drink. Together with GENERIC_ING
@@ -49,8 +61,9 @@
    * Henry Spicy Ginger entirely. */
   var MIXERS = [
     'Cola', 'Tonic Water', 'Thomas Henry Spicy Ginger', 'Sprite', 'Red Bull',
-    'Ginger Ale', 'Ginger Beer', 'Bitter Lemon', 'Mate', 'Tonic', 'Orangensaft',
-    'Wasser', 'Sodawasser', 'Tonic Water 0,0'
+    'Ginger Ale', 'Ginger Beer', 'Bitter Lemon', 'Mate', 'Club Mate', 'Tonic',
+    'Orangensaft', 'Wasser', 'Sodawasser', 'Tonic Water 0,0', 'Ginger Beer 0,0',
+    'Fritz Kola', 'Spezi', 'Apfelsaft', 'Ananassaft', 'Maracujasaft'
   ];
 
   /* Serve styles grouped the way a guest thinks about them, rather than the
@@ -383,6 +396,9 @@
         score += W.housePick;
         reasons.push({ key: 'housePick', weight: W.housePick });
       }
+
+      // — is it actually on the card the guest is holding —
+      if (!d.onPrintedMenu) score += W.offCard;
 
       // An offer to build something is a fallback, never a recommendation.
       if (d.serve === CATCH_ALL) score += W.catchAll;

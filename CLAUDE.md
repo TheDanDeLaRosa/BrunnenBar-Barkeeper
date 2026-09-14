@@ -75,7 +75,11 @@ From the brief, and these are not negotiable:
   decide about it, which is why nothing in the code can get it wrong. Never
   invent unavailability.
 - `hidden_on_card` is the one withheld flag, and the only filter in the app.
-  `on_printed_menu` is a badge and must never become a filter.
+  `on_printed_menu` is a heavy demotion and must never become a filter. Eight
+  of the eleven shots and twelve of the fourteen alcohol free drinks are off
+  the card, so excluding them would gut those paths. Demoting them means that
+  when everything in reach is off the card they all take the same penalty and
+  the ranking between them is untouched.
 - Availability is not filtered. Everything else published is orderable.
 
 Two fields are for the bar and never for a guest. `menu_class` grades margin

@@ -1179,4 +1179,63 @@ test('variety never leaves a slot empty', function () {
   });
 });
 
+console.log('\nWhat is on the card the guest is holding');
+
+test('an off-card drink does not reach the top three when the card has an answer', function () {
+  /* Long Island Ice Tea and Turbo Mate kept turning up. Both are off the
+   * printed card, and a guest reading that card should not be handed
+   * something that is not on it while something that is fits. */
+  var paths = [];
+  opt('moment').filter(function (m) { return m !== 'shots'; }).forEach(function (m) {
+    ['2', '3', '4'].forEach(function (st) { paths.push({ moment: m, strength: st }); });
+  });
+  var leaked = [];
+  paths.forEach(function (p) {
+    engine.recommend(MENU, ask(p), { limit: 3 }).items.forEach(function (i) {
+      if (!i.drink.onPrintedMenu) leaked.push(p.moment + '/' + p.strength + ': ' + i.drink.name);
+    });
+  });
+  assert.deepStrictEqual(leaked, [], 'off-card drinks in the top three');
+});
+
+test('it is a demotion, not a filter, so the thin paths keep their choice', function () {
+  /* The reason this is not an exclusion. Eight of the eleven shots and twelve
+   * of the fourteen alcohol free drinks are off the printed card, so removing
+   * them would leave a guest asking for zero proof with two options. When
+   * everything in reach is off the card they all take the same penalty and the
+   * ranking between them is untouched. */
+  var zero = engine.recommend(MENU, ask({ strength: '0', flavours: [engine.NO_PREFERENCE] }), { limit: 3 });
+  assert.strictEqual(zero.items.length, 3, 'zero proof must still fill three slots');
+
+  var shots = engine.recommend(MENU, ask({ moment: 'shots', strength: '2', flavours: [engine.NO_PREFERENCE] }), { limit: 3 });
+  assert.strictEqual(shots.items.length, 3, 'shots must still fill three slots');
+
+  // and every answer combination still returns a full set
+  opt('moment').forEach(function (m) {
+    opt('strength').forEach(function (st) {
+      var res = engine.recommend(MENU, ask({ moment: m, strength: st }), { limit: 3 });
+      assert.strictEqual(res.items.length, Math.min(3, res.total),
+        m + '/' + st + ' returned ' + res.items.length);
+    });
+  });
+});
+
+test('an off-card drink is still reachable, just not first', function () {
+  // Never excluded. Ask for more suggestions and the rest of the card is there.
+  var res = engine.recommend(MENU, ask({ flavours: [engine.NO_PREFERENCE] }), { limit: 999 });
+  assert.ok(res.items.some(function (i) { return !i.drink.onPrintedMenu; }),
+    'off-card drinks must stay orderable and reachable');
+});
+
+test('a spirit in a soft drink is not a made drink', function () {
+  /* Turbo Mate is vodka in Club Mate and its own note says it is not a
+   * cocktail. It counted as made because Club Mate was missing from the mixer
+   * list, which is the kind of gap that only shows up when a real name turns
+   * up in a real recommendation. */
+  var turbo = byName('Turbo Mate');
+  if (turbo) assert.strictEqual(engine.isBuilt(turbo), false, 'vodka and a soft drink');
+  assert.ok(engine.MIXERS.indexOf('Club Mate') !== -1, 'Club Mate is a mixer');
+  assert.strictEqual(engine.isBuilt({ ing: ['Absolut', 'Club Mate'], serve: 'Highball' }), false);
+});
+
 console.log('\n' + passed + ' passed' + (process.exitCode ? ', SOME FAILED' : '') + '\n');
