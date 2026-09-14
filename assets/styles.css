@@ -15,7 +15,7 @@
 .badge.best { color: var(--gold);      border-color: rgba(227, 200, 124, 0.5); }
 .badge.zero { color: var(--green-lit); border-color: rgba(95, 157, 118, 0.5); }
 .badge.na   { color: var(--green-lit); border-color: rgba(95, 157, 118, 0.35); }
-.badge.off  { color: var(--muted-dim); }
+
 
 /* The bartender's aside is the theme's .house-note under the name this app
    has always used for it. */

@@ -375,7 +375,9 @@
     if (d.section === 'Signature Cocktails') badges.appendChild(el('span', { class: 'badge house', text: t().house }));
     if (d.alcoholFree) badges.appendChild(el('span', { class: 'badge zero', text: t().zeroProof }));
     if (d.rank <= BESTSELLER_RANK) badges.appendChild(el('span', { class: 'badge best', text: t().bestseller }));
-    if (!d.onPrintedMenu) badges.appendChild(el('span', { class: 'badge off', text: t().notOnCard }));
+    /* Whether a drink is on the printed card is ours to know, not the guest's.
+     * It decides how the drink ranks, and saying it out loud only invites the
+     * question of why we are offering something that is not on the card. */
 
     var children = [
       el('p', { class: 'card-rank', text: hero ? t().topPick : contrastLabel(item) }),

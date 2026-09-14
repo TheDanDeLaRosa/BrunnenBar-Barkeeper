@@ -100,6 +100,28 @@ die beiden, wird es als alkoholhaltig behandelt und aus den alkoholfreien
 Vorschlägen genommen. Die sichere Lesart von vielleicht alkoholisch ist
 alkoholisch.
 
+### Zwei Getränke sollen `hidden_on_card: true` bekommen
+
+Entschieden von Dan am 14.09.2026.
+
+| Getränk | jetzt | soll |
+|---|---|---|
+| `Long Island Ice Tea` | `hidden_on_card: false` | `true` |
+| `Turbo Mate` | `hidden_on_card: false` | `true` |
+
+Beide stehen nicht auf der gedruckten Karte und sollen Gästen gar nicht mehr
+vorgeschlagen werden, auch nicht unter mehr Vorschläge.
+
+Das gehört in den Generator und nicht in die App. `hidden_on_card` ist genau
+das Feld dafür, ein Feld pro Getränk, und danach gilt es für die Cocktail App,
+die Tequila App und die Whiskey App gleichzeitig. Namen fest in den App Code zu
+schreiben wäre das Gegenteil davon, es würde beim nächsten Umbenennen wieder
+auftauchen und den anderen beiden Apps gar nichts bringen.
+
+Solange die Flagge nicht gesetzt ist, werden die beiden stark abgewertet und
+tauchen in den ersten drei Vorschlägen nicht auf, unter mehr Vorschläge aber
+schon.
+
 ### Eine Stelle, an der das Brief nicht zu den Daten passt
 
 Im Brief steht, `hidden_on_card: true` seien Kassenartikel und dürften Gästen

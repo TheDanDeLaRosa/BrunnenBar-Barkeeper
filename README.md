@@ -309,6 +309,11 @@ Beyond that, two flags, and they do different things.
 | `hidden_on_card` | 10 | withheld, never recommended |
 | `on_printed_menu: false` | 70 | heavily demoted, only surfaces when the card has no answer |
 
+Neither is ever said out loud. **A guest is never told a drink is off the
+card.** Whether it is on the printed menu decides how it ranks, and announcing
+it only invites the question of why we are offering something that is not on
+the card.
+
 `hidden_on_card` costs exactly ten drinks: Talisker Campfire, Paper Plane,
 Mermaid's Melody, Naughty or Nice, Augsburg Blume, Zacapa Wolke, Mikki, Dama
 Elena, Take-It-Easy and Tiramisu Martini.

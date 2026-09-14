@@ -1238,4 +1238,44 @@ test('a spirit in a soft drink is not a made drink', function () {
   assert.strictEqual(engine.isBuilt({ ing: ['Absolut', 'Club Mate'], serve: 'Highball' }), false);
 });
 
+console.log('\nWithheld means withheld');
+
+test('a withheld drink is unreachable at any limit', function () {
+  /* Demoting keeps a drink out of the top three. Withholding keeps it off the
+   * screen entirely, including behind "more suggestions", which is the
+   * difference Dan asked for on Long Island Ice Tea and Turbo Mate.
+   *
+   * Nothing in the code names them. They carry hidden_on_card in the payload,
+   * which is the one field that means do not show this to a guest, and the
+   * app never sees them at all. */
+  ['Long Island Ice Tea', 'Turbo Mate'].forEach(function (name) {
+    assert.ok(!MENU.some(function (d) { return d.name === name; }),
+      name + ' should never reach the engine');
+  });
+
+  var seen = {};
+  opt('moment').forEach(function (m) {
+    opt('strength').forEach(function (st) {
+      engine.recommend(MENU, ask({ moment: m, strength: st }), { limit: 999 })
+        .items.forEach(function (i) { seen[i.drink.name] = true; });
+      engine.recommend(MENU, ask({ moment: m, strength: st, flavours: [engine.NO_PREFERENCE] }), { limit: 999 })
+        .items.forEach(function (i) { seen[i.drink.name] = true; });
+    });
+  });
+  ['Long Island Ice Tea', 'Turbo Mate'].forEach(function (name) {
+    assert.ok(!seen[name], name + ' surfaced under more suggestions');
+  });
+});
+
+test('nothing in the code knows a drink by name', function () {
+  /* The rule that makes the above safe. If a withheld drink were listed in the
+   * app instead of flagged in the data, renaming it on the card would bring it
+   * straight back, and the tequila and whiskey apps would not know about it. */
+  var src = require('fs').readFileSync(__dirname + '/../assets/engine.js', 'utf8');
+  ['Long Island', 'Turbo Mate', 'Cuba Libre', 'Jack &'].forEach(function (name) {
+    assert.ok(src.indexOf("'" + name) === -1 && src.indexOf('"' + name) === -1,
+      'engine.js should not name ' + name + ' in code');
+  });
+});
+
 console.log('\n' + passed + ' passed' + (process.exitCode ? ', SOME FAILED' : '') + '\n');
