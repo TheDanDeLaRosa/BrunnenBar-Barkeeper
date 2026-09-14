@@ -83,6 +83,10 @@
        * decide matches. */
       sold: rank < 9999 ? Math.max(1, 1000 - rank) : 0,
       onPrintedMenu: item.on_printed_menu !== false,
+      /* The bar's own pick for its section. Absent from the feed means absent
+       * from the scoring rather than a penalty, so a card that never sets it
+       * behaves exactly as before. */
+      housePick: item.recommended === true,
       base: sp.base, spirits: sp.spirits
     };
   }

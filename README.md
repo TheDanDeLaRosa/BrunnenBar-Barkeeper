@@ -85,6 +85,41 @@ be unit tested. Three tiers:
 at build time, per the export's own field note ("nicht empfehlen"). Gin Basil
 stays out of the app for as long as there's no basil.
 
+### Recommending something worth ordering
+
+Three things decide this beyond how well a drink matches the answers.
+
+**Did somebody make it.** A Jack and Cola is a fine thing to order and a poor
+thing to be recommended when something made fits just as well. Scored on every
+question, which matters most when a guest asks for nothing in particular: with
+no flavour preference there was almost nothing to tell drinks apart, the
+tie-break decided, and Barkeeper's Choice came back **Cuba Libre 6cl, Jack &
+Cola 6cl, Asbach & Cola**. It now returns Augsburg Sour, Singapore Sling and
+Old Cuban.
+
+Two tests decide it, because neither alone is right. Serve style goes first:
+anything muddled, shaken, stirred, a sour, a fizz, a spritz took work whatever
+its shopping list looks like. That is what saves the Caipirinha, whose lime and
+sugar are both fillers and which ingredient counting alone put level with a Jack
+and Cola. Then for Highballs only, which cover both a Mojito and a Gin and
+Tonic, strip the fillers and the mixers and count what is left. A Gin and Tonic
+leaves the gin. A Mojito leaves the rum and the mint.
+
+Poured drinks are marked down, never excluded. Ask for something long and
+simple and you will still be offered one.
+
+**Three suggestions, not one suggestion three times.** Asking for gin and
+herbal used to return Gin Tonic Hendricks, Gin Tonic Tanqueray and Gin Tonic
+Bombay. Each is a fair answer and the set is useless, because a runner-up
+exists to offer something else. Each pick after the first is now marked down
+for resembling what is already on screen, judged on shared base spirit, shared
+shape in the glass and shared ingredients. **The top pick is never affected**,
+it is simply the best match, and a test asserts that.
+
+**The bar's own pick.** Where the feed marks the leader of a section with
+`recommended`, that settles a close call, because their judgement beats ours. A
+feed that never sets it behaves exactly as before, never a penalty.
+
 ### What sales figures do and don't do
 
 `units_sold` no longer steers the ranking. It survives in exactly two places:

@@ -1045,4 +1045,138 @@ test('the alcohol-free wording is only ever used when it is true', function () {
   });
 });
 
+console.log('\nRecommending something worth ordering');
+
+test('a poured drink is told apart from a made one', function () {
+  /* Neither test alone gets this right, so both are pinned. Serve style
+   * catches the Caipirinha, whose lime and sugar are both fillers. Ingredient
+   * counting catches the Gin and Tonic, which shares a Highball with the
+   * Mojito. */
+  var made = ['Caipirinha', 'Gin Fizz', 'Mojito', 'Negroni', 'Whiskey Sour', 'Singapore Sling'];
+  var poured = ['Jack & Cola 6cl', 'Cuba Libre 6cl', 'Gin Tonic - Tanqueray', 'Wodka & Red Bull 6cl'];
+  made.forEach(function (n) {
+    var d = byName(n);
+    if (!d) return;
+    assert.strictEqual(engine.isBuilt(d), true, n + ' is a drink somebody makes');
+  });
+  poured.forEach(function (n) {
+    var d = byName(n);
+    if (!d) return;
+    assert.strictEqual(engine.isBuilt(d), false, n + ' is a spirit and a mixer');
+  });
+});
+
+test('handing the choice to the bar returns drinks the bar would make', function () {
+  /* The bug this fixes: with no flavour asked for, nothing separated the
+   * drinks, the jitter decided, and the top three came back Cuba Libre 6cl,
+   * Jack & Cola 6cl and Asbach & Cola. */
+  var res = engine.recommend(MENU, ask({ flavours: [engine.NO_PREFERENCE] }), { limit: 5 });
+  assert.ok(res.items.length, 'free rein must still return something');
+  res.items.forEach(function (i) {
+    assert.strictEqual(engine.isBuilt(i.drink), true,
+      i.drink.name + ' was offered to a guest who asked us to choose');
+  });
+});
+
+test('a poured drink still wins when it is what was asked for', function () {
+  // Penalised, never excluded. Someone who wants something long and simple
+  // should still be offered one.
+  var res = engine.recommend(MENU, ask({
+    spirit: ['gin'], flavours: ['prickelnd'], serve: 'lang', strength: '2'
+  }), { limit: 99 });
+  assert.ok(res.items.some(function (i) { return !engine.isBuilt(i.drink); }),
+    'a long simple drink should still be reachable');
+});
+
+test('craft does not penalise a round of shots', function () {
+  /* A 2cl Sambuca is the right answer to "a round of shots", not a failed
+   * cocktail. It needs no special case: a shot is not a Highball, so the
+   * serve style alone marks it as made and every shot scores this equally.
+   * An exemption was written for it and deleted once this test showed it
+   * could never fire. */
+  var shots = MENU.filter(function (d) { return d.serve === 'Shot'; });
+  assert.ok(shots.length > 5, 'the card should carry shots');
+  shots.forEach(function (d) {
+    assert.strictEqual(engine.isBuilt(d), true,
+      d.name + ' is a shot and must not be judged as a poured drink');
+  });
+
+  var res = engine.recommend(MENU, ask({
+    moment: 'shots', strength: '2', flavours: [engine.NO_PREFERENCE]
+  }), { limit: 99 });
+  assert.ok(res.items.length);
+  assert.ok(res.items[0].match >= 95,
+    'a shot answering a shot question should score near perfect, got ' + res.items[0].match);
+});
+
+test("the bar's own pick settles a close call, and its absence costs nothing", function () {
+  var plain = { id: 'a', name: 'Plain', ing: ['Gin', 'Himbeere'], ingEn: [], serve: 'Sour',
+    strength: 3, flavours: ['sauer/zitrus'], moments: ['Mittendrin'], allergens: [],
+    alcoholFree: false, spirits: ['gin'], base: 'gin', sold: 1, rank: 50, price: 9, prices: [],
+    glass: '', glassEn: '', tagline: '', taglineEn: '', note: '', noteEn: '', onPrintedMenu: true };
+  var starred = Object.assign({}, plain, { id: 'b', name: 'House Pick', housePick: true });
+
+  var res = engine.recommend([plain, starred], ask({ flavours: ['sauer/zitrus'] }), { limit: 2 });
+  assert.strictEqual(res.items[0].drink.name, 'House Pick',
+    "the bar's own pick should come first between two otherwise equal drinks");
+
+  // A feed that never sets it behaves exactly as before.
+  var neither = engine.recommend([plain, Object.assign({}, plain, { id: 'c', name: 'Other' })],
+    ask({ flavours: ['sauer/zitrus'] }), { limit: 2 });
+  assert.strictEqual(neither.items.length, 2, 'no pick, no penalty, both still offered');
+});
+
+console.log('\nThree suggestions, not one suggestion three times');
+
+test('the runner-ups are not siblings of the top pick', function () {
+  /* Asking for gin and herbal used to return Gin Tonic Hendricks, Gin Tonic
+   * Tanqueray and Gin Tonic Bombay. Each is a fair answer and the set is
+   * useless, because a runner-up exists to offer something else. */
+  var res = engine.recommend(MENU, ask({
+    spirit: ['gin'], flavours: ['kräuterig/frisch']
+  }), { limit: 3 });
+  assert.strictEqual(res.items.length, 3);
+  var hero = res.items[0].drink;
+  res.items.slice(1).forEach(function (i) {
+    assert.ok(engine.similarity(hero, i.drink) < 0.95,
+      i.drink.name + ' is all but the same drink as ' + hero.name);
+  });
+});
+
+test('the top pick is still simply the best match', function () {
+  // Variety reorders the runner-ups. It must never cost the guest the drink
+  // that actually fits best.
+  var a = ask({ spirit: ['whiskey'], flavours: ['bitter'], strength: '5' });
+  var withVariety = engine.recommend(MENU, a, { limit: 3 }).items[0];
+  var everything = engine.recommend(MENU, a, { limit: 999 }).items;
+  var best = everything.reduce(function (m, i) { return i.score > m.score ? i : m; }, everything[0]);
+  assert.strictEqual(withVariety.drink.name, best.drink.name,
+    'the hero must be the highest scoring drink, got ' + withVariety.drink.name);
+});
+
+test('similarity notices the things that make two drinks the same', function () {
+  var gt1 = byName('Gin Tonic - Tanqueray'), gt2 = byName('Gin Tonic - Bombay');
+  var sour = byName('Whiskey Sour');
+  if (gt1 && gt2) {
+    assert.ok(engine.similarity(gt1, gt2) > 0.6,
+      'two gin and tonics should read as alike');
+  }
+  if (gt1 && sour) {
+    assert.ok(engine.similarity(gt1, sour) < 0.3,
+      'a gin and tonic and a whiskey sour should not');
+  }
+});
+
+test('variety never leaves a slot empty', function () {
+  // The picker rebuilds the list rather than slicing it, so an off-by-one
+  // here would silently return two recommendations instead of three.
+  opt('moment').forEach(function (m) {
+    opt('strength').forEach(function (st) {
+      var res = engine.recommend(MENU, ask({ moment: m, strength: st }), { limit: 3 });
+      assert.ok(res.items.length === Math.min(3, res.total),
+        m + '/' + st + ' returned ' + res.items.length + ' of a possible ' + res.total);
+    });
+  });
+});
+
 console.log('\n' + passed + ' passed' + (process.exitCode ? ', SOME FAILED' : '') + '\n');

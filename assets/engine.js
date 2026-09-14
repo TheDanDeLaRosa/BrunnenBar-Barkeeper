@@ -28,8 +28,30 @@
     spiritSupport: 14,
     flavour: 34,
     serve: 18,
-    catchAll: -22
+    catchAll: -22,
+
+    /* A drink somebody built, rather than a spirit topped with something from
+     * a bottle. Scored on every recommendation, whether or not the guest
+     * expressed a preference, which is what stops a Jack and Cola winning a
+     * question it was never really competing in. */
+    craft: 16,
+
+    /* The bar's own pick for its section, the gold star on the website. Their
+     * judgement beats ours, so it settles a close call. Absent from the feed
+     * means absent from the scoring, never a penalty. */
+    housePick: 10
   };
+
+  /* Things poured from a bottle to lengthen a drink. Together with GENERIC_ING
+   * below, what is left of an ingredient list is the part someone actually
+   * made. Listed as exact strings from the card, like the spirit dictionary,
+   * because a regex here matched Soda inside Sodawasser and missed Thomas
+   * Henry Spicy Ginger entirely. */
+  var MIXERS = [
+    'Cola', 'Tonic Water', 'Thomas Henry Spicy Ginger', 'Sprite', 'Red Bull',
+    'Ginger Ale', 'Ginger Beer', 'Bitter Lemon', 'Mate', 'Tonic', 'Orangensaft',
+    'Wasser', 'Sodawasser', 'Tonic Water 0,0'
+  ];
 
   /* Serve styles grouped the way a guest thinks about them, rather than the
    * way a bartender writes them on a spec. */
@@ -109,6 +131,36 @@
 
   function asArray(v) { return Array.isArray(v) ? v : (v == null || v === '' ? [] : [v]); }
 
+  /* Styles where the drink is poured rather than made. Everything else on the
+   * card, a sour, a spritz, anything muddled, shaken or stirred, took work by
+   * definition. */
+  var POURED = ['Highball', 'Built'];
+
+  /* Did somebody make this, or did they open two bottles?
+   *
+   * Two tests, because neither alone is right.
+   *
+   * Counting ingredients alone demotes a Caipirinha, whose lime and sugar are
+   * both fillers, down to the level of a Jack and Cola. So the serve style
+   * decides first: anything muddled, shaken, stirred, a sour, a fizz, a spritz
+   * took work whatever its shopping list looks like.
+   *
+   * Serve style alone is not enough either, because a Highball covers both a
+   * Mojito and a Gin and Tonic. So for those, strip the fillers and the mixers
+   * and count what is left. A Gin and Tonic leaves the gin. A Mojito leaves
+   * the rum and the mint.
+   *
+   * Both tests read the data rather than a section name, so the card can be
+   * reorganised without touching this. */
+  function isBuilt(d) {
+    var made = (d.ing || []).filter(function (x) {
+      return GENERIC_ING.indexOf(x) === -1 && MIXERS.indexOf(x) === -1;
+    }).length;
+    if (!made) return false;                 // a placeholder, not a drink yet
+    if (POURED.indexOf(d.serve) === -1) return true;
+    return made >= 2;
+  }
+
   function serveGroupOf(serve) {
     for (var g in SERVE_GROUPS) {
       if (Object.prototype.hasOwnProperty.call(SERVE_GROUPS, g) &&
@@ -128,6 +180,58 @@
       h = (h * 16777619) >>> 0;
     }
     return (h % 1000) / 1000;
+  }
+
+  /* How alike two drinks are, 0 to 1.
+   *
+   * Three gin and tonics is a worse answer than one gin and tonic, however
+   * well each of them scores on its own. Same spirit, same shape in the glass
+   * and the same bottles in it is the shape that problem takes. */
+  function similarity(a, b) {
+    var score = 0;
+    if (a.base && a.base === b.base) score += 0.4;
+    if (serveGroupOf(a.serve) && serveGroupOf(a.serve) === serveGroupOf(b.serve)) score += 0.25;
+
+    var aIng = (a.ing || []).filter(function (x) { return GENERIC_ING.indexOf(x) === -1; });
+    var bIng = (b.ing || []).filter(function (x) { return GENERIC_ING.indexOf(x) === -1; });
+    if (aIng.length && bIng.length) {
+      var shared = aIng.filter(function (x) { return bIng.indexOf(x) !== -1; }).length;
+      score += 0.35 * (shared / Math.min(aIng.length, bIng.length));
+    }
+    return score;
+  }
+
+  /* The most a runner-up can be marked down for resembling something already
+   * picked. Small enough that a clearly better drink still gets through, big
+   * enough to break up a row of near identical ones. */
+  var VARIETY = 14;
+
+  /* Pick the best, then keep picking the best of what is left after marking
+   * down whatever resembles the picks so far.
+   *
+   * The top recommendation is never affected: it is simply the best match, and
+   * the guest asked for that. What changes is the runner-ups, which exist to
+   * offer something else and are worthless when they offer the same thing
+   * again with a different gin in it. */
+  function pickVaried(scored, limit) {
+    if (scored.length <= 1) return scored.slice(0, limit);
+    var pool = scored.slice();
+    var out = [pool.shift()];
+
+    while (out.length < limit && pool.length) {
+      var bestAt = 0, bestScore = -Infinity;
+      for (var i = 0; i < pool.length; i++) {
+        var worst = 0;
+        for (var j = 0; j < out.length; j++) {
+          var sim = similarity(pool[i].drink, out[j].drink);
+          if (sim > worst) worst = sim;
+        }
+        var adjusted = pool[i].score - VARIETY * worst;
+        if (adjusted > bestScore) { bestScore = adjusted; bestAt = i; }
+      }
+      out.push(pool.splice(bestAt, 1)[0]);
+    }
+    return out;
   }
 
   /* HARD rules. A drink failing any of these is never shown, at any cost. */
@@ -260,6 +364,26 @@
         }
       }
 
+      /* — did somebody make it —
+       *
+       * Scored on every question, so it tells drinks apart even when a guest
+       * asked for nothing in particular, which is exactly when the old ranking
+       * fell apart and handed back a Cuba Libre.
+       *
+       * Shots need no special case. A shot is not a Highball, so the serve
+       * style alone marks it as made, and every shot on the card scores this
+       * equally. An exemption was written for them and turned out to be
+       * unreachable, so it is not here. */
+      maxScore += W.craft;
+      if (isBuilt(d)) score += W.craft;
+
+      // — the bar's own pick for its section —
+      if (d.housePick) {
+        maxScore += W.housePick;
+        score += W.housePick;
+        reasons.push({ key: 'housePick', weight: W.housePick });
+      }
+
       // An offer to build something is a fallback, never a recommendation.
       if (d.serve === CATCH_ALL) score += W.catchAll;
 
@@ -278,7 +402,11 @@
        * started overturning a real one point lead. Half a point still breaks
        * an exact tie and cannot outvote a better match. Free rein stays wide
        * on purpose, that is the guest asking to be surprised. */
-      score += jitter(d.id, seed) * (freeRein ? 14 : 0.5);
+      /* Free rein used to widen this to 14, which was more than any real
+       * signal and made the no preference path close to random. Craft now
+       * separates the drinks, so the jitter only has to vary the order among
+       * the good ones. */
+      score += jitter(d.id, seed) * (freeRein ? 6 : 0.5);
 
       var pct = maxScore > 0 ? Math.round((100 * score) / maxScore) : 50;
       reasons.sort(function (x, y) { return y.weight - x.weight; });
@@ -292,7 +420,7 @@
     });
 
     scored.sort(function (x, y) { return y.score - x.score; });
-    var items = scored.slice(0, limit);
+    var items = pickVaried(scored, limit);
 
     // How often each ingredient appears across the whole card, so the
     // runner-up hook can pick the rarest distinguishing one.
@@ -467,7 +595,8 @@
     canDiscriminate: canDiscriminate,
     NO_PREFERENCE: NO_PREFERENCE, MOMENT_ANY: MOMENT_ANY, CATCH_ALL: CATCH_ALL,
     contrastOf: contrastOf,
-    SERVE_GROUPS: SERVE_GROUPS,
+    SERVE_GROUPS: SERVE_GROUPS, MIXERS: MIXERS, POURED: POURED, isBuilt: isBuilt,
+    similarity: similarity, VARIETY: VARIETY,
     WEIGHTS: W
   };
   if (typeof module !== 'undefined' && module.exports) module.exports = api;
