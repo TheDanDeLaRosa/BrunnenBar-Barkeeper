@@ -39,19 +39,7 @@
     /* The bar's own pick for its section, the gold star on the website. Their
      * judgement beats ours, so it settles a close call. Absent from the feed
      * means absent from the scoring, never a penalty. */
-    housePick: 10,
-
-    /* Not on the printed card. A heavy demotion rather than a filter, and the
-     * difference matters: eight of the eleven shots and twelve of the fourteen
-     * alcohol free drinks are off the card, so excluding them outright would
-     * leave a guest asking for a round of shots with three options and a guest
-     * asking for zero proof with two.
-     *
-     * A demotion has the property an exclusion does not. When everything in
-     * reach is off the card, every candidate takes the same penalty and the
-     * ranking between them is untouched, so those paths keep their full
-     * choice. When the card does have something, it wins. */
-    offCard: -40
+    housePick: 10
   };
 
   /* Things poured from a bottle to lengthen a drink. Together with GENERIC_ING
@@ -213,6 +201,15 @@
     }
     return score;
   }
+
+  /* How many drinks the printed card has to offer before the rest of the list
+   * is left out of it entirely.
+   *
+   * Deliberately the number of suggestions shown, not the limit asked for.
+   * Tying it to the limit meant that asking for more suggestions, which asks
+   * for everything, always pulled the off-card drinks back in, which is the
+   * long way round to the bug this is meant to fix. */
+  var ENOUGH = 3;
 
   /* The most a runner-up can be marked down for resembling something already
    * picked. Small enough that a clearly better drink still gets through, big
@@ -397,9 +394,6 @@
         reasons.push({ key: 'housePick', weight: W.housePick });
       }
 
-      // — is it actually on the card the guest is holding —
-      if (!d.onPrintedMenu) score += W.offCard;
-
       // An offer to build something is a fallback, never a recommendation.
       if (d.serve === CATCH_ALL) score += W.catchAll;
 
@@ -436,7 +430,22 @@
     });
 
     scored.sort(function (x, y) { return y.score - x.score; });
-    var items = pickVaried(scored, limit);
+    /* A guest reading the printed card should be offered what is on it.
+     *
+     * Not a score, a shortlist. Scoring an off-card drink down still lets a
+     * strong one through, which is how a Pina Colada, a Long Island Ice Tea
+     * and a Turbo Mate each ended up in front of a guest. Off-card drinks are
+     * simply not in the running while the card has enough to say.
+     *
+     * The top up is what stops that gutting the thin paths. Eight of the
+     * eleven shots and twelve of the fourteen alcohol free drinks are off the
+     * printed card, so when the card cannot fill three slots the rest is drawn
+     * on rather than leaving a guest with two suggestions. */
+    var onCard = scored.filter(function (x) { return x.drink.onPrintedMenu; });
+    var shortlist = onCard.length >= ENOUGH ? onCard : onCard.concat(
+      scored.filter(function (x) { return !x.drink.onPrintedMenu; }));
+
+    var items = pickVaried(shortlist, limit);
 
     // How often each ingredient appears across the whole card, so the
     // runner-up hook can pick the rarest distinguishing one.
@@ -448,7 +457,7 @@
       item.contrast = i === 0 ? null : contrastOf(items[0].drink, item.drink, ingFreq);
     });
 
-    return { items: items, relaxed: relaxed, total: scored.length };
+    return { items: items, relaxed: relaxed, total: shortlist.length };
   }
 
   /* ------------------------------------------------------ live options ---
@@ -612,7 +621,7 @@
     NO_PREFERENCE: NO_PREFERENCE, MOMENT_ANY: MOMENT_ANY, CATCH_ALL: CATCH_ALL,
     contrastOf: contrastOf,
     SERVE_GROUPS: SERVE_GROUPS, MIXERS: MIXERS, POURED: POURED, isBuilt: isBuilt,
-    similarity: similarity, VARIETY: VARIETY,
+    similarity: similarity, VARIETY: VARIETY, ENOUGH: ENOUGH,
     WEIGHTS: W
   };
   if (typeof module !== 'undefined' && module.exports) module.exports = api;

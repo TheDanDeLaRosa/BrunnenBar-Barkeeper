@@ -260,21 +260,21 @@ test('barkeeper\'s choice still respects the hard rules', function () {
   });
 });
 
-test('dropping Frozen and Hot from the question leaves those drinks reachable', function () {
-  var offered = opt('serve');
-  assert.ok(offered.indexOf('frozen') === -1 && offered.indexOf('heiss') === -1,
-    'Frozen and Hot should not be offered as choices');
-  // but they must still be groupable, or the menu would contain ungrouped styles
-  assert.strictEqual(engine.serveGroupOf('Frozen'), 'frozen');
-  assert.strictEqual(engine.serveGroupOf('Hot'), 'heiss');
-  var reachable = engine.recommend(MENU, ask({
-    flavours: [engine.NO_PREFERENCE], serve: '', strength: '2'
-  }), { limit: 999 });
-  assert.ok(reachable.items.some(function (i) { return i.drink.serve === 'Frozen'; }),
-    'frozen drinks should still be recommendable when no serve style is asked for');
-});
+test('a shape the question does not offer is reachable only if it is on the card', function () {
+  /* Frozen and Hot are deliberately missing from the serve question, and used
+   * to be reachable anyway when no shape was asked for. That still holds, but
+   * only for drinks on the printed card. Pina Colada is the one frozen drink
+   * and it is off the card, so nothing frozen is recommended, which is the
+   * decision working rather than a gap in it. */
+  var frozen = MENU.filter(function (d) { return engine.serveGroupOf(d.serve) === 'frozen'; });
+  assert.ok(frozen.length, 'the fixture should carry a frozen drink');
 
-console.log('\nEnglish never falls back to German silently');
+  var onCardFrozen = frozen.filter(function (d) { return d.onPrintedMenu; });
+  var res = engine.recommend(MENU, ask({ serve: '', flavours: [engine.NO_PREFERENCE] }), { limit: 999 });
+  var offered = res.items.filter(function (i) { return engine.serveGroupOf(i.drink.serve) === 'frozen'; });
+  assert.strictEqual(offered.length > 0, onCardFrozen.length > 0,
+    'a frozen drink should be offered exactly when one is on the card');
+});
 
 test('German and English arrays stay in step', function () {
   /* Matched by position, so an entry gained on one side and not the other
@@ -419,7 +419,12 @@ test('shots appear only when shots were asked for', function () {
     assert.notStrictEqual(i.drink.serve, 'Shot', i.drink.name + ' is a shot but a full drink was asked for');
   });
   var round = engine.recommend(MENU, ask({ moment: 'shots' }), { limit: 999 });
-  assert.ok(round.items.length >= 10, 'expected the shot list');
+  /* Three, not eleven. Eight of the shots are off the printed card, and the
+   * card has enough to answer with, so the rest are not in the running. */
+  assert.ok(round.items.length >= 3, 'expected the shots that are on the card');
+  round.items.forEach(function (i) {
+    assert.ok(i.drink.onPrintedMenu, i.drink.name + ' is off the card and was offered');
+  });
   round.items.forEach(function (i) {
     assert.strictEqual(i.drink.serve, 'Shot', i.drink.name + ' is not a shot');
   });
@@ -1220,11 +1225,16 @@ test('it is a demotion, not a filter, so the thin paths keep their choice', func
   });
 });
 
-test('an off-card drink is still reachable, just not first', function () {
-  // Never excluded. Ask for more suggestions and the rest of the card is there.
+test('an off-card drink is not offered at all while the card can answer', function () {
+  /* This was the other way round for one round of changes, an off-card drink
+   * marked down but still reachable. Scoring one down still lets a strong one
+   * through, which is how a Pina Colada, a Long Island Ice Tea and a Turbo
+   * Mate each reached a guest. It is a shortlist now, not a score. */
   var res = engine.recommend(MENU, ask({ flavours: [engine.NO_PREFERENCE] }), { limit: 999 });
-  assert.ok(res.items.some(function (i) { return !i.drink.onPrintedMenu; }),
-    'off-card drinks must stay orderable and reachable');
+  res.items.forEach(function (i) {
+    assert.ok(i.drink.onPrintedMenu,
+      i.drink.name + ' is off the printed card and should not be in the running');
+  });
 });
 
 test('a spirit in a soft drink is not a made drink', function () {
@@ -1275,6 +1285,72 @@ test('nothing in the code knows a drink by name', function () {
   ['Long Island', 'Turbo Mate', 'Cuba Libre', 'Jack &'].forEach(function (name) {
     assert.ok(src.indexOf("'" + name) === -1 && src.indexOf('"' + name) === -1,
       'engine.js should not name ' + name + ' in code');
+  });
+});
+
+console.log('\nOnly what the bar would put in front of someone');
+
+test('nothing off the printed card is ever offered while the card can answer', function () {
+  /* The rule in one place. A classy bar does not answer "what should I drink"
+   * with a Long Island Ice Tea, and every drink Dan objected to turned out to
+   * be off the printed card. */
+  var leaked = [];
+  opt('moment').forEach(function (m) {
+    opt('strength').forEach(function (st) {
+      [[], [engine.NO_PREFERENCE], ['sauer/zitrus'], ['cremig']].forEach(function (f) {
+        var res = engine.recommend(MENU, ask({ moment: m, strength: st, flavours: f }), { limit: 999 });
+        var onCard = res.items.filter(function (i) { return i.drink.onPrintedMenu; });
+        // Off-card is only allowed at all when the card cannot fill the set.
+        if (onCard.length >= 3) {
+          res.items.forEach(function (i) {
+            if (!i.drink.onPrintedMenu) leaked.push(m + '/' + st + ': ' + i.drink.name);
+          });
+        }
+      });
+    });
+  });
+  assert.deepStrictEqual(leaked.slice(0, 5), [], leaked.length + ' off-card drinks offered');
+});
+
+test('the drinks Dan named are gone from every path', function () {
+  var banned = ['Pina Colada', 'Long Island Ice Tea', 'Turbo Mate'];
+  var seen = {};
+  opt('moment').forEach(function (m) {
+    opt('strength').forEach(function (st) {
+      [[], [engine.NO_PREFERENCE]].forEach(function (f) {
+        engine.recommend(MENU, ask({ moment: m, strength: st, flavours: f }), { limit: 999 })
+          .items.forEach(function (i) { seen[i.drink.name] = true; });
+      });
+    });
+  });
+  banned.forEach(function (n) { assert.ok(!seen[n], n + ' still reachable'); });
+});
+
+test('the thin paths are topped up rather than left short', function () {
+  /* The reason this is a shortlist and not a filter. Only two alcohol free
+   * drinks are on the printed card, so a zero proof guest would otherwise see
+   * two suggestions. When the card cannot fill the set, the rest is drawn on. */
+  var zero = engine.recommend(MENU, ask({ strength: '0', flavours: [engine.NO_PREFERENCE] }), { limit: 3 });
+  assert.strictEqual(zero.items.length, 3, 'zero proof must still fill three slots');
+
+  opt('moment').forEach(function (m) {
+    opt('strength').forEach(function (st) {
+      var res = engine.recommend(MENU, ask({ moment: m, strength: st }), { limit: 3 });
+      assert.strictEqual(res.items.length, Math.min(3, res.total),
+        m + '/' + st + ' returned ' + res.items.length);
+    });
+  });
+});
+
+test('asking for more suggestions does not reopen the door', function () {
+  /* The bug that made the first attempt at this useless: the limit decided
+   * whether off-card drinks came back, so "more suggestions" asked for
+   * everything and got everything. */
+  var three = engine.recommend(MENU, ask({ flavours: [engine.NO_PREFERENCE] }), { limit: 3 });
+  var all = engine.recommend(MENU, ask({ flavours: [engine.NO_PREFERENCE] }), { limit: 999 });
+  assert.ok(all.items.length > three.items.length, 'more suggestions should show more');
+  all.items.forEach(function (i) {
+    assert.ok(i.drink.onPrintedMenu, i.drink.name + ' came back under more suggestions');
   });
 });
 

@@ -74,12 +74,15 @@ From the brief, and these are not negotiable:
   A retired drink is absent from the payload, so nothing in the code has to
   decide about it, which is why nothing in the code can get it wrong. Never
   invent unavailability.
-- `hidden_on_card` is the one withheld flag, and the only filter in the app.
-  `on_printed_menu` is a heavy demotion and must never become a filter. Eight
-  of the eleven shots and twelve of the fourteen alcohol free drinks are off
-  the card, so excluding them would gut those paths. Demoting them means that
-  when everything in reach is off the card they all take the same penalty and
-  the ranking between them is untouched.
+- `hidden_on_card` is withheld outright and never reaches the engine.
+- `on_printed_menu: false` drinks are **not in the running** while the card can
+  fill the set. A shortlist, not a score: marking them down still let a Pina
+  Colada, a Long Island Ice Tea and a Turbo Mate through, and a classy bar does
+  not answer "what should I drink" with a Long Island. When fewer than three
+  on-card drinks survive the answers, the rest of the list tops the set up, so
+  zero proof and shots still return three. The floor is the number of
+  suggestions shown, never the limit asked for, or *more suggestions* reopens
+  the door.
 - Availability is not filtered. Everything else published is orderable.
 
 Two fields are for the bar and never for a guest. `menu_class` grades margin

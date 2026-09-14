@@ -296,41 +296,50 @@ it never overturns a clear winner.
 
 ---
 
-### Two flags that sound alike
+### Only what the bar would put in front of someone
 
 **The payload is the whole truth.** A retired drink is absent from it, so
 nothing in the code has to decide about it, and nothing in the code can get it
 wrong. Never invent unavailability.
 
-Beyond that, two flags, and they do different things.
+Beyond that, two flags.
 
 | Flag | Count | Effect |
 |---|---|---|
-| `hidden_on_card` | 10 | withheld, never recommended |
-| `on_printed_menu: false` | 70 | heavily demoted, only surfaces when the card has no answer |
+| `hidden_on_card` | 10 | withheld, never reaches the engine |
+| `on_printed_menu: false` | 59 | not in the running while the card can answer |
 
-Neither is ever said out loud. **A guest is never told a drink is off the
-card.** Whether it is on the printed menu decides how it ranks, and announcing
-it only invites the question of why we are offering something that is not on
-the card.
+**Off the printed card is a shortlist, not a score.** Marking a drink down
+still lets a strong one through, which is how a Pina Colada, a Long Island Ice
+Tea and a Turbo Mate each reached a guest across three rounds of trying to fix
+this by weighting. A classy bar does not answer "what should I drink" with a
+Long Island, so those drinks are simply not in the running.
 
-`hidden_on_card` costs exactly ten drinks: Talisker Campfire, Paper Plane,
-Mermaid's Melody, Naughty or Nice, Augsburg Blume, Zacapa Wolke, Mikki, Dama
-Elena, Take-It-Easy and Tiramisu Martini.
+**The top up is what stops this gutting the thin paths.** Only two alcohol free
+drinks are on the printed card, so a zero proof guest would otherwise see two
+suggestions. When the card cannot fill the set, the rest of the list is drawn
+on. Every one of the twenty four answer combinations still returns three.
 
-**`on_printed_menu` is a demotion, not a filter, and the difference is the
-whole point.** A guest reading the printed card should not be handed something
-that is not on it while something that is fits just as well, so an off-card
-drink takes a heavy penalty. But eight of the eleven shots and twelve of the
-fourteen alcohol free drinks are off the card, so excluding them outright would
-leave a round of shots with three options and a zero proof request with two.
+One detail that cost a round: the floor is the number of suggestions shown,
+never the limit asked for. Tying it to the limit meant *more suggestions*, which
+asks for everything, pulled every off-card drink straight back in.
 
-A demotion has the property an exclusion does not: when everything still in
-reach is off the card, every candidate takes the same penalty and the ranking
-between them is untouched. Those paths keep their full choice, and every one of
-the twenty four answer combinations still returns three drinks. Ask for more
-suggestions and the rest of the card is there, because none of it is
-unorderable.
+#### What this costs, deliberately
+
+| | Offered | On the card |
+|---|---|---|
+| Cocktails in the pool | 111 | **52** |
+| Shots | 11 | **3** |
+| Alcohol free | 14 | 2, topped up to 3 |
+| Frozen | 1 | **0** |
+
+Pina Colada is the only frozen drink and it is off the card, so nothing frozen
+is recommended at all. The eight liqueur shots are off the card too, so a round
+of shots means Cinnamon Toast Crunch, Green Tea Shot and Lemon Drop. All eleven
+spirit families are still covered.
+
+Neither flag is ever said out loud. **A guest is never told a drink is off the
+card**, because announcing it only invites the question of why it came up.
 
 ## Things the bar should look at
 
