@@ -73,7 +73,9 @@ From the brief, and these are not negotiable:
 - **The payload is the whole truth. Only ever recommend what is in it.**
   A retired drink is absent from the payload, so nothing in the code has to
   decide about it, which is why nothing in the code can get it wrong. Never
-  add a filter that withholds something the API published.
+  invent unavailability.
+- `hidden_on_card` is the one withheld flag, and the only filter in the app.
+  `on_printed_menu` is a badge and must never become a filter.
 - Availability is not filtered. Everything else published is orderable.
 
 Two fields are for the bar and never for a guest. `menu_class` grades margin
@@ -117,16 +119,17 @@ any field that is missing and any value no question can offer.
 
 Both open data questions are now decided.
 
-`hidden_on_card` does **not** withhold a drink. The brief describes it as
-marking till articles, and the app read it that way for a while, which was
-wrong. In the data the flag sits on twelve real off menu drinks, the back bar
-whiskies and the seasonal specials, while the genuine till entries like the 6cl
-pours do not carry it at all. Withholding them removed exactly the drinks worth
-suggesting. `on_printed_menu` is what marks a drink as off the printed card,
-and the result card says so with a badge.
+`hidden_on_card` items are withheld. This flipped twice, so the decision is
+written down with its cost: Dan chose it seeing that it loses exactly ten
+drinks, Talisker Campfire, Paper Plane, Mermaid's Melody, Naughty or Nice,
+Augsburg Blume, Zacapa Wolke, Mikki, Dama Elena, Take-It-Easy and Tiramisu
+Martini, and nothing else.
 
-The brief still says the opposite. That needs reconciling with the Website Seat
-before the whiskey and tequila apps follow it.
+**Do not confuse it with `on_printed_menu`.** Seventy drinks are off the
+printed card, including eight of the eleven shots and twelve of the fourteen
+alcohol free drinks. Those stay recommendable and carry a badge saying they are
+not on the card. Filtering on that flag instead would halve the recommender and
+leave the zero proof path with two drinks.
 
 Rosato Spritz loses its alcohol free flag, because the recipe carries a real
 aperitivo at roughly 15 percent. That change belongs in the generator, since

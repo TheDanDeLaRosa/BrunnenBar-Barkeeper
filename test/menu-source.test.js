@@ -232,26 +232,31 @@ q('section order and item order are preserved exactly', function () {
   assert.strictEqual(items[1].section_en, 'Wine');
 });
 
-q('hidden_on_card does not withhold a drink', function () {
-  /* Read for a while as "till article, never show it", from the brief's
-   * wording. The data says otherwise: the flag marks off menu drinks, the back
-   * bar whiskies and the seasonal specials, and the real till entries do not
-   * carry it at all. Withholding them removed exactly the drinks worth
-   * recommending. */
+q('hidden_on_card is withheld, and nothing else is', function () {
+  /* Dan's call, made with the cost visible: it loses ten drinks and no more.
+   * The flag it must not be confused with is on_printed_menu, which marks
+   * seventy drinks that stay recommendable with a badge. */
   var hidden = JSON.parse(JSON.stringify(MENU));
   hidden.sections[0].items[0].hidden_on_card = true;
   var shown = src.allItems(hidden).map(function (i) { return i.name; });
-  assert.ok(shown.indexOf('Augustiner Helles 0,5l') !== -1,
-    'an off menu drink is still a drink');
-  assert.strictEqual(shown.length, 3, 'and nothing is dropped at all');
+  assert.strictEqual(shown.indexOf('Augustiner Helles 0,5l'), -1, 'the flagged item goes');
+  assert.strictEqual(shown.length, 2, 'and only that one');
 });
 
-q('the payload is the whole truth, nothing is filtered out of it', function () {
-  /* The rule that actually keeps a retired drink off a guest's screen is that
-   * it is not in the payload. Nothing here decides, so nothing here can be
-   * wrong about it. */
+q('an off-the-printed-card drink is still shown', function () {
+  var offCard = JSON.parse(JSON.stringify(MENU));
+  offCard.sections[0].items[0].on_printed_menu = false;
+  var shown = src.allItems(offCard).map(function (i) { return i.name; });
+  assert.ok(shown.indexOf('Augustiner Helles 0,5l') !== -1,
+    'on_printed_menu is a badge, not a filter');
+});
+
+q('hidden_on_card is the only filter there is', function () {
   var published = MENU.sections.reduce(function (n, s) { return n + s.items.length; }, 0);
-  assert.strictEqual(src.allItems(MENU).length, published);
+  var hiddenCount = MENU.sections.reduce(function (n, s) {
+    return n + s.items.filter(function (i) { return i.hidden_on_card; }).length;
+  }, 0);
+  assert.strictEqual(src.allItems(MENU).length, published - hiddenCount);
 });
 
 q('a drink absent from the payload can never be recommended', function () {

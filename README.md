@@ -261,29 +261,30 @@ it never overturns a clear winner.
 
 ---
 
-### The payload is the whole truth
+### Two flags that sound alike
 
-**Only ever recommend what is in the live payload.** A retired drink is absent
-from it, so nothing in the code has to decide about it, and nothing in the code
-can get it wrong. There is no filter that withholds something the API
-published, and adding one would be a bug rather than a safeguard.
+**The payload is the whole truth.** A retired drink is absent from it, so
+nothing in the code has to decide about it, and nothing in the code can get it
+wrong. Never invent unavailability.
 
-Two flags sound alike and neither is a reason to hide a drink.
+Beyond that there is exactly one filter, and one badge.
 
-`on_printed_menu: false` marks an off menu drink. It is recommended like any
-other and carries a badge saying it is not on the printed card. 61 drinks on
-the August card are in that state, so it is the normal case.
+| Flag | Count | Effect |
+|---|---|---|
+| `hidden_on_card` | 10 | withheld, never recommended |
+| `on_printed_menu: false` | 70 | recommended, badged "Nicht auf der Karte" |
 
-`hidden_on_card: true` was read as "till article, never show it", from the
-brief's wording, and the app withheld those items for a while. **That was
-wrong.** In the data the flag sits on twelve real drinks, Talisker Campfire and
-Paper Plane among them, which are the back bar whiskies most worth suggesting.
-The genuine till entries, `Cuba Libre 6cl` and `Wodka & Orange 6cl` and the
-rest, do not carry the flag at all. Withholding on that flag removed precisely
-the drinks the recommender exists to surface.
+This flipped twice before it settled, so the reasoning is written down rather
+than left to the next reader. Withholding on `hidden_on_card` costs exactly ten
+drinks: Talisker Campfire, Paper Plane, Mermaid's Melody, Naughty or Nice,
+Augsburg Blume, Zacapa Wolke, Mikki, Dama Elena, Take-It-Easy and Tiramisu
+Martini. Dan chose that with the list in front of him.
 
-The brief still describes it the old way. Someone needs to reconcile that with
-the Website Seat before the whiskey and tequila apps inherit the same mistake.
+Withholding on `on_printed_menu` instead would be a different order of
+magnitude: seventy drinks, including eight of the eleven shots and twelve of
+the fourteen alcohol free drinks. A guest asking for a round of shots would get
+three options and a guest asking for zero proof would get two. That flag is a
+badge and must never become a filter.
 
 ## Things the bar should look at
 

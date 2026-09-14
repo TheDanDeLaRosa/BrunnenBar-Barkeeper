@@ -58,16 +58,30 @@ test('every cocktail in the feed becomes a drink the engine can rank', function 
   });
 });
 
-test('an off-menu drink is still recommended, and badged', function () {
-  /* Talisker Campfire and Paper Plane carry hidden_on_card and are exactly
-   * the back bar whiskies worth suggesting. They were being withheld, which
-   * was the bug. */
-  var offMenu = ITEMS.filter(function (i) { return i.hidden_on_card; });
-  assert.ok(offMenu.length, 'fixture should carry off-menu drinks');
-  offMenu.forEach(function (i) {
-    assert.ok(MENU.some(function (d) { return d.name === i.name; }),
-      i.name + ' is off the printed card, not off the menu');
+test('a hidden_on_card drink never reaches the engine', function () {
+  /* Ten drinks carry the flag and Dan chose to keep them out. Checked through
+   * the real loader, so the filter cannot quietly move somewhere else. */
+  var withheld = PUBLISHED.sections.reduce(function (acc, sec) {
+    return acc.concat(sec.items.filter(function (i) { return i.hidden_on_card; }));
+  }, []);
+  assert.ok(withheld.length, 'fixture should carry hidden drinks, or this proves nothing');
+  withheld.forEach(function (i) {
+    assert.ok(!MENU.some(function (d) { return d.name === i.name; }),
+      i.name + ' is hidden_on_card and must not be recommendable');
   });
+});
+
+test('being off the printed card is a badge, not a filter', function () {
+  /* The flag that is easy to confuse with the one above. Seventy drinks are
+   * off the printed card, including most shots and almost every alcohol free
+   * drink, and they must all stay recommendable. */
+  var offCard = MENU.filter(function (d) { return !d.onPrintedMenu; });
+  assert.ok(offCard.length > 40,
+    'most of the card is off the printed menu, got ' + offCard.length);
+  assert.ok(MENU.filter(function (d) { return d.serve === 'Shot'; }).length > 5,
+    'the shots are off the printed card and must survive');
+  assert.ok(MENU.filter(function (d) { return d.alcoholFree; }).length > 5,
+    'so are most of the alcohol free drinks');
 });
 
 test('a drink absent from the payload can never be recommended', function () {

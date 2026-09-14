@@ -175,27 +175,33 @@
 
   /* Everything a guest may be shown, in the published order.
    *
-   * Nothing is filtered here, and that is the point. **The payload is the
-   * whole truth.** A drink that has been retired is simply absent from it, so
-   * it cannot be recommended no matter what this file does. Anything still in
-   * the payload is a drink the bar can pour.
+   * Two separate rules, and they are easy to confuse because both sound like
+   * "off menu".
    *
-   * In particular hidden_on_card is NOT a reason to withhold an item. It was
-   * read that way for a while, from the brief's description of till articles,
-   * and that was wrong: in the data it marks off menu drinks, the back bar
-   * whiskies and the seasonal specials, all of them real and all of them worth
-   * recommending. The genuine till entries, the 6cl pours and the mixers, do
-   * not carry the flag at all.
+   * 1. **The payload is the whole truth.** A retired drink is absent from it,
+   *    so nothing here has to decide about it and nothing here can get it
+   *    wrong. Never add a filter that invents unavailability.
    *
-   * What marks a drink as off the printed card is on_printed_menu, and the
-   * result card already says so with a badge. */
+   * 2. **hidden_on_card is withheld.** Ten drinks carry it, and Dan chose to
+   *    keep them out of the recommender with the cost in front of him: it
+   *    loses Talisker Campfire, Paper Plane, Mermaid's Melody, Naughty or
+   *    Nice, Augsburg Blume, Zacapa Wolke, Mikki, Dama Elena, Take-It-Easy
+   *    and Tiramisu Martini, and nothing else.
+   *
+   * What it is NOT is on_printed_menu. Seventy drinks are off the printed
+   * card, including eight of the eleven shots and twelve of the fourteen
+   * alcohol free drinks, and they stay recommendable with a badge saying so.
+   * Filtering on that flag instead would halve the card and leave the zero
+   * proof path with two drinks. */
   function allItems(menu) {
     return ((menu && menu.sections) || []).reduce(function (acc, s) {
-      return acc.concat((s.items || []).map(function (i) {
-        // Carry the section down, since scoring and display both want it,
-        // without disturbing the order the brief says not to touch.
-        return Object.assign({ section: s.title, section_en: s.title_en }, i);
-      }));
+      return acc.concat((s.items || [])
+        .filter(function (i) { return !i.hidden_on_card; })
+        .map(function (i) {
+          // Carry the section down, since scoring and display both want it,
+          // without disturbing the order the brief says not to touch.
+          return Object.assign({ section: s.title, section_en: s.title_en }, i);
+        }));
     }, []);
   }
 
